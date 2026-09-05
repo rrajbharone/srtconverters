@@ -1,0 +1,394 @@
+﻿---
+import type { Locale } from '@/i18n/config';
+import { getToolsContent, getUiStrings } from '@/i18n/utils';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const ui = getUiStrings(locale);
+const tools = getToolsContent(locale);
+const t = tools.txtToSrt;
+---
+
+<div class="tool-workspace" id="txt-to-srt-app">
+  <!-- Privacy Guarantee Alert -->
+  <div class="privacy-banner">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+      <path d="M9 12l2 2 4-4"></path>
+    </svg>
+    <span><strong>{ui.privacyNotice.title}:</strong> {ui.privacyNotice.description}</span>
+  </div>
+
+  <div class="tool-grid">
+    <!-- Left Pane: Input Text & File Upload -->
+    <div class="tool-pane">
+      <div class="pane-header">
+        <span class="pane-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+            <polyline points="10 9 9 9 8 9"></polyline>
+          </svg>
+          {ui.common.uploadFile}
+        </span>
+        <div class="pane-actions">
+          <button type="button" class="btn btn-outline btn-sm" id="btn-load-sample">
+            {ui.common.loadSample}
+          </button>
+          <button type="button" class="btn btn-outline btn-sm" id="btn-clear-input">
+            {ui.common.clear}
+          </button>
+        </div>
+      </div>
+
+      <!-- Dropzone Container -->
+      <div class="dropzone-container" id="dropzone">
+        <textarea
+          id="raw-text-input"
+          class="tool-textarea"
+          placeholder={ui.common.inputPlaceholder}
+          spellcheck="false"
+        ></textarea>
+        
+        <div class="dropzone-overlay">
+          <span>{ui.common.dragAndDrop}</span>
+          <label for="file-upload" class="btn btn-secondary btn-sm" style="margin: 0; cursor: pointer;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="17 8 12 3 7 8"></polyline>
+              <line x1="12" y1="3" x2="12" y2="15"></line>
+            </svg>
+            <span>{ui.common.browseFiles}</span>
+          </label>
+          <input type="file" id="file-upload" class="file-input-hidden" accept=".txt,text/plain" />
+        </div>
+      </div>
+
+      <div class="pane-meta" id="input-stats">
+        0 {ui.common.characters} | 0 {ui.common.lines}
+      </div>
+    </div>
+
+    <!-- Right Pane: Output SRT & Live Preview -->
+    <div class="tool-pane">
+      <div class="pane-header">
+        <span class="pane-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="4 17 10 11 4 5"></polyline>
+            <line x1="12" y1="19" x2="20" y2="19"></line>
+          </svg>
+          {ui.common.preview}
+        </span>
+        <div class="pane-actions">
+          <button type="button" class="btn btn-outline btn-sm" id="btn-copy-srt" disabled>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+            <span id="copy-btn-text">{ui.common.copy}</span>
+          </button>
+          <button type="button" class="btn btn-primary btn-sm" id="btn-download-srt" disabled>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            <span>{ui.common.download}</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Preview Box -->
+      <div class="preview-viewer" id="srt-preview-container">
+        <div class="empty-preview" id="empty-state">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+            <path d="M10 4v4"></path>
+            <path d="M2 8h20"></path>
+            <path d="M6 14h12"></path>
+          </svg>
+          <p>{ui.common.outputPlaceholder}</p>
+        </div>
+      </div>
+
+      <div class="pane-meta" id="output-stats">
+        0 {ui.common.subtitlesCount} | 00:00:00 {ui.common.estimatedDuration}
+      </div>
+    </div>
+  </div>
+
+  <!-- Settings Panel -->
+  <div class="settings-panel">
+    <div class="settings-panel-title">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="3"></circle>
+        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+      </svg>
+      {t.settingsLabels.timingMode || ui.common.settings}
+    </div>
+
+    <div class="settings-grid">
+      <!-- Reading Speed (CPS) -->
+      <div class="setting-group">
+        <label class="setting-label" for="setting-cps">{t.settingsLabels.cpsLabel}</label>
+        <input type="number" id="setting-cps" class="setting-input" value="17" min="8" max="30" step="1" />
+        <span class="setting-hint">{t.settingsLabels.cpsHint}</span>
+      </div>
+
+      <!-- Max Characters Per Line -->
+      <div class="setting-group">
+        <label class="setting-label" for="setting-maxchars">{t.settingsLabels.maxCharsPerLine}</label>
+        <input type="number" id="setting-maxchars" class="setting-input" value="42" min="20" max="80" step="1" />
+        <span class="setting-hint">{t.settingsLabels.maxCharsHint}</span>
+      </div>
+
+      <!-- Segmentation Mode -->
+      <div class="setting-group">
+        <label class="setting-label" for="setting-splitmode">{t.settingsLabels.splitMode}</label>
+        <select id="setting-splitmode" class="setting-select">
+          <option value="sentence" selected>{t.settingsLabels.splitSentence}</option>
+          <option value="paragraph">{t.settingsLabels.splitParagraph}</option>
+          <option value="line">{t.settingsLabels.splitLine}</option>
+        </select>
+      </div>
+
+      <!-- Gap Between Subtitles -->
+      <div class="setting-group">
+        <label class="setting-label" for="setting-gap">{t.settingsLabels.gapBetweenSubtitles}</label>
+        <input type="number" id="setting-gap" class="setting-input" value="100" min="0" max="2000" step="50" />
+        <span class="setting-hint">{t.settingsLabels.gapHint}</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { convertTextToSrt, formatTimestamp } from '@/lib/text-to-srt';
+
+  function initTxtToSrt() {
+    const textarea = document.getElementById('raw-text-input') as HTMLTextAreaElement;
+    const fileUpload = document.getElementById('file-upload') as HTMLInputElement;
+    const dropzone = document.getElementById('dropzone');
+    const previewContainer = document.getElementById('srt-preview-container');
+    const emptyState = document.getElementById('empty-state');
+    const inputStats = document.getElementById('input-stats');
+    const outputStats = document.getElementById('output-stats');
+    const btnLoadSample = document.getElementById('btn-load-sample');
+    const btnClear = document.getElementById('btn-clear-input');
+    const btnCopy = document.getElementById('btn-copy-srt') as HTMLButtonElement;
+    const btnDownload = document.getElementById('btn-download-srt') as HTMLButtonElement;
+    const copyBtnText = document.getElementById('copy-btn-text');
+
+    const settingCps = document.getElementById('setting-cps') as HTMLInputElement;
+    const settingMaxChars = document.getElementById('setting-maxchars') as HTMLInputElement;
+    const settingSplitMode = document.getElementById('setting-splitmode') as HTMLSelectElement;
+    const settingGap = document.getElementById('setting-gap') as HTMLInputElement;
+
+    let generatedSrtContent = '';
+
+    const sampleTexts: Record<string, string> = {
+      en: "Welcome to our video tutorial! Today we are exploring how to create beautiful, synchronized subtitles for all your videos. Subtitles boost engagement, improve accessibility, and help your content reach a global audience. Let's get started right now!",
+      es: "¡Bienvenidos a nuestro tutorial en video! Hoy exploraremos cómo crear subtítulos sincronizados y elegantes para todos tus videos. Los subtítulos aumentan la interacción, mejoran la accesibilidad y ayudan a que tu contenido llegue a una audiencia global. ¡Empecemos ahora mismo!",
+      pt: "Bem-vindos ao nosso tutorial em vídeo! Hoje vamos explorar como criar legendas perfeitamente sincronizadas para todos os seus vídeos. As legendas aumentam o engajamento, melhoram a acessibilidade e ajudam seu conteúdo a alcançar o público global.",
+      fr: "Bienvenue dans notre tutoriel vidéo ! Aujourd'hui, nous allons découvrir comment créer des sous-titres synchronisés pour toutes vos vidéos. Les sous-titres améliorent l'accessibilité et élargissent votre audience. Commençons dès maintenant !",
+      de: "Willkommen zu unserem Video-Tutorial! Heute lernen wir, wie man perfekt synchronisierte Untertitel für Videos erstellt. Untertitel verbessern die Barrierefreiheit und erhöhen die Reichweite Ihrer Inhalte.",
+      id: "Selamat datang di tutorial video kami! Hari ini kita akan mempelajari cara membuat subtitle yang tersinkronisasi dengan sempurna untuk video Anda. Subtitle meningkatkan keterlibatan dan membantu menjangkau audiens global.",
+      tr: "Video eğitimimize hoş geldiniz! Bugün tüm videolarınız için senkronize ve şık altyazılar oluşturmayı öğreneceğiz. Altyazılar erişilebilirliği artırır ve içeriğinizin küresel kitlelere ulaşmasını sağlar.",
+      it: "Benvenuti nel nostro video tutorial! Oggi scopriremo come creare sottotitoli sincronizzati per tutti i tuoi video. I sottotitoli migliorano l'accessibilità e ti aiutano a raggiungere un pubblico globale. Iniziamo subito!",
+    };
+
+    function processConversion() {
+      if (!textarea) return;
+      const rawText = textarea.value.trim();
+
+      // Update input stats
+      const chars = rawText.length;
+      const lines = rawText ? rawText.split('\n').length : 0;
+      if (inputStats) {
+        inputStats.innerText = `${chars} chars | ${lines} lines`;
+      }
+
+      if (!rawText) {
+        generatedSrtContent = '';
+        if (previewContainer && emptyState) {
+          previewContainer.innerHTML = '';
+          previewContainer.appendChild(emptyState);
+        }
+        if (btnCopy) btnCopy.disabled = true;
+        if (btnDownload) btnDownload.disabled = true;
+        if (outputStats) {
+          outputStats.innerText = `0 cues | 00:00:00 duration`;
+        }
+        return;
+      }
+
+      const cps = parseInt(settingCps?.value || '17', 10);
+      const maxChars = parseInt(settingMaxChars?.value || '42', 10);
+      const splitMode = (settingSplitMode?.value || 'sentence') as 'sentence' | 'paragraph' | 'line';
+      const gapMs = parseInt(settingGap?.value || '100', 10);
+
+      const result = convertTextToSrt(rawText, {
+        cps,
+        maxCharsPerLine: maxChars,
+        splitMode,
+        gapMs,
+        startTimeMs: 1000,
+      });
+
+      generatedSrtContent = result.srt;
+
+      // Render live preview
+      if (previewContainer) {
+        previewContainer.innerHTML = '';
+        result.cues.forEach((cue) => {
+          const cueDiv = document.createElement('div');
+          cueDiv.className = 'preview-cue';
+
+          const timeLine = document.createElement('div');
+          timeLine.className = 'cue-time';
+          timeLine.innerHTML = `<span class="cue-num">#${cue.index}</span> ${cue.startTimeFormatted} &rarr; ${cue.endTimeFormatted}`;
+
+          const textLine = document.createElement('div');
+          textLine.className = 'cue-text';
+          textLine.innerText = cue.text;
+
+          cueDiv.appendChild(timeLine);
+          cueDiv.appendChild(textLine);
+          previewContainer.appendChild(cueDiv);
+        });
+      }
+
+      if (btnCopy) btnCopy.disabled = false;
+      if (btnDownload) btnDownload.disabled = false;
+
+      // Update output stats
+      if (outputStats && result.cues.length > 0) {
+        const lastCue = result.cues[result.cues.length - 1];
+        const durationFormatted = formatTimestamp(lastCue.endMs, ',');
+        outputStats.innerText = `${result.cues.length} cues | ${durationFormatted} duration`;
+      }
+    }
+
+    // Input event listeners
+    textarea?.addEventListener('input', processConversion);
+    settingCps?.addEventListener('input', processConversion);
+    settingMaxChars?.addEventListener('input', processConversion);
+    settingSplitMode?.addEventListener('change', processConversion);
+    settingGap?.addEventListener('input', processConversion);
+
+    // Clear Button
+    btnClear?.addEventListener('click', () => {
+      if (textarea) textarea.value = '';
+      processConversion();
+    });
+
+    // Sample Loader
+    btnLoadSample?.addEventListener('click', () => {
+      const pageLang = document.documentElement.lang || 'en';
+      if (textarea) {
+        textarea.value = sampleTexts[pageLang] || sampleTexts.en;
+        processConversion();
+      }
+    });
+
+    // File Upload Handler
+    fileUpload?.addEventListener('change', (e) => {
+      const target = e.target as HTMLInputElement;
+      const file = target.files?.[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (evt) => {
+          if (textarea && typeof evt.target?.result === 'string') {
+            textarea.value = evt.target.result;
+            processConversion();
+          }
+        };
+        reader.readAsText(file);
+      }
+    });
+
+    // Drag and drop handlers
+    if (dropzone) {
+      ['dragenter', 'dragover'].forEach((eventName) => {
+        dropzone.addEventListener(eventName, (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          dropzone.classList.add('dragover');
+        });
+      });
+
+      ['dragleave', 'drop'].forEach((eventName) => {
+        dropzone.addEventListener(eventName, (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          dropzone.classList.remove('dragover');
+        });
+      });
+
+      dropzone.addEventListener('drop', (e: DragEvent) => {
+        const files = e.dataTransfer?.files;
+        if (files && files.length > 0) {
+          const file = files[0];
+          const reader = new FileReader();
+          reader.onload = (evt) => {
+            if (textarea && typeof evt.target?.result === 'string') {
+              textarea.value = evt.target.result;
+              processConversion();
+            }
+          };
+          reader.readAsText(file);
+        }
+      });
+    }
+
+    // Copy to Clipboard
+    btnCopy?.addEventListener('click', async () => {
+      if (!generatedSrtContent) return;
+      try {
+        await navigator.clipboard.writeText(generatedSrtContent);
+        if (copyBtnText) {
+          const originalText = copyBtnText.innerText;
+          copyBtnText.innerText = 'Copied!';
+          setTimeout(() => {
+            copyBtnText.innerText = originalText;
+          }, 2000);
+        }
+      } catch (err) {
+        console.error('Clipboard copy failed', err);
+      }
+    });
+
+    // Download .SRT File
+    btnDownload?.addEventListener('click', () => {
+      if (!generatedSrtContent) return;
+      const blob = new Blob([generatedSrtContent], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'subtitles.srt';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    });
+
+    // Auto load sample on first load if empty
+    if (textarea && !textarea.value.trim()) {
+      const pageLang = document.documentElement.lang || 'en';
+      textarea.value = sampleTexts[pageLang] || sampleTexts.en;
+      processConversion();
+    }
+  }
+
+  // Initialize on page load
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initTxtToSrt);
+  } else {
+    initTxtToSrt();
+  }
+</script>

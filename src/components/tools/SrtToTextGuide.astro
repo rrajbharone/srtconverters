@@ -1,0 +1,697 @@
+---
+import { type Locale } from '@/i18n/config';
+import { getRoutePath } from '@/i18n/routes';
+import { getSrtToTextGuideContent } from '@/i18n/srtToTextGuide';
+import { getToolsContent } from '@/i18n/utils';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const guide = getSrtToTextGuideContent(locale);
+const tools = getToolsContent(locale);
+
+const txtToSrtUrl = getRoutePath('txt-to-srt', locale);
+const srtToVttUrl = getRoutePath('srt-to-vtt', locale);
+const vttToSrtUrl = getRoutePath('vtt-to-srt', locale);
+---
+
+<section class="guide-container">
+  <div class="article-prose guide-prose">
+    <!-- Introduction -->
+    <div class="guide-intro-card">
+      <h2>{guide.introTitle}</h2>
+      <p class="guide-lead-text">{guide.introSubtitle}</p>
+      {guide.introText.map((p) => (
+        <p>{p}</p>
+      ))}
+    </div>
+
+    <hr class="guide-divider" />
+
+    <!-- What Is an SRT to TXT Converter? -->
+    <section>
+      <h2>{guide.whatIsTitle}</h2>
+      {guide.whatIsText.map((p) => (
+        <p>{p}</p>
+      ))}
+
+      <div class="guide-components-grid">
+        {guide.whatIsElements.map((el) => (
+          <div class="guide-element-card">
+            <div class="element-content">
+              <h3>{el.name}</h3>
+              <p><strong>Definition:</strong> {el.description}</p>
+              <p><strong>Conversion Result:</strong> <span class="badge-inline">{el.fate}</span></p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <hr class="guide-divider" />
+
+    <!-- Why Convert SRT to TXT? -->
+    <section>
+      <h2>{guide.whyConvertTitle}</h2>
+      <p class="guide-lead-text">{guide.whyConvertSubtitle}</p>
+      <div class="guide-cards-grid">
+        {guide.whyConvertReasons.map((r) => (
+          <div class="guide-feature-box">
+            <h3>{r.title}</h3>
+            <p>{r.description}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <hr class="guide-divider" />
+
+    <!-- How to Convert SRT to TXT Online -->
+    <section>
+      <h2>{guide.howToTitle}</h2>
+      <p>{guide.howToSubtitle}</p>
+      <div class="guide-steps-list">
+        {guide.howToSteps.map((s) => (
+          <div class="guide-step-item">
+            <div class="guide-step-badge">{s.step}</div>
+            <div class="guide-step-body">
+              <h3>{s.title}</h3>
+              <p>{s.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <hr class="guide-divider" />
+
+    <!-- What Happens to Timecodes -->
+    <section>
+      <h2>{guide.timecodesTitle}</h2>
+      {guide.timecodesText.map((p) => (
+        <p>{p}</p>
+      ))}
+    </section>
+
+    <hr class="guide-divider" />
+
+    <!-- Can You Convert SRT to TXT With Timecode? -->
+    <section>
+      <h2>{guide.withTimecodeTitle}</h2>
+      {guide.withTimecodeText.map((p) => (
+        <p>{p}</p>
+      ))}
+
+      <div class="guide-table-wrapper">
+        <table class="guide-table">
+          <thead>
+            <tr>
+              <th>Output Mode</th>
+              <th>Format Characteristics</th>
+              <th>Recommended Use Case</th>
+            </tr>
+          </thead>
+          <tbody>
+            {guide.withTimecodeComparison.map((row) => (
+              <tr>
+                <td><strong>{row.mode}</strong></td>
+                <td>{row.outputFormat}</td>
+                <td><span class="badge-inline">{row.bestFor}</span></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <hr class="guide-divider" />
+
+    <!-- SRT to TXT Example: Before & After -->
+    <section>
+      <h2>{guide.exampleTitle}</h2>
+      <p>{guide.exampleIntro}</p>
+
+      <div class="code-compare-grid">
+        <div class="code-box">
+          <div class="code-box-header">
+            <span class="code-badge srt-badge">Original Subtitle (.SRT)</span>
+          </div>
+          <pre class="code-content"><code>{guide.exampleSrtInput}</code></pre>
+        </div>
+
+        <div class="code-box">
+          <div class="code-box-header">
+            <span class="code-badge txt-badge">Clean Extracted Text (.TXT)</span>
+          </div>
+          <pre class="code-content"><code>{guide.exampleTxtOutputClean}</code></pre>
+        </div>
+      </div>
+
+      <div class="guide-callout info">
+        <p><strong>Formatting Analysis:</strong> {guide.exampleExplanation}</p>
+      </div>
+    </section>
+
+    <hr class="guide-divider" />
+
+    <!-- SRT vs TXT: What Is the Difference? -->
+    <section>
+      <h2>{guide.comparisonTitle}</h2>
+      <p>{guide.comparisonSubtitle}</p>
+
+      <div class="guide-table-wrapper">
+        <table class="guide-table">
+          <thead>
+            <tr>
+              <th>Comparison Aspect</th>
+              <th>SubRip Subtitles (.SRT)</th>
+              <th>Plain Text (.TXT)</th>
+            </tr>
+          </thead>
+          <tbody>
+            {guide.comparisonTable.map((row) => (
+              <tr>
+                <td><strong>{row.feature}</strong></td>
+                <td><span class="badge-inline">{row.srt}</span></td>
+                <td>{row.txt}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <hr class="guide-divider" />
+
+    <!-- Common Uses for an SRT to TXT Converter -->
+    <section>
+      <h2>{guide.useCasesTitle}</h2>
+      <p>{guide.useCasesSubtitle}</p>
+      <div class="guide-usecases-grid">
+        {guide.useCases.map((u) => (
+          <div class="usecase-card">
+            <h3>{u.role}</h3>
+            <p>{u.description}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <hr class="guide-divider" />
+
+    <!-- SRT to TXT for Transcripts vs Audio Transcription -->
+    <section>
+      <h2>{guide.transcriptsTitle}</h2>
+      {guide.transcriptsText.map((p) => (
+        <p>{p}</p>
+      ))}
+    </section>
+
+    <hr class="guide-divider" />
+
+    <!-- How to Get Cleaner Text From an SRT File -->
+    <section>
+      <h2>{guide.cleanerTextTitle}</h2>
+      <p>{guide.cleanerTextSubtitle}</p>
+      <div class="troubleshoot-grid">
+        {guide.cleanerTips.map((tip) => (
+          <div class="troubleshoot-card">
+            <div class="troubleshoot-problem">
+              <span class="indicator-tag">Issue</span>
+              <h3>{tip.issue}</h3>
+            </div>
+            <p class="problem-cause"><strong>Cause:</strong> {tip.explanation}</p>
+            <div class="troubleshoot-solution">
+              <span class="indicator-tag fix">Solution</span>
+              <p>{tip.recommendation}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <hr class="guide-divider" />
+
+    <!-- SRT Encoding & Special Characters -->
+    <section>
+      <h2>{guide.encodingTitle}</h2>
+      {guide.encodingText.map((p) => (
+        <p>{p}</p>
+      ))}
+    </section>
+
+    <hr class="guide-divider" />
+
+    <!-- OS Compatibility (Windows vs Mac) -->
+    <section>
+      <h2>{guide.osGuideTitle}</h2>
+      {guide.osGuideText.map((p) => (
+        <p>{p}</p>
+      ))}
+    </section>
+
+    <hr class="guide-divider" />
+
+    <!-- Conclusion & Internal Ecosystem Links -->
+    <section class="guide-conclusion-card">
+      <h2>{guide.conclusionTitle}</h2>
+      {guide.conclusionText.map((p) => (
+        <p>{p}</p>
+      ))}
+      <div class="related-tools-box">
+        <h3>{tools.toolsTitle || 'Related Subtitle Tools'}</h3>
+        <ul class="related-links-list">
+          <li>
+            <a href={txtToSrtUrl}><strong>{tools.txtToSrt.name}</strong></a> – {tools.txtToSrt.tagline}
+          </li>
+          <li>
+            <a href={srtToVttUrl}><strong>{tools.srtToVtt.name}</strong></a> – {tools.srtToVtt.tagline}
+          </li>
+          <li>
+            <a href={vttToSrtUrl}><strong>{tools.vttToSrt.name}</strong></a> – {tools.vttToSrt.tagline}
+          </li>
+        </ul>
+      </div>
+    </section>
+  </div>
+</section>
+
+<style>
+  .guide-container {
+    margin-top: 3.5rem;
+    padding-top: 2rem;
+  }
+
+  .guide-prose {
+    max-width: 960px;
+    margin: 0 auto;
+    color: var(--text-primary);
+  }
+
+  .guide-intro-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 2.25rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  }
+
+  .guide-intro-card h2 {
+    margin-top: 0;
+    font-size: 1.85rem;
+    font-weight: 800;
+    line-height: 1.25;
+    color: var(--text-primary);
+  }
+
+  .guide-lead-text {
+    font-size: 1.15rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin-bottom: 1.25rem;
+    font-weight: 500;
+  }
+
+  .guide-divider {
+    border: 0;
+    height: 1px;
+    background: var(--border-color);
+    margin: 3rem 0;
+  }
+
+  .guide-prose h2 {
+    font-size: 1.6rem;
+    font-weight: 750;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    line-height: 1.3;
+    color: var(--text-primary);
+  }
+
+  .guide-prose h3 {
+    font-size: 1.2rem;
+    font-weight: 650;
+    margin-top: 1.25rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+  }
+
+  .guide-prose p {
+    font-size: 1.025rem;
+    line-height: 1.75;
+    color: var(--text-secondary);
+    margin-bottom: 1.25rem;
+  }
+
+  /* Tables */
+  .guide-table-wrapper {
+    overflow-x: auto;
+    margin: 1.75rem 0;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    background: var(--bg-card);
+  }
+
+  .guide-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 0.95rem;
+  }
+
+  .guide-table th,
+  .guide-table td {
+    padding: 0.85rem 1.15rem;
+    border-bottom: 1px solid var(--border-color);
+    vertical-align: middle;
+  }
+
+  .guide-table th {
+    background: var(--bg-primary);
+    font-weight: 650;
+    color: var(--text-primary);
+    white-space: nowrap;
+  }
+
+  .guide-table tr:last-child td {
+    border-bottom: none;
+  }
+
+  .badge-inline {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    font-size: 0.825rem;
+    font-weight: 600;
+    border-radius: var(--radius-sm);
+    background: rgba(37, 99, 235, 0.1);
+    color: #2563eb;
+    border: 1px solid rgba(37, 99, 235, 0.2);
+  }
+
+  /* Steps List */
+  .guide-steps-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin: 1.5rem 0;
+  }
+
+  .guide-step-item {
+    display: flex;
+    gap: 1.25rem;
+    align-items: flex-start;
+    padding: 1.25rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+  }
+
+  .guide-step-badge {
+    width: 2.25rem;
+    height: 2.25rem;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: #2563eb;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .guide-step-body h3 {
+    margin-top: 0;
+    margin-bottom: 0.35rem;
+  }
+
+  .guide-step-body p {
+    margin-bottom: 0;
+  }
+
+  /* Cards Grid */
+  .guide-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.25rem;
+    margin: 1.5rem 0;
+  }
+
+  .guide-feature-box {
+    padding: 1.35rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+  }
+
+  .guide-feature-box h3 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    font-size: 1.15rem;
+    color: var(--text-primary);
+  }
+
+  .guide-feature-box p {
+    margin-bottom: 0;
+    font-size: 0.95rem;
+  }
+
+  /* Code Comparison */
+  .code-compare-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+    margin: 1.5rem 0;
+  }
+
+  @media (max-width: 768px) {
+    .code-compare-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .code-box {
+    background: #0f172a;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .code-box-header {
+    background: #1e293b;
+    padding: 0.6rem 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .code-badge {
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.2rem 0.5rem;
+    border-radius: var(--radius-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .code-badge.srt-badge {
+    background: rgba(59, 130, 246, 0.2);
+    color: #60a5fa;
+    border: 1px solid rgba(59, 130, 246, 0.4);
+  }
+
+  .code-badge.txt-badge {
+    background: rgba(16, 185, 129, 0.2);
+    color: #34d399;
+    border: 1px solid rgba(16, 185, 129, 0.4);
+  }
+
+  .code-content {
+    padding: 1.25rem;
+    margin: 0;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: #e2e8f0;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  /* Callouts */
+  .guide-callout {
+    padding: 1.25rem 1.5rem;
+    border-radius: var(--radius-md);
+    margin: 1.5rem 0;
+    border-left: 4px solid #2563eb;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-left-width: 4px;
+    border-left-color: #2563eb;
+  }
+
+  .guide-callout p {
+    margin: 0;
+  }
+
+  /* Components Grid */
+  .guide-components-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.25rem;
+    margin: 1.5rem 0;
+  }
+
+  .guide-element-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 1.25rem;
+  }
+
+  .guide-element-card h3 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+  }
+
+  .guide-element-card p {
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+  }
+
+  .guide-element-card p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Use Cases Grid */
+  .guide-usecases-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.25rem;
+    margin: 1.5rem 0;
+  }
+
+  .usecase-card {
+    padding: 1.25rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+  }
+
+  .usecase-card h3 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+    color: var(--text-primary);
+  }
+
+  .usecase-card p {
+    margin-bottom: 0;
+    font-size: 0.95rem;
+  }
+
+  /* Troubleshooting */
+  .troubleshoot-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+    margin: 1.5rem 0;
+  }
+
+  @media (max-width: 768px) {
+    .troubleshoot-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .troubleshoot-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 1.25rem;
+  }
+
+  .troubleshoot-problem {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .troubleshoot-problem h3 {
+    margin: 0;
+    font-size: 1.05rem;
+  }
+
+  .indicator-tag {
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.15rem 0.45rem;
+    border-radius: var(--radius-sm);
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    text-transform: uppercase;
+  }
+
+  .indicator-tag.fix {
+    background: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+    border: 1px solid rgba(16, 185, 129, 0.3);
+  }
+
+  .troubleshoot-solution {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px dashed var(--border-color);
+  }
+
+  .troubleshoot-solution p {
+    margin: 0;
+    font-size: 0.925rem;
+  }
+
+  /* Conclusion & Internal Links */
+  .guide-conclusion-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    margin-top: 2.5rem;
+  }
+
+  .related-tools-box {
+    margin-top: 1.5rem;
+    padding: 1.25rem;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+  }
+
+  .related-tools-box h3 {
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+    font-size: 1.15rem;
+  }
+
+  .related-links-list {
+    margin: 0;
+    padding-left: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .related-links-list li a {
+    color: #2563eb;
+    text-decoration: none;
+  }
+
+  .related-links-list li a:hover {
+    text-decoration: underline;
+  }
+</style>

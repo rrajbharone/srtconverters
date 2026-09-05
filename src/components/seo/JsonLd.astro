@@ -1,0 +1,121 @@
+---
+import { type Locale, LOCALE_INFO } from '@/i18n/config';
+import { type RouteId, getRoutePath } from '@/i18n/routes';
+
+interface Props {
+  locale: Locale;
+  routeId: RouteId | '404' | 'legal';
+  type?: 'website' | 'webApplication' | 'article';
+  toolData?: {
+    name: string;
+    description: string;
+    applicationCategory: string;
+  };
+  articleData?: {
+    title: string;
+    description: string;
+    publishDate: string;
+    author: string;
+  };
+  breadcrumbs?: Array<{ name: string; url: string }>;
+  faqs?: Array<{ question: string; answer: string }>;
+}
+
+const { locale, routeId, type = 'website', toolData, articleData, breadcrumbs, faqs } = Astro.props;
+const siteUrl = 'https://srtconverters.com';
+const currentPath = routeId !== '404' && routeId !== 'legal' ? getRoutePath(routeId, locale) : Astro.url.pathname;
+const currentUrl = `${siteUrl}${currentPath}`;
+const localeInfo = LOCALE_INFO[locale];
+
+// Base WebSite Schema
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'SRTConverters',
+  url: siteUrl,
+  inLanguage: localeInfo.isoCode,
+  description: 'Free online subtitle and SRT conversion tools. 100% client-side privacy.',
+};
+
+// WebApplication Schema for Tools
+let appSchema = null;
+if (type === 'webApplication' && toolData) {
+  appSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: toolData.name,
+    url: currentUrl,
+    description: toolData.description,
+    applicationCategory: toolData.applicationCategory || 'MultimediaApplication',
+    operatingSystem: 'Any',
+    browserRequirements: 'Requires JavaScript. Requires HTML5.',
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'USD',
+    },
+  };
+}
+
+// Article Schema for Blog
+let articleSchema = null;
+if (type === 'article' && articleData) {
+  articleSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: articleData.title,
+    description: articleData.description,
+    datePublished: articleData.publishDate,
+    dateModified: articleData.publishDate,
+    mainEntityOfPage: currentUrl,
+    inLanguage: localeInfo.isoCode,
+    author: {
+      '@type': 'Organization',
+      name: articleData.author,
+      url: siteUrl,
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'SRTConverters',
+      url: siteUrl,
+    },
+  };
+}
+
+// BreadcrumbList Schema
+let breadcrumbSchema = null;
+if (breadcrumbs && breadcrumbs.length > 0) {
+  breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: breadcrumbs.map((b, idx) => ({
+      '@type': 'ListItem',
+      position: idx + 1,
+      name: b.name,
+      item: b.url.startsWith('http') ? b.url : `${siteUrl}${b.url}`,
+    })),
+  };
+}
+// FAQPage Schema
+let faqSchema = null;
+if (faqs && faqs.length > 0) {
+  faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((f) => ({
+      '@type': 'Question',
+      name: f.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: f.answer,
+      },
+    })),
+  };
+}
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+{appSchema && <script type="application/ld+json" set:html={JSON.stringify(appSchema)} />}
+{articleSchema && <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />}
+{breadcrumbSchema && <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />}
+{faqSchema && <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />}

@@ -1,0 +1,121 @@
+import { LOCALES, type Locale, DEFAULT_LOCALE } from './config';
+
+export type RouteId =
+  | 'home'
+  | 'txt-to-srt'
+  | 'srt-to-text'
+  | 'srt-to-vtt'
+  | 'vtt-to-srt'
+  | 'tools';
+
+export const ROUTES: Record<RouteId, Record<Locale, string>> = {
+  home: {
+    en: '/',
+    es: '/es/',
+    pt: '/pt/',
+    fr: '/fr/',
+    de: '/de/',
+    id: '/id/',
+    tr: '/tr/',
+    it: '/it/',
+  },
+  'txt-to-srt': {
+    en: '/txt-to-srt/',
+    es: '/es/convertidor-txt-a-srt/',
+    pt: '/pt/conversor-txt-para-srt/',
+    fr: '/fr/convertisseur-txt-en-srt/',
+    de: '/de/txt-in-srt-konverter/',
+    id: '/id/konverter-txt-ke-srt/',
+    tr: '/tr/txt-srt-donusturucu/',
+    it: '/it/convertitore-da-txt-a-srt/',
+  },
+  'srt-to-text': {
+    en: '/srt-to-text/',
+    es: '/es/convertidor-srt-a-texto/',
+    pt: '/pt/conversor-srt-para-texto/',
+    fr: '/fr/convertisseur-srt-en-texte/',
+    de: '/de/srt-in-text-konverter/',
+    id: '/id/konverter-srt-ke-teks/',
+    tr: '/tr/srt-metin-donusturucu/',
+    it: '/it/convertitore-da-srt-a-testo/',
+  },
+  'srt-to-vtt': {
+    en: '/srt-to-vtt/',
+    es: '/es/convertidor-srt-a-vtt/',
+    pt: '/pt/conversor-srt-para-vtt/',
+    fr: '/fr/convertisseur-srt-en-vtt/',
+    de: '/de/srt-in-vtt-konverter/',
+    id: '/id/konverter-srt-ke-vtt/',
+    tr: '/tr/srt-vtt-donusturucu/',
+    it: '/it/convertitore-da-srt-a-vtt/',
+  },
+  'vtt-to-srt': {
+    en: '/vtt-to-srt/',
+    es: '/es/convertidor-vtt-a-srt/',
+    pt: '/pt/conversor-vtt-para-srt/',
+    fr: '/fr/convertisseur-vtt-en-srt/',
+    de: '/de/vtt-in-srt-konverter/',
+    id: '/id/konverter-vtt-ke-srt/',
+    tr: '/tr/vtt-srt-donusturucu/',
+    it: '/it/convertitore-da-vtt-a-srt/',
+  },
+  tools: {
+    en: '/tools/',
+    es: '/es/herramientas/',
+    pt: '/pt/ferramentas/',
+    fr: '/fr/outils/',
+    de: '/de/tools/',
+    id: '/id/alat/',
+    tr: '/tr/araclar/',
+    it: '/it/strumenti/',
+  },
+};
+
+export interface AlternateLink {
+  locale: Locale;
+  href: string;
+  hreflang: string;
+}
+
+export function getRoutePath(routeId: RouteId, locale: Locale): string {
+  return ROUTES[routeId]?.[locale] || ROUTES[routeId]?.[DEFAULT_LOCALE] || '/';
+}
+
+export function getAlternateLinks(routeId: RouteId, baseUrl = 'https://srtconverters.com'): AlternateLink[] {
+  const mapping = ROUTES[routeId];
+  if (!mapping) return [];
+
+  const alternates: AlternateLink[] = LOCALES.map((locale) => ({
+    locale,
+    href: baseUrl + mapping[locale],
+    hreflang: locale,
+  }));
+
+  // Add x-default pointing to English default
+  alternates.push({
+    locale: 'en',
+    href: baseUrl + mapping.en,
+    hreflang: 'x-default',
+  });
+
+  return alternates;
+}
+
+function normalizePath(pathname: string): string {
+  let p = pathname.trim();
+  if (!p.startsWith('/')) p = '/' + p;
+  if (!p.endsWith('/')) p = p + '/';
+  return p;
+}
+
+export function findRouteByPath(pathname: string): { routeId: RouteId; locale: Locale } | null {
+  const normalized = normalizePath(pathname);
+  for (const [rId, locMap] of Object.entries(ROUTES)) {
+    for (const [loc, path] of Object.entries(locMap)) {
+      if (normalizePath(path) === normalized) {
+        return { routeId: rId as RouteId, locale: loc as Locale };
+      }
+    }
+  }
+  return null;
+}

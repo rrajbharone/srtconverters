@@ -1,0 +1,47 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Breadcrumbs from '@/components/common/Breadcrumbs.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  canonicalUrl: string;
+  pageTitle: string;
+  lastUpdated?: string;
+}
+
+const { title, description, canonicalUrl, pageTitle, lastUpdated } = Astro.props;
+
+const breadcrumbs = [
+  { label: 'Home', url: '/' },
+  { label: pageTitle, url: canonicalUrl },
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  locale="en"
+  routeId="legal"
+  showLanguageSwitcher={false}
+  noAlternates={true}
+  canonicalUrl={canonicalUrl}
+  breadcrumbs={breadcrumbs}
+>
+  <div class="article-container" style="padding-top: 2rem;">
+    <Breadcrumbs items={breadcrumbs} />
+
+    <header class="article-header" style="text-align: left; margin-bottom: 2rem;">
+      <h1 class="article-title" style="text-align: left; margin: 0.5rem 0 0.5rem 0;">{pageTitle}</h1>
+      {lastUpdated && (
+        <p style="font-size: 0.875rem; color: var(--text-muted); margin: 0;">
+          Last Updated: {lastUpdated}
+        </p>
+      )}
+    </header>
+
+    <div class="article-prose">
+      <slot />
+    </div>
+  </div>
+</BaseLayout>

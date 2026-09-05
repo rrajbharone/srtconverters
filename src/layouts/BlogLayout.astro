@@ -1,0 +1,138 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Breadcrumbs from '@/components/common/Breadcrumbs.astro';
+import type { BlogPost } from '@/data/blog';
+
+interface Props {
+  article: BlogPost;
+}
+
+const { article } = Astro.props;
+
+const canonicalUrl = `https://srtconverters.com/blog/${article.slug}/`;
+const breadcrumbItems = [
+  { label: 'Home', url: '/' },
+  { label: 'Blog', url: '/blog/' },
+  { label: article.title, url: canonicalUrl },
+];
+
+function renderMarkdown(md: string): string {
+  let html = md.trim();
+
+  // Extract Code blocks and replace with tokens
+  const codeBlocks: string[] = [];
+  html = html.replace(/```(?:[a-z0-9_-]+)?\n([\s\S]*?)```/g, (_, code) => {
+    const escaped = code
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+    const index = codeBlocks.length;
+    codeBlocks.push(`<pre><code>${escaped.trim()}</code></pre>`);
+    return `__CODE_BLOCK_${index}__`;
+  });
+
+  // Headings & Inline Formatting
+  html = html.replace(/#### (.*?)\n/g, '<h4>$1</h4>\n');
+  html = html.replace(/### (.*?)\n/g, '<h3>$1</h3>\n');
+  html = html.replace(/## (.*?)\n/g, '<h2>$1</h2>\n');
+  html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+  html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
+  html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
+  html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
+
+  // Extract Tables and replace with tokens (after inline formatting, before hr replacement)
+  const tableBlocks: string[] = [];
+  html = html.replace(/\|(.+)\|\n\|(?:\s*[-:]+[-| :]*)\|\n((?:\|.+\|\n?)+)/g, (_, headers, rows) => {
+    const ths = headers.split('|').filter((c: string) => c.trim()).map((c: string) => `<th>${c.trim()}</th>`).join('');
+    const trs = rows.trim().split('\n').map((row: string) => {
+      const tds = row.split('|').filter((c: string) => c.trim()).map((c: string) => `<td>${c.trim()}</td>`).join('');
+      return `<tr>${tds}</tr>`;
+    }).join('');
+    const index = tableBlocks.length;
+    tableBlocks.push(`<table><thead><tr>${ths}</tr></thead><tbody>${trs}</tbody></table>`);
+    return `\n\n__TABLE_BLOCK_${index}__\n\n`;
+  });
+
+  html = html.replace(/(?:^|\n)---(?:\n|$)/g, '\n<hr style="margin: 2rem 0; border: none; border-top: 1px solid var(--border-color);" />\n');
+
+  // Convert paragraphs
+  const paragraphs = html.split(/\n\n+/);
+  let rendered = paragraphs
+    .map((p) => {
+      p = p.trim();
+      if (!p) return '';
+      if (p.startsWith('__CODE_BLOCK_')) {
+        const match = p.match(/^__CODE_BLOCK_(\d+)__$/);
+        if (match) {
+          return codeBlocks[parseInt(match[1], 10)] || '';
+        }
+      }
+      if (p.startsWith('__TABLE_BLOCK_')) {
+        const match = p.match(/^__TABLE_BLOCK_(\d+)__$/);
+        if (match) {
+          return tableBlocks[parseInt(match[1], 10)] || '';
+        }
+      }
+      if (p.startsWith('<h') || p.startsWith('<table') || p.startsWith('<hr') || p.startsWith('<pre')) return p;
+      if (p.startsWith('- ')) {
+        const listItems = p.split('\n').map((li) => `<li>${li.replace(/^- /, '')}</li>`).join('');
+        return `<ul>${listItems}</ul>`;
+      }
+      if (/^\d+\. /.test(p)) {
+        const listItems = p.split('\n').map((li) => `<li>${li.replace(/^\d+\. /, '')}</li>`).join('');
+        return `<ol>${listItems}</ol>`;
+      }
+      return `<p>${p.replace(/\n/g, '<br/>')}</p>`;
+    })
+    .join('\n');
+
+  // Restore any code or table blocks if still present
+  rendered = rendered.replace(/__CODE_BLOCK_(\d+)__/g, (_, idx) => codeBlocks[parseInt(idx, 10)] || '');
+  rendered = rendered.replace(/__TABLE_BLOCK_(\d+)__/g, (_, idx) => tableBlocks[parseInt(idx, 10)] || '');
+
+  return rendered;
+}
+
+const renderedContent = renderMarkdown(article.content);
+const authorName = article.author || 'SRTConverters Team';
+---
+
+<BaseLayout
+  title={`${article.title} | SRTConverters`}
+  description={article.excerpt}
+  locale="en"
+  routeId="blog"
+  showLanguageSwitcher={false}
+  noAlternates={true}
+  canonicalUrl={canonicalUrl}
+  ogType="article"
+  publishedTime={article.publishDate}
+  author={authorName}
+  jsonLdType="article"
+  articleData={{
+    title: article.title,
+    description: article.excerpt,
+    publishDate: article.publishDate,
+    author: authorName,
+  }}
+  breadcrumbs={breadcrumbItems}
+  faqs={article.faqs}
+>
+  <article class="article-container" style="padding-top: 2rem;">
+    <Breadcrumbs items={breadcrumbItems} />
+
+    <header class="article-header">
+      <div class="blog-meta" style="justify-content: center;">
+        <span class="badge">{article.category}</span>
+        <span>•</span>
+        <time datetime={article.publishDate}>{article.publishDate}</time>
+        <span>•</span>
+        <span>{article.readTime} min read</span>
+      </div>
+      <h1 class="article-title">{article.title}</h1>
+      <p class="hero-subtitle" style="font-size: 1.125rem;">{article.excerpt}</p>
+    </header>
+
+    <div class="article-prose" set:html={renderedContent} />
+  </article>
+</BaseLayout>

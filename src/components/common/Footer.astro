@@ -1,0 +1,94 @@
+---
+import type { Locale } from '@/i18n/config';
+import { getRoutePath } from '@/i18n/routes';
+import { getUiStrings, getToolsContent } from '@/i18n/utils';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const ui = getUiStrings(locale);
+const tools = getToolsContent(locale);
+
+const homePath = getRoutePath('home', locale);
+const toolsPath = getRoutePath('tools', locale);
+const blogPath = '/blog/';
+const txtToSrtPath = getRoutePath('txt-to-srt', locale);
+const srtToTextPath = getRoutePath('srt-to-text', locale);
+const srtToVttPath = getRoutePath('srt-to-vtt', locale);
+const vttToSrtPath = getRoutePath('vtt-to-srt', locale);
+---
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-main">
+      <!-- Brand & Privacy Column -->
+      <div class="footer-brand-col">
+        <a href={homePath} class="brand-logo">
+          <div class="brand-icon">SRT</div>
+          <div class="brand-text">SRT<span class="brand-highlight">Converters</span></div>
+        </a>
+        <p>
+          {ui.footer.description}
+        </p>
+        <div class="badge badge-success">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          </svg>
+          <span>{ui.footer.privacyBadge}</span>
+        </div>
+      </div>
+
+      <!-- Links Groups (Tools, Navigation, Legal) -->
+      <div class="footer-links-group">
+        <!-- Tools Column -->
+        <div class="footer-col">
+          <div class="footer-col-title">{ui.footer.tools}</div>
+          <ul class="footer-links">
+            <li><a href={txtToSrtPath}>{tools.txtToSrt.name}</a></li>
+            <li><a href={srtToTextPath}>{tools.srtToText.name}</a></li>
+            <li><a href={srtToVttPath}>{tools.srtToVtt.name}</a></li>
+            <li><a href={vttToSrtPath}>{tools.vttToSrt.name}</a></li>
+            <li><a href={toolsPath}>{tools.directory.title}</a></li>
+          </ul>
+        </div>
+
+        <!-- Quick Links Column -->
+        <div class="footer-col">
+          <div class="footer-col-title">{ui.footer.quickLinks}</div>
+          <ul class="footer-links">
+            <li><a href={homePath}>{ui.nav.home}</a></li>
+            <li><a href={toolsPath}>{ui.nav.tools}</a></li>
+            <li><a href={blogPath}>{ui.nav.blog}</a></li>
+          </ul>
+        </div>
+
+        <!-- Legal & Trust Column -->
+        <div class="footer-col">
+          <div class="footer-col-title">{ui.footer.legal}</div>
+          <ul class="footer-links">
+            <li><a href="/about/">About</a></li>
+            <li><a href="/privacy-policy/">Privacy Policy</a></li>
+            <li><a href="/terms-of-service/">Terms of Service</a></li>
+            <li><a href="/contact/">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Strip -->
+    <div class="footer-bottom">
+      <div>
+        © {new Date().getFullYear()} SRTConverters.com. {ui.footer.copyright}
+      </div>
+      <div style="display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+        </svg>
+        <span>{ui.footer.browserProcessing}</span>
+      </div>
+    </div>
+  </div>
+</footer>

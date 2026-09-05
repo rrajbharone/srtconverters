@@ -1,0 +1,72 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/common/Breadcrumbs.astro';
+import BlogCard from '@/components/blog/BlogCard.astro';
+import { getAllBlogPosts } from '@/data/blog';
+
+const articles = getAllBlogPosts();
+
+const breadcrumbs = [
+  { label: 'Home', url: '/' },
+  { label: 'Blog', url: '/blog/' },
+];
+---
+
+<BaseLayout
+  title="Subtitle & SRT Blog – Guides, Tutorials & Tips | SRTConverters"
+  description="Read expert guides on subtitle formats, converting text to SRT, subtitle synchronization, and video captioning workflows."
+  locale="en"
+  routeId="blog"
+  showLanguageSwitcher={false}
+  noAlternates={true}
+  canonicalUrl="https://srtconverters.com/blog/"
+  breadcrumbs={breadcrumbs}
+>
+  <div class="container" style="padding-top: 2rem;">
+    <Breadcrumbs items={breadcrumbs} />
+
+    <section class="hero-section">
+      <h1 class="hero-title">Subtitle & Video Captioning Blog</h1>
+      <p class="hero-subtitle">
+        Guides, tutorials, and practical tips for video editors, content creators, translators, and subtitle formatting workflows.
+      </p>
+    </section>
+
+    {articles.length > 0 ? (
+      <div class="blog-grid" style="margin-bottom: 4rem;">
+        {articles.map((article) => (
+          <BlogCard
+            slug={article.slug}
+            title={article.title}
+            excerpt={article.excerpt}
+            publishDate={article.publishDate}
+            readTime={article.readTime}
+            category={article.category}
+          />
+        ))}
+      </div>
+    ) : (
+      <div style="text-align: center; padding: 4rem 1.5rem; margin-bottom: 4rem; background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); max-width: 42rem; margin-left: auto; margin-right: auto;">
+        <div style="display: inline-flex; align-items: center; justify-content: center; width: 3.5rem; height: 3.5rem; border-radius: 50%; background-color: var(--bg-secondary); color: var(--accent-primary); margin-bottom: 1.25rem;">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+          </svg>
+        </div>
+        <h2 style="font-size: 1.375rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--text-primary);">
+          Articles & Guides Coming Soon
+        </h2>
+        <p style="color: var(--text-secondary); margin-bottom: 1.5rem; line-height: 1.6;">
+          We are currently preparing in-depth guides on subtitle formatting, audio-to-text workflows, and video synchronization. Check back soon for new articles.
+        </p>
+        <a href="/tools/" class="btn btn-primary btn-sm">
+          <span>Explore Subtitle Tools</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+      </div>
+    )}
+  </div>
+</BaseLayout>

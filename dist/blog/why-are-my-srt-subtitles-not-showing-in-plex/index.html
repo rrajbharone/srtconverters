@@ -1,0 +1,208 @@
+<!DOCTYPE html><html lang="en" dir="ltr"><head><!-- Primary Meta Tags --><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0"><title>Why Are My SRT Subtitles Not Showing in Plex? Common Fixes | SRTConverters</title><meta name="title" content="Why Are My SRT Subtitles Not Showing in Plex? Common Fixes | SRTConverters"><meta name="description" content="Plex not showing your SRT subtitles? Discover 15 proven fixes for Plex subtitle issues, from filename matching and folder structure to UTF-8 encoding and permissions."><meta name="generator" content="Astro v7.2.10"><meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"><!-- Preload Inter Self-Hosted Font for Peak Performance --><link rel="preload" href="/fonts/inter-variable.woff2" as="font" type="font/woff2" crossorigin="anonymous"><!-- Canonical Tag --><link rel="canonical" href="https://srtconverters.com/blog/why-are-my-srt-subtitles-not-showing-in-plex/"><!-- Hreflang Alternates (All 8 Locales + x-default) --><!-- Favicon and App Icons --><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="theme-color" content="#2563eb"><!-- Open Graph / Facebook --><meta property="og:type" content="article"><meta property="og:url" content="https://srtconverters.com/blog/why-are-my-srt-subtitles-not-showing-in-plex/"><meta property="og:title" content="Why Are My SRT Subtitles Not Showing in Plex? Common Fixes | SRTConverters"><meta property="og:description" content="Plex not showing your SRT subtitles? Discover 15 proven fixes for Plex subtitle issues, from filename matching and folder structure to UTF-8 encoding and permissions."><meta property="og:site_name" content="SRTConverters"><meta property="og:locale" content="en_US"><meta property="article:published_time" content="September 4, 2026"><meta property="article:author" content="SRTConverters Team"><!-- Twitter --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:url" content="https://srtconverters.com/blog/why-are-my-srt-subtitles-not-showing-in-plex/"><meta name="twitter:title" content="Why Are My SRT Subtitles Not Showing in Plex? Common Fixes | SRTConverters"><meta name="twitter:description" content="Plex not showing your SRT subtitles? Discover 15 proven fixes for Plex subtitle issues, from filename matching and folder structure to UTF-8 encoding and permissions."><!-- Anti-Theme Flash Inline Script --><script>
+  (function () {
+    try {
+      const storedTheme = localStorage.getItem('srtconverters_theme');
+      if (storedTheme === 'dark' || (!storedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    } catch (e) {}
+  })();
+</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"SRTConverters","url":"https://srtconverters.com","inLanguage":"en-US","description":"Free online subtitle and SRT conversion tools. 100% client-side privacy."}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Why Are My SRT Subtitles Not Showing in Plex? Common Fixes","description":"Plex not showing your SRT subtitles? Discover 15 proven fixes for Plex subtitle issues, from filename matching and folder structure to UTF-8 encoding and permissions.","datePublished":"September 4, 2026","dateModified":"September 4, 2026","mainEntityOfPage":"https://srtconverters.com/","inLanguage":"en-US","author":{"@type":"Organization","name":"SRTConverters Team","url":"https://srtconverters.com"},"publisher":{"@type":"Organization","name":"SRTConverters","url":"https://srtconverters.com"}}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://srtconverters.com/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://srtconverters.com/blog/"},{"@type":"ListItem","position":3,"name":"Why Are My SRT Subtitles Not Showing in Plex? Common Fixes","item":"https://srtconverters.com/blog/why-are-my-srt-subtitles-not-showing-in-plex/"}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Why is Plex not detecting my SRT file?","acceptedAnswer":{"@type":"Answer","text":"The most common reasons include filename mismatches between the video and subtitle, incorrect folder hierarchy, hidden .txt extensions (e.g., movie.srt.txt), file permission restrictions on NAS/Linux, or Plex needing a manual library rescan."}},{"@type":"Question","name":"Does the SRT filename need to match the video filename?","acceptedAnswer":{"@type":"Answer","text":"Yes. For Plex to automatically match external subtitles with local media, the base filename of the SRT file must match the video file exactly (e.g., MovieName (2026).mkv and MovieName (2026).en.srt)."}},{"@type":"Question","name":"Why does my SRT show as an option in Plex but not display?","acceptedAnswer":{"@type":"Answer","text":"If the subtitle track is selectable in the Plex menu but no captions appear on screen, the file likely contains syntax errors (missing blank lines, broken cue numbers), corrupt timestamps, or an unsupported legacy character encoding that the Plex client cannot decode."}},{"@type":"Question","name":"Why are my Plex subtitles out of sync?","acceptedAnswer":{"@type":"Answer","text":"The SRT file may have been created for a different release (e.g., theatrical cut vs extended edition) or timed for a different frame rate (such as 25 fps PAL vs 23.976 fps Film). You can apply a millisecond time shift or framerate conversion to realign them."}},{"@type":"Question","name":"Will converting my SRT fix Plex subtitle problems?","acceptedAnswer":{"@type":"Answer","text":"Converting or reprocessing your subtitle file can fix structural syntax errors, strip corrupt formatting tags, and convert the character set to clean UTF-8. However, if the underlying timestamps are out of sync, timing must be corrected separately."}},{"@type":"Question","name":"Why are my SRT subtitles showing strange characters in Plex?","acceptedAnswer":{"@type":"Answer","text":"Garbled symbols, question marks, and accented character corruption occur when an SRT file is saved in ANSI, Windows-1252, or ISO-8859 instead of universal UTF-8. Resaving or converting the file to UTF-8 solves this instantly."}},{"@type":"Question","name":"Do I need to restart Plex after adding an SRT file?","acceptedAnswer":{"@type":"Answer","text":"A server restart is rarely required. Instead, performing a Scan Library Files or Refresh Metadata action in your Plex library will prompt Plex to index the newly added subtitle track immediately."}}]}</script><link rel="stylesheet" href="/_astro/BaseLayout.Dtlw8S0H.css"></head><body><header class="site-header"><div class="container"><div class="header-inner"><!-- Logo --><a href="/" class="brand-logo" aria-label="SRTConverters Home"><div class="brand-icon">SRT</div><div class="brand-text">SRT<span class="brand-highlight">Converters</span></div></a><!-- Desktop Navigation Links --><nav class="nav-desktop" aria-label="Main Navigation"><a href="/" class="nav-link ">Home</a><a href="/tools/" class="nav-link ">Tools</a><a href="/blog/" class="nav-link active">Blog</a></nav><!-- Actions: Language Switcher (Globe only on mobile) + Theme Toggle + Mobile Hamburger --><div class="header-actions"><button type="button" class="btn btn-outline btn-sm theme-toggle-btn" id="theme-toggle" aria-label="Toggle theme" title="Toggle theme"><!-- Sun Icon (shown in dark mode) --><svg class="sun-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg><!-- Moon Icon (shown in light mode) --><svg class="moon-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></button><script>
+  (function () {
+    const btn = document.getElementById('theme-toggle');
+    if (btn) {
+      btn.addEventListener('click', () => {
+        const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+        const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', nextTheme);
+        localStorage.setItem('srtconverters_theme', nextTheme);
+      });
+    }
+  })();
+</script><button type="button" class="mobile-menu-btn" id="mobile-menu-toggle" aria-label="Open menu" aria-expanded="false"><!-- Hamburger 3-lines icon --><svg class="icon-hamburger" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg><!-- Close X icon (when open) --><svg class="icon-close" style="display: none;" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button></div></div><!-- Mobile Navigation Drawer --><div class="mobile-nav-panel" id="mobile-nav"><nav class="mobile-nav-links"><a href="/" class="nav-link ">Home</a><a href="/tools/" class="nav-link ">Tools</a><a href="/blog/" class="nav-link active">Blog</a></nav></div></div></header><script>
+  (function () {
+    const btn = document.getElementById('mobile-menu-toggle');
+    const panel = document.getElementById('mobile-nav');
+    if (btn && panel) {
+      const iconHam = btn.querySelector('.icon-hamburger');
+      const iconClose = btn.querySelector('.icon-close');
+
+      btn.addEventListener('click', () => {
+        const isOpen = panel.classList.contains('open');
+        if (isOpen) {
+          panel.classList.remove('open');
+          btn.setAttribute('aria-expanded', 'false');
+          if (iconHam) iconHam.style.display = 'block';
+          if (iconClose) iconClose.style.display = 'none';
+        } else {
+          panel.classList.add('open');
+          btn.setAttribute('aria-expanded', 'true');
+          if (iconHam) iconHam.style.display = 'none';
+          if (iconClose) iconClose.style.display = 'block';
+        }
+      });
+    }
+  })();
+</script><main id="main-content"><article class="article-container" style="padding-top: 2rem;"><nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/blog/">Blog</a><span aria-hidden="true">/</span><span class="current" aria-current="page">Why Are My SRT Subtitles Not Showing in Plex? Common Fixes</span></nav><header class="article-header"><div class="blog-meta" style="justify-content: center;"><span class="badge">Troubleshooting</span><span>•</span><time datetime="September 4, 2026">September 4, 2026</time><span>•</span><span>9 min read</span></div><h1 class="article-title">Why Are My SRT Subtitles Not Showing in Plex? Common Fixes</h1><p class="hero-subtitle" style="font-size: 1.125rem;">Plex not showing your SRT subtitles? Discover 15 proven fixes for Plex subtitle issues, from filename matching and folder structure to UTF-8 encoding and permissions.</p></header><div class="article-prose"><p>Have you added an SRT subtitle file to your movie or TV show, but Plex isn't showing the subtitles?</p>
+<p>This is a common problem for Plex users. The subtitle file may be sitting right next to the video, have the correct <code>.srt</code> extension, and still not appear as an available subtitle option.</p>
+<p>In some cases, Plex detects the subtitle file but doesn't display it correctly. In others, the subtitle option appears in the playback menu, but no text shows up during playback.</p>
+<p>The good news is that most <strong>SRT subtitle problems in Plex</strong> can be fixed with a few simple checks.</p>
+<p>In this guide, you'll learn why Plex may not recognize your SRT subtitles and what you can do to make them work reliably.</p>
+<h2>Why Is Plex Not Showing My SRT Subtitles?</h2>
+<p>There isn't always one single reason why an SRT file doesn't appear in Plex.</p>
+<p>Common causes include:</p>
+<ul><li>The SRT filename doesn't match the video filename.</li><li>The subtitle file is stored in the wrong folder.</li><li>The subtitle language isn't identified correctly.</li><li>Plex hasn't refreshed the media library.</li><li>The SRT file has invalid formatting or broken timestamps.</li><li>The subtitle file uses an unsupported or problematic encoding.</li><li>File permissions prevent Plex Media Server from reading the file.</li><li>You're using the wrong subtitle file for your specific video version.</li><li>Subtitle settings in Plex aren't configured as expected.</li><li>The media server or Plex client has a temporary cache problem.</li></ul>
+<p>Before making complicated changes, start with the basics.</p>
+<hr style="margin: 2rem 0; border: none; border-top: 1px solid var(--border-color);" />
+<h2>1. Make Sure the SRT File Is in the Correct Folder</h2>
+<p>One of the first things to check is where your SRT file is stored.</p>
+<p>For a simple movie setup, you generally want the subtitle file to be located alongside the video file in the same folder.</p>
+<p>For example:</p>
+<pre><code>Movies/
+└── The Example Movie (2026)/
+    ├── The Example Movie (2026).mkv
+    └── The Example Movie (2026).srt</code></pre>
+<p>If the subtitle is stored somewhere completely different from the video, Plex may not associate it with that media item. Keeping the video and subtitle together makes it much easier for Plex to identify the subtitle.</p>
+<p>For TV shows, the subtitle should similarly be associated with the appropriate episode:</p>
+<pre><code>TV Shows/
+└── Example Show/
+    └── Season 01/
+        ├── Example Show - S01E01.mkv
+        └── Example Show - S01E01.srt</code></pre>
+<p>The exact folder structure can vary depending on how your Plex library is organized, but the important point is that the subtitle should be located where Plex can associate it with the correct video.</p>
+<hr style="margin: 2rem 0; border: none; border-top: 1px solid var(--border-color);" />
+<h2>2. Check the SRT Filename</h2>
+<p>A mismatched filename is another common reason subtitles don't appear.</p>
+<p>If your video is named:</p>
+<pre><code>Movie.mkv</code></pre>
+<p>your subtitle should ideally have the matching base filename:</p>
+<pre><code>Movie.srt</code></pre>
+<p>In other words, Plex should be able to see that both files belong to the same movie. A subtitle named <code>random-subtitles.srt</code> or <code>subtitles_v2.srt</code> will not be associated with <code>Movie.mkv</code> automatically.</p>
+<h3>Using Plex Language Codes in Filenames</h3>
+<p>If you have multiple subtitle languages or forced tracks, you can specify the ISO 639-1 (two-letter) or ISO 639-2/B (three-letter) language code directly in the filename:</p>
+<pre><code>Movie (2026).en.srt        (English)
+Movie (2026).forced.en.srt (Forced English)
+Movie (2026).es.srt        (Spanish)
+Movie (2026).fr.srt        (French)</code></pre>
+<p>This helps Plex automatically distinguish subtitle languages and display clean names in the audio/subtitle track selector.</p>
+<hr style="margin: 2rem 0; border: none; border-top: 1px solid var(--border-color);" />
+<h2>3. Check That the File Really Is an SRT File</h2>
+<p>Sometimes a file may look like an SRT file in your file explorer but isn't actually saved with the correct extension.</p>
+<p>For example, you might have:</p>
+<pre><code>Movie.srt.txt</code></pre>
+<p>instead of:</p>
+<pre><code>Movie.srt</code></pre>
+<p>This happens frequently on Windows and macOS when the operating system hides known file extensions.</p>
+<ul><li><strong>On Windows</strong>: Open File Explorer, click <strong>View</strong> $\rightarrow$ check <strong>File name extensions</strong>.</li><li><strong>On macOS</strong>: In Finder, open <strong>Settings</strong> $\rightarrow$ <strong>Advanced</strong> $\rightarrow$ check <strong>Show all filename extensions</strong>.</li></ul>
+<p>Make sure your subtitle ends strictly with <code>.srt</code> and not <code>.srt.txt</code>.</p>
+<hr style="margin: 2rem 0; border: none; border-top: 1px solid var(--border-color);" />
+<h2>4. Refresh Your Plex Library</h2>
+<p>If you have just added an SRT file to an existing movie folder, Plex may not immediately recognize the new subtitle until a scan is triggered.</p>
+<p>Try refreshing the library or the specific media item:</p>
+<ol><li>Open your Plex Web App or desktop client.</li><li>Go to the relevant library (<strong>Movies</strong> or <strong>TV Shows</strong>).</li><li>Find the movie or episode.</li><li>Click the three dots (<strong>...</strong>) $\rightarrow$ select <strong>Scan Library Files</strong> or <strong>Refresh Metadata</strong>.</li><li>Open the media item again and check the subtitle track dropdown.</li></ol>
+<p>If Plex hasn't rescanned the folder, it will still display cached media information. A library refresh is the easiest step before troubleshooting the file itself.</p>
+<hr style="margin: 2rem 0; border: none; border-top: 1px solid var(--border-color);" />
+<h2>5. Check Plex's Subtitle Settings</h2>
+<p>Plex has account-level and playback subtitle preferences that dictate how subtitles are chosen during playback.</p>
+<ol><li>In Plex, go to <strong>Settings</strong> $\rightarrow$ <strong>Account</strong> $\rightarrow$ <strong>Audio & Subtitle Settings</strong>.</li><li>Check your configuration:</li><li>   - <strong>Subtitle mode</strong>: Set to <em>Always enabled</em>, <em>Manually selected</em>, or <em>Shown with foreign audio</em>.</li><li>   - <strong>Preferred subtitle language</strong>: Select your primary language (e.g., <em>English</em>).</li><li>   - <strong>Auto-select Subtitle Tracks</strong>: Enabled.</li></ol>
+<p>Even if an SRT file is detected correctly, your current subtitle preferences may mean Plex does not turn it on by default. Always try manually opening the playback menu to see if the subtitle track is listed.</p>
+<hr style="margin: 2rem 0; border: none; border-top: 1px solid var(--border-color);" />
+<h2>6. Does Plex See the SRT but Not Display It?</h2>
+<p>There is an important distinction between two common Plex subtitle failures:</p>
+<table><thead><tr><th>Problem Scenario</th><th>What It Means</th><th>Recommended Action</th></tr></thead><tbody><tr><td><strong>Problem A: SRT not in the menu</strong></td><td>Plex cannot locate or match the file on disk.</td><td>Check filenames, folder hierarchy, extensions, and permissions.</td></tr><tr><td><strong>Problem B: SRT in menu, but no text appears</strong></td><td>Plex detected the file, but cannot parse its contents.</td><td>Check SRT formatting, timestamps, and character encoding.</td></tr></tbody></table>
+<p>If the subtitle track is selectable in Plex but nothing displays on screen, the issue is almost certainly within the SRT file syntax or encoding.</p>
+<hr style="margin: 2rem 0; border: none; border-top: 1px solid var(--border-color);" />
+<h2>7. Check the SRT Formatting</h2>
+<p>A valid SRT file follows a strict structure:</p>
+<pre><code>1
+00:00:05,000 --&gt; 00:00:08,000
+Welcome to the movie.
+
+2
+00:00:10,000 --&gt; 00:00:13,000
+Thanks for watching.</code></pre>
+<p>Each subtitle block must contain:<br/>1. A sequential cue index number (<code>1</code>, <code>2</code>, <code>3</code>...).<br/>2. A start and end timestamp delimited with <code>--></code> and comma millisecond separators (<code>00:00:05,000</code>).<br/>3. The subtitle text lines.<br/>4. A blank line before the next subtitle block.</p>
+<p>If an SRT file has broken timestamps, missing blank lines, or invalid characters, Plex's internal parser may fail silently. To learn how to diagnose and repair syntax errors, read our guide on <a href="/blog/why-is-my-srt-file-not-working/">10 Common SRT Errors and How to Fix Them</a>.</p>
+<hr style="margin: 2rem 0; border: none; border-top: 1px solid var(--border-color);" />
+<h2>8. Check the SRT Encoding</h2>
+<p>Encoding mismatches are another frequent reason subtitles fail or appear as garbled symbols in Plex.</p>
+<p>You might see strange symbols such as:</p>
+<pre><code>cafÃ© instead of café
+â€œHelloâ€ instead of "Hello"</code></pre>
+<p>Plex works best with <strong>UTF-8</strong> encoded subtitles. If your SRT file was saved in legacy encodings such as ANSI, Windows-1252, or ISO-8859-1, non-ASCII characters and foreign alphabets will corrupt.</p>
+<p>To fix this, open the file in a text editor (like VS Code or Notepad), select <strong>Save with Encoding</strong>, and choose <strong>UTF-8</strong>. For a detailed walkthrough, check our guide on <a href="/blog/how-to-fix-srt-subtitle-encoding-problems/">Fixing SRT Subtitle Encoding Problems</a>.</p>
+<hr style="margin: 2rem 0; border: none; border-top: 1px solid var(--border-color);" />
+<h2>9. Make Sure the Subtitle Matches Your Video Version</h2>
+<p>Your SRT file may be formatted correctly and still fail to align with your video.</p>
+<p>Subtitles are created against specific releases:<br/>- Theatrical Release vs. Extended / Director's Cut<br/>- 23.976 fps Film vs. 25 fps PAL Broadcast<br/>- Web-DL vs. Blu-ray vs. HDTV Rip (different intro logos or scene cuts)</p>
+<p>If your subtitles appear several seconds off or drift out of sync as the video plays, the issue is release timing rather than Plex.</p>
+<hr style="margin: 2rem 0; border: none; border-top: 1px solid var(--border-color);" />
+<h2>10. Fix SRT Subtitles That Are Out of Sync</h2>
+<p>When subtitle timing does not match your video in Plex:</p>
+<ul><li><strong>Constant Delay (Early/Late by Fixed Seconds)</strong>: Shift all timestamps by a fixed millisecond offset. For example, delaying by 3 seconds shifts <code>00:01:00,000</code> to <code>00:01:03,000</code>.</li><li><strong>Gradual Drift (Drifts out of sync over time)</strong>: This is caused by framerate differences (e.g., 25 fps PAL vs 23.976 fps Film). You must use Two-Point Synchronization or framerate conversion.</li></ul>
+<p>Read our complete step-by-step guide on <a href="/blog/how-to-fix-srt-subtitles-out-of-sync/">How to Fix SRT Subtitles That Are Out of Sync With a Video</a> for detailed instructions.</p>
+<hr style="margin: 2rem 0; border: none; border-top: 1px solid var(--border-color);" />
+<h2>11. Try Opening the SRT File in a Text Editor</h2>
+<p>A fast troubleshooting step is opening the SRT file in Notepad, TextEdit, or VS Code:</p>
+<ul><li>Is the file empty (0 KB)?</li><li>Does it contain actual subtitle text, or is it raw HTML from a failed download?</li><li>Are the timestamps formatted with commas (<code>00:00:10,000</code>)?</li></ul>
+<p>If the file is damaged, you can create a simple test SRT file with a single cue to verify whether Plex recognizes external subtitles in that directory:</p>
+<pre><code>1
+00:00:01,000 --&gt; 00:00:05,000
+Plex subtitle test line.</code></pre>
+<hr style="margin: 2rem 0; border: none; border-top: 1px solid var(--border-color);" />
+<h2>12. Check File and Folder Permissions</h2>
+<p>If you run Plex Media Server on <strong>Linux</strong>, a <strong>Synology/QNAP NAS</strong>, <strong>Docker</strong>, or <strong>Unraid</strong>, file permission issues are very common:</p>
+<ul><li>The Plex Media Server user (<code>plex</code>) must have <strong>read permissions</strong> on both the subtitle file and the containing folder.</li><li>On Linux/NAS servers, verify that the file permissions are set to <code>644</code> (<code>rw-r--r--</code>) and folder permissions to <code>755</code> (<code>rwxr-xr-x</code>).</li></ul>
+<p>If Plex can read the video file but permissions prevent it from reading the <code>.srt</code> file, the subtitle track will simply not appear in the library.</p>
+<hr style="margin: 2rem 0; border: none; border-top: 1px solid var(--border-color);" />
+<h2>13. Test with a Different SRT File</h2>
+<p>Another quick isolation test is to download or create a secondary subtitle file for the same movie:</p>
+<ul><li>If the second SRT file works immediately, the original subtitle file had syntax, naming, or encoding corruption.</li><li>If no SRT files appear across any movies, the issue is server configuration, library agents, or folder permissions.</li></ul>
+<hr style="margin: 2rem 0; border: none; border-top: 1px solid var(--border-color);" />
+<h2>14. Convert or Clean Up Your Subtitle File</h2>
+<p>If your SRT file has non-standard syntax, unclosed HTML tags, or formatting problems, converting or reprocessing it creates a clean, standards-compliant file:</p>
+<ul><li>Convert text transcripts into timed SRT files with our <a href="/txt-to-srt/">TXT to SRT Converter</a>.</li><li>Convert between SRT and WebVTT using our <a href="/srt-to-vtt/">SRT to VTT Converter</a> and <a href="/vtt-to-srt/">VTT to SRT Converter</a>.</li><li>Extract clean text transcripts using our <a href="/srt-to-text/">SRT to Text Converter</a>.</li><li>Discover more formatting tools in the <a href="/tools/">SRTConverters Tool Suite</a>.</li></ul>
+<hr style="margin: 2rem 0; border: none; border-top: 1px solid var(--border-color);" />
+<h2>15. Restart Plex and Clear Client Cache</h2>
+<p>Plex clients (smart TVs, Apple TV, Roku, Fire TV, and mobile apps) frequently cache subtitle states:</p>
+<ol><li>Close the Plex application completely on your client device.</li><li>If using a smart TV or streaming stick, force-quit Plex or restart the device.</li><li>Restart Plex Media Server if metadata updates appear stuck.</li></ol>
+<hr style="margin: 2rem 0; border: none; border-top: 1px solid var(--border-color);" />
+<h2>Plex SRT Troubleshooting Summary Checklist</h2>
+<p>Follow this checklist from top to bottom whenever an SRT file does not appear:</p>
+<pre><code>flowchart TD
+    A[SRT Not Showing in Plex] --&gt; B{Is Filename &amp; Folder Correct?}
+    B --&gt;|No| C[Rename to MovieName.en.srt in same folder]
+    B --&gt;|Yes| D{Is File Extension .srt?}
+    D --&gt;|No (e.g. .srt.txt)| E[Remove .txt extension]
+    D --&gt;|Yes| F[Trigger Scan Library Files in Plex]
+    F --&gt; G{Does Subtitle Appear in Menu?}
+    G --&gt;|No| H[Check Linux/NAS File Permissions]
+    G --&gt;|Yes, but No Text| I[Check UTF-8 Encoding &amp; SRT Syntax]
+    G --&gt;|Yes, but Out of Sync| J[Apply Time Shift or Framerate Fix]
+    H --&gt; K[Subtitles Working in Plex]
+    I --&gt; K
+    J --&gt; K</code></pre>
+<hr style="margin: 2rem 0; border: none; border-top: 1px solid var(--border-color);" />
+<h2>Frequently Asked Questions</h2>
+<h3>Why is Plex not detecting my SRT file?</h3>
+<p>The most common reasons include filename mismatches between the video and subtitle, incorrect folder hierarchy, hidden .txt extensions (e.g., <code>movie.srt.txt</code>), file permission restrictions on NAS/Linux, or Plex needing a manual library rescan.</p>
+<h3>Does the SRT filename need to match the video filename?</h3>
+<p>Yes. For Plex to automatically match external subtitles with local media, the base filename of the SRT file must match the video file exactly (e.g., <code>MovieName (2026).mkv</code> and <code>MovieName (2026).en.srt</code>).</p>
+<h3>Why does my SRT show as an option in Plex but not display?</h3>
+<p>If the subtitle track is selectable in the Plex menu but no captions appear on screen, the file likely contains syntax errors (missing blank lines, broken cue numbers), corrupt timestamps, or an unsupported legacy character encoding that the Plex client cannot decode.</p>
+<h3>Why are my Plex subtitles out of sync?</h3>
+<p>The SRT file may have been created for a different release (e.g., theatrical cut vs extended edition) or timed for a different frame rate (such as 25 fps PAL vs 23.976 fps Film). You can apply a millisecond time shift or framerate conversion to realign them.</p>
+<h3>Will converting my SRT fix Plex subtitle problems?</h3>
+<p>Converting or reprocessing your subtitle file can fix structural syntax errors, strip corrupt formatting tags, and convert the character set to clean UTF-8. However, if the underlying timestamps are out of sync, timing must be corrected separately.</p>
+<h3>Why are my SRT subtitles showing strange characters in Plex?</h3>
+<p>Garbled symbols, question marks, and accented character corruption occur when an SRT file is saved in ANSI, Windows-1252, or ISO-8859 instead of universal UTF-8. Resaving or converting the file to UTF-8 solves this instantly.</p>
+<h3>Do I need to restart Plex after adding an SRT file?</h3>
+<p>A server restart is rarely required. Instead, performing a <strong>Scan Library Files</strong> or <strong>Refresh Metadata</strong> action in your Plex library will prompt Plex to index the newly added subtitle track immediately.</p>
+<hr style="margin: 2rem 0; border: none; border-top: 1px solid var(--border-color);" />
+<h2>Final Thoughts</h2>
+<p>When <strong>SRT subtitles are not showing in Plex</strong>, don't immediately assume that Plex itself is broken.</p>
+<p>Start with the basics: check the subtitle's location, filename, extension, and file permissions. Then refresh your Plex library and check whether the subtitle appears in the playback menu.</p>
+<p>If Plex detects the SRT but the text doesn't display correctly, investigate the file's formatting and encoding. If the subtitles appear but are out of sync, check whether they were created for the same version of the video.</p>
+<p>In most cases, the problem can be resolved in just a couple of minutes. Explore our full collection of free browser-based subtitle utilities in the <a href="/tools/">SRTConverters Tool Suite</a> to format, clean, and convert your subtitle files anytime.</p></div></article></main><footer class="site-footer"><div class="container"><div class="footer-main"><!-- Brand & Privacy Column --><div class="footer-brand-col"><a href="/" class="brand-logo"><div class="brand-icon">SRT</div><div class="brand-text">SRT<span class="brand-highlight">Converters</span></div></a><p>SRTConverters.com offers fast, free, and private browser-based subtitle conversion tools. All files are processed locally on your device.</p><div class="badge badge-success"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg><span>100% Private &amp; Client-Side</span></div></div><!-- Links Groups (Tools, Navigation, Legal) --><div class="footer-links-group"><!-- Tools Column --><div class="footer-col"><div class="footer-col-title">Subtitle Tools</div><ul class="footer-links"><li><a href="/txt-to-srt/">TXT to SRT Converter</a></li><li><a href="/srt-to-text/">SRT to Text Converter</a></li><li><a href="/srt-to-vtt/">SRT to VTT Converter</a></li><li><a href="/vtt-to-srt/">VTT to SRT Converter</a></li><li><a href="/tools/">All Subtitle &amp; SRT Conversion Tools</a></li></ul></div><!-- Quick Links Column --><div class="footer-col"><div class="footer-col-title">Quick Links</div><ul class="footer-links"><li><a href="/">Home</a></li><li><a href="/tools/">Tools</a></li><li><a href="/blog/">Blog</a></li></ul></div><!-- Legal & Trust Column --><div class="footer-col"><div class="footer-col-title">Legal &amp; Privacy</div><ul class="footer-links"><li><a href="/about/">About</a></li><li><a href="/privacy-policy/">Privacy Policy</a></li><li><a href="/terms-of-service/">Terms of Service</a></li><li><a href="/contact/">Contact</a></li></ul></div></div></div><!-- Bottom Strip --><div class="footer-bottom"><div>© 2026 SRTConverters.com. All rights reserved.</div><div style="display: flex; align-items: center; justify-content: center; gap: 0.5rem;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg><span>Files never leave your browser</span></div></div></div></footer></body></html>

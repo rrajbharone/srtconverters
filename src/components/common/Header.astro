@@ -1,0 +1,102 @@
+---
+import type { Locale } from '@/i18n/config';
+import { type RouteId, getRoutePath } from '@/i18n/routes';
+import { getUiStrings } from '@/i18n/utils';
+import LanguageSwitcher from './LanguageSwitcher.astro';
+import ThemeToggle from './ThemeToggle.astro';
+
+interface Props {
+  locale: Locale;
+  routeId: RouteId | '404' | 'legal' | 'blog';
+  showLanguageSwitcher?: boolean;
+}
+
+const { locale, routeId, showLanguageSwitcher = true } = Astro.props;
+const ui = getUiStrings(locale);
+
+const homePath = routeId === 'legal' || routeId === 'blog' ? '/' : getRoutePath('home', locale);
+const toolsPath = routeId === 'legal' || routeId === 'blog' ? '/tools/' : getRoutePath('tools', locale);
+const blogPath = '/blog/';
+---
+
+<header class="site-header">
+  <div class="container">
+    <div class="header-inner">
+      <!-- Logo -->
+      <a href={homePath} class="brand-logo" aria-label="SRTConverters Home">
+        <div class="brand-icon">SRT</div>
+        <div class="brand-text">SRT<span class="brand-highlight">Converters</span></div>
+      </a>
+
+      <!-- Desktop Navigation Links -->
+      <nav class="nav-desktop" aria-label="Main Navigation">
+        <a href={homePath} class={`nav-link ${routeId === 'home' ? 'active' : ''}`}>{ui.nav.home}</a>
+        <a href={toolsPath} class={`nav-link ${routeId === 'tools' || routeId === 'txt-to-srt' || routeId === 'srt-to-text' || routeId === 'srt-to-vtt' || routeId === 'vtt-to-srt' ? 'active' : ''}`}>{ui.nav.tools}</a>
+        <a href={blogPath} class={`nav-link ${routeId === 'blog' ? 'active' : ''}`}>{ui.nav.blog}</a>
+      </nav>
+
+      <!-- Actions: Language Switcher (Globe only on mobile) + Theme Toggle + Mobile Hamburger -->
+      <div class="header-actions">
+        {showLanguageSwitcher && routeId !== 'legal' && routeId !== 'blog' && (
+          <LanguageSwitcher currentLocale={locale} routeId={routeId as RouteId | '404'} />
+        )}
+        <ThemeToggle locale={locale} />
+
+        <button
+          type="button"
+          class="mobile-menu-btn"
+          id="mobile-menu-toggle"
+          aria-label={ui.nav.openMenu}
+          aria-expanded="false"
+        >
+          <!-- Hamburger 3-lines icon -->
+          <svg class="icon-hamburger" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+          <!-- Close X icon (when open) -->
+          <svg class="icon-close" style="display: none;" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div class="mobile-nav-panel" id="mobile-nav">
+      <nav class="mobile-nav-links">
+        <a href={homePath} class={`nav-link ${routeId === 'home' ? 'active' : ''}`}>{ui.nav.home}</a>
+        <a href={toolsPath} class={`nav-link ${routeId === 'tools' || routeId === 'txt-to-srt' || routeId === 'srt-to-text' || routeId === 'srt-to-vtt' || routeId === 'vtt-to-srt' ? 'active' : ''}`}>{ui.nav.tools}</a>
+        <a href={blogPath} class={`nav-link ${routeId === 'blog' ? 'active' : ''}`}>{ui.nav.blog}</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<script is:inline>
+  (function () {
+    const btn = document.getElementById('mobile-menu-toggle');
+    const panel = document.getElementById('mobile-nav');
+    if (btn && panel) {
+      const iconHam = btn.querySelector('.icon-hamburger');
+      const iconClose = btn.querySelector('.icon-close');
+
+      btn.addEventListener('click', () => {
+        const isOpen = panel.classList.contains('open');
+        if (isOpen) {
+          panel.classList.remove('open');
+          btn.setAttribute('aria-expanded', 'false');
+          if (iconHam) iconHam.style.display = 'block';
+          if (iconClose) iconClose.style.display = 'none';
+        } else {
+          panel.classList.add('open');
+          btn.setAttribute('aria-expanded', 'true');
+          if (iconHam) iconHam.style.display = 'none';
+          if (iconClose) iconClose.style.display = 'block';
+        }
+      });
+    }
+  })();
+</script>

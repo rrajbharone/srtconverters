@@ -1,0 +1,173 @@
+<!DOCTYPE html><html lang="en" dir="ltr"><head><!-- Primary Meta Tags --><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0"><title>How to Name an SRT File So Plex Recognizes External Subtitles | SRTConverters</title><meta name="title" content="How to Name an SRT File So Plex Recognizes External Subtitles | SRTConverters"><meta name="description" content="Learn the exact Plex subtitle naming conventions. Master language codes, forced subtitles, SDH tags, TV episode patterns, and folder structures so Plex detects your SRT files every time."><meta name="generator" content="Astro v7.2.10"><meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"><!-- Preload Inter Self-Hosted Font for Peak Performance --><link rel="preload" href="/fonts/inter-variable.woff2" as="font" type="font/woff2" crossorigin="anonymous"><!-- Canonical Tag --><link rel="canonical" href="https://srtconverters.com/blog/how-to-name-an-srt-file-for-plex/"><!-- Hreflang Alternates (All 8 Locales + x-default) --><!-- Favicon and App Icons --><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="theme-color" content="#2563eb"><!-- Open Graph / Facebook --><meta property="og:type" content="article"><meta property="og:url" content="https://srtconverters.com/blog/how-to-name-an-srt-file-for-plex/"><meta property="og:title" content="How to Name an SRT File So Plex Recognizes External Subtitles | SRTConverters"><meta property="og:description" content="Learn the exact Plex subtitle naming conventions. Master language codes, forced subtitles, SDH tags, TV episode patterns, and folder structures so Plex detects your SRT files every time."><meta property="og:site_name" content="SRTConverters"><meta property="og:locale" content="en_US"><meta property="article:published_time" content="September 4, 2026"><meta property="article:author" content="SRTConverters Team"><!-- Twitter --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:url" content="https://srtconverters.com/blog/how-to-name-an-srt-file-for-plex/"><meta name="twitter:title" content="How to Name an SRT File So Plex Recognizes External Subtitles | SRTConverters"><meta name="twitter:description" content="Learn the exact Plex subtitle naming conventions. Master language codes, forced subtitles, SDH tags, TV episode patterns, and folder structures so Plex detects your SRT files every time."><!-- Anti-Theme Flash Inline Script --><script>
+  (function () {
+    try {
+      const storedTheme = localStorage.getItem('srtconverters_theme');
+      if (storedTheme === 'dark' || (!storedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    } catch (e) {}
+  })();
+</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"SRTConverters","url":"https://srtconverters.com","inLanguage":"en-US","description":"Free online subtitle and SRT conversion tools. 100% client-side privacy."}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"How to Name an SRT File So Plex Recognizes External Subtitles","description":"Learn the exact Plex subtitle naming conventions. Master language codes, forced subtitles, SDH tags, TV episode patterns, and folder structures so Plex detects your SRT files every time.","datePublished":"September 4, 2026","dateModified":"September 4, 2026","mainEntityOfPage":"https://srtconverters.com/","inLanguage":"en-US","author":{"@type":"Organization","name":"SRTConverters Team","url":"https://srtconverters.com"},"publisher":{"@type":"Organization","name":"SRTConverters","url":"https://srtconverters.com"}}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://srtconverters.com/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://srtconverters.com/blog/"},{"@type":"ListItem","position":3,"name":"How to Name an SRT File So Plex Recognizes External Subtitles","item":"https://srtconverters.com/blog/how-to-name-an-srt-file-for-plex/"}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What should I name my SRT file for Plex?","acceptedAnswer":{"@type":"Answer","text":"The simplest approach is to give the SRT the same base filename as the video file and keep the .srt extension. For example: \"The Matrix (1999).mkv\" and \"The Matrix (1999).srt\"."}},{"@type":"Question","name":"Can I add .en to my Plex SRT filename?","acceptedAnswer":{"@type":"Answer","text":"Yes. Adding a two-letter or three-letter ISO 639 language code (e.g., \"Movie (2026).en.srt\" or \"Movie (2026).eng.srt\") tells Plex the subtitle is in English, which enables automatic language matching and clean labeling in the Plex interface."}},{"@type":"Question","name":"Where should I put an SRT file for Plex?","acceptedAnswer":{"@type":"Answer","text":"External SRT subtitle files should be placed in the exact same directory alongside the movie or TV episode video file."}},{"@type":"Question","name":"Why isn't Plex recognizing my SRT file?","acceptedAnswer":{"@type":"Answer","text":"Check that the base filename matches the video file character-for-character, verify that the file extension is not accidentally saved as .srt.txt, check Linux/NAS file read permissions, ensure the SRT has valid syntax, and run a \"Scan Library Files\" refresh in Plex."}},{"@type":"Question","name":"Does Plex automatically select external SRT subtitles?","acceptedAnswer":{"@type":"Answer","text":"Whether Plex automatically turns on subtitles depends on your Plex Account Audio & Subtitle settings (such as \"Always enabled\" or \"Shown with foreign audio\"). Even if a correctly named subtitle is detected, playback preferences control automatic display."}},{"@type":"Question","name":"How do I name forced subtitles for Plex?","acceptedAnswer":{"@type":"Answer","text":"Use the \".forced\" tag between the language code and the extension, such as \"Movie (2026).en.forced.srt\" or \"Movie (2026).forced.en.srt\". This designates the track for scenes with foreign dialogue only."}},{"@type":"Question","name":"Can I use the same generic SRT filename for different movies?","acceptedAnswer":{"@type":"Answer","text":"No. Every external subtitle must uniquely match the base filename of its corresponding video. Generic names like \"subtitles.srt\" in a shared directory will cause detection errors and improper track associations."}},{"@type":"Question","name":"Will renaming an SRT file fix subtitle synchronization?","acceptedAnswer":{"@type":"Answer","text":"No. Renaming the file helps Plex detect which video it belongs to, but it does not alter internal timestamps. If subtitles lag or lead the audio, you must apply a millisecond time shift or framerate resync."}},{"@type":"Question","name":"Does changing .srt to .vtt convert the subtitle?","acceptedAnswer":{"@type":"Answer","text":"No. Renaming an SRT file to .vtt only changes the file extension on your operating system without converting the internal syntax (such as commas to periods or adding the WEBVTT header). Always use a dedicated subtitle converter."}}]}</script><link rel="stylesheet" href="/_astro/BaseLayout.Dtlw8S0H.css"></head><body><header class="site-header"><div class="container"><div class="header-inner"><!-- Logo --><a href="/" class="brand-logo" aria-label="SRTConverters Home"><div class="brand-icon">SRT</div><div class="brand-text">SRT<span class="brand-highlight">Converters</span></div></a><!-- Desktop Navigation Links --><nav class="nav-desktop" aria-label="Main Navigation"><a href="/" class="nav-link ">Home</a><a href="/tools/" class="nav-link ">Tools</a><a href="/blog/" class="nav-link active">Blog</a></nav><!-- Actions: Language Switcher (Globe only on mobile) + Theme Toggle + Mobile Hamburger --><div class="header-actions"><button type="button" class="btn btn-outline btn-sm theme-toggle-btn" id="theme-toggle" aria-label="Toggle theme" title="Toggle theme"><!-- Sun Icon (shown in dark mode) --><svg class="sun-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg><!-- Moon Icon (shown in light mode) --><svg class="moon-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></button><script>
+  (function () {
+    const btn = document.getElementById('theme-toggle');
+    if (btn) {
+      btn.addEventListener('click', () => {
+        const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+        const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', nextTheme);
+        localStorage.setItem('srtconverters_theme', nextTheme);
+      });
+    }
+  })();
+</script><button type="button" class="mobile-menu-btn" id="mobile-menu-toggle" aria-label="Open menu" aria-expanded="false"><!-- Hamburger 3-lines icon --><svg class="icon-hamburger" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg><!-- Close X icon (when open) --><svg class="icon-close" style="display: none;" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button></div></div><!-- Mobile Navigation Drawer --><div class="mobile-nav-panel" id="mobile-nav"><nav class="mobile-nav-links"><a href="/" class="nav-link ">Home</a><a href="/tools/" class="nav-link ">Tools</a><a href="/blog/" class="nav-link active">Blog</a></nav></div></div></header><script>
+  (function () {
+    const btn = document.getElementById('mobile-menu-toggle');
+    const panel = document.getElementById('mobile-nav');
+    if (btn && panel) {
+      const iconHam = btn.querySelector('.icon-hamburger');
+      const iconClose = btn.querySelector('.icon-close');
+
+      btn.addEventListener('click', () => {
+        const isOpen = panel.classList.contains('open');
+        if (isOpen) {
+          panel.classList.remove('open');
+          btn.setAttribute('aria-expanded', 'false');
+          if (iconHam) iconHam.style.display = 'block';
+          if (iconClose) iconClose.style.display = 'none';
+        } else {
+          panel.classList.add('open');
+          btn.setAttribute('aria-expanded', 'true');
+          if (iconHam) iconHam.style.display = 'none';
+          if (iconClose) iconClose.style.display = 'block';
+        }
+      });
+    }
+  })();
+</script><main id="main-content"><article class="article-container" style="padding-top: 2rem;"><nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/blog/">Blog</a><span aria-hidden="true">/</span><span class="current" aria-current="page">How to Name an SRT File So Plex Recognizes External Subtitles</span></nav><header class="article-header"><div class="blog-meta" style="justify-content: center;"><span class="badge">Guides</span><span>•</span><time datetime="September 4, 2026">September 4, 2026</time><span>•</span><span>8 min read</span></div><h1 class="article-title">How to Name an SRT File So Plex Recognizes External Subtitles</h1><p class="hero-subtitle" style="font-size: 1.125rem;">Learn the exact Plex subtitle naming conventions. Master language codes, forced subtitles, SDH tags, TV episode patterns, and folder structures so Plex detects your SRT files every time.</p></header><div class="article-prose"><p>Have you added an SRT subtitle file next to your movie or TV episode, but Plex doesn't recognize it?</p>
+<p>One of the first things you should check is the <strong>subtitle filename</strong>.</p>
+<p>Plex Media Server can easily detect and display external subtitle files, but the way you name those files matters. If the subtitle filename doesn't properly identify which video it belongs to, Plex may ignore the file completely or fail to associate it with your media item.</p>
+<p>The good news is that fixing subtitle filenames is straightforward once you know Plex's standard naming conventions.</p>
+<p>In this guide, you'll learn how to name SRT files for Plex, where to store them, how to add language codes, how to label forced and SDH subtitles, and what to check if Plex still doesn't detect your external subtitles.</p>
+<hr style="margin: 2rem 0; border: none; border-top: 1px solid var(--border-color);" />
+<h2>The Basic Plex SRT Filename Rule</h2>
+<p>The simplest setup is to give your SRT file the <strong>exact same base filename as the video</strong>.</p>
+<p>For example, if your movie is:</p>
+<pre><code>The Matrix (1999).mkv</code></pre>
+<p>the external subtitle should be:</p>
+<pre><code>The Matrix (1999).srt</code></pre>
+<p>The important part is that both files share the identical base name:</p>
+<ul><li><strong>Video</strong>: <code>The Matrix (1999)</code></li><li><strong>Subtitle</strong>: <code>The Matrix (1999)</code></li></ul>
+<p>Only the file extension is different (<code>.mkv</code> vs <code>.srt</code>). This makes it immediately clear to Plex's media scanner that the subtitle belongs to that particular movie.</p>
+<hr style="margin: 2rem 0; border: none; border-top: 1px solid var(--border-color);" />
+<h2>Where Should the SRT File Be Stored?</h2>
+<p>External subtitle files should always be stored in the <strong>same folder alongside the video</strong> they belong to.</p>
+<p>For a movie, a standard structure looks like this:</p>
+<pre><code>Movies/
+└── The Matrix (1999)/
+    ├── The Matrix (1999).mkv
+    └── The Matrix (1999).srt</code></pre>
+<p>For a TV episode, the subtitle must reside in the corresponding season folder:</p>
+<pre><code>TV Shows/
+└── Breaking Bad/
+    └── Season 01/
+        ├── Breaking Bad - S01E01.mkv
+        └── Breaking Bad - S01E01.srt</code></pre>
+<p>Keeping the subtitle file next to the video ensures Plex's scanner associates the two files instantly without relying on third-party cloud scrapers.</p>
+<hr style="margin: 2rem 0; border: none; border-top: 1px solid var(--border-color);" />
+<h2>How to Name an English SRT File</h2>
+<p>If you want Plex to identify the language of your subtitle track automatically, include a language code before the <code>.srt</code> extension:</p>
+<pre><code>The Matrix (1999).en.srt</code></pre>
+<p>Here is how Plex parses this filename:<br/>- <code>The Matrix (1999)</code> = Identifies the video<br/>- <code>en</code> = Identifies English language (ISO 639-1)<br/>- <code>.srt</code> = Identifies the subtitle format</p>
+<p>This is especially helpful when you maintain multiple subtitle tracks for different languages:</p>
+<pre><code>The Matrix (1999).en.srt
+The Matrix (1999).es.srt
+The Matrix (1999).fr.srt
+The Matrix (1999).de.srt</code></pre>
+<p>Plex will display clean labels ("English", "Spanish", "French", "German") in the subtitle track selector rather than generic "Unknown" labels.</p>
+<hr style="margin: 2rem 0; border: none; border-top: 1px solid var(--border-color);" />
+<h2>Common Language Codes for Plex Subtitles</h2>
+<p>Plex supports standard ISO 639-1 (two-letter) and ISO 639-2/B (three-letter) language codes:</p>
+<table><thead><tr><th>Language</th><th>2-Letter Code (ISO 639-1)</th><th>3-Letter Code (ISO 639-2)</th><th>Example Filename</th></tr></thead><tbody><tr><td><strong>English</strong></td><td><code>en</code></td><td><code>eng</code></td><td><code>Movie.en.srt</code></td></tr><tr><td><strong>Spanish</strong></td><td><code>es</code></td><td><code>spa</code></td><td><code>Movie.es.srt</code></td></tr><tr><td><strong>French</strong></td><td><code>fr</code></td><td><code>fre</code> / <code>fra</code></td><td><code>Movie.fr.srt</code></td></tr><tr><td><strong>German</strong></td><td><code>de</code></td><td><code>ger</code> / <code>deu</code></td><td><code>Movie.de.srt</code></td></tr><tr><td><strong>Italian</strong></td><td><code>it</code></td><td><code>ita</code></td><td><code>Movie.it.srt</code></td></tr><tr><td><strong>Portuguese</strong></td><td><code>pt</code></td><td><code>por</code></td><td><code>Movie.pt.srt</code></td></tr><tr><td><strong>Dutch</strong></td><td><code>nl</code></td><td><code>dut</code> / <code>nld</code></td><td><code>Movie.nl.srt</code></td></tr><tr><td><strong>Russian</strong></td><td><code>ru</code></td><td><code>rus</code></td><td><code>Movie.ru.srt</code></td></tr><tr><td><strong>Japanese</strong></td><td><code>ja</code></td><td><code>jpn</code></td><td><code>Movie.ja.srt</code></td></tr><tr><td><strong>Korean</strong></td><td><code>ko</code></td><td><code>kor</code></td><td><code>Movie.ko.srt</code></td></tr><tr><td><strong>Chinese</strong></td><td><code>zh</code></td><td><code>chi</code> / <code>zho</code></td><td><code>Movie.zh.srt</code></td></tr><tr><td><strong>Hindi</strong></td><td><code>hi</code></td><td><code>hin</code></td><td><code>Movie.hi.srt</code></td></tr></tbody></table>
+<hr style="margin: 2rem 0; border: none; border-top: 1px solid var(--border-color);" />
+<h2>How to Name Forced Subtitles in Plex</h2>
+<p><strong>Forced subtitles</strong> are used when only non-English dialogue, foreign accents, alien languages (like Elvish or Klingon), or critical on-screen graphics need translation during an otherwise English-language film.</p>
+<p>To designate an external subtitle as forced, include the <code>forced</code> tag:</p>
+<pre><code>Movie Name (2026).en.forced.srt</code></pre>
+<p>or:</p>
+<pre><code>Movie Name (2026).forced.en.srt</code></pre>
+<p>When your Plex Account settings are configured to <em>Shown with foreign audio</em>, Plex will automatically enable this forced track when dialogue in foreign languages is detected.</p>
+<hr style="margin: 2rem 0; border: none; border-top: 1px solid var(--border-color);" />
+<h2>How to Name SDH (Hearing-Impaired) Subtitles</h2>
+<p><strong>SDH subtitles (Subtitles for the Deaf or Hard of Hearing)</strong> contain spoken dialogue plus descriptions of ambient audio cues, sound effects, and musical themes (e.g., <code>[door creaks]</code>, <code>[dramatic orchestral music]</code>).</p>
+<p>To distinguish full SDH captions from standard dialogue-only subtitles, add the <code>sdh</code> or <code>cc</code> tag:</p>
+<pre><code>Movie Name (2026).en.sdh.srt</code></pre>
+<p>This lets viewers choose between pure dialogue captions and full accessibility subtitles.</p>
+<hr style="margin: 2rem 0; border: none; border-top: 1px solid var(--border-color);" />
+<h2>Naming Multiple Subtitle Versions for a Single Movie</h2>
+<p>If you store multiple variations of English subtitles for the same video, combine language and modifier tags:</p>
+<pre><code>The Matrix (1999).en.srt          (Standard Dialogue)
+The Matrix (1999).en.forced.srt   (Foreign Scenes Only)
+The Matrix (1999).en.sdh.srt      (Full Deaf / Hard of Hearing)</code></pre>
+<p>Keeping a consistent naming convention makes your media library tidy, automated, and easy to maintain across multiple client devices.</p>
+<hr style="margin: 2rem 0; border: none; border-top: 1px solid var(--border-color);" />
+<h2>Common Plex Subtitle Naming Mistakes to Avoid</h2>
+<ol><li><strong>Using Unrelated or Generic Names</strong>:</li><li>   <pre><code># BAD (Plex will not match):
+   Movie (2026).mkv
+   english_subs_final_v2.srt
+
+   # GOOD:
+   Movie (2026).mkv
+   Movie (2026).en.srt</code></pre></li><li><strong>Hidden <code>.txt</code> Extensions on Windows/Mac</strong>:</li><li>   Files saved as <code>Movie.en.srt.txt</code> will not be recognized. Always ensure the true extension is strictly <code>.srt</code>.</li><li><strong>Renaming <code>.srt</code> to <code>.vtt</code> Without Converting</strong>:</li><li>   Simply renaming a file extension does not transform its internal data. If you need WebVTT files, use our dedicated <a href="/srt-to-vtt/">SRT to VTT Converter</a>. Read <a href="/blog/can-you-convert-srt-to-vtt-by-renaming/">Can You Convert SRT to VTT by Renaming?</a> to learn why manual renaming fails.</li><li><strong>Mismatched TV Episode Numbers</strong>:</li><li>   In TV show libraries, ensure the episode token matches exactly:</li><li>   <pre><code># BAD (Subtitle mismatched to wrong episode):
+   Show Name - S01E01.mkv
+   Show Name - S01E02.en.srt
+
+   # GOOD:
+   Show Name - S01E01.mkv
+   Show Name - S01E01.en.srt</code></pre></li></ol>
+<hr style="margin: 2rem 0; border: none; border-top: 1px solid var(--border-color);" />
+<h2>What to Do If Plex Still Doesn't Recognize Your SRT</h2>
+<p>If you have named your file correctly and it still fails to appear in the Plex menu, work through these diagnostic steps:</p>
+<ol><li><strong>Scan Library Files</strong>: In Plex, click the three dots (<strong>...</strong>) next to your library $\rightarrow$ select <strong>Scan Library Files</strong>.</li><li><strong>Inspect Subtitle Syntax</strong>: Open the SRT in a text editor. Confirm that it has cue numbers, valid comma-delimited timestamps (<code>00:01:20,000</code>), and non-empty text. If you suspect formatting errors, check our guide on <a href="/blog/why-is-my-srt-file-not-working/">10 Common SRT Errors and How to Fix Them</a>.</li><li><strong>Check UTF-8 Encoding</strong>: If text appears as garbled symbols or question marks, re-save the file in <strong>UTF-8</strong> format. See our guide on <a href="/blog/how-to-fix-srt-subtitle-encoding-problems/">Fixing SRT Character Encoding Problems</a>.</li><li><strong>Check File Permissions</strong>: If you run Plex on Linux, Docker, Synology, or Unraid, confirm that the <code>plex</code> user has read permissions (<code>644</code>) on the <code>.srt</code> file.</li><li><strong>Detailed Troubleshooting</strong>: Read our comprehensive guide on <a href="/blog/why-are-my-srt-subtitles-not-showing-in-plex/">Why Are My SRT Subtitles Not Showing in Plex?</a> for 15 in-depth solutions.</li></ol>
+<hr style="margin: 2rem 0; border: none; border-top: 1px solid var(--border-color);" />
+<h2>What If Plex Shows the Subtitle but Timing Is Out of Sync?</h2>
+<p>A correctly named SRT file guarantees that Plex detects the subtitle track, but it does <strong>not</strong> guarantee that the timestamps match your specific video cut.</p>
+<ul><li>If subtitles are consistently early or late by a fixed duration, apply a global millisecond shift.</li><li>If subtitles start aligned but drift further apart over time, the subtitle has a framerate mismatch (e.g., 25 fps vs 23.976 fps).</li></ul>
+<p>Learn how to fix timing problems in our guide on <a href="/blog/how-to-fix-srt-subtitles-out-of-sync/">How to Fix SRT Subtitles That Are Out of Sync With a Video</a>.</p>
+<hr style="margin: 2rem 0; border: none; border-top: 1px solid var(--border-color);" />
+<h2>Plex SRT Naming Cheat Sheet</h2>
+<pre><code>flowchart TD
+    A[Name Your Video &amp; Subtitle] --&gt; B[Movie: Movie Name (Year).mkv]
+    A --&gt; C[TV: Show - S01E01.mkv]
+    B --&gt; D[Base Subtitle: Movie Name (Year).srt]
+    B --&gt; E[Language Tag: Movie Name (Year).en.srt]
+    B --&gt; F[Forced Tag: Movie Name (Year).en.forced.srt]
+    B --&gt; G[SDH Tag: Movie Name (Year).en.sdh.srt]
+    C --&gt; H[Episode Subtitle: Show - S01E01.en.srt]</code></pre>
+<table><thead><tr><th>Media Type</th><th>Video Filename</th><th>Matching Subtitle Filename</th></tr></thead><tbody><tr><td><strong>Movie (Basic)</strong></td><td><code>Interstellar (2014).mkv</code></td><td><code>Interstellar (2014).srt</code></td></tr><tr><td><strong>Movie (English)</strong></td><td><code>Interstellar (2014).mkv</code></td><td><code>Interstellar (2014).en.srt</code></td></tr><tr><td><strong>Movie (Spanish)</strong></td><td><code>Interstellar (2014).mkv</code></td><td><code>Interstellar (2014).es.srt</code></td></tr><tr><td><strong>Movie (Forced)</strong></td><td><code>Avatar (2009).mkv</code></td><td><code>Avatar (2009).en.forced.srt</code></td></tr><tr><td><strong>Movie (SDH)</strong></td><td><code>Inception (2010).mkv</code></td><td><code>Inception (2010).en.sdh.srt</code></td></tr><tr><td><strong>TV Episode</strong></td><td><code>Chernobyl - S01E01.mkv</code></td><td><code>Chernobyl - S01E01.en.srt</code></td></tr><tr><td><strong>TV Episode (Forced)</strong></td><td><code>Game of Thrones - S01E01.mkv</code></td><td><code>Game of Thrones - S01E01.en.forced.srt</code></td></tr></tbody></table>
+<hr style="margin: 2rem 0; border: none; border-top: 1px solid var(--border-color);" />
+<h2>Frequently Asked Questions</h2>
+<h3>What should I name my SRT file for Plex?</h3>
+<p>The simplest approach is to give the SRT the same base filename as the video file and keep the <code>.srt</code> extension. For example: <code>The Matrix (1999).mkv</code> and <code>The Matrix (1999).srt</code>.</p>
+<h3>Can I add .en to my Plex SRT filename?</h3>
+<p>Yes. Adding a two-letter or three-letter ISO 639 language code (e.g., <code>Movie (2026).en.srt</code> or <code>Movie (2026).eng.srt</code>) tells Plex the subtitle is in English, which enables automatic language matching and clean labeling in the Plex interface.</p>
+<h3>Where should I put an SRT file for Plex?</h3>
+<p>External SRT subtitle files should be placed in the exact same directory alongside the movie or TV episode video file.</p>
+<h3>Why isn't Plex recognizing my SRT file?</h3>
+<p>Check that the base filename matches the video file character-for-character, verify that the file extension is not accidentally saved as <code>.srt.txt</code>, check Linux/NAS file read permissions, ensure the SRT has valid syntax, and run a <strong>Scan Library Files</strong> refresh in Plex.</p>
+<h3>Does Plex automatically select external SRT subtitles?</h3>
+<p>Whether Plex automatically turns on subtitles depends on your Plex Account Audio & Subtitle settings (such as <em>Always enabled</em> or <em>Shown with foreign audio</em>). Even if a correctly named subtitle is detected, playback preferences control automatic display.</p>
+<h3>How do I name forced subtitles for Plex?</h3>
+<p>Use the <code>.forced</code> tag between the language code and the extension, such as <code>Movie (2026).en.forced.srt</code> or <code>Movie (2026).forced.en.srt</code>. This designates the track for scenes with foreign dialogue only.</p>
+<h3>Can I use the same generic SRT filename for different movies?</h3>
+<p>No. Every external subtitle must uniquely match the base filename of its corresponding video. Generic names like <code>subtitles.srt</code> in a shared directory will cause detection errors and improper track associations.</p>
+<h3>Will renaming an SRT file fix subtitle synchronization?</h3>
+<p>No. Renaming the file helps Plex detect which video it belongs to, but it does not alter internal timestamps. If subtitles lag or lead the audio, you must apply a millisecond time shift or framerate resync.</p>
+<h3>Does changing .srt to .vtt convert the subtitle?</h3>
+<p>No. Renaming an SRT file to <code>.vtt</code> only changes the file extension on your operating system without converting the internal syntax (such as commas to periods or adding the WEBVTT header). Always use our <a href="/srt-to-vtt/">SRT to VTT Converter</a> for clean conversions.</p>
+<hr style="margin: 2rem 0; border: none; border-top: 1px solid var(--border-color);" />
+<h2>Final Thoughts</h2>
+<p>Naming your SRT subtitle files correctly is the single most effective way to ensure seamless subtitle playback across all your Plex clients.</p>
+<p>By keeping your subtitle files in the same folder as your video files and adopting the standard <code>Title (Year).language.modifier.srt</code> naming structure, Plex will detect, categorize, and serve your subtitle tracks automatically without manual intervention.</p>
+<p>Explore our full range of free subtitle formatting and conversion utilities in the <a href="/tools/">SRTConverters Tool Suite</a> to prepare clean, compatible subtitle files for all your media players.</p></div></article></main><footer class="site-footer"><div class="container"><div class="footer-main"><!-- Brand & Privacy Column --><div class="footer-brand-col"><a href="/" class="brand-logo"><div class="brand-icon">SRT</div><div class="brand-text">SRT<span class="brand-highlight">Converters</span></div></a><p>SRTConverters.com offers fast, free, and private browser-based subtitle conversion tools. All files are processed locally on your device.</p><div class="badge badge-success"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg><span>100% Private &amp; Client-Side</span></div></div><!-- Links Groups (Tools, Navigation, Legal) --><div class="footer-links-group"><!-- Tools Column --><div class="footer-col"><div class="footer-col-title">Subtitle Tools</div><ul class="footer-links"><li><a href="/txt-to-srt/">TXT to SRT Converter</a></li><li><a href="/srt-to-text/">SRT to Text Converter</a></li><li><a href="/srt-to-vtt/">SRT to VTT Converter</a></li><li><a href="/vtt-to-srt/">VTT to SRT Converter</a></li><li><a href="/tools/">All Subtitle &amp; SRT Conversion Tools</a></li></ul></div><!-- Quick Links Column --><div class="footer-col"><div class="footer-col-title">Quick Links</div><ul class="footer-links"><li><a href="/">Home</a></li><li><a href="/tools/">Tools</a></li><li><a href="/blog/">Blog</a></li></ul></div><!-- Legal & Trust Column --><div class="footer-col"><div class="footer-col-title">Legal &amp; Privacy</div><ul class="footer-links"><li><a href="/about/">About</a></li><li><a href="/privacy-policy/">Privacy Policy</a></li><li><a href="/terms-of-service/">Terms of Service</a></li><li><a href="/contact/">Contact</a></li></ul></div></div></div><!-- Bottom Strip --><div class="footer-bottom"><div>© 2026 SRTConverters.com. All rights reserved.</div><div style="display: flex; align-items: center; justify-content: center; gap: 0.5rem;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg><span>Files never leave your browser</span></div></div></div></footer></body></html>

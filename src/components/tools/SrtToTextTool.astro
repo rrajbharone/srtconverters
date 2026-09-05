@@ -1,0 +1,276 @@
+﻿---
+import type { Locale } from '@/i18n/config';
+import { getToolsContent, getUiStrings } from '@/i18n/utils';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const ui = getUiStrings(locale);
+const tools = getToolsContent(locale);
+const t = tools.srtToText;
+---
+
+<div class="tool-workspace" id="srt-to-text-app">
+  <div class="privacy-banner">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+      <path d="M9 12l2 2 4-4"></path>
+    </svg>
+    <span><strong>{ui.privacyNotice.title}:</strong> {ui.privacyNotice.description}</span>
+  </div>
+
+  <div class="tool-grid">
+    <!-- Left Pane: Input SRT -->
+    <div class="tool-pane">
+      <div class="pane-header">
+        <span class="pane-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+          </svg>
+          SRT Input (.srt)
+        </span>
+        <div class="pane-actions">
+          <button type="button" class="btn btn-outline btn-sm" id="btn-load-srt-sample">
+            {ui.common.loadSample}
+          </button>
+          <button type="button" class="btn btn-outline btn-sm" id="btn-clear-srt-input">
+            {ui.common.clear}
+          </button>
+        </div>
+      </div>
+
+      <div class="dropzone-container" id="srt-dropzone">
+        <textarea
+          id="srt-input-text"
+          class="tool-textarea"
+          placeholder="1&#10;00:00:01,000 --> 00:00:04,000&#10;Paste your SRT subtitle file content here..."
+          spellcheck="false"
+        ></textarea>
+        
+        <div class="dropzone-overlay">
+          <span>{ui.common.dragAndDrop}</span>
+          <label for="srt-file-upload" class="btn btn-secondary btn-sm" style="margin: 0; cursor: pointer;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="17 8 12 3 7 8"></polyline>
+              <line x1="12" y1="3" x2="12" y2="15"></line>
+            </svg>
+            <span>{ui.common.browseFiles}</span>
+          </label>
+          <input type="file" id="srt-file-upload" class="file-input-hidden" accept=".srt,text/plain" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Pane: Extracted Clean Plain Text -->
+    <div class="tool-pane">
+      <div class="pane-header">
+        <span class="pane-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="4 17 10 11 4 5"></polyline>
+            <line x1="12" y1="19" x2="20" y2="19"></line>
+          </svg>
+          Clean Plain Text (.txt)
+        </span>
+        <div class="pane-actions">
+          <button type="button" class="btn btn-outline btn-sm" id="btn-copy-text" disabled>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+            <span id="copy-text-btn-text">{ui.common.copy}</span>
+          </button>
+          <button type="button" class="btn btn-primary btn-sm" id="btn-download-text" disabled>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            <span>{ui.common.download.replace('.SRT', '.TXT')}</span>
+          </button>
+        </div>
+      </div>
+
+      <textarea
+        id="clean-text-output"
+        class="tool-textarea"
+        readonly
+        placeholder="Clean extracted text will appear here..."
+      ></textarea>
+    </div>
+  </div>
+
+  <!-- Settings Panel -->
+  <div class="settings-panel">
+    <div class="settings-panel-title">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="3"></circle>
+        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+      </svg>
+      {ui.common.settings}
+    </div>
+
+    <div class="settings-grid">
+      <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; font-size: 0.875rem; color: var(--text-primary);">
+        <input type="checkbox" id="check-strip-timestamps" checked />
+        <span>{t.settingsLabels.stripTimestamps}</span>
+      </label>
+      <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; font-size: 0.875rem; color: var(--text-primary);">
+        <input type="checkbox" id="check-strip-numbers" checked />
+        <span>{t.settingsLabels.stripLineNumbers}</span>
+      </label>
+      <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; font-size: 0.875rem; color: var(--text-primary);">
+        <input type="checkbox" id="check-join-paragraphs" />
+        <span>{t.settingsLabels.joinParagraphs}</span>
+      </label>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { convertSrtToText } from '@/lib/srt-to-text';
+
+  function initSrtToText() {
+    const srtInput = document.getElementById('srt-input-text') as HTMLTextAreaElement;
+    const textOutput = document.getElementById('clean-text-output') as HTMLTextAreaElement;
+    const checkTimestamps = document.getElementById('check-strip-timestamps') as HTMLInputElement;
+    const checkNumbers = document.getElementById('check-strip-numbers') as HTMLInputElement;
+    const checkParagraphs = document.getElementById('check-join-paragraphs') as HTMLInputElement;
+    const btnSample = document.getElementById('btn-load-srt-sample');
+    const btnClear = document.getElementById('btn-clear-srt-input');
+    const btnCopy = document.getElementById('btn-copy-text') as HTMLButtonElement;
+    const btnDownload = document.getElementById('btn-download-text') as HTMLButtonElement;
+    const copyTextBtn = document.getElementById('copy-text-btn-text');
+    const fileUpload = document.getElementById('srt-file-upload') as HTMLInputElement;
+    const dropzone = document.getElementById('srt-dropzone');
+
+    const sampleSrt = `1\n00:00:01,000 --> 00:00:04,200\nWelcome to our video tutorial!\n\n2\n00:00:04,300 --> 00:00:08,100\nToday we will learn how to extract clean plain text from subtitle files.\n\n3\n00:00:08,200 --> 00:00:11,500\nThis is useful for blogs, transcripts, and study notes.`;
+
+    function processSrtToText() {
+      if (!srtInput || !textOutput) return;
+      const raw = srtInput.value.trim();
+      if (!raw) {
+        textOutput.value = '';
+        if (btnCopy) btnCopy.disabled = true;
+        if (btnDownload) btnDownload.disabled = true;
+        return;
+      }
+
+      const clean = convertSrtToText(raw, {
+        stripTimestamps: checkTimestamps?.checked ?? true,
+        stripLineNumbers: checkNumbers?.checked ?? true,
+        joinParagraphs: checkParagraphs?.checked ?? false,
+      });
+
+      textOutput.value = clean;
+      if (btnCopy) btnCopy.disabled = !clean;
+      if (btnDownload) btnDownload.disabled = !clean;
+    }
+
+    srtInput?.addEventListener('input', processSrtToText);
+    checkTimestamps?.addEventListener('change', processSrtToText);
+    checkNumbers?.addEventListener('change', processSrtToText);
+    checkParagraphs?.addEventListener('change', processSrtToText);
+
+    btnSample?.addEventListener('click', () => {
+      if (srtInput) {
+        srtInput.value = sampleSrt;
+        processSrtToText();
+      }
+    });
+
+    btnClear?.addEventListener('click', () => {
+      if (srtInput) srtInput.value = '';
+      processSrtToText();
+    });
+
+    fileUpload?.addEventListener('change', (e) => {
+      const target = e.target as HTMLInputElement;
+      const file = target.files?.[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (evt) => {
+          if (srtInput && typeof evt.target?.result === 'string') {
+            srtInput.value = evt.target.result;
+            processSrtToText();
+          }
+        };
+        reader.readAsText(file);
+      }
+    });
+
+    if (dropzone) {
+      ['dragenter', 'dragover'].forEach((eventName) => {
+        dropzone.addEventListener(eventName, (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          dropzone.classList.add('dragover');
+        });
+      });
+
+      ['dragleave', 'drop'].forEach((eventName) => {
+        dropzone.addEventListener(eventName, (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          dropzone.classList.remove('dragover');
+        });
+      });
+
+      dropzone.addEventListener('drop', (e: DragEvent) => {
+        const files = e.dataTransfer?.files;
+        if (files && files.length > 0) {
+          const reader = new FileReader();
+          reader.onload = (evt) => {
+            if (srtInput && typeof evt.target?.result === 'string') {
+              srtInput.value = evt.target.result;
+              processSrtToText();
+            }
+          };
+          reader.readAsText(files[0]);
+        }
+      });
+    }
+
+    btnCopy?.addEventListener('click', async () => {
+      if (!textOutput?.value) return;
+      try {
+        await navigator.clipboard.writeText(textOutput.value);
+        if (copyTextBtn) {
+          const orig = copyTextBtn.innerText;
+          copyTextBtn.innerText = 'Copied!';
+          setTimeout(() => (copyTextBtn.innerText = orig), 2000);
+        }
+      } catch (err) {
+        console.error('Copy failed', err);
+      }
+    });
+
+    btnDownload?.addEventListener('click', () => {
+      if (!textOutput?.value) return;
+      const blob = new Blob([textOutput.value], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'transcript.txt';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    });
+
+    // Load sample initially
+    if (srtInput && !srtInput.value.trim()) {
+      srtInput.value = sampleSrt;
+      processSrtToText();
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initSrtToText);
+  } else {
+    initSrtToText();
+  }
+</script>

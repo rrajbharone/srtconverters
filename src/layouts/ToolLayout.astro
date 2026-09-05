@@ -1,0 +1,144 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Breadcrumbs from '@/components/common/Breadcrumbs.astro';
+import RelatedTools from '@/components/tools/RelatedTools.astro';
+import TxtToSrtGuide from '@/components/tools/TxtToSrtGuide.astro';
+import SrtToTextGuide from '@/components/tools/SrtToTextGuide.astro';
+import SrtToVttGuide from '@/components/tools/SrtToVttGuide.astro';
+import VttToSrtGuide from '@/components/tools/VttToSrtGuide.astro';
+import type { Locale } from '@/i18n/config';
+import { type RouteId, getRoutePath } from '@/i18n/routes';
+import { getToolsContent, getUiStrings, type ToolDetail } from '@/i18n/utils';
+
+interface Props {
+  locale: Locale;
+  routeId: RouteId;
+  tool: ToolDetail;
+}
+
+const { locale, routeId, tool } = Astro.props;
+const ui = getUiStrings(locale);
+const tools = getToolsContent(locale);
+
+const homeUrl = getRoutePath('home', locale);
+const toolsUrl = getRoutePath('tools', locale);
+const currentUrl = getRoutePath(routeId, locale);
+
+const breadcrumbItems = [
+  { label: ui.nav.home, url: homeUrl },
+  { label: ui.nav.tools, url: toolsUrl },
+  { label: tool.name, url: currentUrl },
+];
+---
+
+<BaseLayout
+  title={tool.metaTitle}
+  description={tool.metaDescription}
+  locale={locale}
+  routeId={routeId}
+  jsonLdType="webApplication"
+  toolData={{
+    name: tool.name,
+    description: tool.metaDescription,
+    applicationCategory: 'MultimediaApplication',
+  }}
+  breadcrumbs={breadcrumbItems}
+  faqs={tool.faqs}
+>
+  <div class="container" style="padding-top: 1.5rem;">
+    <Breadcrumbs items={breadcrumbItems} />
+
+    <!-- Hero Title & Tagline -->
+    <section class="hero-section">
+      <div class="hero-badges">
+        <span class="badge badge-success">{tool.badge}</span>
+        <span class="badge">{ui.footer.privacyBadge}</span>
+      </div>
+      <h1 class="hero-title">{tool.h1}</h1>
+      <p class="hero-subtitle">{tool.tagline}</p>
+    </section>
+
+    <!-- Tool App Slot -->
+    <slot />
+
+    <!-- How-To Guide Steps -->
+    {routeId !== 'txt-to-srt' && routeId !== 'srt-to-text' && routeId !== 'srt-to-vtt' && routeId !== 'vtt-to-srt' && tool.steps && tool.steps.length > 0 && (
+      <section class="info-section">
+        <div class="section-heading">
+          <h2 class="section-title">{tool.stepsTitle}</h2>
+        </div>
+        <div class="steps-grid">
+          {tool.steps.map((s) => (
+            <div class="step-card">
+              <div class="step-number">{s.step}</div>
+              <h3 class="step-title">{s.title}</h3>
+              <p class="step-desc">{s.description}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- Key Features -->
+    {routeId !== 'txt-to-srt' && routeId !== 'srt-to-text' && routeId !== 'srt-to-vtt' && routeId !== 'vtt-to-srt' && tool.features && tool.features.length > 0 && (
+      <section class="info-section">
+        <div class="section-heading">
+          <h2 class="section-title">{tool.featuresTitle}</h2>
+        </div>
+        <div class="features-grid">
+          {tool.features.map((f) => (
+            <div class="feature-card">
+              <div class="feature-icon-wrapper">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                </svg>
+              </div>
+              <h3 class="feature-title">{f.title}</h3>
+              <p class="feature-desc">{f.description}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- Long-Form SEO & Practical Guide for TXT to SRT -->
+    {routeId === 'txt-to-srt' && (
+      <TxtToSrtGuide locale={locale} />
+    )}
+
+    <!-- Long-Form SEO & Practical Guide for SRT to TXT -->
+    {routeId === 'srt-to-text' && (
+      <SrtToTextGuide locale={locale} />
+    )}
+
+    <!-- Long-Form SEO & Practical Guide for SRT to VTT -->
+    {routeId === 'srt-to-vtt' && (
+      <SrtToVttGuide locale={locale} />
+    )}
+
+    <!-- Long-Form SEO & Practical Guide for VTT to SRT -->
+    {routeId === 'vtt-to-srt' && (
+      <VttToSrtGuide locale={locale} />
+    )}
+
+    <!-- FAQs -->
+    {tool.faqs && tool.faqs.length > 0 && (
+      <section class="info-section">
+        <div class="section-heading">
+          <h2 class="section-title">{tool.faqsTitle}</h2>
+        </div>
+        <div class="faqs-container">
+          {tool.faqs.map((faq) => (
+            <div class="faq-item">
+              <h3 class="faq-question">{faq.question}</h3>
+              <p class="faq-answer">{faq.answer}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- Related Tools Directory Links -->
+    <RelatedTools locale={locale} currentRouteId={routeId} />
+  </div>
+</BaseLayout>

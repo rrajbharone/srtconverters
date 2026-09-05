@@ -1,0 +1,224 @@
+﻿---
+import type { Locale } from '@/i18n/config';
+import { getToolsContent, getUiStrings } from '@/i18n/utils';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const ui = getUiStrings(locale);
+const tools = getToolsContent(locale);
+const t = tools.vttToSrt;
+---
+
+<div class="tool-workspace" id="vtt-to-srt-app">
+  <div class="privacy-banner">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+      <path d="M9 12l2 2 4-4"></path>
+    </svg>
+    <span><strong>{ui.privacyNotice.title}:</strong> {ui.privacyNotice.description}</span>
+  </div>
+
+  <div class="tool-grid">
+    <div class="tool-pane">
+      <div class="pane-header">
+        <span class="pane-title">WebVTT Input (.vtt)</span>
+        <div class="pane-actions">
+          <button type="button" class="btn btn-outline btn-sm" id="btn-load-vttsrt-sample">
+            {ui.common.loadSample}
+          </button>
+          <button type="button" class="btn btn-outline btn-sm" id="btn-clear-vttsrt-input">
+            {ui.common.clear}
+          </button>
+        </div>
+      </div>
+
+      <div class="dropzone-container" id="vttsrt-dropzone">
+        <textarea
+          id="vttsrt-input"
+          class="tool-textarea"
+          placeholder="WEBVTT&#10;&#10;00:00:01.000 --> 00:00:04.000&#10;Paste WebVTT subtitle text here..."
+          spellcheck="false"
+        ></textarea>
+        
+        <div class="dropzone-overlay">
+          <span>{ui.common.dragAndDrop}</span>
+          <label for="vttsrt-file-upload" class="btn btn-secondary btn-sm" style="margin: 0; cursor: pointer;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="17 8 12 3 7 8"></polyline>
+              <line x1="12" y1="3" x2="12" y2="15"></line>
+            </svg>
+            <span>{ui.common.browseFiles}</span>
+          </label>
+          <input type="file" id="vttsrt-file-upload" class="file-input-hidden" accept=".vtt,text/plain" />
+        </div>
+      </div>
+    </div>
+
+    <div class="tool-pane">
+      <div class="pane-header">
+        <span class="pane-title">SubRip SRT Output (.srt)</span>
+        <div class="pane-actions">
+          <button type="button" class="btn btn-outline btn-sm" id="btn-copy-vttsrt" disabled>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+            <span id="copy-vttsrt-btn-text">{ui.common.copy}</span>
+          </button>
+          <button type="button" class="btn btn-primary btn-sm" id="btn-download-vttsrt" disabled>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            <span>{ui.common.download}</span>
+          </button>
+        </div>
+      </div>
+
+      <textarea
+        id="vttsrt-output"
+        class="tool-textarea"
+        readonly
+        placeholder="1&#10;00:00:01,000 --> 00:00:04,000&#10;Converted SRT subtitles will appear here..."
+      ></textarea>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { convertVttToSrt } from '@/lib/vtt-converters';
+
+  function initVttToSrt() {
+    const vttInput = document.getElementById('vttsrt-input') as HTMLTextAreaElement;
+    const srtOutput = document.getElementById('vttsrt-output') as HTMLTextAreaElement;
+    const btnSample = document.getElementById('btn-load-vttsrt-sample');
+    const btnClear = document.getElementById('btn-clear-vttsrt-input');
+    const btnCopy = document.getElementById('btn-copy-vttsrt') as HTMLButtonElement;
+    const btnDownload = document.getElementById('btn-download-vttsrt') as HTMLButtonElement;
+    const copyBtnText = document.getElementById('copy-vttsrt-btn-text');
+    const fileUpload = document.getElementById('vttsrt-file-upload') as HTMLInputElement;
+    const dropzone = document.getElementById('vttsrt-dropzone');
+
+    const sampleVtt = `WEBVTT\n\n00:00:01.000 --> 00:00:04.500\nWelcome to standard SubRip (.SRT) conversion.\n\n00:00:04.600 --> 00:00:08.200\nConvert WebVTT subtitles back to SRT format cleanly.`;
+
+    function processVttToSrt() {
+      if (!vttInput || !srtOutput) return;
+      const raw = vttInput.value.trim();
+      if (!raw) {
+        srtOutput.value = '';
+        if (btnCopy) btnCopy.disabled = true;
+        if (btnDownload) btnDownload.disabled = true;
+        return;
+      }
+
+      const srt = convertVttToSrt(raw);
+      srtOutput.value = srt;
+      if (btnCopy) btnCopy.disabled = !srt;
+      if (btnDownload) btnDownload.disabled = !srt;
+    }
+
+    vttInput?.addEventListener('input', processVttToSrt);
+    btnSample?.addEventListener('click', () => {
+      if (vttInput) {
+        vttInput.value = sampleVtt;
+        processVttToSrt();
+      }
+    });
+    btnClear?.addEventListener('click', () => {
+      if (vttInput) {
+        vttInput.value = '';
+        processVttToSrt();
+      }
+    });
+
+    fileUpload?.addEventListener('change', (e) => {
+      const target = e.target as HTMLInputElement;
+      const file = target.files?.[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (evt) => {
+          if (vttInput && typeof evt.target?.result === 'string') {
+            vttInput.value = evt.target.result;
+            processVttToSrt();
+          }
+        };
+        reader.readAsText(file);
+      }
+    });
+
+    if (dropzone) {
+      ['dragenter', 'dragover'].forEach((eventName) => {
+        dropzone.addEventListener(eventName, (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          dropzone.classList.add('dragover');
+        });
+      });
+
+      ['dragleave', 'drop'].forEach((eventName) => {
+        dropzone.addEventListener(eventName, (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          dropzone.classList.remove('dragover');
+        });
+      });
+
+      dropzone.addEventListener('drop', (e: DragEvent) => {
+        const files = e.dataTransfer?.files;
+        if (files && files.length > 0) {
+          const reader = new FileReader();
+          reader.onload = (evt) => {
+            if (vttInput && typeof evt.target?.result === 'string') {
+              vttInput.value = evt.target.result;
+              processVttToSrt();
+            }
+          };
+          reader.readAsText(files[0]);
+        }
+      });
+    }
+
+    btnCopy?.addEventListener('click', async () => {
+      if (!srtOutput?.value) return;
+      try {
+        await navigator.clipboard.writeText(srtOutput.value);
+        if (copyBtnText) {
+          const orig = copyBtnText.innerText;
+          copyBtnText.innerText = 'Copied!';
+          setTimeout(() => (copyBtnText.innerText = orig), 2000);
+        }
+      } catch (err) {
+        console.error('Copy failed', err);
+      }
+    });
+
+    btnDownload?.addEventListener('click', () => {
+      if (!srtOutput?.value) return;
+      const blob = new Blob([srtOutput.value], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'subtitles.srt';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    });
+
+    if (vttInput && !vttInput.value.trim()) {
+      vttInput.value = sampleVtt;
+      processVttToSrt();
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initVttToSrt);
+  } else {
+    initVttToSrt();
+  }
+</script>

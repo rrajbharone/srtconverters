@@ -1,0 +1,280 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import ToolLayout from '@/layouts/ToolLayout.astro';
+import Breadcrumbs from '@/components/common/Breadcrumbs.astro';
+import TxtToSrtTool from '@/components/tools/TxtToSrtTool.astro';
+import SrtToTextTool from '@/components/tools/SrtToTextTool.astro';
+import SrtToVttTool from '@/components/tools/SrtToVttTool.astro';
+import VttToSrtTool from '@/components/tools/VttToSrtTool.astro';
+import ToolCard from '@/components/tools/ToolCard.astro';
+import { ROUTES, type RouteId, getRoutePath } from '@/i18n/routes';
+import { type Locale } from '@/i18n/config';
+import { getToolsContent, getUiStrings, getPageSeo } from '@/i18n/utils';
+
+export async function getStaticPaths() {
+  const paths = [];
+
+  for (const [routeId, locMap] of Object.entries(ROUTES)) {
+    for (const [locale, rawPath] of Object.entries(locMap)) {
+      const cleanPath = rawPath.replace(/^\//, '').replace(/\/$/, '');
+      const slug = cleanPath === '' ? undefined : cleanPath;
+      paths.push({
+        params: { slug },
+        props: { routeId: routeId as RouteId, locale: locale as Locale },
+      });
+    }
+  }
+
+  return paths;
+}
+
+interface Props {
+  routeId: RouteId;
+  locale: Locale;
+}
+
+const { routeId, locale } = Astro.props;
+
+const ui = getUiStrings(locale);
+const tools = getToolsContent(locale);
+const seo = getPageSeo(routeId, locale);
+
+const homeUrl = getRoutePath('home', locale);
+const toolsUrl = getRoutePath('tools', locale);
+---
+
+{routeId === 'home' && (
+  <BaseLayout
+    title={seo.title}
+    description={seo.description}
+    locale={locale}
+    routeId={routeId}
+    jsonLdType="webApplication"
+    toolData={{
+      name: tools.txtToSrt.name,
+      description: seo.description,
+      applicationCategory: 'MultimediaApplication',
+    }}
+    faqs={tools.txtToSrt.faqs}
+  >
+    <div class="container" style="padding-top: 1.5rem;">
+      <section class="hero-section">
+        <div class="hero-badges">
+          <span class="badge badge-success">{tools.txtToSrt.badge}</span>
+          <span class="badge">{ui.footer.privacyBadge}</span>
+        </div>
+        <h1 class="hero-title">{tools.txtToSrt.h1}</h1>
+        <p class="hero-subtitle">{tools.txtToSrt.tagline}</p>
+      </section>
+
+      <!-- Primary Converter Tool on Homepage -->
+      <TxtToSrtTool locale={locale} />
+
+      <!-- Step-by-Step Instructions -->
+      {tools.txtToSrt.steps && (
+        <section class="info-section">
+          <div class="section-heading">
+            <h2 class="section-title">{tools.txtToSrt.stepsTitle}</h2>
+          </div>
+          <div class="steps-grid">
+            {tools.txtToSrt.steps.map((s) => (
+              <div class="step-card">
+                <div class="step-number">{s.step}</div>
+                <h3 class="step-title">{s.title}</h3>
+                <p class="step-desc">{s.description}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      <!-- Popular SRT Tools Section (Directly Below How-To Steps) -->
+      <section class="info-section">
+        <div class="section-heading">
+          <h2 class="section-title">{ui.common.popularTools}</h2>
+          <p class="section-subtitle">{ui.common.popularToolsSubtitle}</p>
+        </div>
+        <div class="tool-cards-grid">
+          <ToolCard
+            locale={locale}
+            routeId="srt-to-text"
+            name={tools.srtToText.name}
+            badge={tools.srtToText.badge}
+            description={tools.srtToText.description}
+          />
+          <ToolCard
+            locale={locale}
+            routeId="srt-to-vtt"
+            name={tools.srtToVtt.name}
+            badge={tools.srtToVtt.badge}
+            description={tools.srtToVtt.description}
+          />
+          <ToolCard
+            locale={locale}
+            routeId="vtt-to-srt"
+            name={tools.vttToSrt.name}
+            badge={tools.vttToSrt.badge}
+            description={tools.vttToSrt.description}
+          />
+        </div>
+      </section>
+
+      <!-- Key Features Section -->
+      {tools.txtToSrt.features && (
+        <section class="info-section">
+          <div class="section-heading">
+            <h2 class="section-title">{tools.txtToSrt.featuresTitle}</h2>
+          </div>
+          <div class="features-grid">
+            {tools.txtToSrt.features.map((f) => (
+              <div class="feature-card">
+                <div class="feature-icon">
+                  {f.icon === 'shield' && (
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                    </svg>
+                  )}
+                  {f.icon === 'split' && (
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <line x1="4" y1="6" x2="20" y2="6"></line>
+                      <line x1="4" y1="12" x2="14" y2="12"></line>
+                      <line x1="4" y1="18" x2="18" y2="18"></line>
+                    </svg>
+                  )}
+                  {f.icon === 'clock' && (
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <polyline points="12 6 12 12 16 14"></polyline>
+                    </svg>
+                  )}
+                  {f.icon === 'file' && (
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                      <polyline points="14 2 14 8 20 8"></polyline>
+                    </svg>
+                  )}
+                </div>
+                <h3 class="feature-title">{f.title}</h3>
+                <p class="feature-desc">{f.description}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      <!-- FAQ Accordion -->
+      {tools.txtToSrt.faqs && (
+        <section class="info-section">
+          <div class="section-heading">
+            <h2 class="section-title">{tools.txtToSrt.faqsTitle}</h2>
+          </div>
+          <div class="faq-list">
+            {tools.txtToSrt.faqs.map((faq) => (
+              <details class="faq-item">
+                <summary class="faq-question">
+                  <span>{faq.question}</span>
+                  <svg class="faq-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </summary>
+                <div class="faq-answer">
+                  <p>{faq.answer}</p>
+                </div>
+              </details>
+            ))}
+          </div>
+        </section>
+      )}
+    </div>
+  </BaseLayout>
+)}
+
+{routeId === 'txt-to-srt' && (
+  <ToolLayout locale={locale} routeId={routeId} tool={tools.txtToSrt}>
+    <TxtToSrtTool locale={locale} />
+  </ToolLayout>
+)}
+
+{routeId === 'srt-to-text' && (
+  <ToolLayout locale={locale} routeId={routeId} tool={tools.srtToText}>
+    <SrtToTextTool locale={locale} />
+  </ToolLayout>
+)}
+
+{routeId === 'srt-to-vtt' && (
+  <ToolLayout locale={locale} routeId={routeId} tool={tools.srtToVtt}>
+    <SrtToVttTool locale={locale} />
+  </ToolLayout>
+)}
+
+{routeId === 'vtt-to-srt' && (
+  <ToolLayout locale={locale} routeId={routeId} tool={tools.vttToSrt}>
+    <VttToSrtTool locale={locale} />
+  </ToolLayout>
+)}
+
+{routeId === 'tools' && (
+  <BaseLayout
+    title={seo.title}
+    description={seo.description}
+    locale={locale}
+    routeId={routeId}
+    breadcrumbs={[
+      { label: ui.nav.home, url: homeUrl },
+      { label: ui.nav.tools, url: toolsUrl },
+    ]}
+  >
+    <div class="container" style="padding-top: 1.5rem;">
+      <Breadcrumbs
+        items={[
+          { label: ui.nav.home, url: homeUrl },
+          { label: ui.nav.tools, url: toolsUrl },
+        ]}
+      />
+
+      <section class="hero-section">
+        <div class="hero-badges">
+          <span class="badge badge-success">{tools.directory.clientSideBadge}</span>
+        </div>
+        <h1 class="hero-title">{tools.directory.title}</h1>
+        <p class="hero-subtitle">{tools.directory.subtitle}</p>
+      </section>
+
+      <section style="margin-bottom: 3.5rem;">
+        <h2 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 1.5rem; color: var(--text-primary);">
+          {tools.directory.convertersCategory}
+        </h2>
+        <div class="tool-cards-grid">
+          <ToolCard
+            locale={locale}
+            routeId="txt-to-srt"
+            name={tools.txtToSrt.name}
+            badge={tools.txtToSrt.badge}
+            description={tools.txtToSrt.description}
+          />
+          <ToolCard
+            locale={locale}
+            routeId="srt-to-text"
+            name={tools.srtToText.name}
+            badge={tools.srtToText.badge}
+            description={tools.srtToText.description}
+          />
+          <ToolCard
+            locale={locale}
+            routeId="srt-to-vtt"
+            name={tools.srtToVtt.name}
+            badge={tools.srtToVtt.badge}
+            description={tools.srtToVtt.description}
+          />
+          <ToolCard
+            locale={locale}
+            routeId="vtt-to-srt"
+            name={tools.vttToSrt.name}
+            badge={tools.vttToSrt.badge}
+            description={tools.vttToSrt.description}
+          />
+        </div>
+      </section>
+    </div>
+  </BaseLayout>
+)}

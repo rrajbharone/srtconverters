@@ -1,0 +1,16 @@
+---
+import BlogLayout from '@/layouts/BlogLayout.astro';
+import { getAllBlogPosts } from '@/data/blog';
+
+export async function getStaticPaths() {
+  const posts = getAllBlogPosts();
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { article: post },
+  }));
+}
+
+const { article } = Astro.props;
+---
+
+<BlogLayout article={article} />
