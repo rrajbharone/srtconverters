@@ -1,4 +1,4 @@
-﻿import { defineConfig } from 'astro/config';
+import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -14,7 +14,14 @@ export default defineConfig({
       prefixDefaultLocale: false,
     },
   },
+  build: {
+    inlineStylesheets: 'always',
+  },
   vite: {
+    build: {
+      target: 'es2022',
+      cssTarget: 'es2022',
+    },
     resolve: {
       alias: {
         '@': path.resolve(__dirname, './src'),

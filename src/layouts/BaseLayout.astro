@@ -85,5 +85,15 @@ const localeInfo = LOCALE_INFO[locale] || LOCALE_INFO[DEFAULT_LOCALE];
       <slot />
     </main>
     <Footer locale={locale} />
+
+    {/* Optional Cloudflare Web Analytics (loaded with defer right before closing body) */}
+    {import.meta.env.PUBLIC_CF_BEACON_TOKEN && (
+      <script
+        is:inline
+        defer
+        src="https://static.cloudflareinsights.com/beacon.min.js"
+        data-cf-beacon={JSON.stringify({ token: import.meta.env.PUBLIC_CF_BEACON_TOKEN })}
+      ></script>
+    )}
   </body>
 </html>
