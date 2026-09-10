@@ -6,6 +6,8 @@ export type RouteId =
   | 'srt-to-text'
   | 'srt-to-vtt'
   | 'vtt-to-srt'
+  | 'srt-to-ass'
+  | 'ass-to-srt'
   | 'tools';
 
 export const ROUTES: Record<RouteId, Record<Locale, string>> = {
@@ -58,6 +60,26 @@ export const ROUTES: Record<RouteId, Record<Locale, string>> = {
     id: '/id/konverter-vtt-ke-srt/',
     tr: '/tr/vtt-srt-donusturucu/',
     it: '/it/convertitore-da-vtt-a-srt/',
+  },
+  'srt-to-ass': {
+    en: '/srt-to-ass/',
+    es: '/es/convertidor-srt-a-ass/',
+    pt: '/pt/conversor-srt-para-ass/',
+    fr: '/fr/convertisseur-srt-en-ass/',
+    de: '/de/srt-in-ass-konverter/',
+    id: '/id/konverter-srt-ke-ass/',
+    tr: '/tr/srt-ass-donusturucu/',
+    it: '/it/convertitore-da-srt-a-ass/',
+  },
+  'ass-to-srt': {
+    en: '/ass-to-srt/',
+    es: '/es/convertidor-ass-a-srt/',
+    pt: '/pt/conversor-ass-para-srt/',
+    fr: '/fr/convertisseur-ass-en-srt/',
+    de: '/de/ass-in-srt-konverter/',
+    id: '/id/konverter-ass-ke-srt/',
+    tr: '/tr/ass-srt-donusturucu/',
+    it: '/it/convertitore-da-ass-a-srt/',
   },
   tools: {
     en: '/tools/',

@@ -1,0 +1,351 @@
+---
+import type { Locale } from '@/i18n/config';
+import { getToolsContent, getUiStrings } from '@/i18n/utils';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const ui = getUiStrings(locale);
+const tools = getToolsContent(locale);
+---
+
+<div class="tool-workspace" id="ass-to-srt-app">
+  <div class="privacy-banner">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+      <path d="M9 12l2 2 4-4"></path>
+    </svg>
+    <span><strong>{ui.privacyNotice.title}:</strong> {ui.privacyNotice.description}</span>
+  </div>
+
+  <div class="tool-grid">
+    <div class="tool-pane">
+      <div class="pane-header">
+        <span class="pane-title">ASS / SSA Input (.ass, .ssa)</span>
+        <div class="pane-actions">
+          <button type="button" class="btn btn-outline btn-sm" id="btn-load-ass-sample">
+            {ui.common.loadSample}
+          </button>
+          <button type="button" class="btn btn-outline btn-sm" id="btn-clear-ass-input">
+            {ui.common.clear}
+          </button>
+        </div>
+      </div>
+
+      <div class="dropzone-container" id="ass-dropzone">
+        <textarea
+          id="ass-input"
+          class="tool-textarea"
+          placeholder="[Events]&#10;Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text&#10;Dialogue: 0,0:00:01.00,0:00:04.00,Default,,0,0,0,,Paste ASS/SSA subtitles here..."
+          spellcheck="false"
+        ></textarea>
+        
+        <div class="dropzone-overlay">
+          <span>{ui.common.dragAndDrop}</span>
+          <label for="ass-file-upload" class="btn btn-secondary btn-sm" style="margin: 0; cursor: pointer;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="17 8 12 3 7 8"></polyline>
+              <line x1="12" y1="3" x2="12" y2="15"></line>
+            </svg>
+            <span>{ui.common.browseFiles}</span>
+          </label>
+          <input type="file" id="ass-file-upload" class="file-input-hidden" accept=".ass,.ssa,text/plain" />
+        </div>
+      </div>
+    </div>
+
+    <div class="tool-pane">
+      <div class="pane-header">
+        <span class="pane-title">SRT Output (.srt)</span>
+        <div class="pane-actions">
+          <button type="button" class="btn btn-outline btn-sm" id="btn-copy-srt" disabled>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+            <span id="copy-srt-btn-text">{ui.common.copy}</span>
+          </button>
+          <button type="button" class="btn btn-primary btn-sm" id="btn-download-srt" disabled>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            <span>{ui.common.download}</span>
+          </button>
+        </div>
+      </div>
+
+      <textarea
+        id="srt-output"
+        class="tool-textarea"
+        readonly
+        placeholder="1&#10;00:00:01,000 --> 00:00:04,000&#10;Clean, standard SubRip (.srt) subtitles will appear here..."
+      ></textarea>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { convertAssToSrt } from '@/lib/ass-converters';
+
+  function initAssToSrt() {
+    const assInput = document.getElementById('ass-input') as HTMLTextAreaElement;
+    const srtOutput = document.getElementById('srt-output') as HTMLTextAreaElement;
+    const btnSample = document.getElementById('btn-load-ass-sample');
+    const btnClear = document.getElementById('btn-clear-ass-input');
+    const btnCopy = document.getElementById('btn-copy-srt') as HTMLButtonElement;
+    const btnDownload = document.getElementById('btn-download-srt') as HTMLButtonElement;
+    const copyBtnText = document.getElementById('copy-srt-btn-text');
+    const fileUpload = document.getElementById('ass-file-upload') as HTMLInputElement;
+    const dropzone = document.getElementById('ass-dropzone');
+
+    let originalFileName = 'subtitles';
+
+    const sampleAss = `[Script Info]
+Title: Sample ASS Subtitles
+ScriptType: v4.00+
+PlayResX: 1920
+PlayResY: 1080
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Default,Arial,48,&H00FFFFFF,&H000000FF,&H00000000,&H64000000,-1,0,0,0,100,100,0,0,1,2,1,2,20,20,30,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:01.50,0:00:04.80,Default,,0,0,0,,{\\i1}Welcome to the ASS to SRT Converter!{\\i0}
+Dialogue: 0,0:00:05.10,0:00:09.30,Default,,0,0,0,,{\\pos(960,1000)\\b1}Clean SubRip captions{\\b0}\\NEnjoy universal playback across all screens!`;
+
+    function processAssToSrt() {
+      if (!assInput || !srtOutput) return;
+      const raw = assInput.value.trim();
+      if (!raw) {
+        srtOutput.value = '';
+        if (btnCopy) btnCopy.disabled = true;
+        if (btnDownload) btnDownload.disabled = true;
+        return;
+      }
+
+      const srt = convertAssToSrt(raw);
+      srtOutput.value = srt;
+      if (btnCopy) btnCopy.disabled = !srt;
+      if (btnDownload) btnDownload.disabled = !srt;
+    }
+
+    assInput?.addEventListener('input', processAssToSrt);
+
+    btnSample?.addEventListener('click', () => {
+      if (assInput) {
+        assInput.value = sampleAss;
+        originalFileName = 'sample_subtitles';
+        processAssToSrt();
+      }
+    });
+
+    btnClear?.addEventListener('click', () => {
+      if (assInput) {
+        assInput.value = '';
+        originalFileName = 'subtitles';
+        processAssToSrt();
+      }
+    });
+
+    fileUpload?.addEventListener('change', (e) => {
+      const target = e.target as HTMLInputElement;
+      const file = target.files?.[0];
+      if (file) {
+        originalFileName = file.name.replace(/\.[^/.]+$/, '');
+        const reader = new FileReader();
+        reader.onload = (evt) => {
+          if (assInput && typeof evt.target?.result === 'string') {
+            assInput.value = evt.target.result;
+            processAssToSrt();
+          }
+        };
+        reader.readAsText(file);
+      }
+    });
+
+    if (dropzone) {
+      ['dragenter', 'dragover'].forEach((eventName) => {
+        dropzone.addEventListener(eventName, (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          dropzone.classList.add('dragover');
+        });
+      });
+
+      ['dragleave', 'drop'].forEach((eventName) => {
+        dropzone.addEventListener(eventName, (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          dropzone.classList.remove('dragover');
+        });
+      });
+
+      dropzone.addEventListener('drop', (e: DragEvent) => {
+        const files = e.dataTransfer?.files;
+        if (files && files.length > 0) {
+          originalFileName = files[0].name.replace(/\.[^/.]+$/, '');
+          const reader = new FileReader();
+          reader.onload = (evt) => {
+            if (assInput && typeof evt.target?.result === 'string') {
+              assInput.value = evt.target.result;
+              processAssToSrt();
+            }
+          };
+          reader.readAsText(files[0]);
+        }
+      });
+    }
+
+    btnCopy?.addEventListener('click', async () => {
+      if (!srtOutput || !srtOutput.value) return;
+      try {
+        await navigator.clipboard.writeText(srtOutput.value);
+        if (copyBtnText) {
+          const original = copyBtnText.textContent;
+          copyBtnText.textContent = 'Copied!';
+          setTimeout(() => {
+            if (copyBtnText) copyBtnText.textContent = original;
+          }, 2000);
+        }
+      } catch (err) {
+        console.error('Failed to copy text: ', err);
+      }
+    });
+
+    btnDownload?.addEventListener('click', () => {
+      if (!srtOutput || !srtOutput.value) return;
+      const blob = new Blob([srtOutput.value], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${originalFileName}.srt`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    });
+  }
+
+  // Initialize on load and page swaps
+  initAssToSrt();
+  document.addEventListener('astro:page-load', initAssToSrt);
+</script>
+
+<style>
+  .tool-workspace {
+    margin-bottom: 2.5rem;
+  }
+
+  .privacy-banner {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    margin-bottom: 1.5rem;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+  }
+
+  .privacy-banner svg {
+    color: var(--color-success);
+    flex-shrink: 0;
+  }
+
+  .tool-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  @media (max-width: 768px) {
+    .tool-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .tool-pane {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+
+  .pane-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    background-color: var(--bg-hover);
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .pane-title {
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: var(--text-primary);
+  }
+
+  .pane-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .dropzone-container {
+    position: relative;
+    flex: 1;
+    display: flex;
+  }
+
+  .tool-textarea {
+    width: 100%;
+    min-height: 380px;
+    padding: 1rem;
+    background: transparent;
+    border: none;
+    resize: vertical;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: var(--text-primary);
+    outline: none;
+  }
+
+  .dropzone-overlay {
+    position: absolute;
+    bottom: 0.75rem;
+    right: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background-color: var(--bg-card);
+    padding: 0.35rem 0.65rem;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    pointer-events: auto;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  }
+
+  .file-input-hidden {
+    display: none;
+  }
+
+  .dropzone-container.dragover {
+    outline: 2px dashed var(--color-primary);
+    outline-offset: -2px;
+  }
+</style>

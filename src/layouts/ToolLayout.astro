@@ -6,6 +6,8 @@ import TxtToSrtGuide from '@/components/tools/TxtToSrtGuide.astro';
 import SrtToTextGuide from '@/components/tools/SrtToTextGuide.astro';
 import SrtToVttGuide from '@/components/tools/SrtToVttGuide.astro';
 import VttToSrtGuide from '@/components/tools/VttToSrtGuide.astro';
+import SrtToAssGuide from '@/components/tools/SrtToAssGuide.astro';
+import AssToSrtGuide from '@/components/tools/AssToSrtGuide.astro';
 import type { Locale } from '@/i18n/config';
 import { type RouteId, getRoutePath } from '@/i18n/routes';
 import { getToolsContent, getUiStrings, type ToolDetail } from '@/i18n/utils';
@@ -62,7 +64,7 @@ const breadcrumbItems = [
     <slot />
 
     <!-- How-To Guide Steps -->
-    {routeId !== 'txt-to-srt' && routeId !== 'srt-to-text' && routeId !== 'srt-to-vtt' && routeId !== 'vtt-to-srt' && tool.steps && tool.steps.length > 0 && (
+    {routeId !== 'txt-to-srt' && routeId !== 'srt-to-text' && routeId !== 'srt-to-vtt' && routeId !== 'vtt-to-srt' && routeId !== 'srt-to-ass' && routeId !== 'ass-to-srt' && tool.steps && tool.steps.length > 0 && (
       <section class="info-section">
         <div class="section-heading">
           <h2 class="section-title">{tool.stepsTitle}</h2>
@@ -80,7 +82,7 @@ const breadcrumbItems = [
     )}
 
     <!-- Key Features -->
-    {routeId !== 'txt-to-srt' && routeId !== 'srt-to-text' && routeId !== 'srt-to-vtt' && routeId !== 'vtt-to-srt' && tool.features && tool.features.length > 0 && (
+    {routeId !== 'txt-to-srt' && routeId !== 'srt-to-text' && routeId !== 'srt-to-vtt' && routeId !== 'vtt-to-srt' && routeId !== 'srt-to-ass' && routeId !== 'ass-to-srt' && tool.features && tool.features.length > 0 && (
       <section class="info-section">
         <div class="section-heading">
           <h2 class="section-title">{tool.featuresTitle}</h2>
@@ -119,6 +121,16 @@ const breadcrumbItems = [
     <!-- Long-Form SEO & Practical Guide for VTT to SRT -->
     {routeId === 'vtt-to-srt' && (
       <VttToSrtGuide locale={locale} />
+    )}
+
+    <!-- Long-Form SEO & Practical Guide for SRT to ASS -->
+    {routeId === 'srt-to-ass' && (
+      <SrtToAssGuide locale={locale} />
+    )}
+
+    <!-- Long-Form SEO & Practical Guide for ASS to SRT -->
+    {routeId === 'ass-to-srt' && (
+      <AssToSrtGuide locale={locale} />
     )}
 
     <!-- FAQs -->

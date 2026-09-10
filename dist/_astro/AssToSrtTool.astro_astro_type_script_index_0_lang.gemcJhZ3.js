@@ -1,0 +1,14 @@
+import{t as e}from"./ass-converters.emHoyDNQ.js";function t(){let t=document.getElementById(`ass-input`),n=document.getElementById(`srt-output`),r=document.getElementById(`btn-load-ass-sample`),i=document.getElementById(`btn-clear-ass-input`),a=document.getElementById(`btn-copy-srt`),o=document.getElementById(`btn-download-srt`),s=document.getElementById(`copy-srt-btn-text`),c=document.getElementById(`ass-file-upload`),l=document.getElementById(`ass-dropzone`),u=`subtitles`;function d(){if(!t||!n)return;let r=t.value.trim();if(!r){n.value=``,a&&(a.disabled=!0),o&&(o.disabled=!0);return}let i=e(r);n.value=i,a&&(a.disabled=!i),o&&(o.disabled=!i)}t?.addEventListener(`input`,d),r?.addEventListener(`click`,()=>{t&&(t.value=`[Script Info]
+Title: Sample ASS Subtitles
+ScriptType: v4.00+
+PlayResX: 1920
+PlayResY: 1080
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Default,Arial,48,&H00FFFFFF,&H000000FF,&H00000000,&H64000000,-1,0,0,0,100,100,0,0,1,2,1,2,20,20,30,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:01.50,0:00:04.80,Default,,0,0,0,,{\\i1}Welcome to the ASS to SRT Converter!{\\i0}
+Dialogue: 0,0:00:05.10,0:00:09.30,Default,,0,0,0,,{\\pos(960,1000)\\b1}Clean SubRip captions{\\b0}\\NEnjoy universal playback across all screens!`,u=`sample_subtitles`,d())}),i?.addEventListener(`click`,()=>{t&&(t.value=``,u=`subtitles`,d())}),c?.addEventListener(`change`,e=>{let n=e.target.files?.[0];if(n){u=n.name.replace(/\.[^/.]+$/,``);let e=new FileReader;e.onload=e=>{t&&typeof e.target?.result==`string`&&(t.value=e.target.result,d())},e.readAsText(n)}}),l&&([`dragenter`,`dragover`].forEach(e=>{l.addEventListener(e,e=>{e.preventDefault(),e.stopPropagation(),l.classList.add(`dragover`)})}),[`dragleave`,`drop`].forEach(e=>{l.addEventListener(e,e=>{e.preventDefault(),e.stopPropagation(),l.classList.remove(`dragover`)})}),l.addEventListener(`drop`,e=>{let n=e.dataTransfer?.files;if(n&&n.length>0){u=n[0].name.replace(/\.[^/.]+$/,``);let e=new FileReader;e.onload=e=>{t&&typeof e.target?.result==`string`&&(t.value=e.target.result,d())},e.readAsText(n[0])}})),a?.addEventListener(`click`,async()=>{if(n&&n.value)try{if(await navigator.clipboard.writeText(n.value),s){let e=s.textContent;s.textContent=`Copied!`,setTimeout(()=>{s&&(s.textContent=e)},2e3)}}catch(e){console.error(`Failed to copy text: `,e)}}),o?.addEventListener(`click`,()=>{if(!n||!n.value)return;let e=new Blob([n.value],{type:`text/plain;charset=utf-8`}),t=URL.createObjectURL(e),r=document.createElement(`a`);r.href=t,r.download=`${u}.srt`,document.body.appendChild(r),r.click(),document.body.removeChild(r),URL.revokeObjectURL(t)})}t(),document.addEventListener(`astro:page-load`,t);

@@ -76,6 +76,8 @@ export interface ToolsContent {
   srtToText: ToolDetail;
   srtToVtt: ToolDetail;
   vttToSrt: ToolDetail;
+  srtToAss: ToolDetail;
+  assToSrt: ToolDetail;
 }
 
 export const TOOLS_TRANSLATIONS: Record<Locale, ToolsContent> = {
@@ -457,6 +459,182 @@ export const TOOLS_TRANSLATIONS: Record<Locale, ToolsContent> = {
           "answer": "The SubRip (.srt) format was originally developed in France in the late 1990s. In European formatting, commas are standard decimal separators. As a result, the SubRip specification established commas for millisecond delimiters (00:00:01,500), whereas WebVTT adopted decimal periods for web standards compliance."
         }
       ]
+    },
+    "srtToAss": {
+      "id": "srt-to-ass",
+      "name": "SRT to ASS Converter",
+      "shortName": "SRT to ASS",
+      "badge": "ASS v4+ Ready",
+      "tagline": "Convert SubRip (.SRT) Subtitles to Advanced SubStation Alpha (.ASS) Format",
+      "description": "Convert plain SRT subtitles into styled Advanced SubStation Alpha (.ass) format with custom typography, colors, borders, and coordinate positioning for Aegisub and media players.",
+      "h1": "SRT to ASS Converter",
+      "metaTitle": "SRT to ASS Converter – Convert Subtitles to ASS Online | SRTConverters",
+      "metaDescription": "Convert SubRip (.srt) subtitles to Advanced SubStation Alpha (.ass) format online for free. Custom styling, colors, positioning, and 100% browser privacy.",
+      "settingsLabels": {},
+      "stepsTitle": "How to Convert SRT to ASS in 3 Easy Steps",
+      "steps": [
+        {
+          "step": "1",
+          "title": "Upload or Paste SRT Subtitles",
+          "description": "Drop your .srt subtitle file into the upload zone or paste the raw subtitle dialogue text directly into the editor."
+        },
+        {
+          "step": "2",
+          "title": "Instant ASS v4.00+ Formatting",
+          "description": "Our client-side engine parses your cues, converts timestamps to centiseconds, translates styling tags, and generates valid ASS headers."
+        },
+        {
+          "step": "3",
+          "title": "Download Converted .ASS File",
+          "description": "Copy the ASS code to your clipboard or download your ready-to-use .ass subtitle file for Aegisub, VLC, MPV, or editing software."
+        }
+      ],
+      "featuresTitle": "Why Convert SRT to ASS?",
+      "features": [
+        {
+          "title": "Advanced Styling & Custom Fonts",
+          "description": "Unlock custom font families, font sizes, outline strokes, drop shadows, and rich color overrides not supported by plain SRT.",
+          "icon": "pen"
+        },
+        {
+          "title": "Precise Screen Positioning",
+          "description": "Support alignment presets and exact (X, Y) pixel coordinates to place captions anywhere on screen and avoid covering graphics.",
+          "icon": "grid"
+        },
+        {
+          "title": "100% Client-Side Privacy",
+          "description": "All subtitle parsing and conversions occur inside your web browser. No server uploads, no data storage, zero privacy risks.",
+          "icon": "shield"
+        },
+        {
+          "title": "Aegisub & Video Player Ready",
+          "description": "Generates clean ASS v4.00+ syntax fully recognized by Aegisub, VLC, MPV, HandBrake, DaVinci Resolve, and Premiere Pro.",
+          "icon": "check"
+        }
+      ],
+      "faqsTitle": "Frequently Asked Questions",
+      "faqs": [
+        {
+          "question": "How do I convert an SRT file to ASS?",
+          "answer": "To convert an SRT file to ASS, upload your .srt file or paste your subtitle text into our online converter. The tool immediately transforms your SubRip cues into standard Advanced SubStation Alpha (v4.00+) syntax, including mandatory [Script Info], [V4+ Styles], and [Events] sections. You can then download the resulting .ass file instantly."
+        },
+        {
+          "question": "Can I convert SRT to ASS online for free?",
+          "answer": "Yes, our SRT to ASS converter is 100% free with no registration, no daily conversion limits, and no watermarks. Everything runs locally in your web browser via JavaScript, meaning your files and private transcripts are never sent to external servers."
+        },
+        {
+          "question": "What is the difference between SRT and ASS subtitles?",
+          "answer": "SRT (SubRip) is a basic plain-text subtitle format containing only sequence numbers, millisecond timestamps, and text with minimal styling. ASS (Advanced SubStation Alpha) is an advanced subtitle specification that enables complex visual styling, custom typography, font colors, outline strokes, drop shadows, screen coordinates, and karaoke effects."
+        },
+        {
+          "question": "Can I edit the converted ASS file in Aegisub?",
+          "answer": "Yes. Our converter generates fully compliant ASS v4.00+ syntax specifically designed for Aegisub. Once you download the .ass file, open it in Aegisub to adjust font styles, colors, positioning tags, karaoke effects, or audio synchronization."
+        },
+        {
+          "question": "Can I simply rename an .srt file to .ass?",
+          "answer": "No. Renaming an .srt file to .ass will cause subtitle editors and video players to error out or fail to render subtitles. ASS requires specific structured blocks like [Script Info], [V4+ Styles], and Dialogue event lines. You must use a dedicated converter to build the correct internal file structure."
+        },
+        {
+          "question": "Does converting SRT to ASS change subtitle timing?",
+          "answer": "No. All start and end timestamps are precisely preserved and converted from SRT millisecond notation (HH:MM:SS,mmm) to standard ASS centisecond notation (H:MM:SS.cs). Your subtitle sync with the video will remain exact."
+        },
+        {
+          "question": "Which media players support ASS subtitles?",
+          "answer": "Most modern media players support ASS subtitles with full styling, including VLC Media Player, MPV, MPC-HC, PotPlayer, and Plex (when configured for direct play or transcoding). Video encoders like HandBrake and FFmpeg can also hardburn ASS styles directly into MP4 videos."
+        },
+        {
+          "question": "Are formatting tags like bold and italics preserved?",
+          "answer": "Yes. Common SRT formatting tags like <i>, <b>, <u>, and <font color> are automatically converted into standard ASS override tags ({\\i1}, {\\b1}, {\\u1}, and {\\c&HBBGGRR&}), ensuring your text emphasis remains intact."
+        }
+      ]
+    },
+    "assToSrt": {
+          "id": "ass-to-srt",
+          "name": "ASS to SRT Converter",
+          "shortName": "ASS to SRT",
+          "badge": "Universal SubRip",
+          "tagline": "Convert Advanced SubStation Alpha (.ASS) Subtitles to Clean SubRip (.SRT) Format",
+          "description": "Convert styled Advanced SubStation Alpha (.ass / .ssa) subtitles into clean, universally compatible SubRip (.srt) files. Clean override tags, convert centisecond timestamps, and prepare subtitles for any media player or streaming service.",
+          "h1": "ASS to SRT Converter Online",
+          "metaTitle": "ASS to SRT Converter Online – Convert ASS to SRT Free | SRTConverters",
+          "metaDescription": "Convert Advanced SubStation Alpha (.ass) subtitles to clean SubRip (.srt) format online for free. Clean tags, convert centiseconds, and download standard SRT files instantly.",
+          "settingsLabels": {},
+          "stepsTitle": "How to Convert ASS to SRT in 3 Easy Steps",
+          "steps": [
+                {
+                      "step": "1",
+                      "title": "Upload or Paste ASS Subtitles",
+                      "description": "Drop your .ass or .ssa file into the upload zone or paste the raw Advanced SubStation Alpha subtitle content into the editor."
+                },
+                {
+                      "step": "2",
+                      "title": "Automatic Tag Cleaning & Timestamp Conversion",
+                      "description": "Our client-side engine extracts dialogue lines, converts ASS centisecond timestamps into SRT milliseconds, translates line breaks, and cleans out complex override codes."
+                },
+                {
+                      "step": "3",
+                      "title": "Download Clean .SRT File",
+                      "description": "Copy your converted SubRip captions to your clipboard or download the finalized .srt file immediately for playback on any smart TV, Plex, VLC, or mobile device."
+                }
+          ],
+          "featuresTitle": "Why Convert ASS to SRT?",
+          "features": [
+                {
+                      "title": "Universal Media Player Compatibility",
+                      "description": "SubRip (.srt) is the most widely supported subtitle format in existence, playing natively on Smart TVs, streaming consoles, mobile devices, and older media hardware without rendering errors.",
+                      "icon": "globe"
+                },
+                {
+                      "title": "Intelligent Style & Tag Cleaning",
+                      "description": "Automatically strips complex positioning (\\pos), alignment (\\an), font colors (\\c), and drawing shapes (\\p1) while preserving basic formatting (bold, italics, underline).",
+                      "icon": "sparkles"
+                },
+                {
+                      "title": "Accurate Centisecond-to-Millisecond Timing",
+                      "description": "Converts ASS centisecond timestamps (H:MM:SS.cs) into exact millisecond SubRip intervals (HH:MM:SS,mmm), guaranteeing perfect audio and video synchronization.",
+                      "icon": "clock"
+                },
+                {
+                      "title": "100% Client-Side Privacy",
+                      "description": "All conversion takes place locally inside your browser's memory. No subtitle files or personal dialogues are ever uploaded to an external server.",
+                      "icon": "shield"
+                }
+          ],
+          "faqsTitle": "Frequently Asked Questions",
+          "faqs": [
+                {
+                      "question": "What is the difference between ASS and SRT subtitles?",
+                      "answer": "Advanced SubStation Alpha (.ass) is a feature-rich subtitle format supporting custom typography, font sizing, exact screen positioning coordinates, vector drawings, karaoke timers, and alpha channel transparency. SubRip (.srt) is a lightweight, plain-text format designed for universal compatibility across almost every hardware player, TV, and video editing software."
+                },
+                {
+                      "question": "Will formatting like colors and positioning be lost when converting ASS to SRT?",
+                      "answer": "Yes, complex styling tags like screen coordinates (\\pos), alignment overrides (\\an), karaoke timers (\\k), and custom font colors are stripped because the standard SRT specification does not support them. However, basic text styling such as bold (<b>), italics (<i>), and underline (<u>) is preserved."
+                },
+                {
+                      "question": "Does this converter preserve bold and italic formatting from ASS?",
+                      "answer": "Yes. ASS override tags like {\\b1} and {\\i1} are automatically converted into standard HTML-like formatting tags (<b> and <i>), ensuring your dialogues retain their intended typographical emphasis in compliant video players."
+                },
+                {
+                      "question": "How does the converter handle ASS timestamps and centiseconds?",
+                      "answer": "ASS subtitle files record timestamps in centiseconds (hundredths of a second, H:MM:SS.cs), whereas SRT files use milliseconds (HH:MM:SS,mmm). Our converter parses the exact centisecond values and calculates the precise millisecond representation (e.g., 0:01:23.45 becomes 00:01:23,450), ensuring zero timing drift or audio desynchronization."
+                },
+                {
+                      "question": "What happens to simultaneous or overlapping ASS lines?",
+                      "answer": "When multiple character dialogue lines overlap in time (often used in anime fansubs for simultaneous speech or background music translations), our converter chronologically sorts and assigns each cue a unique sequential index in the generated SRT file. Most modern players can display concurrent SRT cues cleanly."
+                },
+                {
+                      "question": "Can I convert anime fansub ASS files for playback on Plex or Smart TVs?",
+                      "answer": "Yes! This is one of the most common reasons to convert ASS to SRT. Many smart TVs, streaming sticks, and Plex clients struggle to render complex ASS typography and may force heavy CPU transcoding. Converting to clean SRT enables smooth direct-play on Apple TV, Roku, Chromecast, and Smart TVs."
+                },
+                {
+                      "question": "Can I convert ASS to SRT using command-line tools like FFmpeg?",
+                      "answer": "Yes, you can run: ffmpeg -i input.ass -c:s srt output.srt. However, our browser-based tool requires no installation, provides instant visual feedback, cleans corrupted formatting, and works directly on mobile devices and Chromebooks."
+                },
+                {
+                      "question": "Are my subtitle files uploaded to a server or kept private?",
+                      "answer": "Your files are completely private. All conversion logic runs 100% locally in your web browser via JavaScript. No subtitle text, file data, or timestamps are ever sent across the network or stored on any server."
+                }
+          ]
     }
   },
   "es": {
@@ -837,6 +1015,182 @@ export const TOOLS_TRANSLATIONS: Record<Locale, ToolsContent> = {
           "answer": "El formato SubRip (.srt) se creó en Francia a finales de la década de 1990. En gran parte de Europa, la coma es el separador decimal estándar. Por ello, la especificación SubRip estableció comas para los milisegundos (00:00:01,500), mientras que WebVTT adoptó el punto decimal según los estándares web."
         }
       ]
+    },
+    "srtToAss": {
+      "id": "srt-to-ass",
+      "name": "Convertidor de SRT a ASS",
+      "shortName": "SRT a ASS",
+      "badge": "Compatible con ASS v4+",
+      "tagline": "Convierte Subtítulos SubRip (.SRT) al Formato Advanced SubStation Alpha (.ASS)",
+      "description": "Transforma subtítulos SRT estándar al formato Advanced SubStation Alpha (.ass) con tipografía personalizada, colores, bordes y posicionamiento exacto para Aegisub y reproductores.",
+      "h1": "Convertidor de SRT a ASS",
+      "metaTitle": "Convertidor SRT a ASS – Convertir Subtítulos a ASS Online | SRTConverters",
+      "metaDescription": "Convierte subtítulos SubRip (.srt) a formato Advanced SubStation Alpha (.ass) online y gratis. Estilos personalizados, colores, posición y 100% privacidad.",
+      "settingsLabels": {},
+      "stepsTitle": "Cómo Convertir SRT a ASS en 3 Sencillos Pasos",
+      "steps": [
+        {
+          "step": "1",
+          "title": "Sube o Pega Subtítulos SRT",
+          "description": "Arrastra tu archivo .srt a la zona de subida o pega el texto de subtítulos directamente en el editor."
+        },
+        {
+          "step": "2",
+          "title": "Formato ASS v4.00+ Instantáneo",
+          "description": "El conversor procesa los tiempos, traduce etiquetas de estilo y genera los bloques estándar [Script Info], [V4+ Styles] y [Events]."
+        },
+        {
+          "step": "3",
+          "title": "Descarga el Archivo .ASS",
+          "description": "Copia el contenido al portapapeles o descarga el archivo .ass listo para Aegisub, VLC, MPV o edición de video."
+        }
+      ],
+      "featuresTitle": "¿Por qué Convertir SRT a ASS?",
+      "features": [
+        {
+          "title": "Estilos Avanzados y Fuentes Personalizadas",
+          "description": "Permite elegir familias tipográficas, tamaños de letra, bordes contorneados, sombras y colores no admitidos en SRT plano.",
+          "icon": "pen"
+        },
+        {
+          "title": "Posicionamiento Exacto en Pantalla",
+          "description": "Admite coordenadas (X, Y) y ajustes de alineación para colocar textos en cualquier parte de la pantalla sin tapar gráficos.",
+          "icon": "grid"
+        },
+        {
+          "title": "100% Privacidad en el Navegador",
+          "description": "Todo el procesamiento se realiza localmente en tu navegador. Tus archivos nunca se suben a ningún servidor externo.",
+          "icon": "shield"
+        },
+        {
+          "title": "Listo para Aegisub y Reproductores",
+          "description": "Genera código ASS v4.00+ completamente válido para Aegisub, VLC, MPV, HandBrake, DaVinci Resolve y Premiere Pro.",
+          "icon": "check"
+        }
+      ],
+      "faqsTitle": "Preguntas Frecuentes",
+      "faqs": [
+        {
+          "question": "¿Cómo convertir un archivo SRT a ASS?",
+          "answer": "Para convertir un archivo SRT a ASS, sube tu archivo .srt o pega el texto en nuestro convertidor online gratuito. La herramienta transforma los bloques en la sintaxis estándar de Advanced SubStation Alpha (v4.00+), generando las secciones obligatorias [Script Info], [V4+ Styles] y [Events]. Podrás descargar el archivo .ass resultante de inmediato."
+        },
+        {
+          "question": "¿Puedo convertir SRT a ASS gratis online?",
+          "answer": "Sí, SRTConverters.com es 100% gratuito, sin registro, sin marcas de agua y sin límites de archivos. Todo el procesamiento se ejecuta localmente en tu navegador web mediante JavaScript, por lo que tus archivos y transcripciones privadas nunca se envían a servidores externos."
+        },
+        {
+          "question": "¿Cuál es la diferencia entre subtítulos SRT y ASS?",
+          "answer": "El formato SRT (SubRip) es un formato básico de texto plano que solo contiene números de secuencia, marcas de tiempo en milisegundos y texto con formato mínimo. ASS (Advanced SubStation Alpha) es un estándar avanzado que permite elegir familias tipográficas, tamaños de texto, colores en BGR, contornos gruesos, sombras paralelas, coordenadas de pantalla y animaciones de karaoke."
+        },
+        {
+          "question": "¿Puedo editar el archivo ASS en Aegisub?",
+          "answer": "Sí. Nuestro convertidor produce sintaxis ASS v4.00+ estrictamente compatible con Aegisub. Una vez descargado el archivo .ass, puedes abrirlo en Aegisub para ajustar fuentes, colores, etiquetas de posición, efectos de karaoke o sincronización con el espectrograma de audio."
+        },
+        {
+          "question": "¿Basta con cambiar la extensión de .srt a .ass?",
+          "answer": "No. Si únicamente renombras un archivo .srt a .ass, los reproductores y editores de video mostrarán un error o no renderizarán los subtítulos. El formato ASS requiere una estructura interna con bloques como [Script Info], [V4+ Styles] y líneas Dialogue. Es indispensable utilizar un convertidor dedicado."
+        },
+        {
+          "question": "¿La conversión modifica la sincronización?",
+          "answer": "No. Todos los tiempos de inicio y fin se conservan con precisión exacta, pasando de la notación de milisegundos de SRT (HH:MM:SS,mmm) a la notación estándar de centésimas de segundo de ASS (H:MM:SS.cs). La sincronía con el video se mantiene inalterada."
+        },
+        {
+          "question": "¿Qué reproductores multimedia admiten subtítulos ASS?",
+          "answer": "La gran mayoría de reproductores modernos admiten subtítulos ASS con estilos visuales completos, incluidos VLC Media Player, MPV, MPC-HC, PotPlayer y Plex (cuando se reproduce directamente o se transcodifica). Además, herramientas como HandBrake y FFmpeg permiten incrustar (quemar) los estilos ASS directamente en videos MP4."
+        },
+        {
+          "question": "¿Se conservan las etiquetas de formato como negrita y cursiva?",
+          "answer": "Sí. Las etiquetas HTML estándar presentes en SRT como <i>, <b>, <u> y <font color> se transforman automáticamente en etiquetas nativas de sobreescritura ASS ({\\i1}, {\\b1}, {\\u1} y {\\c&HBBGGRR&}), asegurando que el énfasis del texto original se mantenga intacto."
+        }
+      ]
+    },
+    "assToSrt": {
+          "id": "ass-to-srt",
+          "name": "Convertidor ASS a SRT",
+          "shortName": "ASS a SRT",
+          "badge": "SubRip Universal",
+          "tagline": "Convierte Subtítulos Advanced SubStation Alpha (.ASS) a Formato SubRip (.SRT) Limpio",
+          "description": "Convierte subtítulos estilizados Advanced SubStation Alpha (.ass / .ssa) en archivos SubRip (.srt) limpios y universalmente compatibles. Limpia etiquetas de estilo, convierte marcas de tiempo en centisegundos y prepara subtítulos para cualquier televisor o reproductor.",
+          "h1": "Convertidor ASS a SRT Online",
+          "metaTitle": "Convertidor ASS a SRT Online – Convertir ASS a SRT Gratis | SRTConverters",
+          "metaDescription": "Convierte subtítulos Advanced SubStation Alpha (.ass) a formato SubRip (.srt) limpio online y gratis. Limpia etiquetas, convierte marcas de tiempo y descarga archivos SRT al instante.",
+          "settingsLabels": {},
+          "stepsTitle": "Cómo Convertir ASS a SRT en 3 Fáciles Pasos",
+          "steps": [
+                {
+                      "step": "1",
+                      "title": "Sube o Pega Subtítulos ASS",
+                      "description": "Arrastra tu archivo .ass o .ssa a la zona de carga o pega el texto plano del script directamente en el editor."
+                },
+                {
+                      "step": "2",
+                      "title": "Limpieza de Etiquetas y Conversión de Tiempo",
+                      "description": "Nuestro motor en el navegador extrae los diálogos, convierte centisegundos a milisegundos, normaliza saltos de línea y elimina códigos de estilo complejos."
+                },
+                {
+                      "step": "3",
+                      "title": "Descarga el Archivo .SRT Limpio",
+                      "description": "Copia los subtítulos SubRip al portapapeles o descarga el archivo .srt terminado para reproducir en Plex, Smart TV, VLC o dispositivos móviles."
+                }
+          ],
+          "featuresTitle": "¿Por Qué Convertir ASS a SRT?",
+          "features": [
+                {
+                      "title": "Compatibilidad Universal con Reproductores",
+                      "description": "SubRip (.srt) es el formato de subtítulos más compatible del mundo, funcionando de forma nativa en Smart TVs, consolas y reproductores multimedia sin fallos de renderizado.",
+                      "icon": "globe"
+                },
+                {
+                      "title": "Limpieza Inteligente de Etiquetas de Estilo",
+                      "description": "Elimina automáticamente coordenadas de posición (\\pos), alineaciones (\\an), colores (\\c) y dibujos vectoriales (\\p1) preservando negrita, cursiva y subrayado.",
+                      "icon": "sparkles"
+                },
+                {
+                      "title": "Sincronización Precisa de Centisegundos a Milisegundos",
+                      "description": "Convierte los centisegundos de ASS (H:MM:SS.cs) en intervalos de milisegundos exactos de SRT (HH:MM:SS,mmm), garantizando una sincronía perfecta con el audio.",
+                      "icon": "clock"
+                },
+                {
+                      "title": "100% Privacidad en el Navegador",
+                      "description": "Toda la conversión se procesa localmente en la memoria de tu navegador. Ningún archivo ni texto de diálogo se sube a servidores externos.",
+                      "icon": "shield"
+                }
+          ],
+          "faqsTitle": "Preguntas Frecuentes",
+          "faqs": [
+                {
+                      "question": "¿Cuál es la diferencia entre los subtítulos ASS y SRT?",
+                      "answer": "Advanced SubStation Alpha (.ass) es un formato de subtítulos avanzado con soporte para tipografías personalizadas, tamaños, coordenadas de posición exactas, dibujos vectoriales y efectos de karaoke. SubRip (.srt) es un formato de texto plano diseñado para máxima compatibilidad universal en prácticamente cualquier reproductor o televisor."
+                },
+                {
+                      "question": "¿Se pierde el formato de colores y posicionamiento al convertir de ASS a SRT?",
+                      "answer": "Sí, las etiquetas de estilo complejas como coordenadas en pantalla (\\pos), alineación (\\an), temporizadores de karaoke (\\k) y colores personalizados se eliminan porque la especificación estándar de SRT no las admite. Sin embargo, se conservan estilos básicos como negrita (<b>), cursiva (<i>) y subrayado (<u>)."
+                },
+                {
+                      "question": "¿Este convertidor conserva las etiquetas de negrita y cursiva de ASS?",
+                      "answer": "Sí. Las etiquetas de anulación de ASS como {\\b1} y {\\i1} se convierten automáticamente en etiquetas de formato estándar (<b> e <i>), garantizando que los diálogos mantengan el énfasis tipográfico deseado en reproductores compatibles."
+                },
+                {
+                      "question": "¿Cómo gestiona el convertidor las marcas de tiempo y los centisegundos de ASS?",
+                      "answer": "Los archivos ASS registran marcas de tiempo en centisegundos (centésimas de segundo, H:MM:SS.cs), mientras que los archivos SRT utilizan milisegundos (HH:MM:SS,mmm). Nuestro convertidor calcula los milisegundos exactos (por ejemplo, 0:01:23.45 se convierte en 00:01:23,450), asegurando cero desincronización con el audio."
+                },
+                {
+                      "question": "¿Qué ocurre con los diálogos simultáneos o superpuestos en ASS?",
+                      "answer": "Cuando varias líneas de diálogo se superponen en el tiempo (muy común en anime para diálogos cruzados o canciones), el convertidor ordena cronológicamente los eventos y asigna números secuenciales únicos en el archivo SRT generado, permitiendo una reproducción limpia."
+                },
+                {
+                      "question": "¿Puedo convertir subtítulos de anime fansub (.ass) a SRT para Plex o Smart TVs?",
+                      "answer": "¡Sí! Esta es una de las razones principales para convertir ASS a SRT. Muchos Smart TVs y clientes de Plex tienen dificultades para procesar estilos ASS complejos y obligan al servidor a transcodificar video. Al convertirlos a SRT limpio, se habilita la reproducción directa fluida."
+                },
+                {
+                      "question": "¿Puedo convertir archivos ASS a SRT usando la línea de comandos con FFmpeg?",
+                      "answer": "Sí, ejecutando: ffmpeg -i entrada.ass -c:s srt salida.srt. No obstante, nuestro convertidor en el navegador no requiere instalación, ofrece previsualización instantánea, repara archivos dañados y funciona en teléfonos y computadoras."
+                },
+                {
+                      "question": "¿Mis archivos de subtítulos se suben a algún servidor o se mantienen privados?",
+                      "answer": "Tus archivos son 100% privados. Todo el procesamiento se realiza localmente en tu navegador web mediante JavaScript. Ningún subtítulo o información personal sale de tu dispositivo."
+                }
+          ]
     }
   },
   "pt": {
@@ -1217,6 +1571,182 @@ export const TOOLS_TRANSLATIONS: Record<Locale, ToolsContent> = {
           "answer": "O formato SubRip (.srt) foi desenvolvido na França no final dos anos 1990. Na maior parte da Europa, a vírgula é o separador decimal padrão. Por isso, a especificação SubRip adotou vírgulas para os milissegundos (00:00:01,500), enquanto o WebVTT utilizou pontos decimais para conformidade com os padrões web."
         }
       ]
+    },
+    "srtToAss": {
+      "id": "srt-to-ass",
+      "name": "Conversor de SRT para ASS",
+      "shortName": "SRT para ASS",
+      "badge": "Compatível com ASS v4+",
+      "tagline": "Converta Legendas SubRip (.SRT) para o Formato Advanced SubStation Alpha (.ASS)",
+      "description": "Converta legendas SRT comuns para o formato Advanced SubStation Alpha (.ass) com tipografia personalizada, cores, bordas e posicionamento para Aegisub e players.",
+      "h1": "Conversor de SRT para ASS",
+      "metaTitle": "Conversor SRT para ASS – Converter Legendas em ASS Online | SRTConverters",
+      "metaDescription": "Converta legendas SubRip (.srt) para formato Advanced SubStation Alpha (.ass) online e grátis. Estilos personalizados, cores, posições e 100% privacidade no navegador.",
+      "settingsLabels": {},
+      "stepsTitle": "Como Converter SRT para ASS em 3 Passos Simples",
+      "steps": [
+        {
+          "step": "1",
+          "title": "Envie ou Cole as Legendas SRT",
+          "description": "Arraste seu arquivo .srt para a área de envio ou cole o texto das legendas diretamente no editor."
+        },
+        {
+          "step": "2",
+          "title": "Formatação ASS v4.00+ Instantânea",
+          "description": "O conversor analisa os blocos, converte tempos para centésimos de segundo e gera as seções [Script Info], [V4+ Styles] e [Events]."
+        },
+        {
+          "step": "3",
+          "title": "Baixe o Arquivo .ASS",
+          "description": "Copie o código gerado ou baixe o arquivo .ass pronto para uso no Aegisub, VLC, MPV ou editores de vídeo."
+        }
+      ],
+      "featuresTitle": "Por que Converter SRT para ASS?",
+      "features": [
+        {
+          "title": "Estilos Avançados e Fontes Personalizadas",
+          "description": "Defina fontes, tamanhos, contornos, sombras e cores especiais que o formato SRT padrão não suporta.",
+          "icon": "pen"
+        },
+        {
+          "title": "Posicionamento Exato na Tela",
+          "description": "Suporta coordenadas em pixels e alinhamentos para posicionar legendas sem cobrir elementos visuais do vídeo.",
+          "icon": "grid"
+        },
+        {
+          "title": "100% de Privacidade no Navegador",
+          "description": "Todo o processo ocorre no seu navegador via JavaScript. Nenhum arquivo é transferido para servidores externos.",
+          "icon": "shield"
+        },
+        {
+          "title": "Compatível com Aegisub e Players",
+          "description": "Gera sintaxe ASS v4.00+ oficial, aceita no Aegisub, VLC, MPV, HandBrake, DaVinci Resolve e Premiere Pro.",
+          "icon": "check"
+        }
+      ],
+      "faqsTitle": "Perguntas Frequentes",
+      "faqs": [
+        {
+          "question": "Como converter um arquivo SRT para ASS?",
+          "answer": "Para converter um arquivo SRT para ASS, basta fazer upload do arquivo .srt ou colar o texto no conversor online. A ferramenta reestrutura imediatamente os blocos no padrão oficial Advanced SubStation Alpha (v4.00+), incluindo as seções obrigatórias [Script Info], [V4+ Styles] e [Events], disponibilizando o arquivo .ass resultante para download instantâneo."
+        },
+        {
+          "question": "Posso converter SRT para ASS online gratuitamente?",
+          "answer": "Sim, o SRTConverters.com é 100% gratuito, sem cadastro, sem marcas d'água e sem limites diários de conversão. Todo o processamento ocorre localmente no seu navegador via JavaScript, o que significa que seus arquivos e transcrições privadas nunca são transferidos para servidores externos."
+        },
+        {
+          "question": "Qual a diferença entre legendas SRT e ASS?",
+          "answer": "O formato SRT (SubRip) é um padrão básico de texto puro contendo apenas números sequenciais, códigos de tempo em milissegundos e texto com formatação mínima. O ASS (Advanced SubStation Alpha) é uma especificação sofisticada que permite controle visual completo: fontes personalizadas, cores em notação BGR, contornos espessos, sombras projetadas, coordenadas de tela e animações de karaokê."
+        },
+        {
+          "question": "Posso editar o arquivo ASS no Aegisub?",
+          "answer": "Sim. Nosso conversor gera sintaxe ASS v4.00+ em total conformidade com o Aegisub. Assim que baixar o arquivo .ass, abra-o no Aegisub para editar estilos de fonte, cores, posicionamento, efeitos de karaokê ou realizar sincronização fina com o espectrograma de áudio."
+        },
+        {
+          "question": "Basta renomear o arquivo .srt para .ass?",
+          "answer": "Não. Apenas renomear a extensão de .srt para .ass fará com que reprodutores de vídeo e softwares de edição exibam erros ou não mostrem as legendas. O formato ASS exige blocos estruturados como [Script Info], [V4+ Styles] e linhas de evento Dialogue. É indispensável usar um conversor dedicado."
+        },
+        {
+          "question": "A conversão afeta a sincronia do áudio?",
+          "answer": "Não. Todos os tempos de início e término são preservados com precisão matemática, convertidos da notação de milissegundos com vírgula do SRT (HH:MM:SS,mmm) para a notação de centésimos de segundo com ponto do ASS (H:MM:SS.cs). O sincronismo com o vídeo permanece perfeito."
+        },
+        {
+          "question": "Quais reprodutores de mídia suportam legendas ASS?",
+          "answer": "A maioria dos reprodutores modernos oferece suporte nativo e completo a legendas ASS com renderização de estilos, incluindo VLC Media Player, MPV, MPC-HC, PotPlayer e Plex (quando configurado para reprodução direta ou transcodificação). Softwares como HandBrake e FFmpeg também podem queimar estilos ASS diretamente em vídeos MP4."
+        },
+        {
+          "question": "As tags de formatação como negrito e itálico são preservadas?",
+          "answer": "Sim. As marcações HTML comuns presentes no SRT como <i>, <b>, <u> e <font color> são convertidas automaticamente em tags de sobreposição nativas do ASS ({\\i1}, {\\b1}, {\\u1} e {\\c&HBBGGRR&}), garantindo que a ênfase visual original seja mantida."
+        }
+      ]
+    },
+    "assToSrt": {
+          "id": "ass-to-srt",
+          "name": "Conversor ASS para SRT",
+          "shortName": "ASS para SRT",
+          "badge": "SubRip Universal",
+          "tagline": "Converta Legendas Advanced SubStation Alpha (.ASS) em Formato SubRip (.SRT) Limpo",
+          "description": "Converta legendas estilizadas Advanced SubStation Alpha (.ass / .ssa) em arquivos SubRip (.srt) limpos e universalmente compatíveis. Remova tags de controle, converta centissegundos e prepare legendas para qualquer TV ou player.",
+          "h1": "Conversor ASS para SRT Online",
+          "metaTitle": "Conversor ASS para SRT Online – Converter ASS em SRT Grátis | SRTConverters",
+          "metaDescription": "Converta legendas Advanced SubStation Alpha (.ass) em formato SubRip (.srt) limpo online e grátis. Remova tags de estilo, converta tempos e baixe legendas SRT instantaneamente.",
+          "settingsLabels": {},
+          "stepsTitle": "Como Converter ASS para SRT em 3 Passos Fáceis",
+          "steps": [
+                {
+                      "step": "1",
+                      "title": "Envie ou Cole Legendas ASS",
+                      "description": "Arraste seu arquivo .ass ou .ssa para a área de upload ou cole o conteúdo do script diretamente no editor."
+                },
+                {
+                      "step": "2",
+                      "title": "Limpeza de Tags e Conversão de Tempo",
+                      "description": "Nosso motor no navegador extrai os diálogos, converte centissegundos em milissegundos, normaliza quebras de linha e remove tags de estilo complexas."
+                },
+                {
+                      "step": "3",
+                      "title": "Baixe o Arquivo .SRT Limpo",
+                      "description": "Copie as legendas SubRip para a área de transferência ou baixe o arquivo .srt finalizado para reproduzir na Smart TV, Plex, VLC ou celular."
+                }
+          ],
+          "featuresTitle": "Por Que Converter ASS para SRT?",
+          "features": [
+                {
+                      "title": "Compatibilidade Universal com Players",
+                      "description": "O formato SubRip (.srt) é o mais aceito no mundo, reproduzindo nativamente em Smart TVs, consoles e aparelhos multimídia sem erros de renderização.",
+                      "icon": "globe"
+                },
+                {
+                      "title": "Limpeza Inteligente de Estilos e Tags",
+                      "description": "Remove automaticamente posições (\\pos), alinhamentos (\\an), cores (\\c) e vetores (\\p1), preservando negrito, itálico e sublinhado.",
+                      "icon": "sparkles"
+                },
+                {
+                      "title": "Conversão Exata de Centissegundos para Milissegundos",
+                      "description": "Converte a marcação de centissegundos do ASS (H:MM:SS.cs) em intervalos milimétricos de milissegundos no SRT (HH:MM:SS,mmm), mantendo sincronia perfeita com o áudio.",
+                      "icon": "clock"
+                },
+                {
+                      "title": "100% de Privacidade no Navegador",
+                      "description": "Toda a conversão ocorre localmente na memória do seu navegador. Nenhum arquivo ou texto de legenda é enviado para servidores externos.",
+                      "icon": "shield"
+                }
+          ],
+          "faqsTitle": "Perguntas Frequentes",
+          "faqs": [
+                {
+                      "question": "Qual é a diferença entre legendas ASS e SRT?",
+                      "answer": "O Advanced SubStation Alpha (.ass) é um formato avançado que suporta fontes personalizadas, posicionamento exato por coordenadas (X, Y), desenhos vetoriais, temporizadores de karaokê e transparências. O SubRip (.srt) é um formato de texto simples projetado para máxima compatibilidade universal em praticamente qualquer reprodutor ou televisor."
+                },
+                {
+                      "question": "A formatação de cores e posições é perdida ao converter de ASS para SRT?",
+                      "answer": "Sim, estilos complexos como coordenadas de tela (\\pos), alinhamentos (\\an), efeitos de karaokê (\\k) e cores personalizadas são removidos porque a especificação padrão do SRT não os suporta. No entanto, formatações básicas como negrito (<b>), itálico (<i>) e sublinhado (<u>) são preservadas."
+                },
+                {
+                      "question": "Este conversor mantém as tags de negrito e itálico do ASS?",
+                      "answer": "Sim. As tags de controle do ASS como {\\b1} e {\\i1} são convertidas automaticamente em tags HTML padrão (<b> e <i>), garantindo que suas falas mantenham a ênfase visual desejada em reprodutores compatíveis."
+                },
+                {
+                      "question": "Como o conversor lida com os centissegundos e tempos do ASS?",
+                      "answer": "Arquivos ASS registram o tempo em centissegundos (centésimos de segundo, H:MM:SS.cs), enquanto arquivos SRT usam milissegundos (HH:MM:SS,mmm). Nosso conversor calcula os milissegundos precisos (por exemplo, 0:01:23.45 vira 00:01:23,450), garantindo sincronia impecável com a faixa de áudio."
+                },
+                {
+                      "question": "O que acontece com falas simultâneas ou sobrepostas no ASS?",
+                      "answer": "Quando múltiplas falas ocorrem no mesmo instante (comum em animes com diálogos simultâneos ou músicas traduzidas), o conversor organiza os eventos em ordem cronológica e gera índices sequenciais únicos no arquivo SRT resultante."
+                },
+                {
+                      "question": "Posso converter legendas de anime (.ass) para usar no Plex ou Smart TVs?",
+                      "answer": "Sim! Este é um dos motivos mais comuns para conversão. Muitas Smart TVs e aparelhos com Plex não conseguem renderizar fontes complexas de ASS e forçam a transcodificação pesada do vídeo. A conversão para SRT permite reprodução direta leve e rápida."
+                },
+                {
+                      "question": "É possível converter ASS para SRT via linha de comando com o FFmpeg?",
+                      "answer": "Sim, através do comando: ffmpeg -i entrada.ass -c:s srt saida.srt. Porém, nosso conversor online não exige instalação de programas, oferece visualização instantânea e funciona com total segurança em qualquer celular ou computador."
+                },
+                {
+                      "question": "Meus arquivos de legendas são enviados para algum servidor?",
+                      "answer": "Não. A ferramenta é 100% privada e funciona localmente no seu navegador via JavaScript. Nenhum arquivo ou texto é enviado para a internet ou salvo em servidores."
+                }
+          ]
     }
   },
   "fr": {
@@ -1597,6 +2127,182 @@ export const TOOLS_TRANSLATIONS: Record<Locale, ToolsContent> = {
           "answer": "Le format SubRip (.srt) a été créé en France à la fin des années 1990. Dans la plupart des pays européens, la virgule est le séparateur décimal officiel. La spécification SubRip a donc retenu la virgule pour les millisecondes (00:00:01,500), tandis que WebVTT a choisi le point décimal pour les standards web."
         }
       ]
+    },
+    "srtToAss": {
+      "id": "srt-to-ass",
+      "name": "Convertisseur SRT en ASS",
+      "shortName": "SRT en ASS",
+      "badge": "Compatible ASS v4+",
+      "tagline": "Convertissez vos sous-titres SubRip (.SRT) au format Advanced SubStation Alpha (.ASS)",
+      "description": "Transformez des sous-titres SRT en format Advanced SubStation Alpha (.ass) avec polices personnalisées, couleurs, bordures et positionnement précis pour Aegisub et lecteurs vidéo.",
+      "h1": "Convertisseur SRT en ASS",
+      "metaTitle": "Convertisseur SRT en ASS – Convertir Sous-Titres en ASS Gratuit | SRTConverters",
+      "metaDescription": "Convertissez des sous-titres SubRip (.srt) au format Advanced SubStation Alpha (.ass) en ligne et gratuitement. Styles personnalisés, couleurs et confidentialité 100%.",
+      "settingsLabels": {},
+      "stepsTitle": "Comment convertir SRT en ASS en 3 étapes simples",
+      "steps": [
+        {
+          "step": "1",
+          "title": "Téléversez ou collez vos sous-titres SRT",
+          "description": "Glissez-déposez votre fichier .srt ou collez le texte brut des dialogues directement dans l'éditeur."
+        },
+        {
+          "step": "2",
+          "title": "Formatage ASS v4.00+ instantané",
+          "description": "Le convertisseur génère automatiquement les en-têtes requis ([Script Info], [V4+ Styles], [Events]) et adapte les balises."
+        },
+        {
+          "step": "3",
+          "title": "Téléchargez le fichier .ASS",
+          "description": "Copiez le résultat ou téléchargez votre fichier .ass prêt à être utilisé dans Aegisub, VLC, MPV ou votre logiciel de montage."
+        }
+      ],
+      "featuresTitle": "Pourquoi convertir SRT en ASS ?",
+      "features": [
+        {
+          "title": "Typographie et styles avancés",
+          "description": "Personnalisez la police, la taille du texte, les contours épais, les ombres portées et les couleurs sans restriction.",
+          "icon": "pen"
+        },
+        {
+          "title": "Positionnement millimétré à l'écran",
+          "description": "Positionnez chaque ligne à des coordonnées précises (X, Y) pour ne jamais masquer les éléments visuels importants.",
+          "icon": "grid"
+        },
+        {
+          "title": "Confidentialité 100% dans le navigateur",
+          "description": "Le traitement s'effectue intégralement en local sur votre appareil. Vos fichiers ne transitent par aucun serveur.",
+          "icon": "shield"
+        },
+        {
+          "title": "Prêt pour Aegisub et lecteurs",
+          "description": "Sortie ASS v4.00+ standard parfaitement reconnue par Aegisub, VLC, MPV, HandBrake, DaVinci Resolve et Premiere Pro.",
+          "icon": "check"
+        }
+      ],
+      "faqsTitle": "Foire Aux Questions",
+      "faqs": [
+        {
+          "question": "Comment convertir un fichier SRT en ASS ?",
+          "answer": "Pour convertir un fichier SRT en ASS, téléversez votre fichier .srt ou collez le texte de vos sous-titres dans notre convertisseur gratuit en ligne. L'outil structure immédiatement vos répliques selon la syntaxe officielle Advanced SubStation Alpha (v4.00+), en générant les sections indispensables [Script Info], [V4+ Styles] et [Events]. Vous pouvez ensuite télécharger le fichier .ass obtenu instantanément."
+        },
+        {
+          "question": "La conversion SRT en ASS est-elle gratuite ?",
+          "answer": "Oui, notre convertisseur SRT en ASS est 100% gratuit, sans inscription préalable, sans filigrane et sans limite de volume. L'ensemble de l'algorithme s'exécute localement dans votre navigateur web via JavaScript, ce qui garantit que vos fichiers et retranscriptions confidentielles ne quittent jamais votre machine."
+        },
+        {
+          "question": "Quelle est la différence entre les formats SRT et ASS ?",
+          "answer": "Le format SRT (SubRip) est un standard rudimentaire en texte brut composé de numéros d'ordre, d'horodatages en millisecondes et de texte sans options graphiques avancées. Le format ASS (Advanced SubStation Alpha) est une spécification typographique complète permettant de définir des familles de polices, des tailles personnalisées, des couleurs BGR, des contours épais, des ombres portées, des coordonnées d'affichage au pixel près et des animations dynamiques de karaoké."
+        },
+        {
+          "question": "Puis-je modifier le fichier ASS dans Aegisub ?",
+          "answer": "Absolument. Notre convertisseur produit du code ASS v4.00+ rigoureusement conforme, spécialement calibré pour le logiciel Aegisub. Dès le téléchargement de votre fichier .ass, vous pouvez l'ouvrir dans Aegisub pour peaufiner les polices, les teintes, les coordonnées de placement, les effets de karaoké ou caler les répliques sur le spectre audio."
+        },
+        {
+          "question": "Suffit-il de renommer l'extension .srt en .ass ?",
+          "answer": "Non. Renommer l'extension d'un fichier .srt en .ass provoquera des erreurs dans vos lecteurs multimédias et logiciels de montage, car le fichier ne contiendra pas les en-têtes obligatoires [Script Info] et [V4+ Styles] ni la syntaxe des événements Dialogue. Il est indispensable d'utiliser un convertisseur dédié."
+        },
+        {
+          "question": "La conversion modifie-t-elle la synchronisation temporelle ?",
+          "answer": "Non. Tous les temps d'apparition et de disparition sont conservés avec une rigueur absolue, transposés des millisecondes avec virgule propres au SRT (HH:MM:SS,mmm) vers les centièmes de seconde à point du format ASS (H:MM:SS.cs). Le calage avec le flux vidéo reste rigoureusement inchangé."
+        },
+        {
+          "question": "Quels lecteurs vidéo prennent en charge les sous-titres ASS ?",
+          "answer": "La grande majorité des lecteurs modernes gèrent nativement les sous-titres ASS avec l'ensemble de leurs enrichissements stylistiques, notamment VLC Media Player, MPV, MPC-HC, PotPlayer et Plex (en lecture directe ou transcodage). Des outils comme HandBrake et FFmpeg permettent également d'incruster (graver) définitivement les styles ASS dans vos vidéos MP4."
+        },
+        {
+          "question": "Les balises de style comme le gras et l'italique sont-elles conservées ?",
+          "answer": "Oui. Les balises HTML usuelles présentes dans vos fichiers SRT telles que <i>, <b>, <u> et <font color> sont automatiquement traduites en balises de substitution natives ASS ({\\i1}, {\\b1}, {\\u1} et {\\c&HBBGGRR&}), garantissant l'intégrité intégrale de vos mises en relief textuelles."
+        }
+      ]
+    },
+    "assToSrt": {
+          "id": "ass-to-srt",
+          "name": "Convertisseur ASS en SRT",
+          "shortName": "ASS en SRT",
+          "badge": "SubRip Universel",
+          "tagline": "Convertissez des Sous-Titres Advanced SubStation Alpha (.ASS) au Format SubRip (.SRT) Épuré",
+          "description": "Convertissez des sous-titres stylisés Advanced SubStation Alpha (.ass / .ssa) en fichiers SubRip (.srt) propres et universellement compatibles. Nettoyez les balises de style, convertissez les centièmes de seconde et préparez vos sous-titres pour tous les téléviseurs et lecteurs.",
+          "h1": "Convertisseur ASS en SRT en Ligne",
+          "metaTitle": "Convertisseur ASS en SRT en Ligne – Convertir ASS en SRT Gratuit | SRTConverters",
+          "metaDescription": "Convertissez des sous-titres Advanced SubStation Alpha (.ass) au format SubRip (.srt) propre en ligne et gratuitement. Nettoyage des balises et conversion précise du minutage.",
+          "settingsLabels": {},
+          "stepsTitle": "Comment Convertir un Fichier ASS en SRT en 3 Étapes",
+          "steps": [
+                {
+                      "step": "1",
+                      "title": "Importez ou Collez vos Sous-Titres ASS",
+                      "description": "Glissez-déposez votre fichier .ass ou .ssa dans la zone de téléversement ou collez le script directement dans l'éditeur."
+                },
+                {
+                      "step": "2",
+                      "title": "Nettoyage des Balises et Minutage Automatique",
+                      "description": "Notre moteur intégré au navigateur extrait les dialogues, convertit les centièmes de seconde en millisecondes et supprime les balises de style superflues."
+                },
+                {
+                      "step": "3",
+                      "title": "Téléchargez le Fichier .SRT Propre",
+                      "description": "Copiez le texte SubRip dans le presse-papiers ou téléchargez immédiatement votre fichier .srt pour une lecture fluide sur Smart TV, Plex, VLC ou mobile."
+                }
+          ],
+          "featuresTitle": "Pourquoi Convertir ASS en SRT ?",
+          "features": [
+                {
+                      "title": "Compatibilité Universelle des Lecteurs",
+                      "description": "SubRip (.srt) est le format de sous-titres le plus reconnu au monde, lisible nativement sur Smart TV, consoles et box multimédias sans aucun artefact visuel.",
+                      "icon": "globe"
+                },
+                {
+                      "title": "Nettoyage Intelligent des Balises ASS",
+                      "description": "Supprime automatiquement le positionnement (\\pos), l'alignement (\\an), les couleurs (\\c) et les dessins vectoriels (\\p1) tout en conservant le gras et l'italique.",
+                      "icon": "sparkles"
+                },
+                {
+                      "title": "Précision Temporelle des Centièmes aux Millisecondes",
+                      "description": "Convertit les centièmes de seconde du format ASS (H:MM:SS.cs) en millisecondes exactes pour SRT (HH:MM:SS,mmm), garantissant une synchronisation audio parfaite.",
+                      "icon": "clock"
+                },
+                {
+                      "title": "Confidentialité Totale dans le Navigateur",
+                      "description": "Toutes les opérations se déroulent localement dans la mémoire de votre navigateur. Aucun fichier ni dialogue n'est envoyé sur un serveur distant.",
+                      "icon": "shield"
+                }
+          ],
+          "faqsTitle": "Foire Aux Questions",
+          "faqs": [
+                {
+                      "question": "Quelle est la différence entre les sous-titres ASS et SRT ?",
+                      "answer": "Advanced SubStation Alpha (.ass) est un format sophistiqué prenant en charge les polices personnalisées, le positionnement précis à l'écran par coordonnées, les effets de karaoké et les dessins vectoriels. SubRip (.srt) est un format de texte brut conçu pour une compatibilité universelle avec tous les lecteurs vidéo et téléviseurs."
+                },
+                {
+                      "question": "La mise en forme (couleurs, positions) est-elle perdue lors de la conversion ?",
+                      "answer": "Oui, les balises de mise en forme complexes comme les coordonnées (\\pos), l'alignement (\\an) ou les couleurs personnalisées sont retirées car la norme SRT ne les prend pas en charge. Cependant, les balises de texte courantes comme le gras (<b>), l'italique (<i>) et le souligné (<u>) sont conservées."
+                },
+                {
+                      "question": "Ce convertisseur conserve-t-il le gras et l'italique du format ASS ?",
+                      "answer": "Oui. Les balises ASS telles que {\\b1} et {\\i1} sont automatiquement converties en balises standard (<b> et <i>), préservant ainsi les intonations et l'accentuation voulues dans vos sous-titres."
+                },
+                {
+                      "question": "Comment le convertisseur traite-t-il les centièmes de seconde du format ASS ?",
+                      "answer": "Les fichiers ASS enregistrent les durées en centièmes de seconde (H:MM:SS.cs), tandis que les fichiers SRT utilisent des millisecondes (HH:MM:SS,mmm). Notre convertisseur calcule la valeur milliseconde exacte (par exemple, 0:01:23.45 devient 00:01:23,450), évitant tout décalage audio."
+                },
+                {
+                      "question": "Que deviennent les dialogues simultanés ou qui se chevauchent en ASS ?",
+                      "answer": "Lorsque plusieurs lignes de dialogue se chevauchent dans le temps (fréquent dans les sous-titres d'anime pour les chansons ou voix superposées), le convertisseur trie les répliques par ordre chronologique et leur attribue un numéro séquentiel unique dans le fichier SRT."
+                },
+                {
+                      "question": "Puis-je convertir des sous-titres d'anime ASS pour les lire sur Plex ou ma Smart TV ?",
+                      "answer": "Tout à fait ! C'est l'un des usages les plus fréquents. Beaucoup de téléviseurs et d'applications Plex ne gèrent pas bien les styles ASS complexes et sollicitent le processeur pour réencoder la vidéo. Le passage en SRT permet une lecture directe instantanée."
+                },
+                {
+                      "question": "Peut-on convertir un fichier ASS en SRT avec l'outil en ligne de commande FFmpeg ?",
+                      "answer": "Oui, en tapant la commande : ffmpeg -i entree.ass -c:s srt sortie.srt. Néanmoins, notre convertisseur web ne nécessite aucune installation, offre un aperçu immédiat et s'exécute directement sur ordinateur ou smartphone."
+                },
+                {
+                      "question": "Mes fichiers de sous-titres sont-ils conservés ou téléversés sur un serveur ?",
+                      "answer": "Aucun fichier n'est envoyé sur un serveur. Le traitement complet s'effectue en local dans votre navigateur grâce à JavaScript, garantissant une confidentialité absolue de vos données."
+                }
+          ]
     }
   },
   "de": {
@@ -1977,6 +2683,182 @@ export const TOOLS_TRANSLATIONS: Record<Locale, ToolsContent> = {
           "answer": "Das SubRip-Format (.srt) wurde Ende der 1990er-Jahre in Frankreich entwickelt. Im kontinentaleuropäischen Raum ist das Komma das Standard-Dezimaltrennzeichen. Daher legte die SubRip-Spezifikation Kommas für Millisekunden (00:00:01,500) fest, während WebVTT für Webstandards Dezimalpunkte übernahm."
         }
       ]
+    },
+    "srtToAss": {
+      "id": "srt-to-ass",
+      "name": "SRT in ASS Konverter",
+      "shortName": "SRT in ASS",
+      "badge": "ASS v4+ Kompatibel",
+      "tagline": "Konvertieren Sie SubRip (.SRT) Untertitel in das Advanced SubStation Alpha (.ASS) Format",
+      "description": "Wandeln Sie einfache SRT-Dateien in stylische ASS-Untertitel mit individuellen Schriftarten, Konturen, Schatten und präziser Bildpositionierung für Aegisub und Videoplayer um.",
+      "h1": "SRT in ASS Konverter",
+      "metaTitle": "SRT in ASS Konverter – Untertitel online in ASS umwandeln | SRTConverters",
+      "metaDescription": "Konvertieren Sie SubRip (.srt) Untertitel kostenlos online in das Advanced SubStation Alpha (.ass) Format. Benutzerdefinierte Stile, Farben und 100% Privatsphäre.",
+      "settingsLabels": {},
+      "stepsTitle": "So konvertieren Sie SRT in ASS in 3 Schritten",
+      "steps": [
+        {
+          "step": "1",
+          "title": "SRT-Datei hochladen oder einfügen",
+          "description": "Ziehen Sie Ihre .srt-Datei per Drag-and-Drop in den Upload-Bereich oder fügen Sie den Text direkt ein."
+        },
+        {
+          "step": "2",
+          "title": "Sofortige ASS v4.00+ Formatierung",
+          "description": "Unser Konverter berechnet Hundertstelsekunden, passt Tags an und erzeugt gültige [Script Info]-, [V4+ Styles]- und [Events]-Blöcke."
+        },
+        {
+          "step": "3",
+          "title": ".ASS-Datei herunterladen",
+          "description": "Kopieren Sie den Text in die Zwischenablage oder laden Sie die fertige .ass-Datei für Aegisub, VLC, MPV oder Schnittprogramme herunter."
+        }
+      ],
+      "featuresTitle": "Warum SRT in ASS konvertieren?",
+      "features": [
+        {
+          "title": "Erweiterte Typografie & Farbverläufe",
+          "description": "Nutzen Sie individuelle Schriftarten, Schriftgrößen, Umrandungen und Schatten, die im einfachen SRT-Format nicht existieren.",
+          "icon": "pen"
+        },
+        {
+          "title": "Pixelgenaue Positionierung",
+          "description": "Platzieren Sie Untertitel über Bildschirmkoordinaten (X, Y) exakt an der gewünschten Stelle, ohne Bauchbinden zu überdecken.",
+          "icon": "grid"
+        },
+        {
+          "title": "100% Datenschutz im Browser",
+          "description": "Die gesamte Konvertierung erfolgt clientseitig in Ihrem Browser. Keine Datei wird auf externe Server übertragen.",
+          "icon": "shield"
+        },
+        {
+          "title": "Bereit für Aegisub & Schnittsoftware",
+          "description": "Erzeugt standardkonformes ASS v4.00+, das sofort von Aegisub, VLC, MPV, HandBrake, DaVinci Resolve und Premiere Pro unterstützt wird.",
+          "icon": "check"
+        }
+      ],
+      "faqsTitle": "Häufig gestellte Fragen (FAQ)",
+      "faqs": [
+        {
+          "question": "Wie konvertiere ich eine SRT-Datei in ASS?",
+          "answer": "Laden Sie Ihre .srt-Datei in unseren kostenlosen Online-Konverter hoch oder fügen Sie den Untertiteltext direkt ein. Das Tool wandelt Ihre SubRip-Einträge unmittelbar in standardkonforme Advanced SubStation Alpha (v4.00+) Syntax um, einschließlich der Pflichtbereiche [Script Info], [V4+ Styles] und [Events]. Sie können die fertige .ass-Datei sofort herunterladen."
+        },
+        {
+          "question": "Ist die Konvertierung von SRT in ASS kostenlos?",
+          "answer": "Ja, unser SRT-zu-ASS-Konverter ist zu 100% kostenlos, erfordert keine Registrierung, fügt keine Wasserzeichen ein und unterliegt keinen Dateibeschränkungen. Alle Prozesse laufen vollständig clientseitig in Ihrem Webbrowser über JavaScript ab, sodass Ihre privaten Untertiteltexte niemals auf fremde Server übertragen werden."
+        },
+        {
+          "question": "Was ist der Unterschied zwischen SRT und ASS?",
+          "answer": "SRT (SubRip) ist ein minimalistisches Textformat, das lediglich Zählernummern, Zeitstempel im Millisekundenbereich und einfachen Text ohne nennenswerte Gestaltungsoptionen enthält. ASS (Advanced SubStation Alpha) ist eine anspruchsvolle Spezifikation, die frei wählbare Schriftarten, Schriftgrößen, BGR-Farbwerte, dicke Randkonturen, Schlagschatten, exakte Pixel-Bildschirmkoordinaten und animiertes Silben-Karaoke unterstützt."
+        },
+        {
+          "question": "Kann ich die ASS-Datei in Aegisub weiterbearbeiten?",
+          "answer": "Ja. Unser Konverter erzeugt standardkonforme ASS v4.00+ Syntax, die speziell auf die Anforderungen von Aegisub abgestimmt ist. Öffnen Sie die heruntergeladene .ass-Datei in Aegisub, um Schriftstile, Farben, Positionierungstags, Karaoke-Effekte oder das Audio-Timing anhand des Wellenform-Spektrums flexibel anzupassen."
+        },
+        {
+          "question": "Reicht es, die Dateiendung von .srt in .ass umzubenennen?",
+          "answer": "Nein. Ein einfaches Umbenennen einer .srt-Datei in .ass führt bei Mediaplayern und Videoschnittprogrammen zu Fehlern, da die Datei nicht die erforderlichen strukturierten Blöcke wie [Script Info], [V4+ Styles] und formatierte Dialogue-Zeilen enthält. Für eine funktionsfähige ASS-Datei ist ein dedizierter Konverter unerlässlich."
+        },
+        {
+          "question": "Bleibt die zeitliche Synchronisation der Untertitel erhalten?",
+          "answer": "Ja. Sämtliche Start- und Endzeitpunkte bleiben bildgenau erhalten. Sie werden von der SRT-Millisekunden-Schreibweise (HH:MM:SS,mmm) präzise in die für ASS standardisierte Hundertstelsekunden-Notation (H:MM:SS.cs) umgerechnet, ohne zeitliche Abweichungen im Video."
+        },
+        {
+          "question": "Welche Mediaplayer unterstützen ASS-Untertitel?",
+          "answer": "Nahezu alle modernen Videoplayer unterstützen ASS-Untertitel inklusive aller visuellen Stilelemente, darunter VLC Media Player, MPV, MPC-HC, PotPlayer und Plex (bei Direktwiedergabe oder Transcodierung). Videotools wie HandBrake und FFmpeg können gestaltete ASS-Untertitel zudem direkt fest in MP4-Videodateien einbrennen."
+        },
+        {
+          "question": "Werden Formatierungs-Tags wie fett und kursiv übernommen?",
+          "answer": "Ja. Typische HTML-Formatierungs-Tags aus SRT-Dateien wie <i>, <b>, <u> und <font color> werden automatisch in native ASS-Steuerzeichen übersetzt ({\\i1}, {\\b1}, {\\u1} und {\\c&HBBGGRR&}), sodass alle Hervorhebungen des Originaltextes vollständig erhalten bleiben."
+        }
+      ]
+    },
+    "assToSrt": {
+          "id": "ass-to-srt",
+          "name": "ASS in SRT Konverter",
+          "shortName": "ASS in SRT",
+          "badge": "Universelles SubRip",
+          "tagline": "Advanced SubStation Alpha (.ASS) Untertitel in sauberes SubRip (.SRT) Format umwandeln",
+          "description": "Konvertieren Sie stilisierte Advanced SubStation Alpha (.ass / .ssa) Untertitel in saubere, universell kompatible SubRip (.srt) Dateien. Stil-Tags bereinigen, Hundertstelsekunden anpassen und Untertitel für Smart-TVs und Media Player optimieren.",
+          "h1": "ASS in SRT Konverter Online",
+          "metaTitle": "ASS in SRT Konverter Online – ASS kostenlos in SRT umwandeln | SRTConverters",
+          "metaDescription": "Konvertieren Sie Advanced SubStation Alpha (.ass) Untertitel kostenlos online in sauberes SubRip (.srt) Format. Tags bereinigen, Zeitstempel anpassen und sofort SRT herunterladen.",
+          "settingsLabels": {},
+          "stepsTitle": "ASS in 3 einfachen Schritten in SRT konvertieren",
+          "steps": [
+                {
+                      "step": "1",
+                      "title": "ASS-Untertitel hochladen oder einfügen",
+                      "description": "Ziehen Sie Ihre .ass- oder .ssa-Datei per Drag & Drop in den Upload-Bereich oder fügen Sie den Text direkt in den Editor ein."
+                },
+                {
+                      "step": "2",
+                      "title": "Automatische Tag-Bereinigung & Zeitkonvertierung",
+                      "description": "Unsere browserbasierte Engine extrahiert Dialoge, wandelt Hundertstelsekunden in Millisekunden um und entfernt überflüssige Stil-Tags."
+                },
+                {
+                      "step": "3",
+                      "title": "Saubere .SRT-Datei herunterladen",
+                      "description": "Kopieren Sie die fertigen SubRip-Untertitel in die Zwischenablage oder laden Sie die .srt-Datei für Smart-TVs, Plex, VLC oder Mobilgeräte herunter."
+                }
+          ],
+          "featuresTitle": "Warum ASS in SRT konvertieren?",
+          "features": [
+                {
+                      "title": "Universelle Media-Player-Kompatibilität",
+                      "description": "SubRip (.srt) ist das am weitesten verbreitete Untertitelformat der Welt und wird von Smart-TVs, Streaming-Boxen und Mobilgeräten fehlerfrei wiedergegeben.",
+                      "icon": "globe"
+                },
+                {
+                      "title": "Intelligente Tag-Bereinigung",
+                      "description": "Entfernt Positionskoordinaten (\\pos), Ausrichtungen (\\an), Schriftfarben (\\c) und Vektorzeichnungen (\\p1) sauber, während Fett- und Kursivschrift erhalten bleiben.",
+                      "icon": "sparkles"
+                },
+                {
+                      "title": "Präzises Timing von Hundertstelsekunden zu Millisekunden",
+                      "description": "Konvertiert ASS-Hundertstelsekunden (H:MM:SS.cs) präzise in SRT-Millisekunden (HH:MM:SS,mmm) für eine absolut lippensynchrone Wiedergabe.",
+                      "icon": "clock"
+                },
+                {
+                      "title": "100% Datenschutz im Browser",
+                      "description": "Die gesamte Konvertierung erfolgt lokal im Speicher Ihres Browsers. Es werden keinerlei Untertiteltexte oder Dateien an externe Server übertragen.",
+                      "icon": "shield"
+                }
+          ],
+          "faqsTitle": "Häufig gestellte Fragen (FAQ)",
+          "faqs": [
+                {
+                      "question": "Was ist der Unterschied zwischen ASS- und SRT-Untertiteln?",
+                      "answer": "Advanced SubStation Alpha (.ass) bietet umfangreiche Styling-Möglichkeiten wie individuelle Schriftarten, genaue Koordinaten-Positionierung, Karaoke-Effekte und Vektorzeichnungen. SubRip (.srt) ist ein schlankes Nur-Text-Format für maximale universelle Kompatibilität auf nahezu jedem Endgerät."
+                },
+                {
+                      "question": "Gehen Stile wie Farben und Bildschirmpositionen bei der Umwandlung verloren?",
+                      "answer": "Ja, komplexe Styling-Tags wie Koordinaten (\\pos), Ausrichtungen (\\an), Karaoke-Timer (\\k) und Farben werden entfernt, da die offizielle SRT-Spezifikation diese nicht unterstützt. Grundlegende Textformatierungen wie Fett (<b>), Kursiv (<i>) und Unterstrichen (<u>) bleiben erhalten."
+                },
+                {
+                      "question": "Bleiben fett und kursiv formatierte Texte bei der Konvertierung erhalten?",
+                      "answer": "Ja. ASS-Tags wie {\\b1} und {\\i1} werden automatisch in standardisierte HTML-Tags (<b> und <i>) übersetzt, sodass wichtige Textbetonungen in kompatiblen Videoplayern sichtbar bleiben."
+                },
+                {
+                      "question": "Wie geht der Konverter mit Zeitstempeln und Hundertstelsekunden um?",
+                      "answer": "ASS-Dateien erfassen Zeiten in Hundertstelsekunden (H:MM:SS.cs), während SRT Millisekunden verwendet (HH:MM:SS,mmm). Unser Tool berechnet den exakten Millisekundenwert (z. B. wird 0:01:23.45 zu 00:01:23,450), wodurch kein Asynchronitäts-Versatz entsteht."
+                },
+                {
+                      "question": "Was passiert mit überlappenden oder gleichzeitigen ASS-Zeilen?",
+                      "answer": "Wenn mehrere Dialogzeilen zeitgleich eingeblendet werden (häufig bei Anime für gleichzeitige Stimmen oder Liedtexte), sortiert der Konverter diese chronologisch und nummeriert die Blöcke in der SRT-Datei sauber durch."
+                },
+                {
+                      "question": "Kann ich Anime-Fansub-Untertitel (.ass) für Plex oder Smart-TVs in SRT umwandeln?",
+                      "answer": "Ja! Das ist einer der häufigsten Einsatzzwecke. Viele Smart-TVs und Plex-Clients können aufwendige ASS-Schriften nicht direkt darstellen und erzwingen zeitintensives Server-Transcodieren. Die Umwandlung in SRT ermöglicht eine flüssige direkte Wiedergabe."
+                },
+                {
+                      "question": "Kann ich ASS mit Befehlszeilen-Tools wie FFmpeg in SRT umwandeln?",
+                      "answer": "Ja, mit dem Befehl: ffmpeg -i eingabe.ass -c:s srt ausgabe.srt. Unser Online-Tool benötigt jedoch keine Software-Installation, bietet eine direkte Textvorschau und funktioniert auch auf Mobiltelefonen."
+                },
+                {
+                      "question": "Werden meine Untertitel-Dateien auf einen Server hochgeladen?",
+                      "answer": "Nein, Ihre Daten bleiben vollständig privat. Die Konvertierung läuft zu 100% lokal in Ihrem Browser über JavaScript ab. Keine Datei verlässt Ihr Gerät."
+                }
+          ]
     }
   },
   "id": {
@@ -2357,6 +3239,182 @@ export const TOOLS_TRANSLATIONS: Record<Locale, ToolsContent> = {
           "answer": "Format SubRip (.srt) pertama kali dikembangkan di Prancis pada akhir era 1990-an. Di Eropa daratan, koma adalah pemisah desimal resmi. Oleh sebab itu, spesifikasi SubRip menetapkan koma untuk milidetik (00:00:01,500), sedangkan WebVTT menggunakan titik desimal untuk standar web global."
         }
       ]
+    },
+    "srtToAss": {
+      "id": "srt-to-ass",
+      "name": "Konverter SRT ke ASS",
+      "shortName": "SRT ke ASS",
+      "badge": "Mendukung ASS v4+",
+      "tagline": "Konversi Subtitle SubRip (.SRT) ke Format Advanced SubStation Alpha (.ASS)",
+      "description": "Ubah subtitle SRT biasa menjadi format Advanced SubStation Alpha (.ass) dengan tipografi kustom, warna, border, dan koordinat posisi untuk Aegisub dan pemutar media.",
+      "h1": "Konverter SRT ke ASS",
+      "metaTitle": "Konverter SRT ke ASS – Ubah Subtitle ke ASS Online Gratis | SRTConverters",
+      "metaDescription": "Konversi subtitle SubRip (.srt) ke format Advanced SubStation Alpha (.ass) secara online dan gratis. Gaya font kustom, warna, posisi, dan 100% privasi browser.",
+      "settingsLabels": {},
+      "stepsTitle": "Cara Konversi SRT ke ASS dalam 3 Langkah Mudah",
+      "steps": [
+        {
+          "step": "1",
+          "title": "Unggah atau Tempel Subtitle SRT",
+          "description": "Tarik dan lepas file .srt Anda ke area unggah atau tempel teks dialog subtitle langsung ke editor."
+        },
+        {
+          "step": "2",
+          "title": "Pemformatan ASS v4.00+ Instan",
+          "description": "Mesin konverter menghitung waktu dalam seperseratus detik, menyesuaikan tag, dan menghasilkan header ASS standar."
+        },
+        {
+          "step": "3",
+          "title": "Unduh File .ASS",
+          "description": "Salin kode subtitle atau unduh file .ass yang siap digunakan di Aegisub, VLC, MPV, atau software editing."
+        }
+      ],
+      "featuresTitle": "Mengapa Mengonversi SRT ke ASS?",
+      "features": [
+        {
+          "title": "Tipografi Lanjutan & Warna Khusus",
+          "description": "Gunakan jenis font kustom, ukuran teks, garis tepi tebal, bayangan, dan pilihan warna yang tidak didukung SRT biasa.",
+          "icon": "pen"
+        },
+        {
+          "title": "Penempatan Posisi Presisi",
+          "description": "Mendukung koordinat piksel (X, Y) untuk menempatkan takarir di bagian mana pun pada layar tanpa menutupi grafik video.",
+          "icon": "grid"
+        },
+        {
+          "title": "100% Privasi di Peramban",
+          "description": "Semua proses berjalan di browser perangkat Anda. File Anda tidak pernah diunggah ke server mana pun.",
+          "icon": "shield"
+        },
+        {
+          "title": "Siap untuk Aegisub & Pemutar Video",
+          "description": "Menghasilkan format ASS v4.00+ resmi yang langsung didukung oleh Aegisub, VLC, MPV, HandBrake, dan Premiere Pro.",
+          "icon": "check"
+        }
+      ],
+      "faqsTitle": "Pertanyaan yang Sering Diajukan (FAQ)",
+      "faqs": [
+        {
+          "question": "Bagaimana cara mengubah file SRT menjadi ASS?",
+          "answer": "Untuk mengonversi file SRT ke ASS, unggah file .srt Anda atau tempel teks dialog subtitle ke konverter online gratis kami. Alat ini secara instan menyusun ulang entri SubRip menjadi sintaks resmi Advanced SubStation Alpha (v4.00+), lengkap dengan bagian wajib [Script Info], [V4+ Styles], dan [Events]. Anda dapat langsung mengunduh file .ass yang telah siap."
+        },
+        {
+          "question": "Apakah konversi SRT ke ASS ini gratis?",
+          "answer": "Ya, konverter SRT ke ASS kami 100% gratis tanpa pendaftaran akun, tanpa watermark, dan tanpa batasan jumlah file harian. Seluruh pemrosesan berjalan secara lokal di dalam peramban web Anda melalui JavaScript, sehingga naskah dan dokumen pribadi Anda tidak pernah dikirimkan ke server luar."
+        },
+        {
+          "question": "Apa perbedaan antara subtitle SRT dan ASS?",
+          "answer": "SRT (SubRip) adalah format teks polos dasar yang hanya memuat nomor urut, stempel waktu milidetik, dan baris teks dengan gaya visual sangat minim. ASS (Advanced SubStation Alpha) adalah spesifikasi subtitle visual tingkat lanjut yang memungkinkan pengaturan jenis font khusus, warna BGR, garis tepi (outline) tebal, bayangan jatuh, posisi koordinat piksel di layar, serta animasi teks bertempo suku kata untuk karaoke."
+        },
+        {
+          "question": "Bisakah saya mengedit file ASS hasil konversi di Aegisub?",
+          "answer": "Tentu saja. Konverter kami menghasilkan sintaks ASS v4.00+ yang sepenuhnya mematuhi standar resmi Aegisub. Setelah mengunduh file .ass, buka file tersebut di Aegisub untuk mengubah gaya font, warna, tag koordinat posisi, efek karaoke, atau melakukan penyesuaian waktu presisi menggunakan spektrum gelombang audio."
+        },
+        {
+          "question": "Apakah cukup dengan mengubah nama ekstensi dari .srt ke .ass?",
+          "answer": "Tidak. Sekadar mengganti nama ekstensi file dari .srt menjadi .ass akan menyebabkan pemutar video dan software editing gagal membaca atau memunculkan pesan error. Format ASS memerlukan blok struktur wajib seperti [Script Info], [V4+ Styles], dan baris kejadian Dialogue. Anda wajib menggunakan alat konverter khusus untuk membangun susunan file yang benar."
+        },
+        {
+          "question": "Apakah konversi SRT ke ASS memengaruhi sinkronisasi waktu?",
+          "answer": "Tidak sama sekali. Semua stempel waktu awal dan akhir dipertahankan dengan presisi tinggi, dikonversi dari notasi milidetik berkoma pada SRT (HH:MM:SS,mmm) menjadi notasi centisecond bertitik pada ASS (H:MM:SS.cs). Sinkronisasi subtitle dengan adegan video tetap berjalan sempurna."
+        },
+        {
+          "question": "Pemutar media apa saja yang mendukung subtitle ASS?",
+          "answer": "Sebagian besar pemutar video modern telah mendukung subtitle ASS beserta seluruh gaya visualnya, termasuk VLC Media Player, MPV, MPC-HC, PotPlayer, dan Plex (baik saat direct play maupun transcoding). Perangkat lunak seperti HandBrake dan FFmpeg juga dapat membakar (hardcode) gaya visual ASS secara permanen ke dalam file video MP4."
+        },
+        {
+          "question": "Apakah tag format seperti huruf tebal dan miring tetap dipertahankan?",
+          "answer": "Ya. Tag HTML umum yang terdapat di dalam file SRT seperti <i>, <b>, <u>, dan <font color> secara otomatis diubah menjadi tag override resmi bawaan ASS ({\\i1}, {\\b1}, {\\u1}, dan {\\c&HBBGGRR&}), sehingga penekanan visual teks asli Anda tidak akan hilang."
+        }
+      ]
+    },
+    "assToSrt": {
+          "id": "ass-to-srt",
+          "name": "Konverter ASS ke SRT",
+          "shortName": "ASS ke SRT",
+          "badge": "SubRip Universal",
+          "tagline": "Konversi Subtitle Advanced SubStation Alpha (.ASS) ke Format SubRip (.SRT) Bersih",
+          "description": "Konversi subtitle berformat Advanced SubStation Alpha (.ass / .ssa) menjadi file SubRip (.srt) yang bersih dan kompatibel secara universal. Bersihkan tag gaya, konversi centisecond, dan siapkan subtitle untuk Smart TV atau pemutar media apa pun.",
+          "h1": "Konverter ASS ke SRT Online",
+          "metaTitle": "Konverter ASS ke SRT Online – Ubah ASS ke SRT Gratis | SRTConverters",
+          "metaDescription": "Konversi subtitle Advanced SubStation Alpha (.ass) ke format SubRip (.srt) bersih secara online dan gratis. Bersihkan tag gaya, konversi waktu, dan unduh file SRT secara instan.",
+          "settingsLabels": {},
+          "stepsTitle": "Cara Konversi ASS ke SRT dalam 3 Langkah Mudah",
+          "steps": [
+                {
+                      "step": "1",
+                      "title": "Unggah atau Tempel Subtitle ASS",
+                      "description": "Tarik dan lepas file .ass atau .ssa Anda ke area unggah atau tempel teks script subtitle langsung ke editor."
+                },
+                {
+                      "step": "2",
+                      "title": "Pembersihan Tag & Konversi Waktu Otomatis",
+                      "description": "Mesin peramban kami mengekstrak dialog, mengubah centisecond menjadi milidetik, dan menghapus tag gaya ASS yang rumit."
+                },
+                {
+                      "step": "3",
+                      "title": "Unduh File .SRT Bersih",
+                      "description": "Salin subtitle SubRip ke clipboard atau unduh file .srt yang siap digunakan untuk Smart TV, Plex, VLC, atau perangkat seluler."
+                }
+          ],
+          "featuresTitle": "Mengapa Mengonversi ASS ke SRT?",
+          "features": [
+                {
+                      "title": "Kompatibilitas Pemutar Universal",
+                      "description": "SubRip (.srt) adalah format subtitle yang paling banyak didukung di dunia, dapat diputar secara native di Smart TV, konsol, dan perangkat mobile tanpa error.",
+                      "icon": "globe"
+                },
+                {
+                      "title": "Pembersihan Tag Gaya Pintar",
+                      "description": "Membersihkan koordinat posisi (\\pos), perataan (\\an), warna font (\\c), dan gambar vektor (\\p1) secara otomatis sambil mempertahankan cetak tebal dan miring.",
+                      "icon": "sparkles"
+                },
+                {
+                      "title": "Akurasi Waktu dari Centisecond ke Milidetik",
+                      "description": "Mengonversi stempel waktu centisecond ASS (H:MM:SS.cs) menjadi milidetik SRT (HH:MM:SS,mmm) yang tepat untuk menjaga sinkronisasi audio tetap sempurna.",
+                      "icon": "clock"
+                },
+                {
+                      "title": "100% Privasi di Peramban",
+                      "description": "Semua proses konversi dilakukan secara lokal di memori browser Anda. Tidak ada file subtitle atau teks dialog yang diunggah ke server eksternal.",
+                      "icon": "shield"
+                }
+          ],
+          "faqsTitle": "Pertanyaan yang Sering Diajukan",
+          "faqs": [
+                {
+                      "question": "Apa perbedaan antara subtitle ASS dan SRT?",
+                      "answer": "Advanced SubStation Alpha (.ass) adalah format subtitle kaya fitur dengan dukungan font kustom, koordinat posisi layar yang presisi, efek karaoke, dan grafis vektor. Sedangkan SubRip (.srt) adalah format teks polos ringan yang dirancang untuk kompatibilitas universal di hampir semua pemutar video dan televisi."
+                },
+                {
+                      "question": "Apakah format warna dan posisi akan hilang saat konversi dari ASS ke SRT?",
+                      "answer": "Ya, tag gaya rumit seperti koordinat posisi (\\pos), penataan (\\an), timer karaoke (\\k), dan warna font akan dihapus karena format standar SRT tidak mendukungnya. Namun, penekanan teks dasar seperti tebal (<b>), miring (<i>), dan garis bawah (<u>) tetap dipertahankan."
+                },
+                {
+                      "question": "Apakah konverter ini mempertahankan format teks tebal dan miring dari ASS?",
+                      "answer": "Ya. Tag kontrol ASS seperti {\\b1} dan {\\i1} otomatis dikonversi menjadi tag format standar (<b> dan <i>), sehingga intonasi penting dalam dialog tetap terlihat di pemutar yang kompatibel."
+                },
+                {
+                      "question": "Bagaimana konverter menangani centisecond dan stempel waktu ASS?",
+                      "answer": "File ASS mencatat waktu dalam satuan centisecond (seperseratus detik, H:MM:SS.cs), sedangkan SRT menggunakan milidetik (HH:MM:SS,mmm). Konverter kami mengkalkulasi milidetik secara presisi (misalnya 0:01:23.45 menjadi 00:01:23,450), menjamin tidak ada desinkronisasi audio."
+                },
+                {
+                      "question": "Apa yang terjadi pada dialog ASS yang bersamaan atau tumpang tindih?",
+                      "answer": "Ketika beberapa baris dialog muncul bersamaan (sering terjadi pada subtitle anime saat ada suara latar atau lirik lagu), konverter akan mengurutkan baris secara kronologis dan memberi nomor urut sequential yang rapi pada file SRT."
+                },
+                {
+                      "question": "Bisakah saya mengonversi subtitle anime fansub (.ass) untuk diputar di Plex atau Smart TV?",
+                      "answer": "Sangat bisa! Ini adalah salah satu alasan paling umum untuk konversi. Banyak Smart TV dan pemutar Plex kesulitan memproses font ASS yang rumit dan memaksa transcoding berat pada server. Mengubahnya ke SRT membuat video dapat diputar langsung (direct play) dengan lancar."
+                },
+                {
+                      "question": "Bisakah saya mengonversi ASS ke SRT menggunakan FFmpeg di command line?",
+                      "answer": "Bisa, dengan menjalankan perintah: ffmpeg -i input.ass -c:s srt output.srt. Namun, alat online kami tidak membutuhkan instalasi perangkat lunak apa pun, memberi pratinjau instan, dan bekerja cepat di ponsel maupun laptop."
+                },
+                {
+                      "question": "Apakah file subtitle saya diunggah ke server atau tetap aman?",
+                      "answer": "File Anda sepenuhnya aman dan privat. Seluruh pemrosesan berjalan 100% secara lokal di dalam browser Anda menggunakan JavaScript. Tidak ada file yang dikirim ke internet."
+                }
+          ]
     }
   },
   "tr": {
@@ -2737,6 +3795,182 @@ export const TOOLS_TRANSLATIONS: Record<Locale, ToolsContent> = {
           "answer": "SubRip (.srt) formatı 1990'ların sonunda Fransa'da geliştirilmiştir. Avrupa genelinde ondalık ayırıcı olarak virgül kullanıldığı için SubRip standardı milisaniye ayracı olarak virgülü (00:00:01,500) benimsemiştir. WebVTT ise genel web standartlarına uyum için noktayı tercih etmiştir."
         }
       ]
+    },
+    "srtToAss": {
+      "id": "srt-to-ass",
+      "name": "SRT - ASS Dönüştürücü",
+      "shortName": "SRT - ASS",
+      "badge": "ASS v4+ Uyumlu",
+      "tagline": "SubRip (.SRT) Altyazılarını Advanced SubStation Alpha (.ASS) Formatına Dönüştürün",
+      "description": "Standart SRT altyazılarını özel yazı tipleri, renkler, kenarlıklar ve hassas ekran konumlandırması içeren ASS formatına dönüştürün.",
+      "h1": "SRT - ASS Dönüştürücü",
+      "metaTitle": "SRT ASS Dönüştürücü – Altyazıları ASS Formatına Dönüştürün | SRTConverters",
+      "metaDescription": "SubRip (.srt) altyazılarını ücretsiz olarak Advanced SubStation Alpha (.ass) formatına dönüştürün. Özel stiller, renkler, konumlandırma ve %100 gizlilik.",
+      "settingsLabels": {},
+      "stepsTitle": "3 Kolay Adımda SRT Dosyasını ASS Formatına Dönüştürün",
+      "steps": [
+        {
+          "step": "1",
+          "title": "SRT Dosyasını Yükleyin veya Yapıştırın",
+          "description": ".srt dosyanızı yükleme alanına bırakın veya altyazı metnini doğrudan düzenleyiciye yapıştırın."
+        },
+        {
+          "step": "2",
+          "title": "Anında ASS v4.00+ Biçimlendirmesi",
+          "description": "Dönüştürücü zaman kodlarını saliselere çevirir, etiketleri uyarlar ve standart ASS başlıklarını oluşturur."
+        },
+        {
+          "step": "3",
+          "title": ".ASS Dosyasını İndirin",
+          "description": "Oluşturulan kodu kopyalayın veya Aegisub, VLC, MPV ve video düzenleyicilerde kullanıma hazır .ass dosyasını indirin."
+        }
+      ],
+      "featuresTitle": "Neden SRT'den ASS'ye Dönüştürmelisiniz?",
+      "features": [
+        {
+          "title": "Gelişmiş Tipografi ve Renkler",
+          "description": "Düz SRT'de desteklenmeyen özel yazı tipleri, metin boyutları, kalın kenarlıklar, gölgeler ve renk stilleri kullanın.",
+          "icon": "pen"
+        },
+        {
+          "title": "Hassas Ekran Konumlandırması",
+          "description": "Altyazıları ekran koordinatlarıyla (X, Y) istenen noktaya yerleştirerek alttaki grafikleri kapatmasını önleyin.",
+          "icon": "grid"
+        },
+        {
+          "title": "%100 Tarayıcı İçi Gizlilik",
+          "description": "Tüm işlemler yerel olarak tarayıcınızda gerçekleşir. Dosyalarınız hiçbir harici sunucuya iletilmez.",
+          "icon": "shield"
+        },
+        {
+          "title": "Aegisub ve Video Oynatıcı Uyumlu",
+          "description": "Aegisub, VLC, MPV, HandBrake, DaVinci Resolve ve Premiere Pro tarafından tanınan geçerli ASS v4.00+ çıktısı.",
+          "icon": "check"
+        }
+      ],
+      "faqsTitle": "Sıkça Sorulan Sorular",
+      "faqs": [
+        {
+          "question": "SRT dosyasını ASS formatına nasıl dönüştürürüm?",
+          "answer": "Bir SRT dosyasını ASS'ye dönüştürmek için .srt dosyanızı yükleme alanına sürükleyin veya altyazı metninizi ücretsiz çevrimiçi dönüştürücümüze yapıştırın. Aracımız SubRip bloklarınızı anında [Script Info], [V4+ Styles] ve [Events] gibi zorunlu bölümleri içeren resmi Advanced SubStation Alpha (v4.00+) sözdizimine dönüştürür ve .ass dosyanızı indirmeniz için hazır hale getirir."
+        },
+        {
+          "question": "SRT'den ASS'ye dönüştürme işlemi ücretsiz mi?",
+          "answer": "Evet, SRT - ASS dönüştürücümüz hiçbir kayıt, günlük dosya sınırı veya filigran olmaksızın %100 ücretsizdir. Tüm işlemler tarayıcınızda JavaScript yardımıyla yerel olarak yürütülür; bu da altyazı dosyalarınızın ve özel transkriptlerinizin asla harici sunuculara aktarılmadığı anlamına gelir."
+        },
+        {
+          "question": "SRT ile ASS altyazıları arasındaki temel fark nedir?",
+          "answer": "SRT (SubRip) yalnızca satır numaraları, milisaniye zaman kodları ve sınırlı metin içeren çok temel bir düz metin altyazı biçimidir. ASS (Advanced SubStation Alpha) ise özel yazı tipi aileleri, BGR renk paleti, kalın dış çizgiler, gölgeler, hassas piksel koordinatları ve hece düzeyinde dinamik karaoke animasyonları sunan gelişmiş bir altyazı standardıdır."
+        },
+        {
+          "question": "Dönüştürülen ASS dosyasını Aegisub'da düzenleyebilir miyim?",
+          "answer": "Evet. Dönüştürücümüz özellikle Aegisub yazılımıyla tam uyumlu resmi ASS v4.00+ sözdizimi üretir. İndirdiğiniz .ass dosyasını Aegisub'da açarak yazı tipi stillerini, renkleri, ekran konumlandırmasını, karaoke efektlerini veya ses dalga boyu üzerinden hassas zamanlamayı dilediğiniz gibi düzenleyebilirsiniz."
+        },
+        {
+          "question": "Bir .srt dosyasının uzantısını .ass olarak yeniden adlandırmak yeterli midir?",
+          "answer": "Hayır. Yalnızca dosya uzantısını .srt'den .ass'ye dönüştürmek, altyazı düzenleyicilerin ve video oynatıcıların hata vermesine veya altyazıyı göstermemesine yol açar. ASS formatı [Script Info], [V4+ Styles] ve Dialogue etkinlik satırları gibi zorunlu dahili bloklar gerektirir. Doğru dosya mimarisi için özel bir dönüştürücü kullanılması şarttır."
+        },
+        {
+          "question": "SRT'den ASS'ye dönüştürme altyazı senkronizasyonunu etkiler mi?",
+          "answer": "Hayır. Başlangıç ve bitiş zaman kodlarının tümü eksiksiz biçimde korunur; SRT'nin virgüllü milisaniye gösteriminden (SS:DD:SN,mmm) standart ASS noktalı salise gösterimine (S:DD:SN.ss) tam doğrulukla dönüştürülür. Altyazınızın video ile olan zamanlaması kusursuz kalır."
+        },
+        {
+          "question": "Hangi medya oynatıcıları ASS altyazılarını destekler?",
+          "answer": "Modern medya oynatıcıların neredeyse tamamı görsel stilleriyle birlikte ASS altyazılarını destekler; bunlar arasında VLC Media Player, MPV, MPC-HC, PotPlayer ve Plex yer alır. Ayrıca HandBrake ve FFmpeg gibi video araçlarıyla ASS stilleri doğrudan MP4 videolarına kalıcı olarak (hardburn) kazınabilir."
+        },
+        {
+          "question": "Kalın ve italik gibi metin vurgulama etiketleri korunur mu?",
+          "answer": "Evet. SRT dosyalarında yer alan yaygın HTML etiketleri (<i>, <b>, <u> ve <font color>), otomatik olarak standart ASS geçersiz kılma etiketlerine ({\\i1}, {\\b1}, {\\u1} ve {\\c&HBBGGRR&}) dönüştürülür; böylece orijinal metin vurgularınız tamamen korunur."
+        }
+      ]
+    },
+    "assToSrt": {
+          "id": "ass-to-srt",
+          "name": "ASS - SRT Dönüştürücü",
+          "shortName": "ASS - SRT",
+          "badge": "Evrensel SubRip",
+          "tagline": "Advanced SubStation Alpha (.ASS) Altyazılarını Temiz SubRip (.SRT) Formatına Dönüştürün",
+          "description": "Gelişmiş stillere sahip Advanced SubStation Alpha (.ass / .ssa) altyazılarını evrensel olarak uyumlu temiz SubRip (.srt) dosyalarına dönüştürün. Kod etiketlerini temizleyin, saliseleri milisaniyeye dönüştürün ve altyazılarınızı tüm oynatıcılar için hazır hale getirin.",
+          "h1": "ASS - SRT Dönüştürücü Online",
+          "metaTitle": "ASS - SRT Dönüştürücü Online – ASS Dosyasını SRT Yapma | SRTConverters",
+          "metaDescription": "Advanced SubStation Alpha (.ass) altyazılarını ücretsiz çevrimiçi temiz SubRip (.srt) formatına dönüştürün. Etiketleri temizleyin, zamanlamayı koruyun ve SRT dosyasını anında indirin.",
+          "settingsLabels": {},
+          "stepsTitle": "ASS Dosyasını 3 Kolay Adımda SRT Formatına Dönüştürün",
+          "steps": [
+                {
+                      "step": "1",
+                      "title": "ASS Altyazısını Yükleyin veya Yapıştırın",
+                      "description": ".ass veya .ssa dosyanızı yükleme alanına sürükleyip bırakın ya da altyazı metnini doğrudan düzenleyiciye yapıştırın."
+                },
+                {
+                      "step": "2",
+                      "title": "Otomatik Etiket Temizliği ve Zamanlama Dönüşümü",
+                      "description": "Tarayıcı tabanlı dönüştürücümüz diyalogları ayıklar, saliseleri milisaniyeye çevirir ve karmaşık ASS stil etiketlerini temizler."
+                },
+                {
+                      "step": "3",
+                      "title": "Temiz .SRT Dosyasını İndirin",
+                      "description": "Dönüştürülen SubRip metnini panoya kopyalayın veya Smart TV, Plex, VLC ve telefonlarda hemen oynatmak üzere .srt dosyasını indirin."
+                }
+          ],
+          "featuresTitle": "Neden ASS Dosyasını SRT Formatına Dönüştürmelisiniz?",
+          "features": [
+                {
+                      "title": "Evrensel Medya Oynatıcı Uyumluluğu",
+                      "description": "SubRip (.srt) dünyadaki en yaygın altyazı formatıdır; Smart TV'lerde, oyun konsollarında ve mobil cihazlarda sorunsuz bir şekilde doğrudan oynatılır.",
+                      "icon": "globe"
+                },
+                {
+                      "title": "Akıllı Stil ve Etiket Temizliği",
+                      "description": "Konumlandırma (\\pos), hizalama (\\an), renk (\\c) ve vektör çizim (\\p1) kodlarını temizlerken kalın, italik ve altı çizili metin vurgularını korur.",
+                      "icon": "sparkles"
+                },
+                {
+                      "title": "Saliseden Milisaniyeye Kusursuz Zaman Eşitleme",
+                      "description": "ASS formatındaki saliseleri (H:MM:SS.cs) tam milisaniye (HH:MM:SS,mmm) değerlerine dönüştürerek ses ve görüntü senkronizasyonunu korur.",
+                      "icon": "clock"
+                },
+                {
+                      "title": "%100 Tarayıcı İçi Gizlilik",
+                      "description": "Tüm dönüştürme işlemi tarayıcınızın belleğinde yerel olarak gerçekleştirilir. Hiçbir altyazı verisi harici sunuculara iletilmez.",
+                      "icon": "shield"
+                }
+          ],
+          "faqsTitle": "Sıkça Sorulan Sorular",
+          "faqs": [
+                {
+                      "question": "ASS ve SRT altyazıları arasındaki fark nedir?",
+                      "answer": "Advanced SubStation Alpha (.ass), özel yazı tipleri, ekran koordinatları, çizimler ve karaoke efektleri sunan zengin bir formattır. SubRip (.srt) ise hemen her video oynatıcı, televizyon ve mobil cihazda evrensel olarak çalışan sade bir düz metin formatıdır."
+                },
+                {
+                      "question": "ASS'den SRT'ye dönüştürürken renkler ve konumlar kaybolur mu?",
+                      "answer": "Evet; ekran koordinatları (\\pos), hizalama kodları (\\an), karaoke efektleri (\\k) ve özel renkler kaldırılır çünkü standart SRT özellikleri bunları desteklemez. Ancak kalın (<b>), italik (<i>) ve altı çizili (<u>) gibi temel vurgular korunur."
+                },
+                {
+                      "question": "Bu dönüştürücü ASS dosyasındaki kalın ve italik yazıları korur mu?",
+                      "answer": "Evet. {\\b1} ve {\\i1} gibi ASS kontrol kodları standart biçimlendirme etiketlerine (<b> ve <i>) dönüştürülür, böylece diyaloglardaki önemli vurgular uyumlu oynatıcılarda görüntülenmeye devam eder."
+                },
+                {
+                      "question": "Dönüştürücü ASS saliselerini ve zaman damgalarını nasıl işler?",
+                      "answer": "ASS dosyaları zaman damgalarını salise (saniyenin yüzde biri, H:MM:SS.cs) cinsinden tutarken, SRT dosyaları milisaniye (HH:MM:SS,mmm) kullanır. Aracımız tam milisaniye karşılığını hesaplar (örneğin 0:01:23.45 zamanı 00:01:23,450 olur) ve ses senkronizasyonunda kayma yaşanmaz."
+                },
+                {
+                      "question": "Aynı anda konuşulan veya çakışan ASS diyalogları nasıl aktarılır?",
+                      "answer": "Anime altyazılarında şarkı sözleri veya aynı andaki replikler çakıştığında dönüştürücümüz bunları kronolojik sıraya dizer ve SRT dosyasında bağımsız numaralandırılmış bloklar olarak düzenler."
+                },
+                {
+                      "question": "Plex veya Smart TV'de izlemek için anime (.ass) altyazılarını SRT'ye dönüştürebilir miyim?",
+                      "answer": "Kesinlikle! Bu, en yaygın kullanım amaçlarından biridir. Çoğu Smart TV ve Plex istemcisi karmaşık ASS stillerini oynatırken sunucuyu gereksiz dönüştürmeye (transcoding) zorlar. Temiz SRT'ye geçmek doğrudan ve akıcı oynatma sağlar."
+                },
+                {
+                      "question": "FFmpeg komut satırı aracıyla ASS dosyasını SRT yapabilir miyim?",
+                      "answer": "Evet, komut satırında: ffmpeg -i girdi.ass -c:s srt cikti.srt komutunu kullanabilirsiniz. Ancak web sitemizdeki araç program kurulumu gerektirmez, anlık önizleme sunar ve telefonlarda da çalışır."
+                },
+                {
+                      "question": "Altyazı dosyalarım sunucuya yükleniyor mu, gizliliğim güvende mi?",
+                      "answer": "Dosyalarınız tamamen güvendedir. Tüm işlemler JavaScript ile doğrudan cihazınızın tarayıcısında gerçekleşir. Hiçbir veri internete aktarılmaz veya kaydedilmez."
+                }
+          ]
     }
   },
   "it": {
@@ -3117,6 +4351,182 @@ export const TOOLS_TRANSLATIONS: Record<Locale, ToolsContent> = {
           "answer": "Il formato SubRip (.srt) è stato creato in Francia alla fine degli anni '90. Nella maggior parte dei paesi europei, la virgola è il separador decimal ufficiale. La specifica SubRip ha quindi adottato la virgola per i millisecondi (00:00:01,500), mentre WebVTT ha scelto il punto per allinearsi agli standard del web."
         }
       ]
+    },
+    "srtToAss": {
+      "id": "srt-to-ass",
+      "name": "Convertitore da SRT a ASS",
+      "shortName": "SRT in ASS",
+      "badge": "Compatibile ASS v4+",
+      "tagline": "Converti Sottotitoli SubRip (.SRT) nel Formato Advanced SubStation Alpha (.ASS)",
+      "description": "Converti sottotitoli SRT di base nel formato Advanced SubStation Alpha (.ass) con font personalizzati, colori, bordi e posizionamento preciso per Aegisub e lettori multimediali.",
+      "h1": "Convertitore da SRT a ASS",
+      "metaTitle": "Convertitore da SRT a ASS – Converti Sottotitoli in ASS Online | SRTConverters",
+      "metaDescription": "Converti sottotitoli SubRip (.srt) nel formato Advanced SubStation Alpha (.ass) online e gratis. Stili personalizzati, colori, posizionamento e 100% privacy.",
+      "settingsLabels": {},
+      "stepsTitle": "Come Convertire SRT in ASS in 3 Semplici Passaggi",
+      "steps": [
+        {
+          "step": "1",
+          "title": "Carica o Incolla Sottotitoli SRT",
+          "description": "Trascina il tuo file .srt nella casella di caricamento o incolla il testo dei dialoghi direttamente nell'editor."
+        },
+        {
+          "step": "2",
+          "title": "Formattazione ASS v4.00+ Immediata",
+          "description": "Il motore converte i timestamp in centesimi di secondo, adatta i tag di stile e compila le intestazioni ASS standard."
+        },
+        {
+          "step": "3",
+          "title": "Scarica il File .ASS",
+          "description": "Copia il codice o scarica il file .ass pronto per essere aperto in Aegisub, VLC, MPV o nei programmi di montaggio video."
+        }
+      ],
+      "featuresTitle": "Perché Convertire SRT in ASS?",
+      "features": [
+        {
+          "title": "Tipografia Avanzata e Colori",
+          "description": "Scegli font su misura, dimensioni, bordi spessi, ombreggiature e colori non supportati dal classico formato SRT.",
+          "icon": "pen"
+        },
+        {
+          "title": "Posizionamento Perfetto sullo Schermo",
+          "description": "Supporta coordinate in pixel (X, Y) e punti di allineamento per posizionare le didascalie senza coprire la grafica del video.",
+          "icon": "grid"
+        },
+        {
+          "title": "Privacy al 100% nel Browser",
+          "description": "La conversione avviene per intero in locale nel tuo browser. Nessun dato o file viene caricato su server remoti.",
+          "icon": "shield"
+        },
+        {
+          "title": "Pronto per Aegisub e Player",
+          "description": "Genera sintassi ASS v4.00+ ufficiale pienamente riconosciuta da Aegisub, VLC, MPV, HandBrake e DaVinci Resolve.",
+          "icon": "check"
+        }
+      ],
+      "faqsTitle": "Domande Frequenti",
+      "faqs": [
+        {
+          "question": "Come si converte un file SRT in ASS?",
+          "answer": "Per convertire un file SRT in ASS, carica il tuo file .srt nell'area di rilascio oppure incolla il testo dei sottotitoli nel nostro convertitore online gratuito. Lo strumento trasforma immediatamente le battute SubRip nella sintassi conforme ad Advanced SubStation Alpha (v4.00+), generando le sezioni obbligatorie [Script Info], [V4+ Styles] ed [Events]. Potrai scaricare il file .ass finale all'istante."
+        },
+        {
+          "question": "La conversione da SRT a ASS è gratuita?",
+          "answer": "Sì, il nostro convertitore da SRT a ASS è gratuito al 100%, senza bisogno di registrazione, senza filigrane e senza limiti sul numero di conversioni. L'intero processo viene gestito in locale nel tuo browser tramite JavaScript, garantendo che i tuoi file e le tue trascrizioni riservate non vengano mai inviati a server esterni."
+        },
+        {
+          "question": "Qual è la differenza tra sottotitoli SRT e ASS?",
+          "answer": "I sottotitoli SRT (SubRip) costituiscono un formato minimale di testo puro contenente solo numerazione progressiva, minutaggio in millisecondi e formattazione visiva basilare. ASS (Advanced SubStation Alpha) è invece una specifica avanzata che consente di applicare font personalizzati, colori in formato BGR, bordi spessi, ombreggiature marcate, coordinate precise di posizionamento sullo schermo e animazioni di karaoke sillaba per sillaba."
+        },
+        {
+          "question": "Posso modificare il file ASS risultante con Aegisub?",
+          "answer": "Certamente. Il nostro convertitore genera sintassi ASS v4.00+ appositamente concepita per il software Aegisub. Una volta scaricato il file .ass, puoi aprirlo in Aegisub per regolare caratteri, tonalità cromatiche, tag di allineamento, effetti di animazione per il testo o perfezionare il sincronismo sulla forma d'onda audio."
+        },
+        {
+          "question": "Basta rinominare l'estensione da .srt a .ass?",
+          "answer": "No. Rinominare semplicemente l'estensione del file da .srt a .ass provocherà errori nei lettori video e negli editor, poiché il file risulterà privo delle intestazioni obbligatorie [Script Info], [V4+ Styles] e della sintassi corretta per le righe Dialogue. È necessario utilizzare un convertitore specializzato per generare la struttura idonea."
+        },
+        {
+          "question": "La sincronizzazione audio-video rimane intatta?",
+          "answer": "Sì. Tutti i timestamp di inizio e fine vengono preservati con assoluta accuratezza millimetrica, convertiti dalla notazione SRT in millisecondi con virgola (HH:MM:SS,mmm) alla notazione ASS standard in centesimi di secondo con punto (H:MM:SS.cs). La sincronia con le scene video resta impeccabile."
+        },
+        {
+          "question": "Quali lettori multimediali supportano i sottotitoli ASS?",
+          "answer": "La stragrande maggioranza dei media player moderni supporta pienamente i sottotitoli ASS comprensivi di stili grafici, inclusi VLC Media Player, MPV, MPC-HC, PotPlayer e Plex (sia in direct play che in transcodifica). Inoltre, programmi come HandBrake e FFmpeg consentono di imprimere (bruciare) i sottotitoli ASS direttamente nel flusso video MP4."
+        },
+        {
+          "question": "I tag di formattazione come grassetto e corsivo vengono conservati?",
+          "answer": "Sì. I comuni tag HTML presenti nei file SRT come <i>, <b>, <u> e <font color> vengono convertiti automaticamente nei tag nativi di sovrascrittura di ASS ({\\i1}, {\\b1}, {\\u1} e {\\c&HBBGGRR&}), preservando intatte tutte le enfasi grafiche del testo d'origine."
+        }
+      ]
+    },
+    "assToSrt": {
+          "id": "ass-to-srt",
+          "name": "Convertitore da ASS a SRT",
+          "shortName": "ASS a SRT",
+          "badge": "SubRip Universale",
+          "tagline": "Converti Sottotitoli Advanced SubStation Alpha (.ASS) nel Formato Pulito SubRip (.SRT)",
+          "description": "Converti sottotitoli stilizzati Advanced SubStation Alpha (.ass / .ssa) in file SubRip (.srt) puliti e universalmente compatibili. Rimuovi i tag di controllo, converti i centesimi di secondo e prepara i sottotitoli per qualsiasi Smart TV o media player.",
+          "h1": "Convertitore da ASS a SRT Online",
+          "metaTitle": "Convertitore da ASS a SRT Online – Converti ASS in SRT Gratis | SRTConverters",
+          "metaDescription": "Converti sottotitoli Advanced SubStation Alpha (.ass) nel formato pulito SubRip (.srt) online e gratis. Pulisci tag, converti timestamp e scarica file SRT all'istante.",
+          "settingsLabels": {},
+          "stepsTitle": "Come Convertire un File ASS in SRT in 3 Semplici Passaggi",
+          "steps": [
+                {
+                      "step": "1",
+                      "title": "Carica o Incolla Sottotitoli ASS",
+                      "description": "Trascina il tuo file .ass o .ssa nell'area di rilascio oppure incolla il testo dello script direttamente nell'editor."
+                },
+                {
+                      "step": "2",
+                      "title": "Pulizia Tag e Conversione dei Tempi",
+                      "description": "Il nostro motore estrae i dialoghi, converte i centesimi di secondo in millisecondi e rimuove i complessi tag di stile dell'ASS."
+                },
+                {
+                      "step": "3",
+                      "title": "Scarica il File .SRT Pulito",
+                      "description": "Copia i sottotitoli SubRip negli appunti o scarica il file .srt finalizzato per riprodurlo su Smart TV, Plex, VLC o smartphone."
+                }
+          ],
+          "featuresTitle": "Perché Convertire da ASS a SRT?",
+          "features": [
+                {
+                      "title": "Compatibilità Universale con i Player",
+                      "description": "SubRip (.srt) è lo standard di sottotitoli più diffuso al mondo, supportato nativamente da Smart TV, console e lettori multimediali senza errori di rendering.",
+                      "icon": "globe"
+                },
+                {
+                      "title": "Pulizia Intelligente di Stili e Tag",
+                      "description": "Rimuove coordinate di posizionamento (\\pos), allineamento (\\an), colori (\\c) e grafiche vettoriali (\\p1), conservando grassetto, corsivo e sottolineato.",
+                      "icon": "sparkles"
+                },
+                {
+                      "title": "Precisione Temporale da Centesimi a Millisecondi",
+                      "description": "Converte i centesimi di secondo di ASS (H:MM:SS.cs) in esatti millisecondi SRT (HH:MM:SS,mmm), garantendo una perfetta sincronizzazione con l'audio.",
+                      "icon": "clock"
+                },
+                {
+                      "title": "100% Privacy nel Browser",
+                      "description": "L'intera elaborazione avviene localmente nella memoria del tuo browser. Nessun file o testo di dialogo viene inviato a server esterni.",
+                      "icon": "shield"
+                }
+          ],
+          "faqsTitle": "Domande Frequenti",
+          "faqs": [
+                {
+                      "question": "Qual è la differenza tra i sottotitoli ASS e SRT?",
+                      "answer": "Advanced SubStation Alpha (.ass) è un formato avanzato che supporta font personalizzati, coordinate esatte sullo schermo, effetti di karaoke e grafiche vettoriali. SubRip (.srt) è un formato di testo semplice progettato per la massima compatibilità su qualunque Smart TV o media player."
+                },
+                {
+                      "question": "La formattazione dei colori e del posizionamento viene persa con la conversione?",
+                      "answer": "Sì, i tag di stile complessi come le coordinate (\\pos), l'allineamento (\\an), i timer di karaoke (\\k) e i colori vengono rimossi perché lo standard SRT non li supporta. Vengono invece mantenuti gli stili di enfasi di base come grassetto (<b>), corsivo (<i>) e sottolineato (<u>)."
+                },
+                {
+                      "question": "Questo convertitore preserva il grassetto e il corsivo presenti nell'ASS?",
+                      "answer": "Sì. I tag di controllo ASS come {\\b1} e {\\i1} vengono tradotti automaticamente in tag di formattazione standard (<b> e <i>), garantendo che le battute mantengano l'enfasi voluta nei player compatibili."
+                },
+                {
+                      "question": "Come vengono gestiti i centesimi di secondo e i tempi dell'ASS?",
+                      "answer": "I file ASS registrano il tempo in centesimi di secondo (H:MM:SS.cs), mentre i file SRT utilizzano i millisecondi (HH:MM:SS,mmm). Il convertitore calcola i millisecondi esatti (ad esempio 0:01:23.45 diventa 00:01:23,450), prevenendo qualsiasi sfasamento audio."
+                },
+                {
+                      "question": "Cosa accade alle battute simultanee o sovrapposte nell'ASS?",
+                      "answer": "Quando più linee di dialogo compaiono contemporaneamente (frequente negli anime con voci sovrapposte o canzoni tradotte), il convertitore le ordina cronologicamente e assegna loro indici sequenziali puliti nel file SRT."
+                },
+                {
+                      "question": "Posso convertire i sottotitoli di anime fansub (.ass) per guardarli su Plex o Smart TV?",
+                      "answer": "Certamente! È uno degli utilizzi più comuni. Molte Smart TV e client Plex non supportano i font complessi dell'ASS e costringono il server a una pesante transcodifica video. Convertire in SRT consente la riproduzione diretta e fluida."
+                },
+                {
+                      "question": "È possibile convertire ASS in SRT da riga di comando con FFmpeg?",
+                      "answer": "Sì, digitando: ffmpeg -i input.ass -c:s srt output.srt. Tuttavia, il nostro strumento web non richiede alcuna installazione, offre un'anteprima istantanea e funziona comodamente anche su smartphone."
+                },
+                {
+                      "question": "I miei file di sottotitoli vengono caricati su un server?",
+                      "answer": "No, la tua privacy è protetta al 100%. Tutta la conversione viene eseguita in locale nel tuo browser tramite JavaScript. Nessun file o dato lascia il tuo dispositivo."
+                }
+          ]
     }
   }
 };

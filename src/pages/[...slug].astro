@@ -6,6 +6,8 @@ import TxtToSrtTool from '@/components/tools/TxtToSrtTool.astro';
 import SrtToTextTool from '@/components/tools/SrtToTextTool.astro';
 import SrtToVttTool from '@/components/tools/SrtToVttTool.astro';
 import VttToSrtTool from '@/components/tools/VttToSrtTool.astro';
+import SrtToAssTool from '@/components/tools/SrtToAssTool.astro';
+import AssToSrtTool from '@/components/tools/AssToSrtTool.astro';
 import ToolCard from '@/components/tools/ToolCard.astro';
 import { ROUTES, type RouteId, getRoutePath } from '@/i18n/routes';
 import { type Locale } from '@/i18n/config';
@@ -116,6 +118,20 @@ const toolsUrl = getRoutePath('tools', locale);
             badge={tools.vttToSrt.badge}
             description={tools.vttToSrt.description}
           />
+          <ToolCard
+            locale={locale}
+            routeId="srt-to-ass"
+            name={tools.srtToAss.name}
+            badge={tools.srtToAss.badge}
+            description={tools.srtToAss.description}
+          />
+          <ToolCard
+            locale={locale}
+            routeId="ass-to-srt"
+            name={tools.assToSrt.name}
+            badge={tools.assToSrt.badge}
+            description={tools.assToSrt.description}
+          />
         </div>
       </section>
 
@@ -213,6 +229,18 @@ const toolsUrl = getRoutePath('tools', locale);
   </ToolLayout>
 )}
 
+{routeId === 'srt-to-ass' && (
+  <ToolLayout locale={locale} routeId={routeId} tool={tools.srtToAss}>
+    <SrtToAssTool locale={locale} />
+  </ToolLayout>
+)}
+
+{routeId === 'ass-to-srt' && (
+  <ToolLayout locale={locale} routeId={routeId} tool={tools.assToSrt}>
+    <AssToSrtTool locale={locale} />
+  </ToolLayout>
+)}
+
 {routeId === 'tools' && (
   <BaseLayout
     title={seo.title}
@@ -272,6 +300,20 @@ const toolsUrl = getRoutePath('tools', locale);
             name={tools.vttToSrt.name}
             badge={tools.vttToSrt.badge}
             description={tools.vttToSrt.description}
+          />
+          <ToolCard
+            locale={locale}
+            routeId="srt-to-ass"
+            name={tools.srtToAss.name}
+            badge={tools.srtToAss.badge}
+            description={tools.srtToAss.description}
+          />
+          <ToolCard
+            locale={locale}
+            routeId="ass-to-srt"
+            name={tools.assToSrt.name}
+            badge={tools.assToSrt.badge}
+            description={tools.assToSrt.description}
           />
         </div>
       </section>

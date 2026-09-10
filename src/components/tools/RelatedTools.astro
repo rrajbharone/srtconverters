@@ -1,4 +1,4 @@
-﻿---
+---
 import type { Locale } from '@/i18n/config';
 import type { RouteId } from '@/i18n/routes';
 import { getToolsContent, getUiStrings } from '@/i18n/utils';
@@ -37,6 +37,18 @@ const allToolsList: Array<{ routeId: RouteId; name: string; badge: string; descr
     name: tools.vttToSrt.name,
     badge: tools.vttToSrt.badge,
     description: tools.vttToSrt.description,
+  },
+  {
+    routeId: 'srt-to-ass',
+    name: tools.srtToAss.name,
+    badge: tools.srtToAss.badge,
+    description: tools.srtToAss.description,
+  },
+  {
+    routeId: 'ass-to-srt',
+    name: tools.assToSrt.name,
+    badge: tools.assToSrt.badge,
+    description: tools.assToSrt.description,
   },
 ];
 

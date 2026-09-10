@@ -30,9 +30,17 @@ export const SEO_TRANSLATIONS: Record<Locale, Record<RouteId | '404', PageSeo>> 
       title: 'VTT to SRT Converter – Convert WebVTT to SubRip Online | SRTConverters',
       description: 'Convert WebVTT (.vtt) captions to standard SRT subtitle files online for free. Compatible with Premiere Pro, DaVinci Resolve, VLC, and YouTube.',
     },
+    'srt-to-ass': {
+      title: 'SRT to ASS Converter – Convert Subtitles to ASS Online | SRTConverters',
+      description: 'Convert SubRip (.srt) subtitles to Advanced SubStation Alpha (.ass) format online for free. Custom styling, colors, positioning, and 100% browser privacy.',
+    },
+    'ass-to-srt': {
+      title: 'ASS to SRT Converter Online – Convert ASS to SRT Free | SRTConverters',
+      description: 'Convert Advanced SubStation Alpha (.ass) subtitles to clean SubRip (.srt) format online for free. Clean tags, convert centiseconds, and download standard SRT files instantly.',
+    },
     tools: {
       title: 'Free Subtitle & SRT Tools – Convert, Format & Edit | SRTConverters',
-      description: 'Explore our complete suite of free online subtitle tools. Convert TXT to SRT, SRT to Text, SRT to VTT, and VTT to SRT securely in your browser.',
+      description: 'Explore our complete suite of free online subtitle tools. Convert TXT to SRT, SRT to Text, SRT to VTT, VTT to SRT, SRT to ASS, and ASS to SRT securely in your browser.',
     },
 
 
@@ -62,9 +70,17 @@ export const SEO_TRANSLATIONS: Record<Locale, Record<RouteId | '404', PageSeo>> 
       title: 'Convertidor VTT a SRT – Convertir WebVTT a SubRip Online | SRTConverters',
       description: 'Convierte subtítulos WebVTT (.vtt) a formato estándar SRT online y gratis. Compatible con Premiere Pro, DaVinci Resolve, VLC y YouTube.',
     },
+    'srt-to-ass': {
+      title: 'Convertidor SRT a ASS – Convertir Subtítulos a ASS Online | SRTConverters',
+      description: 'Convierte subtítulos SubRip (.srt) a formato Advanced SubStation Alpha (.ass) online y gratis. Estilos personalizados, colores, posición y 100% privacidad.',
+    },
+    'ass-to-srt': {
+      title: 'Convertidor ASS a SRT Online – Convertir ASS a SRT Gratis | SRTConverters',
+      description: 'Convierte subtítulos Advanced SubStation Alpha (.ass) a formato SubRip (.srt) limpio online y gratis. Limpia etiquetas, convierte marcas de tiempo y descarga archivos SRT al instante.',
+    },
     tools: {
       title: 'Herramientas Gratuitas de Subtítulos y SRT | SRTConverters',
-      description: 'Explora nuestra suite completa de herramientas online gratuitas para subtítulos. Convierte TXT a SRT, SRT a Texto, SRT a VTT y VTT a SRT de forma segura en tu navegador.',
+      description: 'Explora nuestra suite completa de herramientas online gratuitas para subtítulos. Convierte TXT a SRT, SRT a Texto, SRT a VTT, VTT a SRT, SRT a ASS y ASS a SRT de forma segura en tu navegador.',
     },
 
 
@@ -94,9 +110,17 @@ export const SEO_TRANSLATIONS: Record<Locale, Record<RouteId | '404', PageSeo>> 
       title: 'Conversor VTT para SRT – Converter WebVTT em SubRip Online | SRTConverters',
       description: 'Converta legendas WebVTT (.vtt) para formato padrão SRT online e grátis. Compatível com Premiere Pro, DaVinci Resolve, VLC e YouTube.',
     },
+    'srt-to-ass': {
+      title: 'Conversor SRT para ASS – Converter Legendas em ASS Online | SRTConverters',
+      description: 'Converta legendas SubRip (.srt) para formato Advanced SubStation Alpha (.ass) online e grátis. Estilos personalizados, cores, posições e 100% privacidade no navegador.',
+    },
+    'ass-to-srt': {
+      title: 'Conversor ASS para SRT Online – Converter ASS em SRT Grátis | SRTConverters',
+      description: 'Converta legendas Advanced SubStation Alpha (.ass) em formato SubRip (.srt) limpo online e grátis. Remova tags de estilo, converta tempos e baixe legendas SRT instantaneamente.',
+    },
     tools: {
       title: 'Ferramentas Gratuitas de Legendas e SRT | SRTConverters',
-      description: 'Explore nossa suíte de ferramentas online de legendas. Converta TXT para SRT, SRT para Texto, SRT para VTT e VTT para SRT com privacidade total no navegador.',
+      description: 'Explore nossa suíte de ferramentas online de legendas. Converta TXT para SRT, SRT para Texto, SRT para VTT, VTT para SRT, SRT para ASS e ASS para SRT com privacidade total no navegador.',
     },
 
 
@@ -126,9 +150,17 @@ export const SEO_TRANSLATIONS: Record<Locale, Record<RouteId | '404', PageSeo>> 
       title: 'Convertisseur VTT en SRT – Convertir WebVTT en SubRip en Ligne | SRTConverters',
       description: 'Convertissez des sous-titres WebVTT (.vtt) en format SRT standard en ligne gratuitement. Compatible Premiere Pro, DaVinci Resolve, VLC et YouTube.',
     },
+    'srt-to-ass': {
+      title: 'Convertisseur SRT en ASS – Convertir Sous-Titres en ASS Gratuit | SRTConverters',
+      description: 'Convertissez des sous-titres SubRip (.srt) au format Advanced SubStation Alpha (.ass) en ligne et gratuitement. Styles personnalisés, couleurs et confidentialité 100%.',
+    },
+    'ass-to-srt': {
+      title: 'Convertisseur ASS en SRT en Ligne – Convertir ASS en SRT Gratuit | SRTConverters',
+      description: 'Convertissez des sous-titres Advanced SubStation Alpha (.ass) au format SubRip (.srt) propre en ligne et gratuitement. Nettoyage des balises et conversion précise du minutage.',
+    },
     tools: {
       title: 'Outils Gratuits de Sous-titres et SRT | SRTConverters',
-      description: 'Découvrez notre suite d’outils gratuits en ligne pour sous-titres. Convertissez TXT en SRT, SRT en Texte, SRT en VTT et VTT en SRT en toute sécurité.',
+      description: 'Découvrez notre suite d’outils gratuits en ligne pour sous-titres. Convertissez TXT en SRT, SRT en Texte, SRT en VTT, VTT en SRT, SRT en ASS et ASS en SRT en toute sécurité.',
     },
 
 
@@ -158,9 +190,17 @@ export const SEO_TRANSLATIONS: Record<Locale, Record<RouteId | '404', PageSeo>> 
       title: 'VTT in SRT Konverter – WebVTT in SubRip online umwandeln | SRTConverters',
       description: 'Konvertieren Sie WebVTT (.vtt) kostenlos online in das Standard-SRT-Format. Kompatibel mit Premiere Pro, DaVinci Resolve, VLC und YouTube.',
     },
+    'srt-to-ass': {
+      title: 'SRT in ASS Konverter – Untertitel online in ASS umwandeln | SRTConverters',
+      description: 'Konvertieren Sie SubRip (.srt) Untertitel kostenlos online in das Advanced SubStation Alpha (.ass) Format. Benutzerdefinierte Stile, Farben und 100% Privatsphäre.',
+    },
+    'ass-to-srt': {
+      title: 'ASS in SRT Konverter Online – ASS kostenlos in SRT umwandeln | SRTConverters',
+      description: 'Konvertieren Sie Advanced SubStation Alpha (.ass) Untertitel kostenlos online in sauberes SubRip (.srt) Format. Tags bereinigen, Zeitstempel anpassen und sofort SRT herunterladen.',
+    },
     tools: {
       title: 'Kostenlose Untertitel- & SRT-Tools | SRTConverters',
-      description: 'Entdecken Sie unsere kostenlosen Online-Untertitel-Tools. Konvertieren Sie TXT in SRT, SRT in Text, SRT in VTT und VTT in SRT sicher in Ihrem Browser.',
+      description: 'Entdecken Sie unsere kostenlosen Online-Untertitel-Tools. Konvertieren Sie TXT in SRT, SRT in Text, SRT in VTT, VTT in SRT, SRT in ASS und ASS in SRT sicher in Ihrem Browser.',
     },
 
 
@@ -190,9 +230,17 @@ export const SEO_TRANSLATIONS: Record<Locale, Record<RouteId | '404', PageSeo>> 
       title: 'Konverter VTT ke SRT – Ubah WebVTT ke SubRip Online | SRTConverters',
       description: 'Konversi subtitle WebVTT (.vtt) ke format standar SRT online gratis. Kompatibel dengan Premiere Pro, DaVinci Resolve, VLC, dan YouTube.',
     },
+    'srt-to-ass': {
+      title: 'Konverter SRT ke ASS – Ubah Subtitle ke ASS Online Gratis | SRTConverters',
+      description: 'Konversi subtitle SubRip (.srt) ke format Advanced SubStation Alpha (.ass) secara online dan gratis. Gaya font kustom, warna, posisi, dan 100% privasi browser.',
+    },
+    'ass-to-srt': {
+      title: 'Konverter ASS ke SRT Online – Ubah ASS ke SRT Gratis | SRTConverters',
+      description: 'Konversi subtitle Advanced SubStation Alpha (.ass) ke format SubRip (.srt) bersih secara online dan gratis. Bersihkan tag gaya, konversi waktu, dan unduh file SRT secara instan.',
+    },
     tools: {
       title: 'Alat Subtitle & SRT Gratis Online | SRTConverters',
-      description: 'Jelajahi rangkaian lengkap alat subtitle online gratis. Konversi TXT ke SRT, SRT ke Teks, SRT ke VTT, dan VTT ke SRT dengan aman di peramban Anda.',
+      description: 'Jelajahi rangkaian lengkap alat subtitle online gratis. Konversi TXT ke SRT, SRT ke Teks, SRT ke VTT, VTT ke SRT, SRT ke ASS dan ASS ke SRT dengan aman di peramban Anda.',
     },
 
 
@@ -222,9 +270,17 @@ export const SEO_TRANSLATIONS: Record<Locale, Record<RouteId | '404', PageSeo>> 
       title: 'VTT - SRT Dönüştürücü – WebVTT’yi SRT Formatına Dönüştür | SRTConverters',
       description: 'WebVTT (.vtt) altyazılarını ücretsiz çevrimiçi standart SRT formatına dönüştürün. Premiere Pro, DaVinci Resolve, VLC ve YouTube ile uyumlu.',
     },
+    'srt-to-ass': {
+      title: 'SRT ASS Dönüştürücü – Altyazıları ASS Formatına Dönüştürün | SRTConverters',
+      description: 'SubRip (.srt) altyazılarını ücretsiz olarak Advanced SubStation Alpha (.ass) formatına dönüştürün. Özel stiller, renkler, konumlandırma ve %100 gizlilik.',
+    },
+    'ass-to-srt': {
+      title: 'ASS - SRT Dönüştürücü Online – ASS Dosyasını SRT Yapma | SRTConverters',
+      description: 'Advanced SubStation Alpha (.ass) altyazılarını ücretsiz çevrimiçi temiz SubRip (.srt) formatına dönüştürün. Etiketleri temizleyin, zamanlamayı koruyun ve SRT dosyasını anında indirin.',
+    },
     tools: {
       title: 'Ücretsiz Altyazı ve SRT Araçları | SRTConverters',
-      description: 'Ücretsiz çevrimiçi altyazı araçlarımızı keşfedin. TXT dosyasını SRT formatına, SRT dosyasını Metne, SRT dosyasını VTT formatına ve VTT dosyasını SRT formatına güvenle dönüştürün.',
+      description: 'Ücretsiz çevrimiçi altyazı araçlarımızı keşfedin. TXT dosyasını SRT formatına, SRT dosyasını Metne, SRT dosyasını VTT formatına, VTT dosyasını SRT formatına, SRT dosyasını ASS formatına ve ASS dosyasını SRT formatına güvenle dönüştürün.',
     },
 
 
@@ -254,9 +310,17 @@ export const SEO_TRANSLATIONS: Record<Locale, Record<RouteId | '404', PageSeo>> 
       title: 'Convertitore da VTT a SRT – Converti WebVTT in SubRip Online | SRTConverters',
       description: 'Converti sottotitoli WebVTT (.vtt) nel formato standard SRT online gratis. Compatibile con Premiere Pro, DaVinci Resolve, VLC e YouTube.',
     },
+    'srt-to-ass': {
+      title: 'Convertitore da SRT a ASS – Converti Sottotitoli in ASS Online | SRTConverters',
+      description: 'Converti sottotitoli SubRip (.srt) nel formato Advanced SubStation Alpha (.ass) online e gratis. Stili personalizzati, colori, posizionamento e 100% privacy.',
+    },
+    'ass-to-srt': {
+      title: 'Convertitore da ASS a SRT Online – Converti ASS in SRT Gratis | SRTConverters',
+      description: 'Converti sottotitoli Advanced SubStation Alpha (.ass) nel formato pulito SubRip (.srt) online e gratis. Pulisci tag, converti timestamp e scarica file SRT all\'istante.',
+    },
     tools: {
       title: 'Strumenti Gratuiti per Sottotitoli e SRT | SRTConverters',
-      description: 'Esplora la nostra gamma completa di strumenti online gratuiti per sottotitoli. Converti TXT in SRT, SRT in Testo, SRT in VTT e VTT in SRT in totale sicurezza.',
+      description: 'Esplora la nostra gamma completa di strumenti online gratuiti per sottotitoli. Converti TXT in SRT, SRT in Testo, SRT in VTT, VTT in SRT, SRT in ASS e ASS in SRT in totale sicurezza.',
     },
 
 

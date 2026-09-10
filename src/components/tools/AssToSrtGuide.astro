@@ -1,0 +1,896 @@
+---
+import { type Locale } from '@/i18n/config';
+import { getRoutePath } from '@/i18n/routes';
+import { getAssToSrtGuideContent } from '@/i18n/assToSrtGuide';
+import { getToolsContent } from '@/i18n/utils';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const guide = getAssToSrtGuideContent(locale);
+const tools = getToolsContent(locale);
+
+const srtToAssUrl = getRoutePath('srt-to-ass', locale);
+const txtToSrtUrl = getRoutePath('txt-to-srt', locale);
+const srtToTextUrl = getRoutePath('srt-to-text', locale);
+const srtToVttUrl = getRoutePath('srt-to-vtt', locale);
+const vttToSrtUrl = getRoutePath('vtt-to-srt', locale);
+
+const uiLabels: Record<Locale, {
+  feature: string;
+  assBadge: string;
+  srtBadge: string;
+  breakdown: string;
+  issue: string;
+  cause: string;
+  solution: string;
+  relatedTools: string;
+  helpfulArticles: string;
+}> = {
+  en: {
+    feature: 'Feature',
+    assBadge: 'Original ASS Subtitle (.ASS)',
+    srtBadge: 'Clean Converted SRT (.SRT)',
+    breakdown: 'Conversion Breakdown:',
+    issue: 'Issue',
+    cause: 'Cause:',
+    solution: 'Solution',
+    relatedTools: 'Related Subtitle Converter Tools',
+    helpfulArticles: 'Helpful Guides & Troubleshooting Articles',
+  },
+  es: {
+    feature: 'Característica',
+    assBadge: 'Subtítulo Original ASS (.ASS)',
+    srtBadge: 'SRT Convertido Limpio (.SRT)',
+    breakdown: 'Análisis de la Conversión:',
+    issue: 'Problema',
+    cause: 'Causa:',
+    solution: 'Solución',
+    relatedTools: 'Herramientas de Conversión Relacionadas',
+    helpfulArticles: 'Guías Útiles y Artículos de Soporte',
+  },
+  pt: {
+    feature: 'Recurso',
+    assBadge: 'Legenda Original ASS (.ASS)',
+    srtBadge: 'SRT Convertido Limpo (.SRT)',
+    breakdown: 'Análise da Conversão:',
+    issue: 'Problema',
+    cause: 'Causa:',
+    solution: 'Solução',
+    relatedTools: 'Ferramentas de Conversão Relacionadas',
+    helpfulArticles: 'Guias Úteis e Artigos de Suporte',
+  },
+  fr: {
+    feature: 'Fonctionnalité',
+    assBadge: 'Sous-titre Original ASS (.ASS)',
+    srtBadge: 'SRT Converti Propre (.SRT)',
+    breakdown: 'Analyse de la Conversion :',
+    issue: 'Problème',
+    cause: 'Cause :',
+    solution: 'Solution',
+    relatedTools: 'Outils de Conversion Associés',
+    helpfulArticles: 'Guides Pratiques et Articles de Dépannage',
+  },
+  de: {
+    feature: 'Merkmal',
+    assBadge: 'Originale ASS-Untertitel (.ASS)',
+    srtBadge: 'Sauberes SRT-Ergebnis (.SRT)',
+    breakdown: 'Analyse der Konvertierung:',
+    issue: 'Problem',
+    cause: 'Ursache:',
+    solution: 'Lösung',
+    relatedTools: 'Verwandte Untertitel-Konverter',
+    helpfulArticles: 'Hilfreiche Anleitungen & Artikel',
+  },
+  id: {
+    feature: 'Fitur',
+    assBadge: 'Subtitle Asli ASS (.ASS)',
+    srtBadge: 'SRT Terkonversi Bersih (.SRT)',
+    breakdown: 'Detail Konversi:',
+    issue: 'Masalah',
+    cause: 'Penyebab:',
+    solution: 'Solusi',
+    relatedTools: 'Alat Konversi Subtitle Terkait',
+    helpfulArticles: 'Panduan Bermanfaat & Artikel Solusi',
+  },
+  tr: {
+    feature: 'Özellik',
+    assBadge: 'Orijinal ASS Altyazısı (.ASS)',
+    srtBadge: 'Temiz Dönüştürülmüş SRT (.SRT)',
+    breakdown: 'Dönüşüm Detayları:',
+    issue: 'Sorun',
+    cause: 'Neden:',
+    solution: 'Çözüm',
+    relatedTools: 'İlgili Altyazı Dönüştürme Araçları',
+    helpfulArticles: 'Faydalı Rehberler ve Destek Makaleleri',
+  },
+  it: {
+    feature: 'Caratteristica',
+    assBadge: 'Sottotitolo Originale ASS (.ASS)',
+    srtBadge: 'SRT Convertito Pulito (.SRT)',
+    breakdown: 'Analisi della Conversione:',
+    issue: 'Problema',
+    cause: 'Causa:',
+    solution: 'Soluzione',
+    relatedTools: 'Strumenti di Conversione Correlati',
+    helpfulArticles: 'Guide Utili e Articoli di Supporto',
+  },
+};
+
+const labels = uiLabels[locale] || uiLabels.en;
+---
+
+<section class="guide-container">
+  <div class="article-prose guide-prose">
+    <!-- Introduction -->
+    <div class="guide-intro-card">
+      <h2>{guide.introTitle}</h2>
+      <p class="guide-lead-text">{guide.introSubtitle}</p>
+      {guide.introText.map((p) => (
+        <p>{p}</p>
+      ))}
+    </div>
+
+    <hr class="guide-divider" />
+
+    <!-- What are ASS and SRT -->
+    <section>
+      <h2>{guide.whatIsTitle}</h2>
+      {guide.whatIsText.map((p) => (
+        <p>{p}</p>
+      ))}
+    </section>
+
+    <hr class="guide-divider" />
+
+    <!-- 6 Crucial Advantages of Converting ASS to SRT -->
+    <section>
+      <h2>{guide.whyConvertTitle}</h2>
+      <p class="guide-lead-text">{guide.whyConvertSubtitle}</p>
+
+      <div class="guide-cards-grid">
+        {guide.whyConvertReasons.map((reason) => (
+          <div class="guide-feature-box">
+            <h3>{reason.title}</h3>
+            <p>{reason.description}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <hr class="guide-divider" />
+
+    <!-- Step-by-Step Instructions -->
+    <section>
+      <h2>{guide.howToTitle}</h2>
+      <p>{guide.howToSubtitle}</p>
+
+      <div class="guide-steps-list">
+        {guide.howToSteps.map((s) => (
+          <div class="guide-step-item">
+            <div class="guide-step-badge">{s.step}</div>
+            <div class="guide-step-body">
+              <h3>{s.title}</h3>
+              <p>{s.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <hr class="guide-divider" />
+
+    <!-- Difference Between ASS and SRT -->
+    <section>
+      <h2>{guide.differenceTitle}</h2>
+      <p>{guide.differenceSubtitle}</p>
+
+      <div class="guide-table-wrapper">
+        <table class="guide-table">
+          <thead>
+            <tr>
+              <th>{labels.feature}</th>
+              <th>Advanced SubStation Alpha (.ASS)</th>
+              <th>SubRip Subtitles (.SRT)</th>
+            </tr>
+          </thead>
+          <tbody>
+            {guide.differenceTable.map((row) => (
+              <tr>
+                <td><strong>{row.feature}</strong></td>
+                <td><span class="badge-inline">{row.ass}</span></td>
+                <td>{row.srt}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <hr class="guide-divider" />
+
+    <!-- Inside an ASS File: Structure Transformation -->
+    <section>
+      <h2>{guide.structureTitle}</h2>
+      <p>{guide.structureSubtitle}</p>
+
+      <div class="structure-blocks-container">
+        {guide.structureBlocks.map((block) => (
+          <div class="structure-card">
+            <h3>{block.name}</h3>
+            <p>{block.description}</p>
+            <div class="code-box">
+              <pre class="code-content"><code>{block.snippet}</code></pre>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <hr class="guide-divider" />
+
+    <!-- ASS to SRT Example: Before & After -->
+    <section>
+      <h2>{guide.exampleTitle}</h2>
+      <p>{guide.exampleIntro}</p>
+
+      <div class="code-compare-grid">
+        <div class="code-box">
+          <div class="code-box-header">
+            <span class="code-badge ass-badge">{labels.assBadge}</span>
+          </div>
+          <pre class="code-content"><code>{guide.exampleAssInput}</code></pre>
+        </div>
+
+        <div class="code-box">
+          <div class="code-box-header">
+            <span class="code-badge srt-badge">{labels.srtBadge}</span>
+          </div>
+          <pre class="code-content"><code>{guide.exampleSrtOutput}</code></pre>
+        </div>
+      </div>
+
+      <div class="guide-callout info">
+        <p><strong>{labels.breakdown}</strong> {guide.exampleExplanation}</p>
+      </div>
+    </section>
+
+    <hr class="guide-divider" />
+
+    <!-- Formatting Limitations & Override Tag Cleanup -->
+    <section>
+      <h2>{guide.formattingLimitationsTitle}</h2>
+      <p>{guide.formattingLimitationsSubtitle}</p>
+
+      <div class="tags-grid">
+        {guide.cleanedTagsList.map((feat) => (
+          <div class="tag-card">
+            <div class="tag-header">
+              <h3>{feat.name}</h3>
+              <code class="tag-syntax">{feat.tag}</code>
+            </div>
+            <p>{feat.explanation}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <hr class="guide-divider" />
+
+    <!-- FFmpeg Command-Line Conversion -->
+    <section>
+      <h2>{guide.ffmpegTitle}</h2>
+      <p>{guide.ffmpegSubtitle}</p>
+
+      <div class="terminal-box">
+        <div class="terminal-header">
+          <span class="terminal-dot"></span>
+          <span class="terminal-dot"></span>
+          <span class="terminal-dot"></span>
+          <span class="terminal-title">FFmpeg Terminal Command</span>
+        </div>
+        <pre class="terminal-code"><code>{guide.ffmpegCommand}</code></pre>
+      </div>
+
+      {guide.ffmpegExplanation.map((p) => (
+        <p>{p}</p>
+      ))}
+    </section>
+
+    <hr class="guide-divider" />
+
+    <!-- Common Use Cases -->
+    <section>
+      <h2>{guide.useCasesTitle}</h2>
+      <p class="guide-lead-text">{guide.useCasesSubtitle}</p>
+
+      <div class="guide-cards-grid">
+        {guide.useCasesList.map((u) => (
+          <div class="guide-feature-box">
+            <h3>{u.title}</h3>
+            <p>{u.description}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <hr class="guide-divider" />
+
+    <!-- Troubleshooting Common Problems -->
+    <section>
+      <h2>{guide.troubleshootTitle}</h2>
+      <p>{guide.troubleshootSubtitle}</p>
+
+      <div class="troubleshoot-grid">
+        {guide.troubleshootTips.map((tip) => (
+          <div class="troubleshoot-card">
+            <div class="troubleshoot-problem">
+              <span class="indicator-tag">{labels.issue}</span>
+              <h3>{tip.issue}</h3>
+            </div>
+            <p class="problem-cause"><strong>{labels.cause}</strong> {tip.cause}</p>
+            <div class="troubleshoot-solution">
+              <span class="indicator-tag fix">{labels.solution}</span>
+              <p>{tip.solution}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <hr class="guide-divider" />
+
+    <!-- Subtitle Timing & Audio Sync -->
+    <section>
+      <h2>{guide.timingTitle}</h2>
+      {guide.timingText.map((p) => (
+        <p>{p}</p>
+      ))}
+    </section>
+
+    <hr class="guide-divider" />
+
+    <!-- Recommended Workflow -->
+    <section>
+      <h2>{guide.workflowTitle}</h2>
+      <p>{guide.workflowSubtitle}</p>
+      <ol class="aegisub-steps-list">
+        {guide.workflowSteps.map((step) => (
+          <li>{step}</li>
+        ))}
+      </ol>
+    </section>
+
+    <hr class="guide-divider" />
+
+    <!-- Conclusion & Internal Links -->
+    <section class="guide-conclusion-card">
+      <h2>{guide.conclusionTitle}</h2>
+      {guide.conclusionText.map((p) => (
+        <p>{p}</p>
+      ))}
+
+      <div class="related-tools-box">
+        <h3>{labels.relatedTools}</h3>
+        <ul class="related-links-list">
+          <li>
+            <a href={srtToAssUrl}><strong>{tools.srtToAss.name}</strong></a> – {tools.srtToAss.tagline}
+          </li>
+          <li>
+            <a href={txtToSrtUrl}><strong>{tools.txtToSrt.name}</strong></a> – {tools.txtToSrt.tagline}
+          </li>
+          <li>
+            <a href={srtToTextUrl}><strong>{tools.srtToText.name}</strong></a> – {tools.srtToText.tagline}
+          </li>
+          <li>
+            <a href={srtToVttUrl}><strong>{tools.srtToVtt.name}</strong></a> – {tools.srtToVtt.tagline}
+          </li>
+          <li>
+            <a href={vttToSrtUrl}><strong>{tools.vttToSrt.name}</strong></a> – {tools.vttToSrt.tagline}
+          </li>
+        </ul>
+      </div>
+
+      <div class="related-tools-box" style="margin-top: 1rem;">
+        <h3>{labels.helpfulArticles}</h3>
+        <ul class="related-links-list">
+          <li>
+            <a href="/blog/how-to-convert-srt-to-ass-without-losing-formatting/"><strong>How to Convert SRT to ASS Without Losing Formatting</strong></a> – Complete guide to subtitle styling and formatting preservation.
+          </li>
+          <li>
+            <a href="/blog/srt-to-ass-why-subtitle-styles-positioning-get-lost/"><strong>SRT to ASS: Why Subtitle Styles & Positioning Get Lost</strong></a> – In-depth look at format limitations and coordinate mapping.
+          </li>
+          <li>
+            <a href="/blog/how-to-fix-srt-subtitle-encoding-problems/"><strong>How to Fix SRT Subtitle Encoding Problems (UTF-8)</strong></a> – Solve corrupted accents and foreign characters.
+          </li>
+        </ul>
+      </div>
+    </section>
+  </div>
+</section>
+
+<style>
+  .guide-container {
+    max-width: 56rem;
+    margin: 3.5rem auto 2rem;
+    padding: 0 0.5rem;
+  }
+
+  .guide-prose {
+    color: var(--text-secondary);
+    line-height: 1.75;
+    font-size: 1.05rem;
+  }
+
+  .guide-prose h2 {
+    color: var(--text-primary);
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    line-height: 1.3;
+  }
+
+  .guide-prose h3 {
+    color: var(--text-primary);
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-top: 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .guide-prose p {
+    margin-bottom: 1.25rem;
+  }
+
+  .guide-prose strong {
+    color: var(--text-primary);
+  }
+
+  .guide-lead-text {
+    font-size: 1.15rem;
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+  }
+
+  .guide-divider {
+    border: none;
+    border-top: 1px solid var(--border-color);
+    margin: 3rem 0;
+  }
+
+  .guide-intro-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .guide-cards-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+    margin: 1.75rem 0;
+  }
+
+  @media (max-width: 768px) {
+    .guide-cards-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .guide-feature-box {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+  }
+
+  .guide-feature-box:hover {
+    border-color: var(--color-primary);
+    transform: translateY(-2px);
+  }
+
+  .guide-feature-box h3 {
+    margin-top: 0;
+    font-size: 1.15rem;
+    color: var(--text-primary);
+  }
+
+  .guide-feature-box p {
+    margin-bottom: 0;
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+  }
+
+  .guide-steps-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin: 1.75rem 0;
+  }
+
+  .guide-step-item {
+    display: flex;
+    gap: 1.25rem;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+  }
+
+  .guide-step-badge {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    background-color: var(--color-primary);
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .guide-step-body h3 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+  }
+
+  .guide-step-body p {
+    margin-bottom: 0;
+    font-size: 0.95rem;
+  }
+
+  .guide-table-wrapper {
+    overflow-x: auto;
+    margin: 1.5rem 0 2rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+  }
+
+  .guide-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+    text-align: left;
+  }
+
+  .guide-table th {
+    background-color: var(--bg-hover);
+    color: var(--text-primary);
+    padding: 1rem 1.25rem;
+    font-weight: 600;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .guide-table td {
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-secondary);
+  }
+
+  .guide-table tr:last-child td {
+    border-bottom: none;
+  }
+
+  .guide-table tr:hover td {
+    background-color: var(--bg-hover);
+  }
+
+  .badge-inline {
+    display: inline-block;
+    padding: 0.2rem 0.5rem;
+    border-radius: var(--radius-sm);
+    background-color: var(--bg-hover);
+    color: var(--color-primary);
+    font-size: 0.85rem;
+    font-weight: 600;
+    font-family: var(--font-mono);
+  }
+
+  .structure-blocks-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin: 1.5rem 0;
+  }
+
+  .structure-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+  }
+
+  .structure-card h3 {
+    margin-top: 0;
+    font-size: 1.15rem;
+  }
+
+  .code-box {
+    background-color: #0f172a;
+    border-radius: var(--radius-md);
+    border: 1px solid #1e293b;
+    overflow: hidden;
+    margin-top: 0.75rem;
+  }
+
+  .code-box-header {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    background-color: #1e293b;
+    border-bottom: 1px solid #334155;
+  }
+
+  .code-badge {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.15rem 0.5rem;
+    border-radius: var(--radius-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .srt-badge {
+    background-color: #0284c7;
+    color: #ffffff;
+  }
+
+  .ass-badge {
+    background-color: #8b5cf6;
+    color: #ffffff;
+  }
+
+  .code-content {
+    margin: 0;
+    padding: 1rem;
+    overflow-x: auto;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: #e2e8f0;
+  }
+
+  .code-compare-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+    margin: 1.5rem 0;
+  }
+
+  @media (max-width: 768px) {
+    .code-compare-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .guide-callout {
+    padding: 1.25rem;
+    border-radius: var(--radius-md);
+    margin: 1.5rem 0;
+  }
+
+  .guide-callout.info {
+    background-color: rgba(2, 132, 199, 0.08);
+    border-left: 4px solid var(--color-primary);
+  }
+
+  .guide-callout p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--text-primary);
+  }
+
+  .tags-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+
+  @media (max-width: 768px) {
+    .tags-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .tag-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 1.25rem;
+  }
+
+  .tag-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+  }
+
+  .tag-header h3 {
+    margin: 0;
+    font-size: 1rem;
+  }
+
+  .tag-syntax {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    background-color: var(--bg-hover);
+    color: var(--color-primary);
+    padding: 0.2rem 0.4rem;
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+  }
+
+  .tag-card p {
+    margin: 0;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+  }
+
+  .terminal-box {
+    background-color: #0f172a;
+    border-radius: var(--radius-md);
+    border: 1px solid #1e293b;
+    overflow: hidden;
+    margin: 1.5rem 0;
+  }
+
+  .terminal-header {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    background-color: #1e293b;
+    gap: 0.4rem;
+  }
+
+  .terminal-dot {
+    width: 0.7rem;
+    height: 0.7rem;
+    border-radius: 50%;
+    background-color: #475569;
+  }
+
+  .terminal-dot:nth-child(1) { background-color: #ef4444; }
+  .terminal-dot:nth-child(2) { background-color: #f59e0b; }
+  .terminal-dot:nth-child(3) { background-color: #10b981; }
+
+  .terminal-title {
+    margin-left: 0.5rem;
+    font-size: 0.75rem;
+    color: #94a3b8;
+    font-family: var(--font-mono);
+  }
+
+  .terminal-code {
+    margin: 0;
+    padding: 1rem;
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    color: #38bdf8;
+    overflow-x: auto;
+  }
+
+  .troubleshoot-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin: 1.5rem 0;
+  }
+
+  .troubleshoot-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+  }
+
+  .troubleshoot-problem {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .troubleshoot-problem h3 {
+    margin: 0;
+    font-size: 1.15rem;
+    color: var(--text-primary);
+  }
+
+  .indicator-tag {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 0.2rem 0.5rem;
+    border-radius: var(--radius-sm);
+    background-color: #ef4444;
+    color: #ffffff;
+  }
+
+  .indicator-tag.fix {
+    background-color: #10b981;
+  }
+
+  .problem-cause {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+  }
+
+  .troubleshoot-solution {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    background-color: var(--bg-hover);
+    padding: 1rem;
+    border-radius: var(--radius-md);
+  }
+
+  .troubleshoot-solution p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--text-primary);
+  }
+
+  .aegisub-steps-list {
+    margin: 1.5rem 0;
+    padding-left: 1.5rem;
+  }
+
+  .aegisub-steps-list li {
+    margin-bottom: 0.75rem;
+    font-size: 1rem;
+  }
+
+  .guide-conclusion-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    margin-top: 2rem;
+  }
+
+  .related-tools-box {
+    margin-top: 1.5rem;
+    padding: 1.25rem;
+    background-color: var(--bg-hover);
+    border-radius: var(--radius-md);
+  }
+
+  .related-tools-box h3 {
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+    font-size: 1.1rem;
+  }
+
+  .related-links-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .related-links-list li {
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+  }
+
+  .related-links-list a {
+    color: var(--color-primary);
+    text-decoration: none;
+  }
+
+  .related-links-list a:hover {
+    text-decoration: underline;
+  }
+</style>
