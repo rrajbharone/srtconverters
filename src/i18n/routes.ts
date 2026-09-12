@@ -8,6 +8,8 @@ export type RouteId =
   | 'vtt-to-srt'
   | 'srt-to-ass'
   | 'ass-to-srt'
+  | 'srt-to-sub'
+  | 'sub-to-srt'
   | 'tools';
 
 export const ROUTES: Record<RouteId, Record<Locale, string>> = {
@@ -80,6 +82,26 @@ export const ROUTES: Record<RouteId, Record<Locale, string>> = {
     id: '/id/konverter-ass-ke-srt/',
     tr: '/tr/ass-srt-donusturucu/',
     it: '/it/convertitore-da-ass-a-srt/',
+  },
+  'srt-to-sub': {
+    en: '/srt-to-sub/',
+    es: '/es/convertidor-srt-a-sub/',
+    pt: '/pt/conversor-srt-para-sub/',
+    fr: '/fr/convertisseur-srt-en-sub/',
+    de: '/de/srt-in-sub-konverter/',
+    id: '/id/konverter-srt-ke-sub/',
+    tr: '/tr/srt-sub-donusturucu/',
+    it: '/it/convertitore-da-srt-a-sub/',
+  },
+  'sub-to-srt': {
+    en: '/sub-to-srt/',
+    es: '/es/convertidor-sub-a-srt/',
+    pt: '/pt/conversor-sub-para-srt/',
+    fr: '/fr/convertisseur-sub-en-srt/',
+    de: '/de/sub-in-srt-konverter/',
+    id: '/id/konverter-sub-ke-srt/',
+    tr: '/tr/sub-srt-donusturucu/',
+    it: '/it/convertitore-da-sub-a-srt/',
   },
   tools: {
     en: '/tools/',

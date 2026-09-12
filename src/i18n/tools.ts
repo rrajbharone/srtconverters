@@ -78,6 +78,8 @@ export interface ToolsContent {
   vttToSrt: ToolDetail;
   srtToAss: ToolDetail;
   assToSrt: ToolDetail;
+  srtToSub: ToolDetail;
+  subToSrt: ToolDetail;
 }
 
 export const TOOLS_TRANSLATIONS: Record<Locale, ToolsContent> = {
@@ -633,6 +635,202 @@ export const TOOLS_TRANSLATIONS: Record<Locale, ToolsContent> = {
                 {
                       "question": "Are my subtitle files uploaded to a server or kept private?",
                       "answer": "Your files are completely private. All conversion logic runs 100% locally in your web browser via JavaScript. No subtitle text, file data, or timestamps are ever sent across the network or stored on any server."
+                }
+          ]
+    },
+    "srtToSub": {
+          "id": "srt-to-sub",
+          "name": "SRT to SUB Converter",
+          "shortName": "SRT to SUB",
+          "badge": "Free & Client-Side",
+          "tagline": "Convert SubRip (.SRT) Subtitles to MicroDVD and SubViewer (.SUB) Format Online",
+          "description": "Convert SubRip (.srt) subtitles to SUB format (MicroDVD & SubViewer 2.0) online for free. Support for custom frame rates (FPS), frame-accurate syncing, and 100% browser privacy.",
+          "h1": "SRT to SUB Converter Online",
+          "metaTitle": "SRT to SUB Converter – Convert Subtitles to SUB Online | SRTConverters",
+          "metaDescription": "Convert SubRip (.srt) subtitles to SUB format (MicroDVD & SubViewer) online for free. Custom frame rates (FPS), frame-accurate syncing, and 100% browser privacy.",
+          "settingsLabels": {
+                "timingMode": "Subtitle Format",
+                "fixedDuration": "MicroDVD (.sub)",
+                "cpsDuration": "SubViewer 2.0 (.sub)",
+                "cpsLabel": "Video Frame Rate (FPS)",
+                "cpsHint": "Select the frame rate of your video to ensure exact subtitle synchronization.",
+                "startTime": "Include FPS Header",
+                "startTimeHint": "Adds {1}{1}FPS header line to the MicroDVD file for player auto-detection.",
+                "maxCharsPerLine": "Clean HTML Tags",
+                "maxCharsHint": "Removes <i>, <b>, and font tags for compatibility with legacy hardware players."
+          },
+          "stepsTitle": "How to Convert SRT to SUB Online in 3 Steps",
+          "steps": [
+                {
+                      "step": "1",
+                      "title": "Upload or Paste SRT Subtitles",
+                      "description": "Drag and drop your .srt file into the dropzone or paste your SubRip subtitle content directly into the text editor."
+                },
+                {
+                      "step": "2",
+                      "title": "Select Format & Video Frame Rate",
+                      "description": "Choose MicroDVD or SubViewer format, and select your target video frame rate (e.g., 23.976, 24, 25, or 29.97 FPS) for frame-accurate timing."
+                },
+                {
+                      "step": "3",
+                      "title": "Download Converted SUB File",
+                      "description": "Click Download .SUB to instantly save your converted subtitle file, or copy the formatted text directly to your clipboard."
+                }
+          ],
+          "featuresTitle": "Why Use Our Online SRT to SUB Converter?",
+          "features": [
+                {
+                      "title": "100% Client-Side Privacy",
+                      "description": "Your subtitle files are converted entirely in your web browser. No files or scripts are ever uploaded to an external server.",
+                      "icon": "shield"
+                },
+                {
+                      "title": "MicroDVD & SubViewer Support",
+                      "description": "Full compatibility with frame-indexed MicroDVD ({start}{end}) and timestamped SubViewer 2.0 subtitle formats.",
+                      "icon": "file"
+                },
+                {
+                      "title": "Frame-Accurate Synchronization",
+                      "description": "Supports standard industry frame rates including 23.976, 24.0, 25.0 (PAL), 29.97 (NTSC), 30, and 60 FPS to prevent subtitle drift.",
+                      "icon": "clock"
+                },
+                {
+                      "title": "Legacy Device Compatibility",
+                      "description": "Produces clean .sub files ready for standalone DVD players, DivX/XviD media consoles, car stereos, and vintage media centers.",
+                      "icon": "split"
+                }
+          ],
+          "faqsTitle": "Frequently Asked Questions About SRT to SUB Conversion",
+          "faqs": [
+                {
+                      "question": "What is the difference between an SRT file and a SUB file?",
+                      "answer": "SRT (SubRip) is a modern, time-based subtitle format that defines subtitle cues using millisecond timestamps (00:01:23,450 --> 00:01:26,800). It is universally supported across modern web browsers, media software, and smart TVs. In contrast, text-based SUB files—predominantly MicroDVD (.sub)—are frame-based subtitle formats originally built for legacy media players. Instead of clock hours and seconds, MicroDVD specifies cue visibility using video frame numbers ({start_frame}{end_frame}). A second text format using the .sub extension is SubViewer 2.0, which uses centisecond timestamps. Converting SRT to SUB allows you to watch videos on legacy hardware DVD players, car infotainment screens, and older standalone media centers that only accept frame-indexed .sub files."
+                },
+                {
+                      "question": "Why do I need to select a frame rate (FPS) when converting SRT to SUB?",
+                      "answer": "Because MicroDVD SUB files calculate when to show each subtitle cue based on video frames rather than absolute clock milliseconds, the converter must mathematically multiply the subtitle start and end timestamps by the exact frame rate of your video file (Frame = Time in Seconds × Frames Per Second). If you convert an SRT file using 25.000 FPS (PAL) but your video was shot or encoded at 23.976 FPS (standard cinema / NTSC film), the subtitles will progressively drift earlier or later as the movie plays. Selecting the matching frame rate guarantees frame-perfect synchronization throughout the entire film."
+                },
+                {
+                      "question": "What is the difference between MicroDVD (.sub), SubViewer (.sub), and VobSub (.sub)?",
+                      "answer": "The .sub file extension is historically shared by three completely different subtitle technologies: MicroDVD (.sub) is a lightweight, frame-based text format ({1250}{1380}Subtitle dialogue) used heavily by DivX/XviD players; SubViewer 2.0 (.sub) is a timestamp-based text format with a metadata header ([INFORMATION]) and centisecond timing (00:01:20.10,00:01:23.45); and VobSub (.sub + .idx) is NOT a text file, but rather contains raw bitmap image graphic packets extracted directly from DVD video discs. Our converter creates clean, standardized text-based SUB subtitles (MicroDVD and SubViewer 2.0) compatible with modern media players, editing tools, and vintage media hardware."
+                },
+                {
+                      "question": "How do I find the correct frame rate (FPS) of my video file?",
+                      "answer": "You can easily find the exact frame rate of your video file using free media players: In VLC Media Player, open the video, navigate to Tools > Codec Information (or press Ctrl+J / Cmd+I), select the Codec tab, and check the Frame rate property (such as 23.976023, 24, 25, or 29.970000). On Windows, right-click the video file, select Properties, click the Details tab, and inspect Frame rate. On macOS, press Cmd+I in QuickTime Player to view the Movie Inspector. You can also inspect the file with the free MediaInfo utility."
+                },
+                {
+                      "question": "Why are my converted SUB subtitles drifting out of sync during video playback?",
+                      "answer": "Subtitles that start in sync and slowly drift ahead or behind over the duration of the video are almost always caused by an FPS mismatch between the converted MicroDVD file and the video track. For example, if your movie runs at 23.976 FPS and you convert your SRT file with the default 25.000 FPS setting, the subtitles will display approximately 4.1% too fast (roughly 2.5 seconds out of sync every minute). To resolve this, verify the true video frame rate in VLC or MediaInfo and reconvert your SRT using the exact matching FPS value."
+                },
+                {
+                      "question": "Can I convert a SUB file back to SRT format?",
+                      "answer": "Yes. MicroDVD (.sub) and SubViewer (.sub) text subtitles can be converted back to standard SubRip (.srt). When converting MicroDVD to SRT, you simply divide the frame numbers by the video's frame rate to reconstruct millisecond timestamps: Time in Seconds = Frame Number / FPS. You can use subtitle utilities like Subtitle Edit or Aegisub, or our companion converters on SRTConverters."
+                },
+                {
+                      "question": "Are my subtitle files uploaded to a remote server during conversion?",
+                      "answer": "No. SRTConverters operates 100% locally in your web browser using client-side JavaScript. Your SRT subtitle files, scripts, text content, and generated SUB files are processed purely in your browser's private memory. No subtitle data is ever transmitted, uploaded, logged, or stored on our servers."
+                },
+                {
+                      "question": "How can I convert SRT to SUB on the command line using FFmpeg?",
+                      "answer": "You can convert SRT to MicroDVD SUB using FFmpeg by specifying the subtitle codec and the target video frame rate. The standard syntax is: ffmpeg -i input.srt -c:s microdvd output.sub. If you need to enforce a specific frame rate during batch processing or when muxing with a video stream, specify the rate flag: ffmpeg -i input.srt -r 23.976 -c:s microdvd output.sub. This is ideal for automated video encoding pipelines, batch folder processing, or command-line scripting."
+                }
+          ]
+    },
+    "subToSrt": {
+          "id": "sub-to-srt",
+          "name": "SUB to SRT Converter",
+          "shortName": "SUB to SRT",
+          "badge": "Free & Client-Side",
+          "tagline": "Convert MicroDVD & SubViewer (.SUB) Subtitles to Standard SubRip (.SRT) Online",
+          "description": "Convert SUB subtitles (MicroDVD and SubViewer) to clean, standard SubRip (.srt) format online for free. Auto-detect frame rates, convert frame numbers to millisecond timestamps, and preserve full formatting.",
+          "h1": "SUB to SRT Converter Online",
+          "metaTitle": "SUB to SRT Converter Online – Convert SUB to SRT Free | SRTConverters",
+          "metaDescription": "Convert SUB subtitles (MicroDVD & SubViewer) to clean SubRip (.srt) format online for free. Auto-detect frame rate (FPS), convert timestamps accurately, and download standard SRT files instantly.",
+          "settingsLabels": {
+                "timingMode": "Detected Format",
+                "fixedDuration": "Auto-Detect",
+                "cpsDuration": "MicroDVD ({frame}{frame})",
+                "cpsLabel": "Video Frame Rate (FPS)",
+                "cpsHint": "Select the frame rate of your video to ensure exact subtitle synchronization.",
+                "startTime": "Auto-sync FPS Header",
+                "startTimeHint": "Automatically read {1}{1}FPS header line from MicroDVD files when available.",
+                "maxCharsPerLine": "Convert Formatting Tags",
+                "maxCharsHint": "Converts {Y:i} tags to <i> and pipe breaks (|) to standard subtitle newlines."
+          },
+          "stepsTitle": "How to Convert SUB to SRT Online in 3 Steps",
+          "steps": [
+                {
+                      "step": "1",
+                      "title": "Upload or Paste SUB Subtitles",
+                      "description": "Drag and drop your .sub file into the dropzone or paste your MicroDVD or SubViewer subtitle text directly into the input area."
+                },
+                {
+                      "step": "2",
+                      "title": "Verify Video Frame Rate (FPS)",
+                      "description": "If your file is a MicroDVD format, verify the target video frame rate (e.g., 23.976, 24, 25, or 29.97 FPS) so frame numbers convert into precise clock timestamps."
+                },
+                {
+                      "step": "3",
+                      "title": "Download Converted SRT File",
+                      "description": "Click Download .SRT to instantly save your converted SubRip file, or copy the formatted text directly to your clipboard for immediate use."
+                }
+          ],
+          "featuresTitle": "Why Use Our Online SUB to SRT Converter?",
+          "features": [
+                {
+                      "title": "100% Client-Side Privacy",
+                      "description": "Your subtitle files are converted entirely in your web browser. No files, scripts, or video data are ever uploaded to a remote server.",
+                      "icon": "shield"
+                },
+                {
+                      "title": "MicroDVD & SubViewer Auto-Detection",
+                      "description": "Intelligently identifies frame-indexed MicroDVD files, timestamped SubViewer 2.0/1.0 headers, and embedded {1}{1}FPS configuration cues.",
+                      "icon": "file"
+                },
+                {
+                      "title": "Frame-Accurate Millisecond Timing",
+                      "description": "Calculates precise millisecond timestamps from video frame counts across all cinema, PAL, and NTSC broadcast frame rates without sync drift.",
+                      "icon": "clock"
+                },
+                {
+                      "title": "VobSub Detection & Clean Formatting",
+                      "description": "Instantly alerts you if a file is a binary DVD VobSub image packet, and automatically translates pipe delimiters (|) and style tags into valid SRT markup.",
+                      "icon": "split"
+                }
+          ],
+          "faqsTitle": "Frequently Asked Questions About SUB to SRT Conversion",
+          "faqs": [
+                {
+                      "question": "What is the difference between a SUB file and an SRT file?",
+                      "answer": "SRT (SubRip) is the modern universal standard for text subtitles. It identifies subtitle cues using sequential counter numbers and absolute clock timestamps down to the millisecond (00:01:23,450 --> 00:01:26,800). SRT files are natively supported by virtually all modern media players, streaming services (YouTube, Netflix, Vimeo), editing suites (Premiere Pro, DaVinci Resolve, Final Cut), and smart televisions. In contrast, text-based SUB files—primarily MicroDVD (.sub)—rely on video frame numbers ({start_frame}{end_frame}) rather than clock time, making playback dependent on the exact playback frame rate. SubViewer (.sub) uses centisecond timestamps. Converting SUB to SRT unlocks universal playback across modern software, operating systems, and video platforms without relying on obsolete codecs or specialized legacy players."
+                },
+                {
+                      "question": "Why do I need to specify a frame rate (FPS) when converting MicroDVD SUB to SRT?",
+                      "answer": "MicroDVD SUB files do not contain absolute hours, minutes, or seconds. Instead, each cue specifies the video frame number at which the subtitle should appear and disappear (for example: {1200}{1350}Dialogue line). To transform these frame numbers into standard SRT millisecond timestamps, the converter must know the exact playback speed of your video file using the formula: Milliseconds = Round((Frame Number / Video FPS) × 1000). If you convert a file at 25 FPS (PAL) when the video actually plays at 23.976 FPS (standard cinema / NTSC film), the subtitle timestamps will drift out of sync by approximately 2.5 seconds every minute. Specifying the exact video frame rate ensures millisecond-accurate timing throughout the entire video."
+                },
+                {
+                      "question": "What is the difference between MicroDVD (.sub), SubViewer (.sub), and VobSub (.sub)?",
+                      "answer": "The .sub file extension represents three completely distinct subtitle formats: 1. MicroDVD (.sub) is a lightweight text format using curly-bracket frame numbers ({start_frame}{end_frame}Line1|Line2) popular in early DivX/XviD media; 2. SubViewer (.sub) is a text format containing a metadata header ([INFORMATION]) followed by centisecond timestamps (00:01:20.50,00:01:23.80) and newline tags ([br]); 3. VobSub (.sub + .idx) is a binary container storing raw DVD bitmap graphics (scanned images of subtitles) rather than plain text. Our converter handles both MicroDVD and SubViewer text formats automatically, and provides an immediate warning if you upload a binary VobSub file."
+                },
+                {
+                      "question": "How do I find the correct frame rate (FPS) of my video file?",
+                      "answer": "You can find the exact frame rate of your video file using standard free media tools: In VLC Media Player, open the video, navigate to Tools > Codec Information (or press Ctrl+J / Cmd+I), click the Codec tab, and check the 'Frame rate' value (common values are 23.976023, 24, 25, 29.970000, 30, or 60). In Windows File Explorer, right-click the video file, select Properties, click the Details tab, and read the Frame rate field. On macOS, open the file in QuickTime Player and press Cmd+I to view the Movie Inspector window. Alternatively, you can use the open-source MediaInfo utility for an exhaustive technical report."
+                },
+                {
+                      "question": "Why are my converted SRT subtitles drifting out of sync during video playback?",
+                      "answer": "Subtitle drift—where subtitles start synchronized but gradually appear earlier or later over time—is almost always caused by an FPS mismatch during conversion. For example, converting a 23.976 FPS video with a 25.000 FPS setting causes subtitles to display 4.1% faster than the video audio, drifting by over 6 seconds after just 2.5 minutes of playback. To fix this, verify the true video frame rate using VLC or MediaInfo, return to our converter, select the matching FPS option, and reconvert your SUB file. If your MicroDVD file contains a `{1}{1}FPS` header line, our converter will read and apply it automatically."
+                },
+                {
+                      "question": "Can this tool convert binary VobSub (.sub) files extracted from DVDs?",
+                      "answer": "No. VobSub (.sub) files are not text documents; they are compiled binary archives containing bitmap graphic images of rendered subtitles extracted directly from DVD video discs. Because binary bitmap subtitles contain pixel graphics rather than alphanumeric characters, converting VobSub to SRT requires Optical Character Recognition (OCR) software that visually inspects each subtitle picture and transcribes the characters into text. If you upload a VobSub file, our tool will safely detect the binary header and display a helpful alert guiding you to use desktop OCR utilities such as Subtitle Edit, OCR-SubRip, or BDSup2Sub."
+                },
+                {
+                      "question": "Are my subtitle files uploaded to an external server during conversion?",
+                      "answer": "No. SRTConverters runs 100% client-side inside your web browser using modern Web APIs and JavaScript. Your subtitle files, text inputs, scripts, and converted SRT output never leave your computer or device. No data is transmitted over the network, uploaded to cloud storage, or stored on external servers, ensuring complete privacy, enterprise security, and instantaneous conversion speed regardless of your internet connection."
+                },
+                {
+                      "question": "How can I convert SUB to SRT on the command line using FFmpeg?",
+                      "answer": "You can convert SUB subtitles to standard SRT using FFmpeg on your terminal. For timestamped SubViewer files, run: ffmpeg -i input.sub output.srt. For frame-indexed MicroDVD files, you must specify the video frame rate using the -r flag so FFmpeg knows how to calculate timestamps: ffmpeg -r 23.976 -i input.sub output.srt. If your SUB file uses legacy ANSI/Windows-1252 or ISO-8859-1 character encoding with accented letters, add the sub_charenc parameter: ffmpeg -sub_charenc CP1252 -r 25 -i input.sub output.srt. This is especially useful for automated batch folder processing and command-line video workflows."
                 }
           ]
     }
@@ -1191,6 +1389,202 @@ export const TOOLS_TRANSLATIONS: Record<Locale, ToolsContent> = {
                       "answer": "Tus archivos son 100% privados. Todo el procesamiento se realiza localmente en tu navegador web mediante JavaScript. Ningún subtítulo o información personal sale de tu dispositivo."
                 }
           ]
+    },
+    "srtToSub": {
+          "id": "srt-to-sub",
+          "name": "Convertidor SRT a SUB",
+          "shortName": "SRT a SUB",
+          "badge": "Gratis y Seguro",
+          "tagline": "Convierte Subtítulos SubRip (.SRT) a Formato MicroDVD y SubViewer (.SUB) Online",
+          "description": "Convierte subtítulos SubRip (.srt) a formato SUB (MicroDVD y SubViewer 2.0) online y gratis. Compatible con tasas de fotogramas (FPS) personalizadas y 100% de privacidad.",
+          "h1": "Convertidor SRT a SUB Online",
+          "metaTitle": "Convertidor SRT a SUB – Convertir Subtítulos a SUB Online | SRTConverters",
+          "metaDescription": "Convierte subtítulos SubRip (.srt) a formato SUB (MicroDVD y SubViewer) online y gratis. Fotogramas por segundo (FPS) ajustables y 100% de privacidad en el navegador.",
+          "settingsLabels": {
+                "timingMode": "Formato de Subtítulo",
+                "fixedDuration": "MicroDVD (.sub)",
+                "cpsDuration": "SubViewer 2.0 (.sub)",
+                "cpsLabel": "Tasa de Fotogramas del Video (FPS)",
+                "cpsHint": "Selecciona la tasa de fotogramas del video para garantizar una sincronización exacta.",
+                "startTime": "Incluir Encabezado FPS",
+                "startTimeHint": "Añade la línea {1}{1}FPS al archivo MicroDVD para detección automática en reproductores.",
+                "maxCharsPerLine": "Limpiar Etiquetas HTML",
+                "maxCharsHint": "Elimina etiquetas <i>, <b> y fuentes para compatibilidad con reproductores antiguos."
+          },
+          "stepsTitle": "Cómo Convertir SRT a SUB Online en 3 Pasos",
+          "steps": [
+                {
+                      "step": "1",
+                      "title": "Sube o Pega tus Subtítulos SRT",
+                      "description": "Arrastra y suelta tu archivo .srt en la zona indicada o pega el contenido de subtítulos SubRip en el editor."
+                },
+                {
+                      "step": "2",
+                      "title": "Selecciona el Formato y los FPS del Video",
+                      "description": "Elige formato MicroDVD o SubViewer y selecciona la tasa de fotogramas correspondiente (ej. 23.976, 24, 25 o 29.97 FPS)."
+                },
+                {
+                      "step": "3",
+                      "title": "Descarga el Archivo SUB Convertido",
+                      "description": "Haz clic en Descargar .SUB para guardar tu archivo inmediatamente o copia el texto al portapapeles."
+                }
+          ],
+          "featuresTitle": "¿Por Qué Usar Nuestro Convertidor SRT a SUB Online?",
+          "features": [
+                {
+                      "title": "Privacidad 100% en el Navegador",
+                      "description": "La conversión se realiza exclusivamente en tu navegador. Ningún archivo ni texto se sube a servidores externos.",
+                      "icon": "shield"
+                },
+                {
+                      "title": "Compatibilidad MicroDVD y SubViewer",
+                      "description": "Soporte completo para MicroDVD basado en fotogramas ({inicio}{fin}) y SubViewer 2.0 con marcas de tiempo.",
+                      "icon": "file"
+                },
+                {
+                      "title": "Sincronización Exacta por Fotograma",
+                      "description": "Admite tasas estándar de la industria: 23.976, 24.0, 25.0 (PAL), 29.97 (NTSC), 30 y 60 FPS para evitar desincronizaciones.",
+                      "icon": "clock"
+                },
+                {
+                      "title": "Ideal para Reproductores Clásicos",
+                      "description": "Genera archivos .sub limpios listos para reproductores de DVD, equipos de coche, DivX/XviD y centros multimedia clásicos.",
+                      "icon": "split"
+                }
+          ],
+          "faqsTitle": "Preguntas Frecuentes sobre la Conversión de SRT a SUB",
+          "faqs": [
+                {
+                      "question": "¿Cuál es la diferencia entre un archivo SRT y un archivo SUB?",
+                      "answer": "SRT (SubRip) es un formato de subtítulos moderno basado en tiempo real que define las líneas mediante marcas de milisegundos (00:01:23,450 --> 00:01:26,800). Es universalmente compatible con navegadores, reproductores de software y Smart TVs. En cambio, los archivos SUB basados en texto —principalmente MicroDVD (.sub)— funcionan por recuento de fotogramas ({fotograma_inicio}{fotograma_fin}). Otro formato de texto con extensión .sub es SubViewer 2.0, que utiliza centésimas de segundo. Convertir SRT a SUB es esencial para reproducir videos en reproductores de DVD independientes, pantallas de coche y sistemas que solo leen archivos .sub indexados por fotogramas."
+                },
+                {
+                      "question": "¿Por qué debo seleccionar una tasa de fotogramas (FPS) al convertir SRT a SUB?",
+                      "answer": "Debido a que los archivos MicroDVD calculan la aparición de cada línea en función de los fotogramas del video en lugar de milisegundos de reloj, el convertidor debe multiplicar los tiempos del subtítulo por los FPS exactos del video (Fotograma = Tiempo en Segundos × FPS). Si conviertes un archivo SRT a 25.000 FPS (PAL) pero tu video fue codificado a 23.976 FPS (cine / NTSC), los subtítulos se desincronizarán progresivamente a medida que avanza la película. Escoger la tasa correcta garantiza sincronía perfecta durante todo el metraje."
+                },
+                {
+                      "question": "¿Qué diferencia hay entre MicroDVD (.sub), SubViewer (.sub) y VobSub (.sub)?",
+                      "answer": "La extensión .sub es compartida históricamente por tres tecnologías muy distintas: MicroDVD (.sub) es un formato de texto ligero basado en fotogramas ({1250}{1380}Diálogo) muy popular en reproductores DivX/XviD; SubViewer 2.0 (.sub) es un formato de texto con encabezado [INFORMATION] y marcas en centésimas de segundo (00:01:20.10,00:01:23.45); y VobSub (.sub + .idx) NO es texto, sino paquetes de imágenes gráficas rasterizadas extraídas de DVDs. Nuestro convertidor genera subtítulos de texto estandarizados (MicroDVD y SubViewer 2.0) compatibles con reproductores modernos y equipos antiguos."
+                },
+                {
+                      "question": "¿Cómo puedo averiguar la tasa de fotogramas (FPS) exacta de mi video?",
+                      "answer": "Puedes consultar los FPS exactos de tu video de forma sencilla: en VLC Media Player, abre el video, pulsa Herramientas > Información del códec (o Ctrl+J / Cmd+I), ve a la pestaña Códec y consulta la propiedad Tasa de fotogramas (por ejemplo 23.976023, 24, 25 o 29.970000). En Windows, haz clic derecho sobre el video, elige Propiedades, pestaña Detalles y revisa Velocidad de fotograma. En macOS, abre el archivo en QuickTime y pulsa Cmd+I (Inspector). También puedes usar la herramienta gratuita MediaInfo."
+                },
+                {
+                      "question": "¿Por qué mis subtítulos SUB convertidos se desincronizan con el video?",
+                      "answer": "Si los subtítulos comienzan bien pero se adelantan o atrasan paulatinamente, la causa casi siempre es una discrepancia de FPS entre el archivo MicroDVD generado y la pista de video. Por ejemplo, si tu película está a 23.976 FPS y conviertes con el valor predeterminado de 25.000 FPS, los subtítulos irán un 4.1% más rápido (unos 2.5 segundos de desvío por cada minuto). Para corregirlo, verifica los FPS reales con VLC o MediaInfo y vuelve a convertir el archivo SRT seleccionando el valor exacto."
+                },
+                {
+                      "question": "¿Es posible convertir un archivo SUB de nuevo a formato SRT?",
+                      "answer": "Sí. Los subtítulos en texto MicroDVD (.sub) y SubViewer (.sub) se pueden reconvertir a SubRip (.srt). En el caso de MicroDVD, basta con dividir el número de fotograma entre los FPS del video para obtener los milisegundos: Tiempo = Fotograma / FPS. Puedes usar herramientas como Subtitle Edit, Aegisub o los conversores de nuestra plataforma SRTConverters."
+                },
+                {
+                      "question": "¿Se suben mis archivos de subtítulos a algún servidor durante la conversión?",
+                      "answer": "No. SRTConverters funciona al 100% de manera local en tu navegador mediante JavaScript en el cliente. Tus archivos SRT, textos y los archivos SUB generados se procesan únicamente en la memoria privada de tu navegador. Ningún dato se transmite, almacena ni registra en servidores externos."
+                },
+                {
+                      "question": "¿Cómo puedo convertir SRT a SUB desde la línea de comandos con FFmpeg?",
+                      "answer": "Puedes convertir SRT a MicroDVD SUB con FFmpeg indicando el códec de subtítulo correspondiente: ffmpeg -i input.srt -c:s microdvd output.sub. Si necesitas forzar una tasa de fotogramas específica al procesar en lotes o multiplexar, añade el parámetro de frecuencia: ffmpeg -i input.srt -r 23.976 -c:s microdvd output.sub. Esto resulta ideal para scripts automatizados y flujos de codificación."
+                }
+          ]
+    },
+    "subToSrt": {
+          "id": "sub-to-srt",
+          "name": "Convertidor SUB a SRT",
+          "shortName": "SUB a SRT",
+          "badge": "Gratis y en el Navegador",
+          "tagline": "Convierte Subtítulos MicroDVD y SubViewer (.SUB) a SubRip (.SRT) Estándar Online",
+          "description": "Convierte subtítulos SUB (MicroDVD y SubViewer) al formato estándar SubRip (.srt) limpio online y gratis. Detección automática de FPS, conversión precisa de fotogramas a tiempo y 100% de privacidad.",
+          "h1": "Convertidor SUB a SRT Online",
+          "metaTitle": "Convertidor SUB a SRT Online – Convertir SUB a SRT Gratis | SRTConverters",
+          "metaDescription": "Convierte subtítulos SUB (MicroDVD y SubViewer) a formato SubRip (.srt) limpio online y gratis. Detección automática de FPS, conversión precisa de fotogramas a tiempo y 100% de privacidad.",
+          "settingsLabels": {
+                "timingMode": "Formato Detectado",
+                "fixedDuration": "Detección Automática",
+                "cpsDuration": "MicroDVD ({fotograma}{fotograma})",
+                "cpsLabel": "Velocidad de Fotogramas (FPS)",
+                "cpsHint": "Selecciona los FPS del vídeo para garantizar una sincronización exacta de los subtítulos.",
+                "startTime": "Sincronizar Encabezado FPS",
+                "startTimeHint": "Lee automáticamente la línea de encabezado {1}{1}FPS del archivo MicroDVD.",
+                "maxCharsPerLine": "Convertir Etiquetas de Formato",
+                "maxCharsHint": "Convierte etiquetas {Y:i} en <i> y saltos de tubería (|) en saltos de línea estándar."
+          },
+          "stepsTitle": "Cómo Convertir SUB a SRT Online en 3 Sencillos Pasos",
+          "steps": [
+                {
+                      "step": "1",
+                      "title": "Sube o Pega tus Subtítulos SUB",
+                      "description": "Arrastra y suelta tu archivo .sub en la zona interactiva o pega directamente el texto de MicroDVD o SubViewer en el editor."
+                },
+                {
+                      "step": "2",
+                      "title": "Verifica los Fotogramas por Segundo (FPS)",
+                      "description": "Si el archivo es MicroDVD, comprueba los FPS del vídeo (p. ej. 23.976, 24, 25 o 29.97) para que los fotogramas se conviertan con precisión horaria."
+                },
+                {
+                      "step": "3",
+                      "title": "Descarga el Archivo SRT Convertido",
+                      "description": "Haz clic en Descargar .SRT para guardar al instante tu archivo SubRip o copia el texto convertido al portapapeles para usarlo al momento."
+                }
+          ],
+          "featuresTitle": "¿Por Qué Elegir Nuestro Convertidor SUB a SRT?",
+          "features": [
+                {
+                      "title": "Privacidad 100% en el Navegador",
+                      "description": "Tus subtítulos se procesan íntegramente en tu navegador web. Ningún archivo ni dato se transmite ni almacena en servidores externos.",
+                      "icon": "shield"
+                },
+                {
+                      "title": "Detección de MicroDVD y SubViewer",
+                      "description": "Reconoce automáticamente archivos MicroDVD basados en fotogramas, encabezados SubViewer 2.0/1.0 y etiquetas de velocidad {1}{1}FPS.",
+                      "icon": "file"
+                },
+                {
+                      "title": "Sincronización Precisa en Milisegundos",
+                      "description": "Calcula marcas de tiempo exactas en milisegundos para cualquier estándar cinematográfico o televisivo (PAL, NTSC) evitando desfases.",
+                      "icon": "clock"
+                },
+                {
+                      "title": "Aviso de VobSub y Limpieza de Formato",
+                      "description": "Detecta paquetes binarios de DVD VobSub e informa de su naturaleza, traduciendo barras verticales (|) y estilos a etiquetas SRT válidas.",
+                      "icon": "split"
+                }
+          ],
+          "faqsTitle": "Preguntas Frecuentes Sobre la Conversión de SUB a SRT",
+          "faqs": [
+                {
+                      "question": "¿Cuál es la diferencia entre un archivo SUB y un archivo SRT?",
+                      "answer": "El formato SRT (SubRip) es el estándar universal moderno para subtítulos de texto. Identifica cada diálogo mediante un número secuencial y marcas de tiempo horarias absolutas con precisión de milisegundos (00:01:23,450 --> 00:01:26,800). Es compatible de forma nativa con reproductores modernos (VLC, MPC-HC), televisores inteligentes, suites de edición (Premiere, DaVinci Resolve) y plataformas web (YouTube, Netflix). Por el contrario, los archivos SUB basados en texto—principalmente MicroDVD (.sub)—usan números de fotogramas del vídeo ({fotograma_inicio}{fotograma_fin}), lo que requiere conocer la velocidad exacta de reproducción. SubViewer (.sub) utiliza marcas de tiempo en centésimas de segundo. Convertir SUB a SRT garantiza compatibilidad universal en cualquier dispositivo actual sin desfases ni programas especiales."
+                },
+                {
+                      "question": "¿Por qué es necesario elegir la velocidad de fotogramas (FPS) al convertir MicroDVD a SRT?",
+                      "answer": "Los archivos MicroDVD no contienen horas, minutos ni segundos; únicamente especifican en qué número de fotograma del vídeo debe aparecer y desaparecer el texto (por ejemplo, {1200}{1350}Texto del diálogo). Para transformar esos números de fotograma en marcas de tiempo SRT, el convertidor debe calcular: Milisegundos = Redondear((Fotograma / FPS) × 1000). Si conviertes un subtítulo a 25 FPS cuando la película fue grabada a 23.976 FPS (cine estándar / NTSC), los subtítulos se desfasarán progresivamente a razón de unos 2.5 segundos por cada minuto de reproducción. Seleccionar los FPS correctos garantiza una sincronización perfecta de principio a fin."
+                },
+                {
+                      "question": "¿Qué diferencias existen entre MicroDVD (.sub), SubViewer (.sub) y VobSub (.sub)?",
+                      "answer": "La extensión .sub ha sido compartida históricamente por tres formatos muy distintos: 1. MicroDVD (.sub) es un formato de texto estructurado por fotogramas entre llaves ({inicio}{fin}Línea1|Línea2), habitual en copias DivX y XviD; 2. SubViewer (.sub) es un formato de texto con encabezado de metadatos ([INFORMATION]) y tiempos en centésimas de segundo (00:01:20.50,00:01:23.80) con saltos [br]; 3. VobSub (.sub + .idx) es un contenedor binario que almacena imágenes de mapa de bits procedentes de discos DVD originales, no texto editable. Nuestra herramienta procesa automáticamente subtítulos de texto MicroDVD y SubViewer, y emite una alerta si detecta un archivo binario VobSub."
+                },
+                {
+                      "question": "¿Cómo puedo averiguar la velocidad de fotogramas (FPS) exacta de mi vídeo?",
+                      "answer": "Puedes consultar los FPS exactos de tu vídeo con herramientas gratuitas habituales: En VLC Media Player, abre el vídeo, ve a Herramientas > Información del códec (o pulsa Ctrl+J / Cmd+I), abre la pestaña Códec y localiza la 'Tasa de fotogramas' (por ejemplo 23.976023, 24, 25 o 29.970000). En Windows, haz clic derecho sobre el archivo de vídeo, selecciona Propiedades, ve a la pestaña Detalles y revisa el campo 'Velocidad de fotograma'. En macOS, abre el archivo en QuickTime Player y pulsa Cmd+I para abrir el inspector. También puedes utilizar la herramienta especializada MediaInfo para obtener un informe técnico completo."
+                },
+                {
+                      "question": "¿Por qué mis subtítulos SRT convertidos se desincronizan durante la reproducción?",
+                      "answer": "La desincronización progresiva—cuando los subtítulos arrancan a tiempo pero se adelantan o atrasan paulatinamente a lo largo de la película—se debe casi siempre a una discordancia en los FPS seleccionados durante la conversión. Por ejemplo, convertir un vídeo de 23.976 FPS con el ajuste de 25.000 FPS hace que los subtítulos avancen un 4.1% más rápido que el audio, acumulando varios segundos de error rápidamente. Para solucionarlo, comprueba los FPS reales en VLC o MediaInfo, selecciona el valor idéntico en nuestro convertidor y vuelve a generar el archivo SRT. Si el archivo MicroDVD contenía la cabecera `{1}{1}FPS`, nuestra herramienta la aplicará de forma automática."
+                },
+                {
+                      "question": "¿Puede este convertidor procesar archivos VobSub (.sub) de DVDs comerciales?",
+                      "answer": "No. Los archivos VobSub (.sub) no son documentos de texto plano, sino archivos binarios que contienen imágenes gráficas escaneadas de los subtítulos de un DVD. Como están formados por píxeles y no por caracteres alfanuméricos, convertirlos a SRT requiere un software de Reconocimiento Óptico de Caracteres (OCR) capaz de reconocer visualmente las letras. Si intentas cargar un archivo VobSub binario, nuestro convertidor detectará el encabezado de inmediato y te mostrará un aviso recomendándote programas de escritorio especializados como Subtitle Edit, BDSup2Sub o OCR-SubRip."
+                },
+                {
+                      "question": "¿Se suben mis archivos de subtítulos a servidores externos durante la conversión?",
+                      "answer": "No. SRTConverters funciona al 100% de manera local en tu navegador mediante código JavaScript del lado del cliente. Tus archivos de subtítulos, textos, guiones y resultados convertidos se procesan en la memoria volátil de tu propio equipo. No se envían datos a través de internet ni se almacenan en servidores remotos, asegurando total privacidad, máxima seguridad y una conversión instantánea sin demoras de subida ni bajada."
+                },
+                {
+                      "question": "¿Cómo puedo convertir SUB a SRT desde la terminal mediante FFmpeg?",
+                      "answer": "Puedes convertir subtítulos SUB a SRT desde la línea de comandos con FFmpeg. Para archivos SubViewer basados en tiempo, ejecuta: ffmpeg -i entrada.sub salida.srt. Para archivos MicroDVD basados en fotogramas, debes indicar los FPS del vídeo mediante el parámetro -r para que FFmpeg calcule los tiempos: ffmpeg -r 23.976 -i entrada.sub salida.srt. Si el archivo original incluye caracteres acentuados o especiales en codificación ANSI o Windows-1252, añade el parámetro de codificación: ffmpeg -sub_charenc CP1252 -r 25 -i entrada.sub salida.srt. Esto resulta ideal para automatizaciones por lotes en terminal."
+                }
+          ]
     }
   },
   "pt": {
@@ -1745,6 +2139,202 @@ export const TOOLS_TRANSLATIONS: Record<Locale, ToolsContent> = {
                 {
                       "question": "Meus arquivos de legendas são enviados para algum servidor?",
                       "answer": "Não. A ferramenta é 100% privada e funciona localmente no seu navegador via JavaScript. Nenhum arquivo ou texto é enviado para a internet ou salvo em servidores."
+                }
+          ]
+    },
+    "srtToSub": {
+          "id": "srt-to-sub",
+          "name": "Conversor SRT para SUB",
+          "shortName": "SRT para SUB",
+          "badge": "Grátis e Seguro",
+          "tagline": "Converta Legendas SubRip (.SRT) para Formato MicroDVD e SubViewer (.SUB) Online",
+          "description": "Converta legendas SubRip (.srt) para formato SUB (MicroDVD e SubViewer 2.0) online e grátis. Suporte a taxas de quadros (FPS) personalizadas e 100% de privacidade.",
+          "h1": "Conversor SRT para SUB Online",
+          "metaTitle": "Conversor SRT para SUB – Converter Legendas em SUB Online | SRTConverters",
+          "metaDescription": "Converta legendas SubRip (.srt) para formato SUB (MicroDVD e SubViewer) online e grátis. Taxas de quadros (FPS) personalizadas e 100% de privacidade no navegador.",
+          "settingsLabels": {
+                "timingMode": "Formato da Legenda",
+                "fixedDuration": "MicroDVD (.sub)",
+                "cpsDuration": "SubViewer 2.0 (.sub)",
+                "cpsLabel": "Taxa de Quadros do Vídeo (FPS)",
+                "cpsHint": "Selecione a taxa de quadros do vídeo para garantir sincronização perfeita.",
+                "startTime": "Incluir Cabeçalho FPS",
+                "startTimeHint": "Adiciona a linha {1}{1}FPS ao arquivo MicroDVD para detecção automática nos players.",
+                "maxCharsPerLine": "Limpar Tags HTML",
+                "maxCharsHint": "Remove tags <i>, <b> e fontes para compatibilidade com players antigos."
+          },
+          "stepsTitle": "Como Converter SRT para SUB Online em 3 Passos",
+          "steps": [
+                {
+                      "step": "1",
+                      "title": "Envie ou Cole suas Legendas SRT",
+                      "description": "Arraste e solte o arquivo .srt na área demarcada ou cole o texto das legendas SubRip no editor."
+                },
+                {
+                      "step": "2",
+                      "title": "Escolha o Formato e os FPS do Vídeo",
+                      "description": "Selecione MicroDVD ou SubViewer e indique a taxa de quadros correspondente (ex.: 23.976, 24, 25 ou 29.97 FPS)."
+                },
+                {
+                      "step": "3",
+                      "title": "Baixe o Arquivo SUB Convertido",
+                      "description": "Clique em Baixar .SUB para salvar o arquivo instantaneamente ou copie o texto diretamente para a área de transferência."
+                }
+          ],
+          "featuresTitle": "Por Que Usar Nosso Conversor SRT para SUB Online?",
+          "features": [
+                {
+                      "title": "Privacidade 100% no Navegador",
+                      "description": "A conversão ocorre inteiramente no seu navegador. Nenhum arquivo ou texto é enviado para servidores externos.",
+                      "icon": "shield"
+                },
+                {
+                      "title": "Suporte MicroDVD e SubViewer",
+                      "description": "Compatibilidade total com MicroDVD baseado em quadros ({início}{fim}) e SubViewer 2.0 baseado em tempo.",
+                      "icon": "file"
+                },
+                {
+                      "title": "Sincronização Exata por Quadro",
+                      "description": "Suporte a taxas padrão do mercado: 23.976, 24.0, 25.0 (PAL), 29.97 (NTSC), 30 e 60 FPS contra dessincronia.",
+                      "icon": "clock"
+                },
+                {
+                      "title": "Compatível com Aparelhos Clássicos",
+                      "description": "Gera arquivos .sub limpos prontos para DVD players de mesa, centrais multimídia automotivas e aparelhos DivX/XviD.",
+                      "icon": "split"
+                }
+          ],
+          "faqsTitle": "Perguntas Frequentes sobre a Conversão de SRT para SUB",
+          "faqs": [
+                {
+                      "question": "Qual é a diferença entre um arquivo SRT e um arquivo SUB?",
+                      "answer": "SRT (SubRip) é um formato de legenda moderno baseado em tempo real que define as falas por milissegundos (00:01:23,450 --> 00:01:26,800), amplamente suportado na web, players de computador e smart TVs. Já os arquivos SUB em texto — principalmente o MicroDVD (.sub) — são baseados no número de quadros do vídeo ({quadro_inicial}{quadro_final}). Outro formato de texto com a extensão .sub é o SubViewer 2.0, que emprega centésimos de segundo. Converter SRT em SUB é essencial para assistir vídeos em players de DVD antigos, telas automotivas e centrais multimídia que exigem arquivos .sub indexados por quadros."
+                },
+                {
+                      "question": "Por que preciso selecionar a taxa de quadros (FPS) ao converter SRT para SUB?",
+                      "answer": "Como as legendas MicroDVD calculam a exibição das linhas com base nos quadros do vídeo e não em milissegundos absolutos, o conversor precisa multiplicar os tempos da legenda pela taxa de quadros exata do vídeo (Quadro = Tempo em Segundos × FPS). Se você converter um SRT usando 25.000 FPS (PAL), mas o vídeo estiver em 23.976 FPS (cinema / NTSC), as legendas irão se dessincronizar progressivamente. Definir o valor exato de FPS garante sincronismo perfeito do início ao fim."
+                },
+                {
+                      "question": "Qual a diferença entre MicroDVD (.sub), SubViewer (.sub) e VobSub (.sub)?",
+                      "answer": "A extensão .sub é historicamente usada por três formatos distintos: MicroDVD (.sub) é um formato de texto leve baseado em quadros ({1250}{1380}Diálogo) muito comum em vídeos DivX/XviD; SubViewer 2.0 (.sub) é um formato de texto com cabeçalho [INFORMATION] e marcação em centésimos de segundo (00:01:20.10,00:01:23.45); e VobSub (.sub + .idx) NÃO é texto, mas sim imagens gráficas rasterizadas extraídas de DVDs comerciais. Nosso conversor produz legendas textuais padronizadas (MicroDVD e SubViewer 2.0) prontas para uso."
+                },
+                {
+                      "question": "Como descubro a taxa de quadros (FPS) exata do meu arquivo de vídeo?",
+                      "answer": "Você pode conferir os FPS do seu vídeo facilmente: no VLC Media Player, abra o vídeo, clique em Ferramentas > Informações sobre o Codec (ou Ctrl+J / Cmd+I), acesse a aba Codec e verifique a Taxa de quadros (como 23.976023, 24, 25 ou 29.970000). No Windows, clique com o botão direito no vídeo, vá em Propriedades, aba Detalhes e veja Taxa de quadros. No macOS, abra no QuickTime Player e pressione Cmd+I (Inspetor de Filme). O programa gratuito MediaInfo também exibe essa informação com máxima precisão."
+                },
+                {
+                      "question": "Por que minhas legendas SUB convertidas estão ficando fora de sincronia?",
+                      "answer": "Quando as legendas começam no tempo certo e vão se adiantando ou atrasando ao longo do vídeo, quase sempre o motivo é a divergência de FPS entre o arquivo MicroDVD gerado e a taxa real do vídeo. Por exemplo, se o filme está a 23.976 FPS e você converteu a 25.000 FPS, a legenda avançará cerca de 4,1% mais rápido (cerca de 2,5 segundos de erro por minuto). Para consertar, confirme a taxa correta com o VLC ou MediaInfo e reconverta o SRT indicando o valor exato."
+                },
+                {
+                      "question": "Posso converter um arquivo SUB de volta para o formato SRT?",
+                      "answer": "Sim. Arquivos de texto MicroDVD (.sub) e SubViewer (.sub) podem ser facilmente revertidos para SubRip (.srt). No caso do MicroDVD, basta dividir o número do quadro pelos FPS do vídeo para calcular os milissegundos: Tempo = Número do Quadro / FPS. Você pode fazer isso com ferramentas como Subtitle Edit, Aegisub ou através dos conversores da nossa plataforma SRTConverters."
+                },
+                {
+                      "question": "Meus arquivos de legendas são enviados para algum servidor durante a conversão?",
+                      "answer": "Não. O SRTConverters executa todo o processamento localmente no seu navegador via JavaScript client-side. Seus arquivos SRT, textos e arquivos SUB gerados existem unicamente na memória do seu dispositivo. Nenhum dado é transmitido, armazenado ou monitorado em servidores remotos."
+                },
+                {
+                      "question": "Como converter SRT para SUB na linha de comando usando o FFmpeg?",
+                      "answer": "Você pode converter SRT para MicroDVD SUB pelo FFmpeg especificando o codec de legendas: ffmpeg -i input.srt -c:s microdvd output.sub. Caso precise definir uma taxa de quadros específica durante conversões em lote ou mixagens, utilize a opção de taxa: ffmpeg -i input.srt -r 23.976 -c:s microdvd output.sub. Esse método é perfeito para rotinas automatizadas e scripts de codificação."
+                }
+          ]
+    },
+    "subToSrt": {
+          "id": "sub-to-srt",
+          "name": "Conversor SUB para SRT",
+          "shortName": "SUB para SRT",
+          "badge": "Grátis e no Navegador",
+          "tagline": "Converta Legendas MicroDVD e SubViewer (.SUB) em SubRip (.SRT) Padrão Online",
+          "description": "Converta legendas SUB (MicroDVD e SubViewer) para o formato SubRip (.srt) limpo online e grátis. Detecção automática de FPS, sincronização precisa de frames para milissegundos e privacidade total.",
+          "h1": "Conversor SUB para SRT Online",
+          "metaTitle": "Conversor SUB para SRT Online – Converter SUB em SRT Grátis | SRTConverters",
+          "metaDescription": "Converta legendas SUB (MicroDVD e SubViewer) para o formato SubRip (.srt) limpo online e grátis. Detecção automática de FPS, sincronização precisa de frames para milissegundos e privacidade total.",
+          "settingsLabels": {
+                "timingMode": "Formato Detectado",
+                "fixedDuration": "Detecção Automática",
+                "cpsDuration": "MicroDVD ({frame}{frame})",
+                "cpsLabel": "Taxa de Quadros (FPS)",
+                "cpsHint": "Selecione a taxa de quadros do vídeo para garantir a sincronização exata das legendas.",
+                "startTime": "Sincronizar Cabeçalho FPS",
+                "startTimeHint": "Lê automaticamente a linha de cabeçalho {1}{1}FPS do arquivo MicroDVD quando disponível.",
+                "maxCharsPerLine": "Converter Tags de Formatação",
+                "maxCharsHint": "Converte tags {Y:i} em <i> e quebras de barra (|) em quebras de linha padrão."
+          },
+          "stepsTitle": "Como Converter SUB para SRT Online em 3 Passos Simples",
+          "steps": [
+                {
+                      "step": "1",
+                      "title": "Envie ou Cole suas Legendas SUB",
+                      "description": "Arraste e solte seu arquivo .sub na área designada ou cole o texto de MicroDVD ou SubViewer diretamente no editor."
+                },
+                {
+                      "step": "2",
+                      "title": "Verifique a Taxa de Quadros (FPS)",
+                      "description": "Se o arquivo for MicroDVD, verifique a taxa de quadros do vídeo (ex.: 23.976, 24, 25 ou 29.97 FPS) para converter os frames em tempo real exato."
+                },
+                {
+                      "step": "3",
+                      "title": "Baixe o Arquivo SRT Convertido",
+                      "description": "Clique em Baixar .SRT para salvar seu arquivo SubRip convertido instantaneamente ou copie o texto para a área de transferência."
+                }
+          ],
+          "featuresTitle": "Por Que Usar Nosso Conversor SUB para SRT?",
+          "features": [
+                {
+                      "title": "Privacidade 100% no Navegador",
+                      "description": "Suas legendas são processadas integralmente no seu navegador. Nenhum dado ou arquivo é enviado para servidores externos.",
+                      "icon": "shield"
+                },
+                {
+                      "title": "Detecção de MicroDVD e SubViewer",
+                      "description": "Identifica com precisão legendas MicroDVD baseadas em frames, cabeçalhos SubViewer 2.0/1.0 e linhas {1}{1}FPS.",
+                      "icon": "file"
+                },
+                {
+                      "title": "Sincronização Precisa em Milissegundos",
+                      "description": "Calcula com rigor as marcas de tempo em milissegundos para taxas cinematográficas, PAL e NTSC, eliminando descompassos.",
+                      "icon": "clock"
+                },
+                {
+                      "title": "Alerta de VobSub e Limpeza de Tags",
+                      "description": "Detecta imediatamente arquivos binários VobSub de DVD e traduz barras verticais (|) e tags de estilo em marcação SRT limpa.",
+                      "icon": "split"
+                }
+          ],
+          "faqsTitle": "Perguntas Frequentes Sobre a Conversão de SUB para SRT",
+          "faqs": [
+                {
+                      "question": "Qual é a diferença entre um arquivo SUB e um arquivo SRT?",
+                      "answer": "O formato SRT (SubRip) é o padrão universal moderno para legendas de texto. Cada fala é definida por um índice numérico sequencial e marcações de tempo absolutas com precisão de milissegundos (00:01:23,450 --> 00:01:26,800). O SRT é compatível nativamente com praticamente todos os reprodutores de mídia, Smart TVs, plataformas de streaming (YouTube, Netflix) e editores de vídeo (Premiere, DaVinci Resolve). Já os arquivos SUB em texto—principalmente o MicroDVD (.sub)—usam o número do frame do vídeo ({frame_inicial}{frame_final}), tornando o tempo relativo à taxa de quadros (FPS) do arquivo de vídeo. O SubViewer (.sub) adota centésimos de segundo. Converter SUB em SRT proporciona compatibilidade universal em qualquer dispositivo moderno sem necessidade de softwares legados."
+                },
+                {
+                      "question": "Por que preciso definir a taxa de quadros (FPS) ao converter MicroDVD para SRT?",
+                      "answer": "Arquivos MicroDVD não contêm horas ou minutos; eles indicam apenas o número exato do frame em que o diálogo deve aparecer e desaparecer (exemplo: {1200}{1350}Texto da legenda). Para converter esses números em milissegundos de relógio do padrão SRT, o conversor aplica a fórmula matemática: Milissegundos = Arredondar((Número do Frame / FPS do Vídeo) × 1000). Se você converter um arquivo usando 25 FPS (PAL) para um vídeo codificado a 23.976 FPS (cinema / NTSC), a legenda se descompassará cerca de 2,5 segundos a cada minuto. Informar o FPS correto garante sincronização impecável durante todo o filme."
+                },
+                {
+                      "question": "Qual é a diferença entre MicroDVD (.sub), SubViewer (.sub) e VobSub (.sub)?",
+                      "answer": "A extensão .sub refere-se historicamente a três tecnologias distintas: 1. MicroDVD (.sub) é um formato de texto leve indexado por frames entre chaves ({início}{fim}Texto|Linha2), muito usado na era DivX/XviD; 2. SubViewer (.sub) é um formato de texto com cabeçalho de metadados ([INFORMATION]) e tempos em centésimos de segundo (00:01:20.50,00:01:23.80) com tags [br]; 3. VobSub (.sub + .idx) é um contêiner binário com imagens de mapa de bits (gráficos) extraídas de DVDs de vídeo. Nossa ferramenta converte com sucesso os formatos de texto MicroDVD e SubViewer, e emite um alerta caso detecte um arquivo binário VobSub."
+                },
+                {
+                      "question": "Como descubro a taxa de quadros (FPS) correta do meu arquivo de vídeo?",
+                      "answer": "Você pode verificar a taxa de quadros exata do vídeo com reprodutores gratuitos comuns: No VLC Media Player, reproduza o vídeo, vá em Ferramentas > Informações do Codec (ou tecle Ctrl+J / Cmd+I), clique na guia Codec e confira a 'Taxa de quadros' (como 23.976023, 24, 25 ou 29.970000). No Windows Explorer, clique com o botão direito no vídeo, selecione Propriedades, acesse a aba Detalhes e confira a linha 'Taxa de quadros'. No macOS, abra o arquivo no QuickTime Player e pressione Cmd+I para exibir o inspetor. Você também pode usar a ferramenta gratuita MediaInfo para obter um relatório técnico detalhado."
+                },
+                {
+                      "question": "Por que minhas legendas SRT convertidas perdem a sincronia durante a reprodução?",
+                      "answer": "A perda progressiva de sincronia—quando as legendas começam no tempo certo, mas gradualmente se adiantam ou atrasam com o passar do vídeo—é quase sempre consequência de uma divergência de FPS na conversão. Por exemplo, converter um vídeo de 23.976 FPS com a opção de 25.000 FPS faz com que o texto passe cerca de 4,1% mais rápido que a fala, acumulando vários segundos de erro em poucos minutos. Para corrigir, identifique o FPS exato no VLC ou MediaInfo, selecione a mesma taxa no nosso conversor e gere o arquivo SRT novamente. Se o arquivo MicroDVD tiver a linha `{1}{1}FPS`, nosso conversor a aplicará automaticamente."
+                },
+                {
+                      "question": "Este conversor consegue processar arquivos VobSub (.sub) de DVDs?",
+                      "answer": "Não. Os arquivos VobSub (.sub) não são textos simples, mas pacotes binários compostos por imagens gráficas renderizadas de legendas de DVDs de vídeo. Como se trata de imagens rasterizadas e não de texto alfanumérico, convertê-los em SRT exige um software com Reconhecimento Óptico de Caracteres (OCR) capaz de interpretar graficamente cada caractere. Caso você envie um arquivo VobSub binário, nosso sistema detectará sua estrutura e exibirá um aviso orientando o uso de utilitários como Subtitle Edit, OCR-SubRip ou BDSup2Sub."
+                },
+                {
+                      "question": "Meus arquivos de legendas são enviados para servidores externos durante o processo?",
+                      "answer": "Não. O SRTConverters funciona 100% de forma local no seu navegador web utilizando JavaScript moderno. Seus arquivos de legendas, textos inseridos e arquivos SRT resultantes nunca saem do seu computador ou smartphone. Nenhum dado é transmitido pela rede, armazenado em nuvem ou registrado em servidores, assegurando total confidencialidade e conversão instantânea."
+                },
+                {
+                      "question": "Como converter SUB para SRT na linha de comando utilizando o FFmpeg?",
+                      "answer": "Você pode converter legendas SUB para SRT via terminal com o FFmpeg. Para legendas SubViewer baseadas em tempo, use: ffmpeg -i entrada.sub saida.srt. Para legendas MicroDVD baseadas em frames, informe a taxa de quadros com a flag -r para que os tempos sejam calculados corretamente: ffmpeg -r 23.976 -i entrada.sub saida.srt. Se o arquivo tiver acentos em codificação ANSI ou Windows-1252, adicione o parâmetro de codificação: ffmpeg -sub_charenc CP1252 -r 25 -i entrada.sub saida.srt. Essa abordagem é excelente para rotinas de processamento em lote."
                 }
           ]
     }
@@ -2303,6 +2893,202 @@ export const TOOLS_TRANSLATIONS: Record<Locale, ToolsContent> = {
                       "answer": "Aucun fichier n'est envoyé sur un serveur. Le traitement complet s'effectue en local dans votre navigateur grâce à JavaScript, garantissant une confidentialité absolue de vos données."
                 }
           ]
+    },
+    "srtToSub": {
+          "id": "srt-to-sub",
+          "name": "Convertisseur SRT en SUB",
+          "shortName": "SRT en SUB",
+          "badge": "Gratuit et Sécurisé",
+          "tagline": "Convertissez vos Sous-Titres SubRip (.SRT) au Format MicroDVD et SubViewer (.SUB) en Ligne",
+          "description": "Convertissez des sous-titres SubRip (.srt) au format SUB (MicroDVD et SubViewer 2.0) gratuitement en ligne. Prise en charge des fréquences d'images (FPS) et confidentialité totale.",
+          "h1": "Convertisseur SRT en SUB en Ligne",
+          "metaTitle": "Convertisseur SRT en SUB – Convertir Sous-Titres en SUB Gratuit | SRTConverters",
+          "metaDescription": "Convertissez des sous-titres SubRip (.srt) au format SUB (MicroDVD et SubViewer) gratuitement en ligne. Choix des images par seconde (FPS) et confidentialité totale.",
+          "settingsLabels": {
+                "timingMode": "Format de Sous-Titre",
+                "fixedDuration": "MicroDVD (.sub)",
+                "cpsDuration": "SubViewer 2.0 (.sub)",
+                "cpsLabel": "Fréquence d'Images Vidéo (FPS)",
+                "cpsHint": "Sélectionnez la cadence de votre vidéo pour garantir une synchronisation parfaite.",
+                "startTime": "Inclure En-Tête FPS",
+                "startTimeHint": "Ajoute la ligne {1}{1}FPS au fichier MicroDVD pour détection automatique dans les lecteurs.",
+                "maxCharsPerLine": "Nettoyer les Balises HTML",
+                "maxCharsHint": "Supprime les balises <i>, <b> et polices pour assurer la compatibilité avec les anciens lecteurs."
+          },
+          "stepsTitle": "Comment Convertir un Fichier SRT en SUB en Ligne en 3 Étapes",
+          "steps": [
+                {
+                      "step": "1",
+                      "title": "Importez ou Collez vos Sous-Titres SRT",
+                      "description": "Glissez-déposez votre fichier .srt dans l'espace dédié ou collez votre texte de sous-titres SubRip dans l'éditeur."
+                },
+                {
+                      "step": "2",
+                      "title": "Choisissez le Format et la Fréquence (FPS)",
+                      "description": "Sélectionnez MicroDVD ou SubViewer et indiquez la fréquence d'images adaptée (ex. 23.976, 24, 25 ou 29.97 FPS)."
+                },
+                {
+                      "step": "3",
+                      "title": "Téléchargez le Fichier SUB Converti",
+                      "description": "Cliquez sur Télécharger .SUB pour enregistrer votre fichier sans attendre ou copiez le texte dans le presse-papiers."
+                }
+          ],
+          "featuresTitle": "Pourquoi Utiliser Notre Convertisseur SRT en SUB en Ligne ?",
+          "features": [
+                {
+                      "title": "Confidentialité 100% dans le Navigateur",
+                      "description": "La conversion s'effectue intégralement dans votre navigateur. Aucun fichier n'est envoyé vers des serveurs distants.",
+                      "icon": "shield"
+                },
+                {
+                      "title": "Formats MicroDVD et SubViewer",
+                      "description": "Prise en charge complète du format MicroDVD par images ({début}{fin}) et SubViewer 2.0 par horodatage.",
+                      "icon": "file"
+                },
+                {
+                      "title": "Synchronisation Exacte à l'Image Près",
+                      "description": "Supporte les cadences standards : 23.976, 24.0, 25.0 (PAL), 29.97 (NTSC), 30 et 60 FPS pour éliminer tout décalage.",
+                      "icon": "clock"
+                },
+                {
+                      "title": "Idéal pour Appareils Rétro & Salons",
+                      "description": "Génère des fichiers .sub compatibles avec les lecteurs DVD de salon, autoradios vidéo et appareils DivX/XviD.",
+                      "icon": "split"
+                }
+          ],
+          "faqsTitle": "Foire Aux Questions sur la Conversion SRT en SUB",
+          "faqs": [
+                {
+                      "question": "Quelle est la différence entre un fichier SRT et un fichier SUB ?",
+                      "answer": "Le format SRT (SubRip) est un standard moderne basé sur le temps horloge (milissecondes : 00:01:23,450 --> 00:01:26,800), lisible nativement par les navigateurs, logiciels multimédias et téléviseurs connectés. À l'inverse, les fichiers textuels SUB — principalement MicroDVD (.sub) — fonctionnent par numéros d'images ({image_début}{image_fin}). Un autre format texte portant l'extension .sub est SubViewer 2.0, qui utilise les centièmes de seconde. Convertir un fichier SRT en SUB est indispensable pour regarder des vidéos sur d'anciens lecteurs DVD de salon, écrans multimédias de voiture et platines n'acceptant que des fichiers .sub indexés par images."
+                },
+                {
+                      "question": "Pourquoi faut-il sélectionner une fréquence d'images (FPS) pour convertir en SUB ?",
+                      "answer": "Comme le format MicroDVD détermine l'affichage des répliques selon les numéros d'images et non selon une horloge absolue, le convertisseur doit multiplier les horodatages par le nombre d'images par seconde exact de votre vidéo (Image = Temps en secondes × FPS). Si vous convertissez à 25.000 FPS (PAL) alors que votre vidéo tourne à 23.976 FPS (standard cinéma / NTSC), les sous-titres vont progressivement se décaler au fil du film. Choisir la bonne cadence garantit une synchronisation rigoureuse."
+                },
+                {
+                      "question": "Quelle est la différence entre MicroDVD (.sub), SubViewer (.sub) et VobSub (.sub) ?",
+                      "answer": "L'extension .sub regroupe historiquement trois formats bien distincts : MicroDVD (.sub) est un format texte léger basé sur les images ({1250}{1380}Dialogue) très utilisé par les lecteurs DivX/XviD ; SubViewer 2.0 (.sub) est un format texte avec en-tête [INFORMATION] et temps en centièmes de seconde (00:01:20.10,00:01:23.45) ; et VobSub (.sub + .idx) n'est PAS un fichier texte, mais des images bitmap matricielles extraites directement des disques DVD. Notre convertisseur génère des fichiers texte normés (MicroDVD et SubViewer 2.0) pour vos besoins multimédias."
+                },
+                {
+                      "question": "Comment trouver la fréquence d'images (FPS) exacte de ma vidéo ?",
+                      "answer": "Vous pouvez identifier les FPS exacts très facilement : dans VLC Media Player, lancez la vidéo, allez dans Outils > Informations sur les codecs (ou Ctrl+J / Cmd+I), ouvrez l'onglet Codec et relevez la ligne Fréquence d'images (ex. 23.976023, 24, 25 ou 29.970000). Sous Windows, faites un clic droit sur le fichier vidéo, sélectionnez Propriétés, onglet Détails et regardez Fréquence d'images. Sous macOS, ouvrez avec QuickTime Player et tapez Cmd+I (Inspecteur). L'utilitaire gratuit MediaInfo fournit également cette mesure exacte."
+                },
+                {
+                      "question": "Pourquoi mes sous-titres SUB convertis se décalent-ils pendant la lecture ?",
+                      "answer": "Un sous-titre qui démarre synchronisé et prend progressivement de l'avance ou du retard provient presque toujours d'une inadéquation de FPS entre le fichier MicroDVD et le flux vidéo. Par exemple, si la vidéo est à 23.976 FPS mais que vous convertissez à 25.000 FPS, le texte défilera environ 4.1% trop vite (soit 2.5 secondes d'écart par minute de film). Pour y remédier, vérifiez la cadence réelle avec VLC ou MediaInfo et reconvertissez votre SRT avec les FPS adéquats."
+                },
+                {
+                      "question": "Puis-je reconvertir un fichier SUB en fichier SRT ?",
+                      "answer": "Oui. Les sous-titres textuels MicroDVD (.sub) et SubViewer (.sub) peuvent être convertis en SubRip (.srt). Pour MicroDVD, il suffit de diviser le numéro d'image par la fréquence du film pour retrouver les millisecondes : Temps = Numéro d'image / FPS. Vous pouvez utiliser des logiciels comme Subtitle Edit, Aegisub ou les outils dédiés de notre plateforme SRTConverters."
+                },
+                {
+                      "question": "Mes fichiers de sous-titres sont-ils téléversés sur un serveur pendant l'opération ?",
+                      "answer": "Non. SRTConverters fonctionne à 100% en local dans votre navigateur grâce au JavaScript côté client. Vos fichiers SRT, répliques et fichiers SUB convertis sont traités exclusivement dans la mémoire privée de votre terminal. Aucune donnée n'est envoyée ni stockée sur nos serveurs."
+                },
+                {
+                      "question": "Comment convertir SRT en SUB en ligne de commande avec FFmpeg ?",
+                      "answer": "Vous pouvez convertir du SRT en MicroDVD SUB avec FFmpeg en indiquant le codec approprié : ffmpeg -i input.srt -c:s microdvd output.sub. Pour forcer une fréquence d'images précise lors de traitements par lots ou de multiplexages vidéo, ajoutez le paramètre de cadence : ffmpeg -i input.srt -r 23.976 -c:s microdvd output.sub. Cette méthode est idéale pour les scripts d'encodage automatisés."
+                }
+          ]
+    },
+    "subToSrt": {
+          "id": "sub-to-srt",
+          "name": "Convertisseur SUB en SRT",
+          "shortName": "SUB en SRT",
+          "badge": "Gratuit et Côté Client",
+          "tagline": "Convertir des Sous-titres MicroDVD et SubViewer (.SUB) en SubRip (.SRT) Standard en Ligne",
+          "description": "Convertissez des sous-titres SUB (MicroDVD et SubViewer) au format SubRip (.srt) propre en ligne et gratuitement. Détection automatique des FPS, synchronisation précise des images en millisecondes et confidentialité 100%.",
+          "h1": "Convertisseur SUB en SRT en Ligne",
+          "metaTitle": "Convertisseur SUB en SRT en Ligne – Convertir SUB en SRT Gratuit | SRTConverters",
+          "metaDescription": "Convertissez des sous-titres SUB (MicroDVD et SubViewer) au format SubRip (.srt) propre en ligne et gratuitement. Détection automatique des FPS, synchronisation précise des images en millisecondes et confidentialité 100%.",
+          "settingsLabels": {
+                "timingMode": "Format Détecté",
+                "fixedDuration": "Détection Automatique",
+                "cpsDuration": "MicroDVD ({image}{image})",
+                "cpsLabel": "Fréquence d'Images (FPS)",
+                "cpsHint": "Sélectionnez la cadence de votre vidéo pour garantir une synchronisation parfaite des sous-titres.",
+                "startTime": "Synchroniser l'En-tête FPS",
+                "startTimeHint": "Lit automatiquement la ligne d'en-tête {1}{1}FPS des fichiers MicroDVD lorsque disponible.",
+                "maxCharsPerLine": "Convertir les Balises de Style",
+                "maxCharsHint": "Convertit les balises {Y:i} en <i> et les barres verticales (|) en retours à la ligne standard."
+          },
+          "stepsTitle": "Comment Convertir un Fichier SUB en SRT en 3 Étapes Simples",
+          "steps": [
+                {
+                      "step": "1",
+                      "title": "Importez ou Collez vos Sous-titres SUB",
+                      "description": "Glissez-déposez votre fichier .sub dans la zone prévue ou collez directement votre texte MicroDVD ou SubViewer dans l'éditeur."
+                },
+                {
+                      "step": "2",
+                      "title": "Vérifiez la Fréquence d'Images (FPS)",
+                      "description": "S'il s'agit d'un fichier MicroDVD, sélectionnez la fréquence de votre vidéo (ex. 23.976, 24, 25 ou 29.97 FPS) pour convertir les images en temps exact."
+                },
+                {
+                      "step": "3",
+                      "title": "Téléchargez le Fichier SRT Converti",
+                      "description": "Cliquez sur Télécharger .SRT pour enregistrer immédiatement votre fichier SubRip ou copiez le texte formaté dans votre presse-papiers."
+                }
+          ],
+          "featuresTitle": "Pourquoi Utiliser Notre Convertisseur SUB en SRT ?",
+          "features": [
+                {
+                      "title": "Confidentialité 100% dans le Navigateur",
+                      "description": "Vos sous-titres sont traités intégralement dans votre navigateur web. Aucun fichier ni contenu n'est envoyé vers des serveurs distants.",
+                      "icon": "shield"
+                },
+                {
+                      "title": "Détection de MicroDVD et SubViewer",
+                      "description": "Identifie instantanément les fichiers MicroDVD basés sur les images, les en-têtes SubViewer 2.0/1.0 et les lignes de cadence {1}{1}FPS.",
+                      "icon": "file"
+                },
+                {
+                      "title": "Synchronisation Précise en Millisecondes",
+                      "description": "Calcule des repères temporels stricts à la milliseconde pour tous les standards cinéma, PAL et NTSC sans dérive temporelle.",
+                      "icon": "clock"
+                },
+                {
+                      "title": "Alerte VobSub et Nettoyage de Balises",
+                      "description": "Repère les archives binaires VobSub de DVD pour vous alerter et convertit les barres (|) et styles en balises SRT conformes.",
+                      "icon": "split"
+                }
+          ],
+          "faqsTitle": "Foire Aux Questions sur la Conversion de SUB en SRT",
+          "faqs": [
+                {
+                      "question": "Quelle est la différence entre un fichier SUB et un fichier SRT ?",
+                      "answer": "Le format SRT (SubRip) est la référence universelle moderne pour les sous-titres textuels. Chaque réplique est définie par un numéro séquentiel et des repères temporels stricts exprimés en heures, minutes, secondes et millisecondes (00:01:23,450 --> 00:01:26,800). Il fonctionne nativement sur tous les lecteurs vidéo récents, les téléviseurs connectés, les outils de montage (Premiere Pro, DaVinci Resolve) et les plateformes de streaming. À l'inverse, les fichiers SUB textuels—en particulier MicroDVD (.sub)—dépendent du numéro d'image du flux vidéo ({image_début}{image_fin}) plutôt que du temps absolu, ce qui rend leur affichage tributaire de la cadence d'images (FPS) de la vidéo. SubViewer (.sub) emploie des centièmes de seconde. Convertir SUB en SRT assure une compatibilité universelle sur tous les équipements modernes sans lecteurs obsolètes."
+                },
+                {
+                      "question": "Pourquoi faut-il préciser la cadence d'images (FPS) pour convertir MicroDVD en SRT ?",
+                      "answer": "Les fichiers MicroDVD ne possèdent aucune information temporelle en secondes ; ils indiquent uniquement le numéro de l'image vidéo à laquelle le sous-titre doit apparaître et disparaître (exemple : {1200}{1350}Ligne de dialogue). Pour convertir ces numéros d'images en horodatages SRT conformes, le convertisseur utilise la formule : Millisecondes = Arrondi((Numéro d'image / Cadence FPS) × 1000). Si vous convertissez un sous-titre à 25 FPS (PAL) alors que votre film est cadencé à 23.976 FPS (standard cinéma / NTSC), le sous-titre se décalera progressivement d'environ 2,5 secondes par minute de visionnage. Choisir la bonne cadence assure une synchronisation parfaite du début à la fin."
+                },
+                {
+                      "question": "Quelle est la différence entre MicroDVD (.sub), SubViewer (.sub) et VobSub (.sub) ?",
+                      "answer": "L'extension .sub a historiquement désigné trois formats distincts : 1. MicroDVD (.sub) est un format textuel basé sur les numéros d'images entre accolades ({début}{fin}Ligne1|Ligne2) très répandu à l'époque du DivX/XviD ; 2. SubViewer (.sub) est un format texte comprenant un en-tête de métadonnées ([INFORMATION]) et des temps en centièmes de seconde (00:01:20.50,00:01:23.80) avec balises [br] ; 3. VobSub (.sub + .idx) est un conteneur binaire qui stocke des images bitmap de sous-titres extraites de DVD vidéo. Notre outil convertit sans difficulté les formats texte MicroDVD et SubViewer, et vous avertit immédiatement si vous déposez un fichier binaire VobSub."
+                },
+                {
+                      "question": "Comment trouver la cadence d'images (FPS) exacte de ma vidéo ?",
+                      "answer": "Vous pouvez identifier la cadence exacte de votre vidéo à l'aide de lecteurs multimédias gratuits : Dans VLC Media Player, lancez la vidéo, allez dans Outils > Informations sur les codecs (ou Ctrl+J / Cmd+I), onglet Codec, et vérifiez la 'Fréquence d'images' (ex. 23.976023, 24, 25 ou 29.970000). Sous Windows, effectuez un clic droit sur le fichier vidéo, choisissez Propriétés, onglet Détails, puis lisez 'Fréquence d'images'. Sous macOS, ouvrez la vidéo dans QuickTime Player et appuyez sur Cmd+I pour ouvrir l'inspecteur. Vous pouvez également employer l'utilitaire gratuit MediaInfo pour obtenir un rapport technique détaillé."
+                },
+                {
+                      "question": "Pourquoi mes sous-titres SRT convertis se désynchronisent-ils pendant la lecture ?",
+                      "answer": "Une désynchronisation progressive—lorsque les répliques sont justes au début mais prennent de l'avance ou du retard au fil des minutes—résulte quasi systématiquement d'un décalage de fréquence d'images lors de la conversion. Par exemple, convertir un fichier de 23.976 FPS en indiquant 25.000 FPS accélère les sous-titres d'environ 4,1% par rapport aux voix, créant plusieurs secondes d'écart après quelques minutes. Pour régler ce souci, vérifiez les FPS réels de votre fichier dans VLC ou MediaInfo, sélectionnez cette valeur dans notre outil et relancez la conversion. Si votre fichier MicroDVD comporte une ligne d'en-tête `{1}{1}FPS`, notre convertisseur l'appliquera automatiquement."
+                },
+                {
+                      "question": "Ce convertisseur peut-il traiter des fichiers binaires VobSub (.sub) de DVD ?",
+                      "answer": "Non. Les fichiers VobSub (.sub) ne sont pas des fichiers texte mais des conteneurs binaires contenant des images graphiques des sous-titres extraits d'un DVD commercial. Comme il s'agit d'images de pixels et non de caractères textuels, leur conversion en SRT nécessite un logiciel de reconnaissance optique de caractères (OCR) capable de déchiffrer visuellement les lettres. Si vous importez un fichier VobSub binaire, notre outil détectera sa signature et affichera un message d'aide vous invitant à employer des utilitaires dédiés comme Subtitle Edit, BDSup2Sub ou OCR-SubRip."
+                },
+                {
+                      "question": "Mes fichiers de sous-titres sont-ils transférés sur un serveur externe pendant la conversion ?",
+                      "answer": "Non. SRTConverters s'exécute à 100% localement dans votre navigateur web grâce aux API JavaScript modernes. Vos fichiers, textes saisis, scripts et sous-titres SRT convertis ne quittent jamais votre ordinateur ou smartphone. Aucune donnée n'est transmise sur le réseau, stockée dans le cloud ou enregistrée sur des serveurs, garantissant une confidentialité totale et une rapidité de traitement instantanée."
+                },
+                {
+                      "question": "Comment convertir SUB en SRT en ligne de commande avec FFmpeg ?",
+                      "answer": "Vous pouvez convertir des sous-titres SUB en SRT via le terminal avec FFmpeg. Pour un fichier SubViewer basé sur le temps, tapez : ffmpeg -i entree.sub sortie.srt. Pour un fichier MicroDVD basé sur les images, précisez impérativement la cadence de la vidéo avec l'option -r pour que les temps soient calculés avec justesse : ffmpeg -r 23.976 -i entree.sub sortie.srt. Si le fichier comprend des caractères accentués sous encodage ANSI ou Windows-1252, ajoutez le paramètre d'encodage : ffmpeg -sub_charenc CP1252 -r 25 -i entree.sub sortie.srt. C'est parfait pour automatiser le traitement de dossiers entiers."
+                }
+          ]
     }
   },
   "de": {
@@ -2857,6 +3643,202 @@ export const TOOLS_TRANSLATIONS: Record<Locale, ToolsContent> = {
                 {
                       "question": "Werden meine Untertitel-Dateien auf einen Server hochgeladen?",
                       "answer": "Nein, Ihre Daten bleiben vollständig privat. Die Konvertierung läuft zu 100% lokal in Ihrem Browser über JavaScript ab. Keine Datei verlässt Ihr Gerät."
+                }
+          ]
+    },
+    "srtToSub": {
+          "id": "srt-to-sub",
+          "name": "SRT in SUB Konverter",
+          "shortName": "SRT in SUB",
+          "badge": "Kostenlos & Sicher",
+          "tagline": "SubRip (.SRT) Untertitel kostenlos online in MicroDVD und SubViewer (.SUB) umwandeln",
+          "description": "Konvertieren Sie SubRip (.srt) Untertitel kostenlos online in das SUB-Format (MicroDVD & SubViewer 2.0). Bildfrequenz (FPS) wählbar und 100% Datenschutz im Browser.",
+          "h1": "SRT in SUB Konverter Online",
+          "metaTitle": "SRT in SUB Konverter – Untertitel kostenlos online in SUB umwandeln | SRTConverters",
+          "metaDescription": "Konvertieren Sie SubRip (.srt) Untertitel kostenlos online in das SUB-Format (MicroDVD & SubViewer). Bildfrequenz (FPS) wählbar und 100% Datenschutz im Browser.",
+          "settingsLabels": {
+                "timingMode": "Untertitelformat",
+                "fixedDuration": "MicroDVD (.sub)",
+                "cpsDuration": "SubViewer 2.0 (.sub)",
+                "cpsLabel": "Video-Bildfrequenz (FPS)",
+                "cpsHint": "Wählen Sie die Bildfrequenz Ihres Videos für eine präzise Bildsynchronisation.",
+                "startTime": "FPS-Header einfügen",
+                "startTimeHint": "Fügt die Kopfzeile {1}{1}FPS für automatische Erkennung in Media-Playern ein.",
+                "maxCharsPerLine": "HTML-Tags entfernen",
+                "maxCharsHint": "Entfernt <i>, <b> und Formatierungen für Kompatibilität mit älteren DVD-Playern."
+          },
+          "stepsTitle": "In 3 einfachen Schritten SRT in SUB online umwandeln",
+          "steps": [
+                {
+                      "step": "1",
+                      "title": "SRT-Datei hochladen oder einfügen",
+                      "description": "Ziehen Sie Ihre .srt-Datei per Drag & Drop in den Bereich oder fügen Sie Ihren Untertiteltext direkt in den Editor ein."
+                },
+                {
+                      "step": "2",
+                      "title": "Format und Video-FPS festlegen",
+                      "description": "Wählen Sie MicroDVD oder SubViewer und stellen Sie die Bildfrequenz Ihres Videos ein (z. B. 23.976, 24, 25 oder 29.97 FPS)."
+                },
+                {
+                      "step": "3",
+                      "title": "Konvertierte SUB-Datei herunterladen",
+                      "description": "Klicken Sie auf .SUB herunterladen, um die Datei direkt zu speichern, oder kopieren Sie den Text in die Zwischenablage."
+                }
+          ],
+          "featuresTitle": "Vorteile unseres Online SRT in SUB Konverters",
+          "features": [
+                {
+                      "title": "100% Datenschutz im Browser",
+                      "description": "Die Konvertierung läuft vollständig lokal auf Ihrem Gerät. Es werden niemals Dateien oder Texte auf externe Server übertragen.",
+                      "icon": "shield"
+                },
+                {
+                      "title": "MicroDVD & SubViewer Unterstützung",
+                      "description": "Volle Unterstützung für bildbasiertes MicroDVD ({Start}{Ende}) sowie zeitbasiertes SubViewer 2.0.",
+                      "icon": "file"
+                },
+                {
+                      "title": "Bildgenaue Synchronisation",
+                      "description": "Unterstützt Standard-Bildraten wie 23.976, 24.0, 25.0 (PAL), 29.97 (NTSC), 30 und 60 FPS gegen Zeitversatz.",
+                      "icon": "clock"
+                },
+                {
+                      "title": "Kompatibel mit älteren Abspielgeräten",
+                      "description": "Erstellt saubere .sub-Dateien für Standalone-DVD-Player, Auto-Entertainment-Systeme und DivX/XviD-Geräte.",
+                      "icon": "split"
+                }
+          ],
+          "faqsTitle": "Häufig gestellte Fragen zur SRT in SUB Konvertierung",
+          "faqs": [
+                {
+                      "question": "Worin besteht der Unterschied zwischen einer SRT- und einer SUB-Datei?",
+                      "answer": "SRT (SubRip) ist ein modernes, zeitbasiertes Untertitelformat, bei dem Einblendungen mit Millisekunden-Zeitstempeln gesteuert werden (00:01:23,450 --> 00:01:26,800). Es wird von modernen Webbrowsern, Smart-TVs und Videoplayern universell unterstützt. Textbasierte SUB-Dateien hingegen — vor allem MicroDVD (.sub) — basieren auf Video-Einzelbildern (Frames): {Start-Frame}{End-Frame}. Ein weiteres textbasiertes Format mit der Dateiendung .sub ist SubViewer 2.0 mit Hundertstelsekunden. Die Umwandlung von SRT in SUB ist notwendig für ältere DVD-Player, Auto-Monitore und Hardware-Mediaplayer, die ausschließlich Frame-basierte .sub-Dateien verarbeiten können."
+                },
+                {
+                      "question": "Warum muss ich beim Konvertieren von SRT in SUB eine Bildfrequenz (FPS) wählen?",
+                      "answer": "Da MicroDVD-SUB-Dateien Zeitpunkte nicht in Millisekunden, sondern in Frame-Nummern speichern, muss der Konverter die Zeitstempel exakt mit der Bildrate des Videos multiplizieren (Frame = Sekunden × FPS). Wenn Sie ein SRT-File mit 25.000 FPS (PAL) umwandeln, Ihr Video jedoch mit 23.976 FPS (Kino/NTSC) kodiert ist, laufen Bild und Untertitel mit fortschreitender Filmdauer auseinander. Die Auswahl der passenden FPS gewährleistet perfekte Synchronität über die gesamte Filmlänge."
+                },
+                {
+                      "question": "Was ist der Unterschied zwischen MicroDVD (.sub), SubViewer (.sub) und VobSub (.sub)?",
+                      "answer": "Die Dateiendung .sub steht historisch für drei völlig unterschiedliche Technologien: MicroDVD (.sub) ist ein schlankes, Frame-basiertes Textformat ({1250}{1380}Dialog), das vor allem bei DivX/XviD-Videos genutzt wurde; SubViewer 2.0 (.sub) ist ein textbasiertes Format mit Kopfzeile [INFORMATION] und Zeitstempeln in Hundertstelsekunden (00:01:20.10,00:01:23.45); und VobSub (.sub + .idx) ist KEINE Textdatei, sondern enthält Bitmap-Grafiken direkt aus DVD-Videospuren. Unser Konverter erstellt saubere, standardisierte Text-SUB-Dateien (MicroDVD und SubViewer 2.0)."
+                },
+                {
+                      "question": "Wie finde ich die exakte Bildfrequenz (FPS) meiner Videodatei heraus?",
+                      "answer": "Die genaue Bildrate lässt sich unkompliziert ermitteln: Im VLC Media Player öffnen Sie das Video, wählen Werkzeuge > Codec-Informationen (oder Strg+J / Cmd+I), wechseln auf den Reiter Codec und lesen den Wert bei Bildwiederholrate ab (z. B. 23.976023, 24, 25 oder 29.970000). Unter Windows klicken Sie mit der rechten Maustaste auf die Datei, wählen Eigenschaften, Reiter Details und prüfen die Einzelbildrate. Auf dem Mac drücken Sie in QuickTime Cmd+I (Filminspektor). Auch das kostenlose Tool MediaInfo liefert verlässliche Werte."
+                },
+                {
+                      "question": "Warum laufen meine konvertierten SUB-Untertitel während des Abspielens asynchron?",
+                      "answer": "Wenn Untertitel synchron beginnen und im Verlauf des Videos immer weiter vor- oder nacheilen, liegt fast immer eine FPS-Diskrepanz zwischen der MicroDVD-Datei und der Videospur vor. Bei einem Film mit 23.976 FPS, der versehentlich mit 25.000 FPS konvertiert wurde, laufen die Untertitel rund 4,1 % zu schnell (ca. 2,5 Sekunden Versatz pro Minute). Prüfen Sie die tatsächliche Framerate mit VLC oder MediaInfo und konvertieren Sie die SRT-Datei erneut mit dem exakten FPS-Wert."
+                },
+                {
+                      "question": "Kann ich eine SUB-Datei wieder in das SRT-Format umwandeln?",
+                      "answer": "Ja. Textbasierte MicroDVD- (.sub) und SubViewer-Dateien (.sub) können problemlos wieder in SubRip (.srt) zurückgewandelt werden. Bei MicroDVD teilt man die Frame-Zahlen durch die Bildrate des Videos, um die Millisekunden-Zeitstempel wiederherzustellen: Zeit = Frame / FPS. Dies ist mit Programmen wie Subtitle Edit, Aegisub oder den Werkzeugen auf SRTConverters möglich."
+                },
+                {
+                      "question": "Werden meine Untertiteldateien bei der Konvertierung auf einen Server hochgeladen?",
+                      "answer": "Nein. SRTConverters arbeitet zu 100 % lokal in Ihrem Webbrowser mittels clientseitigem JavaScript. Ihre SRT-Dateien, Texte und erstellten SUB-Dateien verbleiben ausschließlich im flüchtigen Speicher Ihres Endgeräts. Es werden keine Daten an Server übertragen oder gespeichert."
+                },
+                {
+                      "question": "Wie kann ich SRT per Kommandozeile mit FFmpeg in SUB umwandeln?",
+                      "answer": "Mit FFmpeg wandeln Sie SRT in MicroDVD-SUB um, indem Sie den Subtitle-Codec angeben: ffmpeg -i input.srt -c:s microdvd output.sub. Um eine bestimmte Bildrate für Batch-Verarbeitungen oder Muxing zu erzwingen, ergänzen Sie den Raten-Parameter: ffmpeg -i input.srt -r 23.976 -c:s microdvd output.sub. Das eignet sich optimal für automatisierte Video-Pipelines und Shell-Skripte."
+                }
+          ]
+    },
+    "subToSrt": {
+          "id": "sub-to-srt",
+          "name": "SUB in SRT Konverter",
+          "shortName": "SUB in SRT",
+          "badge": "Kostenlos & Clientseitig",
+          "tagline": "MicroDVD & SubViewer (.SUB) Untertitel online in Standard-SubRip (.SRT) umwandeln",
+          "description": "Konvertieren Sie SUB-Untertitel (MicroDVD & SubViewer) kostenlos online in sauberes SubRip (.srt)-Format. Automatische FPS-Erkennung, präzise Frame-in-Zeit-Umrechnung und 100% Browser-Datenschutz.",
+          "h1": "SUB in SRT Konverter Online",
+          "metaTitle": "SUB in SRT Konverter Online – SUB kostenlos in SRT umwandeln | SRTConverters",
+          "metaDescription": "Konvertieren Sie SUB-Untertitel (MicroDVD & SubViewer) kostenlos online in sauberes SubRip (.srt)-Format. Automatische FPS-Erkennung, präzise Frame-in-Zeit-Umrechnung und 100% Browser-Datenschutz.",
+          "settingsLabels": {
+                "timingMode": "Erkanntes Format",
+                "fixedDuration": "Automatische Erkennung",
+                "cpsDuration": "MicroDVD ({Frame}{Frame})",
+                "cpsLabel": "Video-Bildwiederholrate (FPS)",
+                "cpsHint": "Wählen Sie die Bildrate Ihres Videos für eine framegenaue Untertitel-Synchronisation aus.",
+                "startTime": "FPS-Header synchronisieren",
+                "startTimeHint": "Liest die {1}{1}FPS-Kopfzeile aus MicroDVD-Dateien automatisch aus.",
+                "maxCharsPerLine": "Formatierungs-Tags umwandeln",
+                "maxCharsHint": "Wandelt {Y:i}-Tags in <i> und Pipe-Trennungen (|) in standardmäßige Zeilenumbrüche um."
+          },
+          "stepsTitle": "In 3 einfachen Schritten SUB online in SRT konvertieren",
+          "steps": [
+                {
+                      "step": "1",
+                      "title": "SUB-Untertitel hochladen oder einfügen",
+                      "description": "Ziehen Sie Ihre .sub-Datei per Drag & Drop in das Upload-Feld oder fügen Sie Ihren MicroDVD- bzw. SubViewer-Text direkt ein."
+                },
+                {
+                      "step": "2",
+                      "title": "Video-Bildrate (FPS) überprüfen",
+                      "description": "Überprüfen Sie bei MicroDVD-Dateien die Bildrate des Videos (z. B. 23.976, 24, 25 oder 29.97 FPS), damit Frames präzise in Uhrzeitwerte umgerechnet werden."
+                },
+                {
+                      "step": "3",
+                      "title": "Konvertierte SRT-Datei herunterladen",
+                      "description": "Klicken Sie auf .SRT herunterladen, um Ihre Datei sofort zu speichern, oder kopieren Sie den Inhalt direkt in die Zwischenablage."
+                }
+          ],
+          "featuresTitle": "Warum sollten Sie unseren Online SUB in SRT Konverter wählen?",
+          "features": [
+                {
+                      "title": "100% Clientseitiger Datenschutz",
+                      "description": "Ihre Untertiteldateien werden vollständig in Ihrem Webbrowser verarbeitet. Es werden keine Daten an fremde Server übertragen oder gespeichert.",
+                      "icon": "shield"
+                },
+                {
+                      "title": "Automatische MicroDVD- & SubViewer-Erkennung",
+                      "description": "Erkennt framebasierte MicroDVD-Dateien, zeitbasierte SubViewer 2.0/1.0-Strukturen und integrierte {1}{1}FPS-Header automatisch.",
+                      "icon": "file"
+                },
+                {
+                      "title": "Millisekundengenaue Zeitumrechnung",
+                      "description": "Berechnet exakte Zeitstempel für Kino-, PAL- und NTSC-Bildraten ohne störende Asynchronität oder Zeitdrift.",
+                      "icon": "clock"
+                },
+                {
+                      "title": "VobSub-Erkennung & Tag-Bereinigung",
+                      "description": "Warnt zuverlässig vor binären DVD-VobSub-Grafiken und wandelt Pipe-Symbole (|) sowie Stil-Tags sauber in valides SRT-Markup um.",
+                      "icon": "split"
+                }
+          ],
+          "faqsTitle": "Häufig gestellte Fragen zur SUB in SRT Konvertierung",
+          "faqs": [
+                {
+                      "question": "Was ist der Unterschied zwischen einer SUB- und einer SRT-Datei?",
+                      "answer": "Das SRT-Format (SubRip) ist der moderne weltweite Standard für Textuntertitel. Jeder Untertitelblock besitzt eine fortlaufende Nummer sowie absolute Zeitstempel mit Millisekunden-Genauigkeit (00:01:23,450 --> 00:01:26,800). SRT wird nativ von modernen Mediaplayern, Streaming-Diensten (YouTube, Netflix), Smart-TVs und Schnittprogrammen (Premiere, DaVinci Resolve) unterstützt. Textbasierte SUB-Dateien—vor allem MicroDVD (.sub)—spezifizieren Untertitel hingegen über Video-Frame-Nummern ({start_frame}{end_frame}) statt über reale Uhrzeiten, sodass die korrekte Anzeige von der Bildwiederholrate (FPS) der Videodatei abhängt. SubViewer (.sub) nutzt Hundertstelsekunden. Durch die Umwandlung von SUB in SRT machen Sie Ihre Untertitel universell und zukunftssicher auf allen modernen Geräten abspielbar."
+                },
+                {
+                      "question": "Warum muss ich beim Konvertieren von MicroDVD in SRT eine Bildrate (FPS) angeben?",
+                      "answer": "MicroDVD-Dateien enthalten keine Angaben zu Stunden, Minuten oder Sekunden, sondern lediglich die konkreten Bildnummern, bei denen ein Untertitel ein- und ausgeblendet werden soll (z. B. {1200}{1350}Textzeile). Um diese Framenummern in reale SRT-Millisekunden umzurechnen, benötigt der Konverter die genaue Abspielgeschwindigkeit Ihres Videos nach der Formel: Millisekunden = Runden((Framenummer / Video-FPS) × 1000). Wenn Sie eine Datei mit 25 FPS (PAL) umwandeln, der Film aber mit 23.976 FPS (Kino/NTSC) läuft, laufen Bild und Text um ca. 2,5 Sekunden pro Minute auseinander. Die passende FPS-Einstellung stellt sicher, dass der Ton und die Untertitel bis zur letzten Sekunde synchron bleiben."
+                },
+                {
+                      "question": "Worin unterscheiden sich MicroDVD (.sub), SubViewer (.sub) und VobSub (.sub)?",
+                      "answer": "Unter der Dateiendung .sub existieren historisch drei grundverschiedene Untertitelformate: 1. MicroDVD (.sub) ist ein einfaches Textformat mit geschweiften Klammern und Framenummern ({start}{ende}Zeile1|Zeile2), das in der Ära von DivX und XviD sehr populär war; 2. SubViewer (.sub) ist ein Textformat mit Header ([INFORMATION]) und Zeitstempeln in Hundertstelsekunden (00:01:20.50,00:01:23.80) sowie [br]-Zeilenumbrüchen; 3. VobSub (.sub + .idx) ist ein binäres Containerformat, das gerenderte Bitmap-Grafiken aus DVD-Videospuren enthält. Unser Tool konvertiert die textbasierten Formate MicroDVD und SubViewer und weist Sie sofort darauf hin, falls Sie eine binäre VobSub-Grafikdatei hochladen."
+                },
+                {
+                      "question": "Wie finde ich die richtige Bildwiederholrate (FPS) meiner Videodatei heraus?",
+                      "answer": "Sie können die exakte Bildrate Ihres Videos ganz einfach mit gängigen Mediaplayern ermitteln: Öffnen Sie das Video im VLC Media Player, wählen Sie Werkzeuge > Codec-Informationen (oder drücken Sie Strg+J / Cmd+I), klicken Sie auf die Registerkarte Codec und prüfen Sie den Wert bei 'Bildwiederholrate' (z. B. 23.976023, 24, 25 oder 29.970000). Unter Windows können Sie die Datei mit der rechten Maustaste anklicken, Eigenschaften wählen und im Reiter Details den Eintrag 'Einzelbildrate' einsehen. Auf dem Mac drücken Sie im QuickTime Player Cmd+I, um die Filminformationen zu öffnen. Alternativ liefert das kostenlose Tool MediaInfo detaillierte technische Angaben."
+                },
+                {
+                      "question": "Warum geraten meine konvertierten SRT-Untertitel beim Abspielen aus dem Takt?",
+                      "answer": "Eine allmähliche Asynchronität—bei der die Untertitel am Anfang synchron sind, sich dann aber kontinuierlich nach vorne oder hinten verschieben—wird fast immer durch eine falsche FPS-Auswahl bei der Konvertierung hervorgerufen. Wird ein Film mit 23.976 FPS mit einer 25.000 FPS-Einstellung umgerechnet, laufen die Untertitel etwa 4,1% schneller als die Tonspur, was schon nach wenigen Minuten zu deutlichen Abweichungen führt. Ermitteln Sie die exakte Bildrate in VLC oder MediaInfo, wählen Sie denselben Wert in unserem Konverter und wandeln Sie die Datei erneut um. Enthält die MicroDVD-Datei eine Kopfzeile wie `{1}{1}FPS`, übernimmt unser Tool diesen Wert automatisch."
+                },
+                {
+                      "question": "Kann dieser Konverter binäre VobSub-Dateien (.sub) von DVDs verarbeiten?",
+                      "answer": "Nein. VobSub-Dateien (.sub) sind keine reinen Textdateien, sondern gepackte Binärdateien mit gerenderten Bitmap-Bildern der DVD-Untertitel. Da es sich um pixelbasierte Bilder und nicht um Textzeichen handelt, erfordert die Konvertierung in SRT eine OCR-Texterkennungssoftware (Optical Character Recognition), die jedes Bild analysiert und in Buchstaben umwandelt. Wenn Sie eine VobSub-Binärdatei hochladen, erkennt unser Tool dies sofort und empfiehlt Ihnen spezialisierte Desktop-Programme wie Subtitle Edit, BDSup2Sub oder OCR-SubRip."
+                },
+                {
+                      "question": "Werden meine Untertitel während der Umwandlung auf einen Server hochgeladen?",
+                      "answer": "Nein. SRTConverters läuft zu 100% lokal in Ihrem Webbrowser mithilfe moderner JavaScript-Technologien. Ihre Untertiteldateien, Texteingaben und generierten SRT-Dateien verlassen zu keinem Zeitpunkt Ihr Gerät. Es findet keine Datenübertragung über das Internet statt, sodass vollständige Privatsphäre, höchste Datensicherheit und sofortige Konvertierungszeiten gewährleistet sind."
+                },
+                {
+                      "question": "Wie kann ich SUB auf der Kommandozeile mit FFmpeg in SRT umwandeln?",
+                      "answer": "Mit FFmpeg lässt sich die Konvertierung von SUB in SRT bequem im Terminal durchführen. Bei zeitbasierten SubViewer-Dateien genügt der Befehl: ffmpeg -i eingabe.sub ausgabe.srt. Bei framebasierten MicroDVD-Dateien müssen Sie die Bildrate mit dem Flag -r angeben, damit FFmpeg die Zeitwerte berechnen kann: ffmpeg -r 23.976 -i eingabe.sub ausgabe.srt. Falls Umlaute oder Sonderzeichen in ANSI/Windows-1252-Kodierung vorliegen, ergänzen Sie den Parameter für den Zeichensatz: ffmpeg -sub_charenc CP1252 -r 25 -i eingabe.sub ausgabe.srt. Dies ist ideal für automatisierte Batch-Skripte."
                 }
           ]
     }
@@ -3415,6 +4397,202 @@ export const TOOLS_TRANSLATIONS: Record<Locale, ToolsContent> = {
                       "answer": "File Anda sepenuhnya aman dan privat. Seluruh pemrosesan berjalan 100% secara lokal di dalam browser Anda menggunakan JavaScript. Tidak ada file yang dikirim ke internet."
                 }
           ]
+    },
+    "srtToSub": {
+          "id": "srt-to-sub",
+          "name": "Konverter SRT ke SUB",
+          "shortName": "SRT ke SUB",
+          "badge": "Gratis & Aman",
+          "tagline": "Konversi Subtitle SubRip (.SRT) ke Format MicroDVD dan SubViewer (.SUB) Online",
+          "description": "Konversi subtitle SubRip (.srt) ke format SUB (MicroDVD & SubViewer 2.0) secara online dan gratis. Mendukung frame rate (FPS) fleksibel dan 100% privasi browser.",
+          "h1": "Konverter SRT ke SUB Online",
+          "metaTitle": "Konverter SRT ke SUB Online – Ubah Subtitle ke SUB Gratis | SRTConverters",
+          "metaDescription": "Konversi subtitle SubRip (.srt) ke format SUB (MicroDVD & SubViewer) online secara gratis. Pengaturan frame rate (FPS) fleksibel dan 100% privasi browser.",
+          "settingsLabels": {
+                "timingMode": "Format Subtitle",
+                "fixedDuration": "MicroDVD (.sub)",
+                "cpsDuration": "SubViewer 2.0 (.sub)",
+                "cpsLabel": "Frame Rate Video (FPS)",
+                "cpsHint": "Pilih frame rate video Anda untuk memastikan sinkronisasi yang presisi.",
+                "startTime": "Sertakan Header FPS",
+                "startTimeHint": "Menambahkan baris {1}{1}FPS ke file MicroDVD untuk deteksi otomatis pemutar media.",
+                "maxCharsPerLine": "Hapus Tag HTML",
+                "maxCharsHint": "Menghapus tag <i>, <b>, dan font agar kompatibel dengan pemutar DVD lama."
+          },
+          "stepsTitle": "Cara Mengonversi SRT ke SUB Online dalam 3 Langkah",
+          "steps": [
+                {
+                      "step": "1",
+                      "title": "Unggah atau Tempel Subtitle SRT",
+                      "description": "Tarik dan lepas file .srt Anda ke area unggah atau tempel teks subtitle SubRip langsung ke editor."
+                },
+                {
+                      "step": "2",
+                      "title": "Pilih Format & Frame Rate (FPS) Video",
+                      "description": "Pilih format MicroDVD atau SubViewer serta tentukan frame rate video Anda (misalnya 23.976, 24, 25, atau 29.97 FPS)."
+                },
+                {
+                      "step": "3",
+                      "title": "Unduh File SUB Hasil Konversi",
+                      "description": "Klik Unduh .SUB untuk menyimpan file subtitle secara instan atau salin teks ke papan klip Anda."
+                }
+          ],
+          "featuresTitle": "Mengapa Menggunakan Konverter SRT ke SUB Kami?",
+          "features": [
+                {
+                      "title": "100% Privasi di Browser",
+                      "description": "Konversi berlangsung sepenuhnya di browser Anda. Tidak ada file atau skrip yang dikirimkan ke server eksternal.",
+                      "icon": "shield"
+                },
+                {
+                      "title": "Dukungan MicroDVD & SubViewer",
+                      "description": "Kompatibilitas penuh untuk MicroDVD berbasis frame ({awal}{akhir}) dan SubViewer 2.0 berbasis waktu.",
+                      "icon": "file"
+                },
+                {
+                      "title": "Sinkronisasi Presisi Berbasis Frame",
+                      "description": "Mendukung frame rate standar industri: 23.976, 24.0, 25.0 (PAL), 29.97 (NTSC), 30, dan 60 FPS agar subtitle tidak geser.",
+                      "icon": "clock"
+                },
+                {
+                      "title": "Cocok untuk Perangkat Lawas",
+                      "description": "Menghasilkan file .sub bersih yang siap diputar di DVD player jadul, head unit mobil, dan perangkat DivX/XviD.",
+                      "icon": "split"
+                }
+          ],
+          "faqsTitle": "Pertanyaan yang Sering Diajukan Seputar Konversi SRT ke SUB",
+          "faqs": [
+                {
+                      "question": "Apa perbedaan antara file SRT dan file SUB?",
+                      "answer": "SRT (SubRip) adalah format subtitle modern berbasis waktu jam yang menentukan kemunculan teks menggunakan milidetik (00:01:23,450 --> 00:01:26,800) dan didukung secara universal oleh browser, Smart TV, dan pemutar video modern. Sebaliknya, file SUB berbasis teks — terutama MicroDVD (.sub) — adalah format berbasis nomor frame video ({frame_mulai}{frame_selesai}). Format teks lain dengan ekstensi .sub adalah SubViewer 2.0 yang menggunakan seperseratus detik. Mengonversi SRT ke SUB sangat dibutuhkan untuk memutar video pada pemutar DVD fisik lama, layar audio mobil, dan perangkat media jadul yang hanya membaca file .sub berbasis frame."
+                },
+                {
+                      "question": "Mengapa saya harus memilih frame rate (FPS) saat mengonversi SRT ke SUB?",
+                      "answer": "Karena file MicroDVD menentukan kemunculan subtitle berdasarkan nomor frame video dan bukan milidetik jam, konverter wajib mengalikan waktu subtitle dengan frame rate video yang sebenarnya (Frame = Waktu dalam Detik × FPS). Jika Anda mengonversi file SRT pada 25.000 FPS (PAL) sementara video Anda berkecepatan 23.976 FPS (film bioskop / NTSC), subtitle akan bergeser semakin cepat atau lambat seiring berjalannya film. Memilih FPS yang tepat memastikan sinkronisasi presisi dari awal hingga akhir."
+                },
+                {
+                      "question": "Apa perbedaan antara MicroDVD (.sub), SubViewer (.sub), dan VobSub (.sub)?",
+                      "answer": "Ekstensi file .sub secara historis digunakan oleh tiga teknologi subtitle yang sangat berbeda: MicroDVD (.sub) adalah format teks berbasis frame ({1250}{1380}Dialog) yang populer pada era DivX/XviD; SubViewer 2.0 (.sub) adalah format teks dengan header [INFORMATION] dan penanda waktu centisecond (00:01:20.10,00:01:23.45); sedangkan VobSub (.sub + .idx) BUKAN file teks, melainkan kumpulan gambar grafik bitmap dari piringan DVD video. Konverter kami menghasilkan subtitle teks standar (MicroDVD dan SubViewer 2.0)."
+                },
+                {
+                      "question": "Bagaimana cara mengetahui frame rate (FPS) video saya dengan akurat?",
+                      "answer": "Anda dapat mengecek FPS video dengan sangat mudah: pada VLC Media Player, putar video, klik Alat > Informasi Codec (atau Ctrl+J / Cmd+I), buka tab Codec dan lihat angka pada Frame rate (misal 23.976023, 24, 25, atau 29.970000). Di Windows, klik kanan file video, pilih Properties, tab Details, lalu periksa Frame rate. Di macOS, buka file dengan QuickTime Player lalu tekan Cmd+I (Movie Inspector). Program gratis MediaInfo juga menampilkan data ini dengan sangat detail."
+                },
+                {
+                      "question": "Mengapa subtitle SUB hasil konversi saya menjadi tidak sinkron saat diputar?",
+                      "answer": "Subtitle yang awalnya pas tetapi lambat laun mendahului atau tertinggal dari audio hampir selalu disebabkan oleh perbedaan FPS antara file MicroDVD hasil konversi dengan track video asli. Contohnya, jika video berjalan pada 23.976 FPS namun Anda memilih 25.000 FPS saat konversi, subtitle akan berjalan sekitar 4,1% lebih cepat (selisih sekitar 2,5 detik per menit). Solusinya, cek FPS asli video dengan VLC atau MediaInfo lalu konversi ulang file SRT dengan angka FPS yang persis sama."
+                },
+                {
+                      "question": "Apakah saya bisa mengonversi kembali file SUB ke format SRT?",
+                      "answer": "Bisa. Subtitle teks MicroDVD (.sub) dan SubViewer (.sub) dapat dengan mudah dikonversi kembali ke SubRip (.srt). Pada MicroDVD, Anda cukup membagi nomor frame dengan nilai FPS video untuk memperoleh milidetik: Waktu = Nomor Frame / FPS. Anda dapat memakai aplikasi seperti Subtitle Edit, Aegisub, atau alat konversi di platform SRTConverters kami."
+                },
+                {
+                      "question": "Apakah file subtitle saya diunggah ke server selama proses konversi?",
+                      "answer": "Tidak. SRTConverters bekerja 100% secara lokal di browser Anda menggunakan JavaScript di sisi klien. File SRT, teks subtitle, dan file SUB hasil konversi Anda hanya diproses di memori perangkat Anda. Tidak ada data yang dikirim, disimpan, atau dicatat di server mana pun."
+                },
+                {
+                      "question": "Bagaimana cara mengonversi SRT ke SUB lewat command line dengan FFmpeg?",
+                      "answer": "Anda dapat mengonversi SRT ke MicroDVD SUB via FFmpeg dengan menentukan codec subtitle: ffmpeg -i input.srt -c:s microdvd output.sub. Jika Anda ingin menentukan frame rate tertentu dalam pemrosesan batch atau muxing video, tambahkan opsi rate: ffmpeg -i input.srt -r 23.976 -c:s microdvd output.sub. Perintah ini sangat praktis untuk pipeline otomatis dan skrip terminal."
+                }
+          ]
+    },
+    "subToSrt": {
+          "id": "sub-to-srt",
+          "name": "Konverter SUB ke SRT",
+          "shortName": "SUB ke SRT",
+          "badge": "Gratis & Sisi Klien",
+          "tagline": "Konversi Subtitle MicroDVD & SubViewer (.SUB) ke SubRip (.SRT) Standar Online",
+          "description": "Konversi subtitle SUB (MicroDVD & SubViewer) ke format SubRip (.srt) bersih secara online dan gratis. Deteksi FPS otomatis, konversi frame ke waktu yang presisi, dan privasi peramban 100%.",
+          "h1": "Konverter SUB ke SRT Online",
+          "metaTitle": "Konverter SUB ke SRT Online – Ubah SUB ke SRT Gratis | SRTConverters",
+          "metaDescription": "Konversi subtitle SUB (MicroDVD & SubViewer) ke format SubRip (.srt) bersih secara online dan gratis. Deteksi FPS otomatis, konversi frame ke waktu yang presisi, dan privasi peramban 100%.",
+          "settingsLabels": {
+                "timingMode": "Format Terdeteksi",
+                "fixedDuration": "Deteksi Otomatis",
+                "cpsDuration": "MicroDVD ({frame}{frame})",
+                "cpsLabel": "Frame Rate Video (FPS)",
+                "cpsHint": "Pilih frame rate video Anda untuk memastikan sinkronisasi subtitle yang presisi.",
+                "startTime": "Sinkronkan Header FPS",
+                "startTimeHint": "Membaca baris header {1}{1}FPS dari file MicroDVD secara otomatis saat tersedia.",
+                "maxCharsPerLine": "Konversi Tag Format",
+                "maxCharsHint": "Mengubah tag {Y:i} menjadi <i> dan pemisah garis pipa (|) menjadi baris baru standar."
+          },
+          "stepsTitle": "Cara Mengonversi SUB ke SRT Online dalam 3 Langkah Mudah",
+          "steps": [
+                {
+                      "step": "1",
+                      "title": "Unggah atau Tempel Subtitle SUB",
+                      "description": "Tarik dan lepas file .sub Anda ke area unggah atau tempel teks MicroDVD maupun SubViewer langsung ke editor teks."
+                },
+                {
+                      "step": "2",
+                      "title": "Periksa Frame Rate Video (FPS)",
+                      "description": "Jika file bertipe MicroDVD, pastikan frame rate video sesuai (misalnya 23.976, 24, 25, atau 29.97 FPS) agar nomor frame terhitung menjadi jam dan menit yang tepat."
+                },
+                {
+                      "step": "3",
+                      "title": "Unduh File SRT yang Dikonversi",
+                      "description": "Klik Unduh .SRT untuk menyimpan file SubRip Anda secara instan atau salin teks hasil konversi langsung ke papan klip."
+                }
+          ],
+          "featuresTitle": "Mengapa Memilih Konverter SUB ke SRT Kami?",
+          "features": [
+                {
+                      "title": "Privasi 100% Sisi Klien",
+                      "description": "Subtitle Anda diproses sepenuhnya di browser web Anda. Tidak ada file atau teks yang dikirimkan atau disimpan di server eksternal.",
+                      "icon": "shield"
+                },
+                {
+                      "title": "Deteksi Otomatis MicroDVD & SubViewer",
+                      "description": "Mendeteksi file MicroDVD berbasis frame, format SubViewer 2.0/1.0, serta konfigurasi baris {1}{1}FPS secara cerdas.",
+                      "icon": "file"
+                },
+                {
+                      "title": "Sinkronisasi Milidetik yang Akurat",
+                      "description": "Menghitung penanda waktu milidetik secara presisi untuk semua standar bioskop, PAL, dan NTSC tanpa pergeseran sinkronisasi.",
+                      "icon": "clock"
+                },
+                {
+                      "title": "Peringatan VobSub & Pembersihan Tag",
+                      "description": "Mendeteksi paket biner DVD VobSub dan mengonversi garis pipa (|) serta tag gaya menjadi format SRT standar yang rapi.",
+                      "icon": "split"
+                }
+          ],
+          "faqsTitle": "Pertanyaan yang Sering Diajukan Seputar Konversi SUB ke SRT",
+          "faqs": [
+                {
+                      "question": "Apa perbedaan antara file SUB dan file SRT?",
+                      "answer": "SRT (SubRip) adalah standar subtitle teks universal modern. SRT mendefinisikan setiap dialog dengan nomor urut berurutan dan penanda waktu jam absolut hingga milidetik (00:01:23,450 --> 00:01:26,800). Format ini didukung secara luas oleh pemutar media modern, smart TV, perangkat lunak editing (Premiere, DaVinci Resolve), dan platform streaming seperti YouTube atau Netflix. Sebaliknya, file SUB berbasis teks—terutama MicroDVD (.sub)—menggunakan nomor frame video ({frame_awal}{frame_akhir}), sehingga waktu pemutarannya bergantung pada kecepatan frame rate (FPS) file video. SubViewer (.sub) menggunakan satuan seperseratus detik. Mengonversi SUB ke SRT memberikan kompatibilitas menyeluruh pada semua perangkat modern tanpa membutuhkan pemutar media lawas."
+                },
+                {
+                      "question": "Mengapa saya harus memilih frame rate (FPS) saat mengonversi MicroDVD ke SRT?",
+                      "answer": "File MicroDVD tidak mencatat jam, menit, atau detik. Format ini hanya menentukan pada frame ke berapa subtitle harus muncul dan menghilang (misalnya: {1200}{1350}Teks dialog). Untuk mengubah nomor frame menjadi penanda waktu SRT, konverter menghitung: Milidetik = Pembulatan((Nomor Frame / FPS Video) × 1000). Jika Anda mengonversi file dengan pengaturan 25 FPS (PAL) padahal video berjalan pada 23.976 FPS (film bioskop / NTSC), subtitle akan bergeser sekitar 2,5 detik setiap satu menit pemutaran. Memilih FPS yang tepat menjamin subtitle tetap sinkron dari awal hingga akhir film."
+                },
+                {
+                      "question": "Apa perbedaan antara MicroDVD (.sub), SubViewer (.sub), dan VobSub (.sub)?",
+                      "answer": "Ekstensi .sub secara historis digunakan oleh tiga teknologi subtitle yang berbeda: 1. MicroDVD (.sub) adalah format teks berbasis nomor frame dalam kurung kurawal ({awal}{akhir}Baris1|Baris2) yang populer di era DivX/XviD; 2. SubViewer (.sub) adalah format teks dengan header metadata ([INFORMATION]) dan waktu dalam satuan seperseratus detik (00:01:20.50,00:01:23.80) dengan tag [br]; 3. VobSub (.sub + .idx) adalah paket biner yang berisi gambar bitmap grafis subtitle dari piringan DVD. Alat kami mengonversi format teks MicroDVD dan SubViewer secara otomatis serta memberi peringatan jika Anda mengunggah file biner VobSub."
+                },
+                {
+                      "question": "Bagaimana cara mengetahui frame rate (FPS) yang tepat dari file video saya?",
+                      "answer": "Anda dapat mengetahui frame rate video menggunakan aplikasi pemutar media gratis: Di VLC Media Player, putar video, buka Alat > Informasi Codec (atau tekan Ctrl+J / Cmd+I), pilih tab Codec, dan lihat nilai 'Frame rate' (misalnya 23.976023, 24, 25, atau 29.970000). Di Windows File Explorer, klik kanan file video, pilih Properti, buka tab Rincian, dan periksa baris 'Kecepatan frame'. Di macOS, buka file dengan QuickTime Player lalu tekan Cmd+I untuk membuka jendela pemeriksa. Anda juga bisa memakai aplikasi MediaInfo untuk membaca informasi teknis video secara mendalam."
+                },
+                {
+                      "question": "Mengapa subtitle SRT hasil konversi saya tidak sinkron saat diputar?",
+                      "answer": "Ketidaksinkronan bertahap—di mana subtitle awalnya pas tetapi makin lama makin mendahului atau tertinggal dari suara dialog—hampir selalu disebabkan oleh ketidaksesuaian FPS saat konversi. Mengonversi video 23.976 FPS dengan pengaturan 25.000 FPS akan membuat subtitle muncul 4,1% lebih cepat daripada audio, sehingga selisih waktu bertambah setiap menit. Untuk mengatasinya, pastikan nilai FPS video Anda di VLC atau MediaInfo, pilih nilai yang sama di konverter kami, lalu lakukan konversi ulang. Jika file MicroDVD Anda memiliki baris header `{1}{1}FPS`, alat kami akan menggunakannya secara otomatis."
+                },
+                {
+                      "question": "Bisakah alat ini mengonversi file biner VobSub (.sub) dari piringan DVD?",
+                      "answer": "Tidak. File VobSub (.sub) bukanlah dokumen teks, melainkan arsip biner yang memuat gambar grafis bitmap dari subtitle DVD asli. Karena berupa gambar raster dan bukan teks karakter alfanumerik, konversi VobSub ke SRT membutuhkan perangkat lunak OCR (Optical Character Recognition) yang mengenali bentuk huruf secara visual. Jika Anda mengunggah file biner VobSub, konverter kami akan mendeteksinya dan menampilkan petunjuk agar Anda menggunakan program desktop khusus seperti Subtitle Edit, BDSup2Sub, atau OCR-SubRip."
+                },
+                {
+                      "question": "Apakah file subtitle saya diunggah ke server eksternal saat proses konversi?",
+                      "answer": "Tidak. SRTConverters bekerja 100% di sisi klien di dalam peramban web Anda menggunakan JavaScript modern. File subtitle, teks yang Anda masukkan, dan hasil SRT tidak pernah keluar dari komputer atau ponsel Anda. Tidak ada data yang dikirimkan melalui internet atau disimpan di server mana pun, menjamin privasi total, keamanan data, dan kecepatan konversi instan."
+                },
+                {
+                      "question": "Bagaimana cara mengonversi SUB ke SRT melalui baris perintah menggunakan FFmpeg?",
+                      "answer": "Anda dapat mengonversi file SUB ke SRT menggunakan FFmpeg di terminal. Untuk file SubViewer berbasis waktu, jalankan: ffmpeg -i input.sub output.srt. Untuk file MicroDVD berbasis frame, Anda wajib mencantumkan frame rate video dengan opsi -r agar FFmpeg dapat mengalkulasi waktu dengan tepat: ffmpeg -r 23.976 -i input.sub output.srt. Jika file Anda memakai pengkodean karakter Windows-1252/ANSI, sertakan parameter pengkodean: ffmpeg -sub_charenc CP1252 -r 25 -i input.sub output.srt. Perintah ini sangat berguna untuk pemrosesan banyak file sekaligus."
+                }
+          ]
     }
   },
   "tr": {
@@ -3971,6 +5149,202 @@ export const TOOLS_TRANSLATIONS: Record<Locale, ToolsContent> = {
                       "answer": "Dosyalarınız tamamen güvendedir. Tüm işlemler JavaScript ile doğrudan cihazınızın tarayıcısında gerçekleşir. Hiçbir veri internete aktarılmaz veya kaydedilmez."
                 }
           ]
+    },
+    "srtToSub": {
+          "id": "srt-to-sub",
+          "name": "SRT - SUB Dönüştürücü",
+          "shortName": "SRT - SUB",
+          "badge": "Ücretsiz ve Güvenli",
+          "tagline": "SubRip (.SRT) Altyazılarını Çevrimiçi MicroDVD ve SubViewer (.SUB) Formatına Dönüştürün",
+          "description": "SubRip (.srt) altyazılarını ücretsiz çevrimiçi SUB formatına (MicroDVD ve SubViewer 2.0) dönüştürün. Özel kare hızı (FPS) ayarları ve %100 tarayıcı gizliliği.",
+          "h1": "SRT - SUB Dönüştürücü Online",
+          "metaTitle": "SRT - SUB Dönüştürücü – Altyazıyı SUB Formatına Çevirme | SRTConverters",
+          "metaDescription": "SubRip (.srt) altyazılarını ücretsiz çevrimiçi SUB formatına (MicroDVD ve SubViewer) dönüştürün. Özel kare hızı (FPS) ayarları ve %100 tarayıcı gizliliği.",
+          "settingsLabels": {
+                "timingMode": "Altyazı Formatı",
+                "fixedDuration": "MicroDVD (.sub)",
+                "cpsDuration": "SubViewer 2.0 (.sub)",
+                "cpsLabel": "Video Kare Hızı (FPS)",
+                "cpsHint": "Altyazı senkronizasyonunun kusursuz olması için videonuzun kare hızını seçin.",
+                "startTime": "FPS Başlığını Ekle",
+                "startTimeHint": "Oynatıcıların otomatik tanıması için MicroDVD dosyasına {1}{1}FPS başlık satırını ekler.",
+                "maxCharsPerLine": "HTML Etiketlerini Temizle",
+                "maxCharsHint": "Eski DVD oynatıcılarla tam uyumluluk için <i>, <b> ve yazı tipi etiketlerini siler."
+          },
+          "stepsTitle": "3 Adımda SRT Dosyasını SUB Formatına Çevirme",
+          "steps": [
+                {
+                      "step": "1",
+                      "title": "SRT Dosyasını Yükleyin veya Yapıştırın",
+                      "description": ".srt dosyanızı yükleme alanına sürükleyip bırakın veya SubRip altyazı metnini editöre yapıştırın."
+                },
+                {
+                      "step": "2",
+                      "title": "Formatı ve Video Kare Hızını (FPS) Seçin",
+                      "description": "MicroDVD veya SubViewer formatını seçin ve videonuzun kare hızını (ör. 23.976, 24, 25 veya 29.97 FPS) belirleyin."
+                },
+                {
+                      "step": "3",
+                      "title": "Dönüştürülen SUB Dosyasını İndirin",
+                      "description": "Altyazı dosyasını hemen kaydetmek için .SUB İndir butonuna tıklayın veya metni panoya kopyalayın."
+                }
+          ],
+          "featuresTitle": "Neden Çevrimiçi SRT - SUB Dönüştürücümüzü Seçmelisiniz?",
+          "features": [
+                {
+                      "title": "%100 Tarayıcı İçi Gizlilik",
+                      "description": "Dönüştürme işlemi tamamen tarayıcınızda gerçekleşir. Dosyalarınız hiçbir zaman harici bir sunucuya yüklenmez.",
+                      "icon": "shield"
+                },
+                {
+                      "title": "MicroDVD ve SubViewer Desteği",
+                      "description": "Kare tabanlı MicroDVD ({başlangıç}{bitiş}) ve zaman damgalı SubViewer 2.0 formatlarıyla tam uyumluluk.",
+                      "icon": "file"
+                },
+                {
+                      "title": "Kare Hassasiyetinde Senkronizasyon",
+                      "description": "Kaymaları önlemek için 23.976, 24.0, 25.0 (PAL), 29.97 (NTSC), 30 ve 60 FPS endüstri standartlarını destekler.",
+                      "icon": "clock"
+                },
+                {
+                      "title": "Eski Donanımlarla Tam Uyum",
+                      "description": "Masaüstü DVD oynatıcılar, araç multimedya ekranları ve DivX/XviD cihazları için temiz .sub dosyaları üretir.",
+                      "icon": "split"
+                }
+          ],
+          "faqsTitle": "SRT - SUB Dönüştürme Hakkında Sıkça Sorulan Sorular",
+          "faqs": [
+                {
+                      "question": "SRT dosyası ile SUB dosyası arasındaki fark nedir?",
+                      "answer": "SRT (SubRip), altyazı satırlarını milisaniye cinsinden gerçek zaman damgalarıyla (00:01:23,450 --> 00:01:26,800) tanımlayan ve modern tarayıcılarda, yazılımlarda ve akıllı televizyonlarda evrensel olarak desteklenen modern bir formattır. Metin tabanlı SUB dosyaları ise — özellikle MicroDVD (.sub) — video kare numaralarını ({başlangıç_karesi}{bitiş_karesi}) temel alan kare tabanlı bir altyazı formatıdır. .sub uzantısını kullanan diğer bir metin formatı ise salise kullanan SubViewer 2.0'dır. SRT'yi SUB'a dönüştürmek, yalnızca kare indeksli .sub dosyalarını kabul eden eski DVD oynatıcılar, otomobil ekranları ve retro medya kutularında video izlemek için gereklidir."
+                },
+                {
+                      "question": "SRT'yi SUB'a dönüştürürken neden bir kare hızı (FPS) seçmem gerekiyor?",
+                      "answer": "MicroDVD altyazı dosyaları satırların ekranda görünme anını milisaniyeler yerine video kareleriyle hesapladığı için, dönüştürücünün zaman damgalarını videonuzun tam kare hızıyla çarpması gerekir (Kare = Saniye Cinsinden Zaman × FPS). Eğer videonuz 23.976 FPS (sinema / NTSC) ile kaydedilmişken siz 25.000 FPS (PAL) seçerek dönüştürme yaparsanız, film ilerledikçe altyazılar kademeli olarak kayacaktır. Doğru FPS değerini seçmek film boyunca kusursuz bir senkronizasyon sağlar."
+                },
+                {
+                      "question": "MicroDVD (.sub), SubViewer (.sub) ve VobSub (.sub) arasındaki fark nedir?",
+                      "answer": ".sub dosya uzantısı tarihsel olarak birbirinden tamamen farklı üç format tarafından paylaşılır: MicroDVD (.sub), DivX/XviD çağında yaygınlaşan kare tabanlı hafif bir metin formatıdır ({1250}{1380}Diyalog); SubViewer 2.0 (.sub), [INFORMATION] başlığı ve salise zaman damgaları içeren bir metin formatıdır (00:01:20.10,00:01:23.45); VobSub (.sub + .idx) ise bir metin dosyası DEĞİLDİR, DVD disklerinden çıkarılmış piksel tabanlı grafik görüntüleridir. Aracımız modern ve eski donanımlarla çalışan standart metin SUB dosyaları üretir."
+                },
+                {
+                      "question": "Videomun gerçek kare hızını (FPS) nasıl öğrenebilirim?",
+                      "answer": "Videonuzun kesin kare hızını çok kolay bir şekilde bulabilirsiniz: VLC Media Player'da videoyu açın, Araçlar > Kodlayıcı Bilgileri yolunu izleyin (veya Ctrl+J / Cmd+I tuşlarına basın), Kodlayıcı sekmesinde Kare hızı değerine bakın (örneğin 23.976023, 24, 25 veya 29.970000). Windows'ta video dosyasına sağ tıklayıp Özellikler > Ayrıntılar sekmesinden Kare hızını görebilirsiniz. macOS'ta videoyu QuickTime Player ile açıp Cmd+I tuşlayarak Film Denetçisi'nden inceleyebilirsiniz. Ücretsiz MediaInfo programı da bu değeri net olarak sunar."
+                },
+                {
+                      "question": "Dönüştürdüğüm SUB altyazıları video oynatılırken neden senkronizasyonunu kaybediyor?",
+                      "answer": "Başlangıçta senkronize olup film ilerledikçe öne geçen veya geride kalan altyazıların sebebi neredeyse her zaman oluşturulan MicroDVD dosyası ile video arasındaki FPS uyumsuzluğudur. Örneğin videonuz 23.976 FPS iken 25.000 FPS ile dönüştürme yaptıysanız, altyazı yaklaşık %4,1 daha hızlı akar (dakikada yaklaşık 2,5 saniye fark). Çözüm için VLC veya MediaInfo ile videonun gerçek FPS değerini doğrulayın ve SRT dosyanızı aynı değerle yeniden dönüştürün."
+                },
+                {
+                      "question": "Bir SUB dosyasını tekrar SRT formatına dönüştürebilir miyim?",
+                      "answer": "Evet. Metin tabanlı MicroDVD (.sub) ve SubViewer (.sub) altyazıları kolayca SubRip (.srt) formatına geri dönüştürülebilir. MicroDVD formatında, kare numaralarını videonun kare hızına bölerek milisaniye zaman damgalarını elde edersiniz: Zaman = Kare Numarası / FPS. Bu işlemi Subtitle Edit, Aegisub veya SRTConverters sitemizdeki dönüştürücülerle yapabilirsiniz."
+                },
+                {
+                      "question": "Dönüştürme sırasında altyazı dosyalarım sunucuya yükleniyor mu?",
+                      "answer": "Hayır. SRTConverters, istemci tarafı JavaScript kullanarak tamamen web tarayıcınızda yerel olarak çalışır. SRT altyazı dosyalarınız, metinleriniz ve oluşturulan SUB dosyaları yalnızca cihazınızın geçici belleğinde işlenir. Sunucularımıza hiçbir veri gönderilmez veya kaydedilmez."
+                },
+                {
+                      "question": "FFmpeg ile komut satırından SRT dosyasını SUB formatına nasıl dönüştürürüm?",
+                      "answer": "FFmpeg kullanarak SRT dosyasını MicroDVD SUB formatına altyazı codec bileşenini belirterek dönüştürebilirsiniz: ffmpeg -i input.srt -c:s microdvd output.sub. Toplu işlemlerde veya video birleştirmede belirli bir kare hızını zorlamak isterseniz kare hızı parametresini ekleyebilirsiniz: ffmpeg -i input.srt -r 23.976 -c:s microdvd output.sub. Bu yöntem otomatik iş akışları ve kabuk betikleri için idealdir."
+                }
+          ]
+    },
+    "subToSrt": {
+          "id": "sub-to-srt",
+          "name": "SUB - SRT Dönüştürücü",
+          "shortName": "SUB - SRT",
+          "badge": "Ücretsiz ve Tarayıcı Tabanlı",
+          "tagline": "MicroDVD ve SubViewer (.SUB) Altyazılarını Çevrimiçi Olarak Standart SubRip (.SRT) Formatına Dönüştürün",
+          "description": "SUB altyazılarını (MicroDVD ve SubViewer) çevrimiçi ve ücretsiz olarak temiz SubRip (.srt) formatına dönüştürün. Otomatik FPS algılama, karelerden milisaniyeye hassas zamanlama ve %100 tarayıcı gizliliği.",
+          "h1": "SUB - SRT Dönüştürücü Online",
+          "metaTitle": "SUB - SRT Dönüştürücü Online – SUB Dosyasını SRT'ye Ücretsiz Dönüştürün | SRTConverters",
+          "metaDescription": "SUB altyazılarını (MicroDVD ve SubViewer) çevrimiçi ve ücretsiz olarak temiz SubRip (.srt) formatına dönüştürün. Otomatik FPS algılama, karelerden milisaniyeye hassas zamanlama ve %100 tarayıcı gizliliği.",
+          "settingsLabels": {
+                "timingMode": "Algılanan Format",
+                "fixedDuration": "Otomatik Algılama",
+                "cpsDuration": "MicroDVD ({kare}{kare})",
+                "cpsLabel": "Video Kare Hızı (FPS)",
+                "cpsHint": "Altyazı senkronizasyonunun kusursuz olması için videonuzun kare hızını (FPS) seçin.",
+                "startTime": "FPS Başlığını Senkronize Et",
+                "startTimeHint": "Varsa MicroDVD dosyasındaki {1}{1}FPS başlık satırını otomatik olarak okur.",
+                "maxCharsPerLine": "Biçimlendirme Etiketlerini Dönüştür",
+                "maxCharsHint": "{Y:i} etiketlerini <i> etiketine ve boru (|) karakterlerini standart satır sonlarına çevirir."
+          },
+          "stepsTitle": "SUB Dosyasını 3 Kolay Adımda Çevrimiçi Olarak SRT'ye Dönüştürme",
+          "steps": [
+                {
+                      "step": "1",
+                      "title": "SUB Altyazınızı Yükleyin veya Yapıştırın",
+                      "description": ".sub dosyanızı yükleme alanına sürükleyip bırakın veya MicroDVD ya da SubViewer metninizi doğrudan düzenleyiciye yapıştırın."
+                },
+                {
+                      "step": "2",
+                      "title": "Video Kare Hızını (FPS) Doğrulayın",
+                      "description": "Dosyanız MicroDVD formatındaysa, kare sayılarının tam saat ve dakikaya dönüşmesi için videonun kare hızını (örn. 23.976, 24, 25 veya 29.97 FPS) kontrol edin."
+                },
+                {
+                      "step": "3",
+                      "title": "Dönüştürülen SRT Dosyasını İndirin",
+                      "description": "Dönüştürülmüş SubRip dosyanızı anında kaydetmek için .SRT İndir butonuna tıklayın veya metni doğrudan panoya kopyalayın."
+                }
+          ],
+          "featuresTitle": "Neden Çevrimiçi SUB - SRT Dönüştürücümüzü Tercih Etmelisiniz?",
+          "features": [
+                {
+                      "title": "%100 Tarayıcı İçi Gizlilik",
+                      "description": "Altyazı dosyalarınız tamamen web tarayıcınızda işlenir. Hiçbir veri veya dosya harici bir sunucuya yüklenmez veya saklanmaz.",
+                      "icon": "shield"
+                },
+                {
+                      "title": "MicroDVD ve SubViewer Otomatik Algılama",
+                      "description": "Kare tabanlı MicroDVD dosyalarını, SubViewer 2.0/1.0 yapılarını ve yerleşik {1}{1}FPS başlık parametrelerini otomatik olarak tanır.",
+                      "icon": "file"
+                },
+                {
+                      "title": "Milisaniye Hassasiyetinde Zamanlama",
+                      "description": "Sinema, PAL ve NTSC yayın standartlarındaki tüm kare hızları için milisaniye düzeyinde hatasız zaman kodları hesaplar.",
+                      "icon": "clock"
+                },
+                {
+                      "title": "VobSub Tespiti ve Etiket Temizliği",
+                      "description": "DVD VobSub ikili grafik dosyalarını algılayarak uyarır; boru (|) ayraçlarını ve stil kodlarını standart SRT biçimine dönüştürür.",
+                      "icon": "split"
+                }
+          ],
+          "faqsTitle": "SUB - SRT Dönüştürme Hakkında Sıkça Sorulan Sorular",
+          "faqs": [
+                {
+                      "question": "SUB dosyası ile SRT dosyası arasındaki fark nedir?",
+                      "answer": "SRT (SubRip), modern metin altyazıları için küresel standarttır. Her altyazı bloğunu sıralı sayaç numaraları ve milisaniye hassasiyetinde mutlak saat zaman damgaları ile tanımlar (00:01:23,450 --> 00:01:26,800). SRT; modern medya oynatıcıları, akıllı televizyonlar, video düzenleme yazılımları (Premiere, DaVinci Resolve) ve yayın platformları (YouTube, Netflix) tarafından doğrudan desteklenir. Buna karşılık metin tabanlı SUB dosyaları—özellikle MicroDVD (.sub)—zaman yerine video kare numaralarını ({başlangıç_karesi}{bitiş_karesi}) kullanır; bu nedenle doğru gösterim videonun kare hızına (FPS) bağlıdır. SubViewer (.sub) ise saniyenin yüzde birini kullanır. SUB'u SRT'ye dönüştürmek, altyazılarınızı eski oynatıcılara gerek kalmadan tüm modern cihazlarda sorunsuz çalışır hale getirir."
+                },
+                {
+                      "question": "MicroDVD'yi SRT'ye dönüştürürken neden video kare hızı (FPS) seçmeliyim?",
+                      "answer": "MicroDVD dosyalarında saat, dakika veya saniye yer almaz; yalnızca altyazının hangi video karesinde ekranda belireceği ve kaybolacağı yazılıdır (örneğin: {1200}{1350}Diyalog satırı). Bu kare numaralarını standart SRT milisaniye zaman damgalarına dönüştürmek için dönüştürücünün şu formülü uygulaması gerekir: Milisaniye = Yuvarla((Kare Numarası / Video FPS) × 1000). Eğer 23.976 FPS (sinema/NTSC) ile çekilmiş bir videonun altyazısını 25 FPS (PAL) ile dönüştürürseniz, altyazılar her dakikada yaklaşık 2,5 saniye kayacaktır. Doğru FPS değerini seçmek, filmin başından sonuna kadar tam senkronizasyon sağlar."
+                },
+                {
+                      "question": "MicroDVD (.sub), SubViewer (.sub) ve VobSub (.sub) arasındaki farklar nelerdir?",
+                      "answer": ".sub dosya uzantısı tarihsel olarak birbirinden tamamen farklı üç altyazı teknolojisini ifade eder: 1. MicroDVD (.sub), DivX/XviD döneminde yaygınlaşan süslü parantezli kare numaralarına dayalı ({başlangıç}{bitiş}Satır1|Satır2) hafif bir metin formatıdır; 2. SubViewer (.sub), [INFORMATION] başlığı ve saniyenin yüzde biri cinsinden zaman damgaları (00:01:20.50,00:01:23.80) içeren metin formatıdır; 3. VobSub (.sub + .idx), DVD video disklerinden çıkarılan raster piksel grafiklerini (bitmap) içeren ikili bir formattır. Aracımız MicroDVD ve SubViewer metin formatlarını hatasız dönüştürür, ikili bir VobSub dosyası yüklediğinizde ise sizi anında bilgilendirir."
+                },
+                {
+                      "question": "Video dosyamın doğru kare hızını (FPS) nasıl bulabilirim?",
+                      "answer": "Videonuzun kesin kare hızını ücretsiz medya araçlarıyla kolayca öğrenebilirsiniz: VLC Media Player'da videoyu oynatın, Araçlar > Kodlayıcı Bilgileri yolunu izleyin (veya Ctrl+J / Cmd+I tuşlarına basın), Kodlayıcı sekmesinde 'Kare hızı' değerine bakın (örneğin 23.976023, 24, 25 veya 29.970000). Windows Gezgini'nde video dosyasına sağ tıklayıp Özellikler'i seçin, Ayrıntılar sekmesindeki 'Kare hızı' değerini inceleyin. macOS'ta videoyu QuickTime Player ile açıp Cmd+I tuşlarına basarak Denetçi penceresini görüntüleyin. Ayrıntılı teknik bilgi için ücretsiz MediaInfo programını da kullanabilirsiniz."
+                },
+                {
+                      "question": "Dönüştürdüğüm SRT altyazıları video oynatılırken neden zamanla kayıyor?",
+                      "answer": "Kademeli senkronizasyon kaybı—yani altyazıların başta tam oturup video ilerledikçe öne geçmesi veya geride kalması—neredeyse her zaman dönüştürme sırasında yanlış FPS seçilmesinden kaynaklanır. Örneğin, 23.976 FPS bir videoyu 25.000 FPS seçeneğiyle dönüştürmek, altyazıların ses parçasına göre %4,1 daha hızlı ilerlemesine yol açar ve birkaç dakika içinde bariz senkron kayması yaratır. Çözmek için VLC veya MediaInfo üzerinden videonun gerçek FPS değerini tespit edin, dönüştürücümüzde aynı değeri seçip işlemi tekrarlayın. MicroDVD dosyanız `{1}{1}FPS` başlığını içeriyorsa sistemimiz bunu otomatik olarak okuyacaktır."
+                },
+                {
+                      "question": "Bu dönüştürücü DVD'lerden çıkarılan VobSub (.sub) ikili dosyalarını dönüştürebilir mi?",
+                      "answer": "Hayır. VobSub (.sub) dosyaları düz metin belgeleri değildir; doğrudan DVD video disklerinden kopyalanan piksel tabanlı bitmap grafik görüntüleridir. Bunlar karakter metni yerine resim piksellerinden oluştuğu için SRT formatına dönüştürülmeleri harfleri optik olarak okuyabilen bir OCR (Optik Karakter Tanıma) yazılımı gerektirir. Bir VobSub dosyası yüklerseniz, dönüştürücümüz ikili dosya yapısını anında algılar ve Subtitle Edit, BDSup2Sub veya OCR-SubRip gibi masaüstü OCR araçlarını kullanmanızı öneren bir bilgilendirme mesajı gösterir."
+                },
+                {
+                      "question": "Altyazı dosyalarım dönüştürme sırasında harici bir sunucuya yükleniyor mu?",
+                      "answer": "Hayır. SRTConverters, modern Web API'leri ve istemci tarafı JavaScript kullanarak tamamen tarayıcınızın belleğinde çalışır. Altyazı dosyalarınız, yapıştırdığınız metinler ve oluşturulan SRT çıktıları hiçbir zaman cihazınızdan dışarı çıkmaz. İnternet üzerinden veri aktarılmaz veya sunucularımızda saklanmaz; bu sayede tam gizlilik, kurumsal güvenlik ve anında dönüştürme hızı sağlanır."
+                },
+                {
+                      "question": "Komut satırında FFmpeg kullanarak SUB dosyasını SRT'ye nasıl dönüştürebilirim?",
+                      "answer": "Terminal üzerinden FFmpeg ile SUB dosyalarını SRT'ye dönüştürebilirsiniz. Zaman damgalı SubViewer dosyaları için: ffmpeg -i girdi.sub cikti.srt komutu yeterlidir. Kare tabanlı MicroDVD dosyalarında ise zamanların doğru hesaplanabilmesi için -r parametresiyle video kare hızını belirtmelisiniz: ffmpeg -r 23.976 -i girdi.sub cikti.srt. Dosyanız Türkçe karakterler içeren ANSI veya Windows-1254 kodlamasına sahipse karakter kodlama parametresini ekleyebilirsiniz: ffmpeg -sub_charenc CP1254 -r 25 -i girdi.sub cikti.srt. Bu yöntem toplu dönüştürme işlemleri için oldukça pratiktir."
+                }
+          ]
     }
   },
   "it": {
@@ -4525,6 +5899,202 @@ export const TOOLS_TRANSLATIONS: Record<Locale, ToolsContent> = {
                 {
                       "question": "I miei file di sottotitoli vengono caricati su un server?",
                       "answer": "No, la tua privacy è protetta al 100%. Tutta la conversione viene eseguita in locale nel tuo browser tramite JavaScript. Nessun file o dato lascia il tuo dispositivo."
+                }
+          ]
+    },
+    "srtToSub": {
+          "id": "srt-to-sub",
+          "name": "Convertitore da SRT a SUB",
+          "shortName": "SRT a SUB",
+          "badge": "Gratuito e Sicuro",
+          "tagline": "Converti Sottotitoli SubRip (.SRT) nel Formato MicroDVD e SubViewer (.SUB) Online",
+          "description": "Converti sottotitoli SubRip (.srt) nel formato SUB (MicroDVD e SubViewer 2.0) online gratis. Supporto per frame rate (FPS) personalizzati e massima privacy nel browser.",
+          "h1": "Convertitore da SRT a SUB Online",
+          "metaTitle": "Convertitore da SRT a SUB Online – Converti Sottotitoli in SUB Gratis | SRTConverters",
+          "metaDescription": "Converti sottotitoli SubRip (.srt) nel formato SUB (MicroDVD e SubViewer) online gratis. Frequenza fotogrammi (FPS) personalizzata e massima privacy nel browser.",
+          "settingsLabels": {
+                "timingMode": "Formato Sottotitolo",
+                "fixedDuration": "MicroDVD (.sub)",
+                "cpsDuration": "SubViewer 2.0 (.sub)",
+                "cpsLabel": "Frequenza Fotogrammi Video (FPS)",
+                "cpsHint": "Seleziona la frequenza del tuo video per garantire una sincronizzazione precisa.",
+                "startTime": "Includi Intestazione FPS",
+                "startTimeHint": "Aggiunge la riga {1}{1}FPS al file MicroDVD per il rilevamento automatico nei lettori.",
+                "maxCharsPerLine": "Rimuovi Tag HTML",
+                "maxCharsHint": "Rimuove tag <i>, <b> e stili per compatibilità con i lettori DVD meno recenti."
+          },
+          "stepsTitle": "Come Convertire SRT in SUB Online in 3 Passaggi",
+          "steps": [
+                {
+                      "step": "1",
+                      "title": "Carica o Incolla i Sottotitoli SRT",
+                      "description": "Trascina e rilascia il tuo file .srt nell'apposita area oppure incolla il testo dei sottotitoli SubRip nell'editor."
+                },
+                {
+                      "step": "2",
+                      "title": "Seleziona Formato e FPS del Video",
+                      "description": "Scegli il formato MicroDVD o SubViewer e imposta la frequenza dei fotogrammi (es. 23.976, 24, 25 o 29.97 FPS)."
+                },
+                {
+                      "step": "3",
+                      "title": "Scarica il File SUB Convertito",
+                      "description": "Fai clic su Scarica .SUB per salvare immediatamente il file oppure copia il testo formattato negli appunti."
+                }
+          ],
+          "featuresTitle": "Perché Scegliere il Nostro Convertitore da SRT a SUB?",
+          "features": [
+                {
+                      "title": "Privacy 100% nel Browser",
+                      "description": "La conversione avviene interamente sul tuo dispositivo. Nessun file o testo viene inviato a server esterni.",
+                      "icon": "shield"
+                },
+                {
+                      "title": "Supporto MicroDVD e SubViewer",
+                      "description": "Compatibilità completa con il formato a fotogrammi MicroDVD ({inizio}{fine}) e con SubViewer 2.0 temporizzato.",
+                      "icon": "file"
+                },
+                {
+                      "title": "Sincronizzazione Esatta al Fotogramma",
+                      "description": "Supporta i frame rate standard: 23.976, 24.0, 25.0 (PAL), 29.97 (NTSC), 30 e 60 FPS per azzerare i ritardi.",
+                      "icon": "clock"
+                },
+                {
+                      "title": "Perfetto per Dispositivi Vintage",
+                      "description": "Crea file .sub puliti adatti a lettori DVD da tavolo, autoradio multimediali e dispositivi DivX/XviD.",
+                      "icon": "split"
+                }
+          ],
+          "faqsTitle": "Domande Frequenti sulla Conversione da SRT a SUB",
+          "faqs": [
+                {
+                      "question": "Qual è la differenza tra un file SRT e un file SUB?",
+                      "answer": "SRT (SubRip) è un formato moderno basato sul tempo reale che definisce le battute tramite timestamp in millisecondi (00:01:23,450 --> 00:01:26,800), supportato nativamente su browser, computer e Smart TV. Al contrario, i file SUB testuali — principalmente MicroDVD (.sub) — sono basati sul conteggio dei fotogrammi video ({fotogramma_inizio}{fotogramma_fine}). Un altro formato di testo con estensione .sub è SubViewer 2.0, che impiega i centesimi di secondo. Convertire SRT in SUB è fondamentale per riprodurre video su lettori DVD da salotto di vecchia generazione, monitor per auto e dispositivi che leggono solo file .sub indicizzati per fotogrammi."
+                },
+                {
+                      "question": "Perché devo selezionare un frame rate (FPS) per convertire SRT in SUB?",
+                      "answer": "Poiché i file MicroDVD calcolano l'apparizione delle battute in base ai singoli fotogrammi del video e non su base oraria assoluta, il convertitore deve moltiplicare i tempi del sottotitolo per la frequenza fotogrammi esatta del video (Fotogramma = Tempo in Secondi × FPS). Se converti un file SRT a 25.000 FPS (PAL) ma il tuo video è a 23.976 FPS (standard cinematografico / NTSC), i sottotitoli si disallineeranno progressivamente. Scegliere il valore corretto assicura una sincronia impeccabile per tutta la durata del video."
+                },
+                {
+                      "question": "Qual è la differenza tra MicroDVD (.sub), SubViewer (.sub) e VobSub (.sub)?",
+                      "answer": "L'estensione .sub è storicamente condivisa da tre tecnologie molto diverse: MicroDVD (.sub) è un formato di testo leggero basato sui fotogrammi ({1250}{1380}Dialogo) reso celebre dai video DivX/XviD; SubViewer 2.0 (.sub) è un formato di testo con intestazione [INFORMATION] e tempi in centesimi di secondo (00:01:20.10,00:01:23.45); e VobSub (.sub + .idx) NON è un file di testo, bensì una serie di immagini grafiche bitmap estratte direttamente dai DVD commerciali. Il nostro strumento crea sottotitoli di testo standardizzati (MicroDVD e SubViewer 2.0)."
+                },
+                {
+                      "question": "Come posso scoprire il frame rate (FPS) esatto del mio file video?",
+                      "answer": "Puoi individuare i fotogrammi al secondo esatti molto rapidamente: in VLC Media Player, apri il video, clicca su Strumenti > Informazioni media / codec (oppure premi Ctrl+J / Cmd+I), apri la scheda Dettagli codec e controlla il valore Fotogrammi al secondo (ad esempio 23.976023, 24, 25 o 29.970000). Su Windows, fai clic destro sul file video, scegli Proprietà, scheda Dettagli e verifica Frequenza fotogrammi. Su macOS, apri il file con QuickTime Player e premi Cmd+I (Mostra inspector filmato). Anche l'utility gratuita MediaInfo mostra questo valore in modo dettagliato."
+                },
+                {
+                      "question": "Perché i miei sottotitoli SUB convertiti perdono la sincronia durante la riproduzione?",
+                      "answer": "Un sottotitolo che parte sincronizzato ma progressivamente anticipa o ritarda rispetto all'audio è quasi sempre causato da una mancata corrispondenza di FPS tra il file MicroDVD generato e la traccia video reale. Ad esempio, se il film viaggia a 23.976 FPS e converti con l'opzione a 25.000 FPS, i sottotitoli scorreranno circa il 4,1% più velocemente (con uno scarto di circa 2,5 secondi per ogni minuto di riproduzione). Per risolvere, verifica i veri FPS con VLC o MediaInfo e converti nuovamente il file SRT indicando il valore esatto."
+                },
+                {
+                      "question": "Posso convertire un file SUB di nuovo in formato SRT?",
+                      "answer": "Sì. I sottotitoli di testo MicroDVD (.sub) e SubViewer (.sub) possono essere agevolmente riconvertiti in SubRip (.srt). Nel caso di MicroDVD, basta dividere il numero del fotogramma per la frequenza del video per ricostruire i millisecondi: Tempo = Numero Fotogramma / FPS. Puoi effettuare questa operazione con software come Subtitle Edit, Aegisub o con i convertitori disponibili sul nostro portale SRTConverters."
+                },
+                {
+                      "question": "I miei file di sottotitoli vengono caricati su un server durante la conversione?",
+                      "answer": "No. SRTConverters lavora interamente all'interno del tuo browser web tramite JavaScript client-side. I tuoi file SRT, i testi e i file SUB generati risiedono solo nella memoria privata del tuo dispositivo. Nessun dato viene trasmesso, registrato o memorizzato sui nostri server."
+                },
+                {
+                      "question": "Come posso convertire SRT in SUB dalla riga di comando con FFmpeg?",
+                      "answer": "Puoi convertire SRT in MicroDVD SUB con FFmpeg specificando il codec per i sottotitoli: ffmpeg -i input.srt -c:s microdvd output.sub. Se hai bisogno di forzare una frequenza specifica per conversioni batch o muxing, aggiungi il parametro di frame rate: ffmpeg -i input.srt -r 23.976 -c:s microdvd output.sub. Questo metodo è ideale per script automatizzati e pipeline di codifica video."
+                }
+          ]
+    },
+    "subToSrt": {
+          "id": "sub-to-srt",
+          "name": "Convertitore da SUB a SRT",
+          "shortName": "SUB a SRT",
+          "badge": "Gratuito e nel Browser",
+          "tagline": "Converti Sottotitoli MicroDVD e SubViewer (.SUB) in SubRip (.SRT) Standard Online",
+          "description": "Converti sottotitoli SUB (MicroDVD e SubViewer) nel formato SubRip (.srt) pulito online gratuitamente. Rilevamento automatico FPS, sincronizzazione accurata da frame a tempo e massima privacy nel browser.",
+          "h1": "Convertitore da SUB a SRT Online",
+          "metaTitle": "Convertitore da SUB a SRT Online – Converti SUB in SRT Gratis | SRTConverters",
+          "metaDescription": "Converti sottotitoli SUB (MicroDVD e SubViewer) nel formato SubRip (.srt) pulito online gratuitamente. Rilevamento automatico FPS, sincronizzazione accurata da frame a tempo e massima privacy nel browser.",
+          "settingsLabels": {
+                "timingMode": "Formato Rilevato",
+                "fixedDuration": "Rilevamento Automatico",
+                "cpsDuration": "MicroDVD ({frame}{frame})",
+                "cpsLabel": "Frequenza dei Fotogrammi (FPS)",
+                "cpsHint": "Seleziona la frequenza fotogrammi del tuo video per garantire una sincronizzazione impeccabile.",
+                "startTime": "Sincronizza Intestazione FPS",
+                "startTimeHint": "Legge automaticamente la riga di intestazione {1}{1}FPS dai file MicroDVD se presente.",
+                "maxCharsPerLine": "Converti Tag di Formattazione",
+                "maxCharsHint": "Converte i tag {Y:i} in <i> e le barre verticali (|) in normali interruzioni di riga."
+          },
+          "stepsTitle": "Come Convertire SUB in SRT Online in 3 Semplici Passaggi",
+          "steps": [
+                {
+                      "step": "1",
+                      "title": "Carica o Incolla i Sottotitoli SUB",
+                      "description": "Trascina e rilascia il tuo file .sub nell'apposito riquadro oppure incolla il testo MicroDVD o SubViewer direttamente nell'editor."
+                },
+                {
+                      "step": "2",
+                      "title": "Verifica la Frequenza dei Fotogrammi (FPS)",
+                      "description": "Se il file è in formato MicroDVD, controlla il framerate del video (es. 23.976, 24, 25 o 29.97 FPS) affinché i fotogrammi si convertano in orari esatti."
+                },
+                {
+                      "step": "3",
+                      "title": "Scarica il File SRT Convertito",
+                      "description": "Fai clic su Scarica .SRT per salvare subito il tuo file SubRip o copia il testo convertito negli appunti per utilizzarlo all'istante."
+                }
+          ],
+          "featuresTitle": "Perché Scegliere il Nostro Convertitore da SUB a SRT?",
+          "features": [
+                {
+                      "title": "Privacy 100% nel Tuo Browser",
+                      "description": "I tuoi sottotitoli vengono elaborati interamente all'interno del browser web. Nessun file o dato viene mai caricato su server esterni.",
+                      "icon": "shield"
+                },
+                {
+                      "title": "Rilevamento di MicroDVD e SubViewer",
+                      "description": "Identifica in automatico i file MicroDVD basati su frame, le intestazioni SubViewer 2.0/1.0 e i tag di configurazione {1}{1}FPS.",
+                      "icon": "file"
+                },
+                {
+                      "title": "Sincronizzazione Esatta al Millisecondo",
+                      "description": "Calcola timestamp con accuratezza al millisecondo per standard cinematografici, PAL e NTSC, scongiurando qualsiasi slittamento.",
+                      "icon": "clock"
+                },
+                {
+                      "title": "Riconoscimento VobSub e Pulizia Tag",
+                      "description": "Segnala la presenza di grafiche binarie VobSub ed esegue la trasposizione automatica di pipe (|) e stili in tag SRT validi.",
+                      "icon": "split"
+                }
+          ],
+          "faqsTitle": "Domande Frequenti sulla Conversione da SUB a SRT",
+          "faqs": [
+                {
+                      "question": "Qual è la differenza tra un file SUB e un file SRT?",
+                      "answer": "Il formato SRT (SubRip) è lo standard universale moderno per i sottotitoli di testo. Definisce ciascuna battuta tramite un indice numerico sequenziale e timestamp orari assoluti con precisione al millisecondo (00:01:23,450 --> 00:01:26,800). SRT è supportato nativamente da qualunque player moderno, smart TV, software di montaggio (Premiere Pro, DaVinci Resolve) e piattaforma di streaming (YouTube, Netflix). Al contrario, i file SUB basati su testo—in particolare MicroDVD (.sub)—impiegano numeri di fotogramma video ({frame_inizio}{frame_fine}), rendendo l'orario dipendente dalla frequenza dei fotogrammi (FPS) del filmato. SubViewer (.sub) utilizza invece i centesimi di secondo. Convertire SUB in SRT assicura la piena compatibilità su tutti i moderni dispositivi senza dover ricorrere a lettori obsoleti."
+                },
+                {
+                      "question": "Perché è necessario specificare la frequenza dei fotogrammi (FPS) per MicroDVD?",
+                      "answer": "I file MicroDVD non contengono ore, minuti o secondi; specificano unicamente a quale numero di fotogramma video il sottotitolo deve comparire e scomparire (ad esempio: {1200}{1350}Battuta di dialogo). Per trasformare questi valori nei timestamp in millisecondi dello standard SRT, il convertitore applica la formula: Millisecondi = Arrotonda((Numero Frame / FPS Video) × 1000). Se converti un file a 25 FPS (PAL) mentre il video è riprodotto a 23.976 FPS (standard cinema / NTSC), i sottotitoli subiranno uno sfasamento progressivo di circa 2,5 secondi per ogni minuto di riproduzione. Selezionare il framerate corretto garantisce una sincronia perfetta."
+                },
+                {
+                      "question": "Quali differenze ci sono tra MicroDVD (.sub), SubViewer (.sub) e VobSub (.sub)?",
+                      "answer": "L'estensione .sub è stata storicamente utilizzata per tre formati profondamente diversi: 1. MicroDVD (.sub) è un formato di testo leggero con indici di fotogramma tra parentesi graffe ({inizio}{fine}Riga1|Riga2), diffusissimo all'epoca di DivX e XviD; 2. SubViewer (.sub) è un formato di testo con intestazione di metadati ([INFORMATION]) e timestamp in centesimi di secondo (00:01:20.50,00:01:23.80) con tag [br]; 3. VobSub (.sub + .idx) è un pacchetto binario contenente immagini bitmap dei sottotitoli estratte da DVD video. Il nostro convertitore gestisce senza problemi i formati di testo MicroDVD e SubViewer e segnala prontamente l'eventuale caricamento di un file binario VobSub."
+                },
+                {
+                      "question": "Come posso scoprire il framerate (FPS) esatto del mio file video?",
+                      "answer": "Puoi individuare i fotogrammi al secondo esatti del tuo video tramite i comuni lettori multimediali gratuiti: In VLC Media Player, avvia il video, seleziona Strumenti > Informazioni codificatore (o premi Ctrl+J / Cmd+I), apri la scheda Codificatore e controlla il valore 'Frequenza fotogrammi' (es. 23.976023, 24, 25 o 29.970000). In Esplora file di Windows, fai clic destro sul video, seleziona Proprietà, vai alla scheda Dettagli e consulta la voce 'Frequenza fotogrammi'. Su macOS, apri il file con QuickTime Player e premi Cmd+I per aprire il riquadro dell'ispettoe. Puoi inoltre affidarti al programma gratuito MediaInfo per un report tecnico dettagliato."
+                },
+                {
+                      "question": "Perché i miei sottotitoli SRT convertiti perdono gradualmente la sincronizzazione?",
+                      "answer": "Uno sfasamento progressivo—in cui le battute sono corrette all'inizio ma anticipano o ritardano man mano che il video scorre—è quasi sempre causato da una mancata corrispondenza dei valori FPS durante la conversione. Convertire un video a 23.976 FPS impostando 25.000 FPS porta i sottotitoli a scorrere circa il 4,1% più veloci dell'audio, creando diversi secondi di ritardo nel giro di pochi minuti. Per risolvere, controlla gli FPS reali in VLC o MediaInfo, seleziona lo stesso valore nel nostro convertitore e ripeti la procedura. Se il file MicroDVD contiene la riga `{1}{1}FPS`, lo strumento la leggerà in automatico."
+                },
+                {
+                      "question": "Questo strumento è in grado di convertire file binari VobSub (.sub) estratti da DVD?",
+                      "answer": "No. I file VobSub (.sub) non sono documenti di testo, bensì archivi binari contenenti immagini bitmap rasterizzate dei sottotitoli ricavate dai dischi DVD originali. Poiché sono costituiti da pixel grafici e non da testo alfanumerico, convertirli in SRT richiede un software di Riconoscimento Ottico dei Caratteri (OCR) in grado di interpretare visivamente le lettere. Se provi a caricare un file VobSub binario, il nostro convertitore rileverà la struttura del file e ti mostrerà un avviso consigliandoti programmi desktop come Subtitle Edit, BDSup2Sub o OCR-SubRip."
+                },
+                {
+                      "question": "I miei file di sottotitoli vengono inviati a server esterni durante la conversione?",
+                      "answer": "No. SRTConverters opera al 100% sul lato client all'interno del tuo browser mediante JavaScript moderno. I tuoi file di sottotitoli, il testo inserito e il file SRT risultante non lasciano mai il tuo dispositivo. Nessun dato viene trasmesso sulla rete, salvato nel cloud o conservato su server, garantendo riservatezza totale, sicurezza e una conversione immediata."
+                },
+                {
+                      "question": "Come posso convertire un file SUB in SRT da riga di comando con FFmpeg?",
+                      "answer": "Puoi convertire i sottotitoli da SUB a SRT tramite terminale con FFmpeg. Per i file SubViewer basati sul tempo, digita: ffmpeg -i input.sub output.srt. Per i file MicroDVD basati su frame, devi indicare la frequenza dei fotogrammi tramite il parametro -r in modo che i tempi vengano calcolati con precisione: ffmpeg -r 23.976 -i input.sub output.srt. Se il file contiene caratteri speciali o lettere accentate con codifica ANSI/Windows-1252, specifica il set di caratteri: ffmpeg -sub_charenc CP1252 -r 25 -i input.sub output.srt. Questo metodo è perfetto per script di automazione o conversioni multiple."
                 }
           ]
     }

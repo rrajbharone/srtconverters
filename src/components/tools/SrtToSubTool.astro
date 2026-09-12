@@ -1,0 +1,448 @@
+---
+import type { Locale } from '@/i18n/config';
+import { getToolsContent, getUiStrings } from '@/i18n/utils';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const ui = getUiStrings(locale);
+const tools = getToolsContent(locale);
+const tool = tools.srtToSub;
+---
+
+<div class="tool-workspace" id="srt-to-sub-app">
+  <div class="privacy-banner">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+      <path d="M9 12l2 2 4-4"></path>
+    </svg>
+    <span><strong>{ui.privacyNotice.title}:</strong> {ui.privacyNotice.description}</span>
+  </div>
+
+  <!-- Converter Controls / Settings Bar -->
+  <div class="tool-controls-bar">
+    <div class="control-group">
+      <label for="sub-format-select" class="control-label">{tool.settingsLabels.timingMode}</label>
+      <select id="sub-format-select" class="control-select">
+        <option value="microdvd" selected>{tool.settingsLabels.fixedDuration}</option>
+        <option value="subviewer">{tool.settingsLabels.cpsDuration}</option>
+      </select>
+    </div>
+
+    <div class="control-group" id="fps-control-group">
+      <label for="video-fps-select" class="control-label">{tool.settingsLabels.cpsLabel}</label>
+      <select id="video-fps-select" class="control-select" title={tool.settingsLabels.cpsHint}>
+        <option value="23.976">23.976 FPS (Cinema / NTSC Film)</option>
+        <option value="24.000">24.000 FPS (True DCI Cinema)</option>
+        <option value="25.000" selected>25.000 FPS (PAL / European TV)</option>
+        <option value="29.970">29.970 FPS (NTSC Broadcast)</option>
+        <option value="30.000">30.000 FPS (Web / Mobile Video)</option>
+        <option value="50.000">50.000 FPS (PAL High Frame Rate)</option>
+        <option value="59.940">59.940 FPS (NTSC High Frame Rate)</option>
+        <option value="60.000">60.000 FPS (60fps Gaming / Video)</option>
+      </select>
+    </div>
+
+    <div class="control-checkboxes">
+      <label class="control-checkbox-label" id="fps-header-label" title={tool.settingsLabels.startTimeHint}>
+        <input type="checkbox" id="include-fps-header" checked />
+        <span>{tool.settingsLabels.startTime}</span>
+      </label>
+
+      <label class="control-checkbox-label" title={tool.settingsLabels.maxCharsHint}>
+        <input type="checkbox" id="clean-tags" checked />
+        <span>{tool.settingsLabels.maxCharsPerLine}</span>
+      </label>
+    </div>
+  </div>
+
+  <div class="tool-grid">
+    <!-- Left Pane: SRT Input -->
+    <div class="tool-pane">
+      <div class="pane-header">
+        <span class="pane-title">SRT Input (.srt)</span>
+        <div class="pane-actions">
+          <button type="button" class="btn btn-outline btn-sm" id="btn-load-srtsub-sample">
+            {ui.common.loadSample}
+          </button>
+          <button type="button" class="btn btn-outline btn-sm" id="btn-clear-srtsub-input">
+            {ui.common.clear}
+          </button>
+        </div>
+      </div>
+
+      <div class="dropzone-container" id="srtsub-dropzone">
+        <textarea
+          id="srtsub-input"
+          class="tool-textarea"
+          placeholder="1&#10;00:01:20,100 --> 00:01:23,450&#10;Paste SubRip SRT subtitles here, or drop a .srt file..."
+          spellcheck="false"
+        ></textarea>
+        
+        <div class="dropzone-overlay">
+          <span>{ui.common.dragAndDrop}</span>
+          <label for="srtsub-file-upload" class="btn btn-secondary btn-sm" style="margin: 0; cursor: pointer;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="17 8 12 3 7 8"></polyline>
+              <line x1="12" y1="3" x2="12" y2="15"></line>
+            </svg>
+            <span>{ui.common.browseFiles}</span>
+          </label>
+          <input type="file" id="srtsub-file-upload" class="file-input-hidden" accept=".srt,.txt,text/plain" />
+        </div>
+      </div>
+
+      <div class="pane-footer-counts">
+        <span id="srtsub-input-stats">0 cues | 0 characters</span>
+      </div>
+    </div>
+
+    <!-- Right Pane: SUB Output -->
+    <div class="tool-pane">
+      <div class="pane-header">
+        <span class="pane-title" id="output-pane-title">MicroDVD SUB Output (.sub)</span>
+        <div class="pane-actions">
+          <button type="button" class="btn btn-outline btn-sm" id="btn-copy-sub" disabled>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+            <span id="copy-sub-btn-text">{ui.common.copy}</span>
+          </button>
+          <button type="button" class="btn btn-primary btn-sm" id="btn-download-sub" disabled>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            <span>{ui.common.download.replace('.SRT', '.SUB').replace('.srt', '.sub')}</span>
+          </button>
+        </div>
+      </div>
+
+      <textarea
+        id="sub-output"
+        class="tool-textarea"
+        readonly
+        placeholder="{1}{1}25.000&#10;{2003}{2086}Converted SUB subtitles will appear here...&#10;{2113}{2200}Ready for standalone DVD and DivX players!"
+      ></textarea>
+
+      <div class="pane-footer-counts">
+        <span id="srtsub-output-stats">0 lines | 0 characters</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { convertSrtToSub } from '@/lib/sub-converters';
+
+  function initSrtToSub() {
+    const srtInput = document.getElementById('srtsub-input') as HTMLTextAreaElement | null;
+    const subOutput = document.getElementById('sub-output') as HTMLTextAreaElement | null;
+    const formatSelect = document.getElementById('sub-format-select') as HTMLSelectElement | null;
+    const fpsSelect = document.getElementById('video-fps-select') as HTMLSelectElement | null;
+    const fpsGroup = document.getElementById('fps-control-group') as HTMLElement | null;
+    const includeFpsHeaderCheckbox = document.getElementById('include-fps-header') as HTMLInputElement | null;
+    const fpsHeaderLabel = document.getElementById('fps-header-label') as HTMLElement | null;
+    const cleanTagsCheckbox = document.getElementById('clean-tags') as HTMLInputElement | null;
+
+    const btnSample = document.getElementById('btn-load-srtsub-sample');
+    const btnClear = document.getElementById('btn-clear-srtsub-input');
+    const btnCopy = document.getElementById('btn-copy-sub') as HTMLButtonElement | null;
+    const copyTextSpan = document.getElementById('copy-sub-btn-text');
+    const btnDownload = document.getElementById('btn-download-sub') as HTMLButtonElement | null;
+    const fileUpload = document.getElementById('srtsub-file-upload') as HTMLInputElement | null;
+    const dropzone = document.getElementById('srtsub-dropzone');
+    const outputTitle = document.getElementById('output-pane-title');
+
+    const inputStats = document.getElementById('srtsub-input-stats');
+    const outputStats = document.getElementById('srtsub-output-stats');
+
+    if (!srtInput || !subOutput) return;
+
+    let originalFilename = 'subtitles.srt';
+
+    function updateUiForFormat() {
+      const format = formatSelect?.value || 'microdvd';
+      if (format === 'subviewer') {
+        if (fpsGroup) fpsGroup.style.display = 'none';
+        if (fpsHeaderLabel) fpsHeaderLabel.style.display = 'none';
+        if (outputTitle) outputTitle.textContent = 'SubViewer 2.0 Output (.sub)';
+      } else {
+        if (fpsGroup) fpsGroup.style.display = 'flex';
+        if (fpsHeaderLabel) fpsHeaderLabel.style.display = 'inline-flex';
+        if (outputTitle) outputTitle.textContent = 'MicroDVD SUB Output (.sub)';
+      }
+    }
+
+    function doConversion() {
+      if (!srtInput || !subOutput) return;
+      const rawText = srtInput.value.trim();
+
+      // Count cues in input
+      const cueMatches = rawText.match(/-->/g) || [];
+      const inChars = rawText.length;
+      if (inputStats) {
+        inputStats.textContent = `${cueMatches.length} cues | ${inChars} characters`;
+      }
+
+      if (!rawText) {
+        subOutput.value = '';
+        if (btnCopy) btnCopy.disabled = true;
+        if (btnDownload) btnDownload.disabled = true;
+        if (outputStats) outputStats.textContent = '0 lines | 0 characters';
+        return;
+      }
+
+      const format = (formatSelect?.value as 'microdvd' | 'subviewer') || 'microdvd';
+      const fps = parseFloat(fpsSelect?.value || '25');
+      const includeFpsHeader = includeFpsHeaderCheckbox ? includeFpsHeaderCheckbox.checked : true;
+      const cleanTags = cleanTagsCheckbox ? cleanTagsCheckbox.checked : true;
+
+      try {
+        const converted = convertSrtToSub(rawText, {
+          format,
+          fps,
+          includeFpsHeader,
+          cleanTags,
+        });
+
+        subOutput.value = converted;
+        const hasContent = converted.trim().length > 0;
+        if (btnCopy) btnCopy.disabled = !hasContent;
+        if (btnDownload) btnDownload.disabled = !hasContent;
+
+        const outLines = converted ? converted.split('\n').length : 0;
+        const outChars = converted.length;
+        if (outputStats) {
+          outputStats.textContent = `${outLines} lines | ${outChars} characters`;
+        }
+      } catch (err) {
+        console.error('SRT to SUB conversion error:', err);
+        subOutput.value = 'Error converting SRT to SUB. Please check input format.';
+        if (btnCopy) btnCopy.disabled = true;
+        if (btnDownload) btnDownload.disabled = true;
+      }
+    }
+
+    // Event Listeners
+    srtInput.addEventListener('input', doConversion);
+
+    formatSelect?.addEventListener('change', () => {
+      updateUiForFormat();
+      doConversion();
+    });
+
+    fpsSelect?.addEventListener('change', doConversion);
+    includeFpsHeaderCheckbox?.addEventListener('change', doConversion);
+    cleanTagsCheckbox?.addEventListener('change', doConversion);
+
+    btnSample?.addEventListener('click', () => {
+      originalFilename = 'sample_subtitles.srt';
+      srtInput.value = `1
+00:01:20,100 --> 00:01:23,450
+Welcome to the SRT to SUB Converter!
+Experience frame-accurate subtitle playback.
+
+2
+00:01:24,500 --> 00:01:28,000
+Compatible with <i>MicroDVD</i> and <i>SubViewer</i>.
+Perfect for standalone DVD players and DivX media!
+
+3
+00:01:29,200 --> 00:01:33,500
+Enjoy 100% private, client-side conversion.
+Download your synchronized .sub file instantly!`;
+      doConversion();
+    });
+
+    btnClear?.addEventListener('click', () => {
+      srtInput.value = '';
+      originalFilename = 'subtitles.srt';
+      doConversion();
+      srtInput.focus();
+    });
+
+    btnCopy?.addEventListener('click', async () => {
+      if (!subOutput.value) return;
+      try {
+        await navigator.clipboard.writeText(subOutput.value);
+        if (copyTextSpan) {
+          const prev = copyTextSpan.textContent;
+          copyTextSpan.textContent = 'Copied!';
+          setTimeout(() => {
+            copyTextSpan.textContent = prev;
+          }, 2000);
+        }
+      } catch {
+        subOutput.select();
+        document.execCommand('copy');
+      }
+    });
+
+    btnDownload?.addEventListener('click', () => {
+      if (!subOutput.value) return;
+      const baseName = originalFilename.replace(/\.[^/.]+$/, '');
+      const downloadName = `${baseName}.sub`;
+      const blob = new Blob([subOutput.value], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = downloadName;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    });
+
+    // File Upload handling
+    fileUpload?.addEventListener('change', (e) => {
+      const target = e.target as HTMLInputElement;
+      if (target.files && target.files[0]) {
+        const file = target.files[0];
+        originalFilename = file.name;
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          srtInput.value = event.target?.result as string || '';
+          doConversion();
+        };
+        reader.readAsText(file);
+      }
+    });
+
+    // Drag and Drop
+    if (dropzone) {
+      ['dragenter', 'dragover'].forEach((eventName) => {
+        dropzone.addEventListener(eventName, (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          dropzone.classList.add('dragover');
+        });
+      });
+
+      ['dragleave', 'drop'].forEach((eventName) => {
+        dropzone.addEventListener(eventName, (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          dropzone.classList.remove('dragover');
+        });
+      });
+
+      dropzone.addEventListener('drop', (e: DragEvent) => {
+        const dt = e.dataTransfer;
+        if (dt && dt.files && dt.files[0]) {
+          const file = dt.files[0];
+          originalFilename = file.name;
+          const reader = new FileReader();
+          reader.onload = (event) => {
+            srtInput.value = event.target?.result as string || '';
+            doConversion();
+          };
+          reader.readAsText(file);
+        }
+      });
+    }
+
+    updateUiForFormat();
+  }
+
+  // Support both direct load and Astro page transitions
+  initSrtToSub();
+  document.addEventListener('astro:page-load', initSrtToSub);
+</script>
+
+<style>
+  .tool-controls-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.25rem;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.5rem;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .control-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .control-label {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .control-select {
+    padding: 0.45rem 0.75rem;
+    font-size: 0.875rem;
+    color: var(--text-primary);
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .control-select:focus {
+    border-color: var(--border-focus);
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+  }
+
+  .control-checkboxes {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.25rem;
+    margin-top: auto;
+    padding-bottom: 0.15rem;
+  }
+
+  .control-checkbox-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .control-checkbox-label input[type="checkbox"] {
+    cursor: pointer;
+    width: 15px;
+    height: 15px;
+    accent-color: var(--accent-primary);
+  }
+
+  .pane-footer-counts {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    padding: 0.4rem 0.5rem 0;
+  }
+
+  @media (max-width: 640px) {
+    .tool-controls-bar {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0.85rem;
+    }
+    .control-checkboxes {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+  }
+</style>

@@ -1,0 +1,716 @@
+---
+import type { Locale } from '@/i18n/config';
+import { getToolsContent, getUiStrings } from '@/i18n/utils';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const ui = getUiStrings(locale);
+const tools = getToolsContent(locale);
+const tool = tools.subToSrt;
+---
+
+<div class="tool-workspace" id="sub-to-srt-app">
+  <div class="privacy-banner">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+      <path d="M9 12l2 2 4-4"></path>
+    </svg>
+    <span><strong>{ui.privacyNotice.title}:</strong> {ui.privacyNotice.description}</span>
+  </div>
+
+  <!-- Converter Controls / Settings Bar -->
+  <div class="tool-controls-bar">
+    <div class="control-group">
+      <label class="control-label">{tool.settingsLabels.timingMode}</label>
+      <div class="detected-format-badge" id="detected-format-badge">
+        <span class="badge-dot"></span>
+        <span id="detected-format-text">{tool.settingsLabels.fixedDuration}</span>
+      </div>
+    </div>
+
+    <div class="control-group" id="fps-control-group">
+      <label for="video-fps-select" class="control-label">{tool.settingsLabels.cpsLabel}</label>
+      <select id="video-fps-select" class="control-select" title={tool.settingsLabels.cpsHint}>
+        <option value="23.976">23.976 FPS (Cinema / NTSC Film)</option>
+        <option value="24.000">24.000 FPS (True DCI Cinema)</option>
+        <option value="25.000" selected>25.000 FPS (PAL / European TV)</option>
+        <option value="29.970">29.970 FPS (NTSC Broadcast)</option>
+        <option value="30.000">30.000 FPS (Web / Mobile Video)</option>
+        <option value="50.000">50.000 FPS (PAL High Frame Rate)</option>
+        <option value="59.940">59.940 FPS (NTSC High Frame Rate)</option>
+        <option value="60.000">60.000 FPS (60fps Gaming / Video)</option>
+      </select>
+    </div>
+
+    <div class="control-checkboxes">
+      <label class="control-checkbox-label" title={tool.settingsLabels.startTimeHint}>
+        <input type="checkbox" id="auto-sync-fps" checked />
+        <span>{tool.settingsLabels.startTime}</span>
+      </label>
+
+      <label class="control-checkbox-label" title={tool.settingsLabels.maxCharsHint}>
+        <input type="checkbox" id="convert-formatting" checked />
+        <span>{tool.settingsLabels.maxCharsPerLine}</span>
+      </label>
+    </div>
+  </div>
+
+  <div class="tool-grid">
+    <!-- Left Pane: SUB Input -->
+    <div class="tool-pane">
+      <div class="pane-header">
+        <span class="pane-title">SUB Input (.sub)</span>
+        <div class="pane-actions">
+          <button type="button" class="btn btn-outline btn-sm" id="btn-load-sub-sample">
+            {ui.common.loadSample}
+          </button>
+          <button type="button" class="btn btn-outline btn-sm" id="btn-clear-sub-input">
+            {ui.common.clear}
+          </button>
+        </div>
+      </div>
+
+      <div class="dropzone-container" id="sub-dropzone">
+        <textarea
+          id="sub-input"
+          class="tool-textarea"
+          placeholder="{1}{1}25.000&#10;{25}{75}Paste MicroDVD or SubViewer subtitles here, or drop a .sub file...&#10;{100}{175}Line 1 of subtitle|Line 2 of subtitle"
+          spellcheck="false"
+        ></textarea>
+        
+        <div class="dropzone-overlay">
+          <span>{ui.common.dragAndDrop}</span>
+          <label for="sub-file-upload" class="btn btn-secondary btn-sm" style="margin: 0; cursor: pointer;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="17 8 12 3 7 8"></polyline>
+              <line x1="12" y1="3" x2="12" y2="15"></line>
+            </svg>
+            <span>{ui.common.browseFiles}</span>
+          </label>
+          <input type="file" id="sub-file-upload" class="file-input-hidden" accept=".sub,.txt,text/plain" />
+        </div>
+      </div>
+
+      <div class="pane-footer-counts">
+        <span id="sub-input-stats">0 cues | 0 characters</span>
+      </div>
+    </div>
+
+    <!-- Right Pane: SRT Output -->
+    <div class="tool-pane">
+      <div class="pane-header">
+        <span class="pane-title" id="output-pane-title">Standard SubRip SRT Output (.srt)</span>
+        <div class="pane-actions">
+          <button type="button" class="btn btn-outline btn-sm" id="btn-copy-srt" disabled>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+            <span id="copy-srt-btn-text">{ui.common.copy}</span>
+          </button>
+          <button type="button" class="btn btn-primary btn-sm" id="btn-download-srt" disabled>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            <span>{ui.common.download}</span>
+          </button>
+        </div>
+      </div>
+
+      <div id="vobsub-warning" class="vobsub-warning-card" style="display: none;">
+        <div class="vobsub-warning-header">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+            <line x1="12" y1="9" x2="12" y2="13"></line>
+            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+          </svg>
+          <strong>Binary VobSub (.sub) File Detected</strong>
+        </div>
+        <p>This file contains DVD bitmap graphics (scanned images of subtitles) rather than plain text. Converting bitmap graphics into editable SRT text requires Optical Character Recognition (OCR) software such as <strong>Subtitle Edit</strong>, <strong>BDSup2Sub</strong>, or <strong>OCR-SubRip</strong>.</p>
+      </div>
+
+      <textarea
+        id="srt-output"
+        class="tool-textarea"
+        readonly
+        placeholder="1&#10;00:00:01,000 --> 00:00:03,000&#10;Converted SubRip SRT subtitles will appear here...&#10;&#10;2&#10;00:00:04,000 --> 00:00:07,000&#10;Ready for VLC, smart TVs, and video editors!"
+      ></textarea>
+
+      <div class="pane-footer-counts">
+        <span id="sub-output-stats">0 cues | 0 characters</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { convertSubToSrt } from '@/lib/sub-converters';
+
+  function initSubToSrt() {
+    const subInput = document.getElementById('sub-input') as HTMLTextAreaElement | null;
+    const srtOutput = document.getElementById('srt-output') as HTMLTextAreaElement | null;
+    const fpsSelect = document.getElementById('video-fps-select') as HTMLSelectElement | null;
+    const fpsGroup = document.getElementById('fps-control-group') as HTMLElement | null;
+    const autoSyncFpsCheckbox = document.getElementById('auto-sync-fps') as HTMLInputElement | null;
+    const convertFormattingCheckbox = document.getElementById('convert-formatting') as HTMLInputElement | null;
+
+    const detectedFormatText = document.getElementById('detected-format-text');
+    const detectedBadge = document.getElementById('detected-format-badge');
+    const vobsubWarning = document.getElementById('vobsub-warning');
+
+    const btnSample = document.getElementById('btn-load-sub-sample');
+    const btnClear = document.getElementById('btn-clear-sub-input');
+    const btnCopy = document.getElementById('btn-copy-srt') as HTMLButtonElement | null;
+    const copyTextSpan = document.getElementById('copy-srt-btn-text');
+    const btnDownload = document.getElementById('btn-download-srt') as HTMLButtonElement | null;
+    const fileUpload = document.getElementById('sub-file-upload') as HTMLInputElement | null;
+    const dropzone = document.getElementById('sub-dropzone');
+
+    const inputStats = document.getElementById('sub-input-stats');
+    const outputStats = document.getElementById('sub-output-stats');
+
+    if (!subInput || !srtOutput) return;
+
+    let originalFilename = 'subtitles.sub';
+
+    function doConversion() {
+      if (!subInput || !srtOutput) return;
+      const rawText = subInput.value.trim();
+
+      const inChars = rawText.length;
+      if (!rawText) {
+        srtOutput.value = '';
+        if (vobsubWarning) vobsubWarning.style.display = 'none';
+        srtOutput.style.display = 'block';
+        if (btnCopy) btnCopy.disabled = true;
+        if (btnDownload) btnDownload.disabled = true;
+        if (inputStats) inputStats.textContent = '0 cues | 0 characters';
+        if (outputStats) outputStats.textContent = '0 cues | 0 characters';
+        if (detectedFormatText) detectedFormatText.textContent = 'Auto-Detect';
+        if (detectedBadge) detectedBadge.className = 'detected-format-badge';
+        if (fpsGroup) fpsGroup.style.display = 'flex';
+        return;
+      }
+
+      const defaultFps = parseFloat(fpsSelect?.value || '25');
+      const convertFormatting = convertFormattingCheckbox ? convertFormattingCheckbox.checked : true;
+
+      try {
+        const result = convertSubToSrt(rawText, {
+          defaultFps,
+          convertFormatting,
+        });
+
+        if (detectedFormatText) {
+          if (result.detectedFormat === 'microdvd') {
+            detectedFormatText.textContent = `MicroDVD (${result.detectedFps ? result.detectedFps + ' FPS' : defaultFps + ' FPS'})`;
+            if (detectedBadge) detectedBadge.className = 'detected-format-badge is-microdvd';
+            if (fpsGroup) fpsGroup.style.display = 'flex';
+          } else if (result.detectedFormat === 'subviewer') {
+            detectedFormatText.textContent = 'SubViewer 2.0';
+            if (detectedBadge) detectedBadge.className = 'detected-format-badge is-subviewer';
+            if (fpsGroup) fpsGroup.style.display = 'none';
+          } else if (result.detectedFormat === 'vobsub') {
+            detectedFormatText.textContent = 'VobSub (Binary)';
+            if (detectedBadge) detectedBadge.className = 'detected-format-badge is-vobsub';
+            if (fpsGroup) fpsGroup.style.display = 'none';
+          } else {
+            detectedFormatText.textContent = 'Plain Text';
+            if (detectedBadge) detectedBadge.className = 'detected-format-badge';
+          }
+        }
+
+        // If FPS was auto-detected from {1}{1}FPS header, sync select if checkbox enabled
+        if (result.detectedFormat === 'microdvd' && result.detectedFps && autoSyncFpsCheckbox?.checked && fpsSelect) {
+          const matchedOption = Array.from(fpsSelect.options).find(
+            opt => Math.abs(parseFloat(opt.value) - (result.detectedFps || 0)) < 0.01
+          );
+          if (matchedOption && fpsSelect.value !== matchedOption.value) {
+            fpsSelect.value = matchedOption.value;
+          }
+        }
+
+        // Handle binary VobSub warning
+        if (result.detectedFormat === 'vobsub') {
+          if (vobsubWarning) vobsubWarning.style.display = 'block';
+          srtOutput.style.display = 'none';
+          srtOutput.value = '';
+          if (btnCopy) btnCopy.disabled = true;
+          if (btnDownload) btnDownload.disabled = true;
+          if (inputStats) inputStats.textContent = 'Binary VobSub file';
+          if (outputStats) outputStats.textContent = '0 cues | 0 characters';
+          return;
+        }
+
+        if (vobsubWarning) vobsubWarning.style.display = 'none';
+        srtOutput.style.display = 'block';
+        srtOutput.value = result.srt;
+
+        if (inputStats) {
+          inputStats.textContent = `${result.cueCount} cues | ${inChars} characters`;
+        }
+
+        const hasContent = result.srt.trim().length > 0;
+        if (btnCopy) btnCopy.disabled = !hasContent;
+        if (btnDownload) btnDownload.disabled = !hasContent;
+
+        const outChars = result.srt.length;
+        if (outputStats) {
+          outputStats.textContent = `${result.cueCount} cues | ${outChars} characters`;
+        }
+      } catch (err) {
+        console.error('SUB to SRT conversion error:', err);
+        srtOutput.value = 'Error converting SUB to SRT. Please verify your subtitle file format.';
+        if (btnCopy) btnCopy.disabled = true;
+        if (btnDownload) btnDownload.disabled = true;
+      }
+    }
+
+    // Event Listeners
+    subInput.addEventListener('input', doConversion);
+    fpsSelect?.addEventListener('change', doConversion);
+    autoSyncFpsCheckbox?.addEventListener('change', doConversion);
+    convertFormattingCheckbox?.addEventListener('change', doConversion);
+
+    btnSample?.addEventListener('click', () => {
+      originalFilename = 'sample_subtitles.sub';
+      subInput.value = `{1}{1}25.000
+{25}{75}Welcome to the SUB to SRT Converter!
+{100}{175}Easily convert MicroDVD and SubViewer subtitles|into clean standard SubRip format.
+{200}{275}{Y:i}Compatible with VLC, smart TVs, and video editors.
+{300}{375}Enjoy frame-perfect synchronization!`;
+      doConversion();
+    });
+
+    btnClear?.addEventListener('click', () => {
+      subInput.value = '';
+      originalFilename = 'subtitles.sub';
+      doConversion();
+      subInput.focus();
+    });
+
+    btnCopy?.addEventListener('click', async () => {
+      if (!srtOutput || !srtOutput.value) return;
+      try {
+        await navigator.clipboard.writeText(srtOutput.value);
+        if (copyTextSpan) {
+          const orig = copyTextSpan.textContent;
+          copyTextSpan.textContent = 'Copied!';
+          setTimeout(() => {
+            copyTextSpan.textContent = orig;
+          }, 2000);
+        }
+      } catch (e) {
+        console.error('Clipboard copy failed:', e);
+      }
+    });
+
+    btnDownload?.addEventListener('click', () => {
+      if (!srtOutput || !srtOutput.value) return;
+      const content = srtOutput.value;
+      const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      const downloadName = originalFilename.replace(/\.[^/.]+$/, '') + '.srt';
+      a.download = downloadName || 'subtitles.srt';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    });
+
+    // File Upload handling
+    fileUpload?.addEventListener('change', (e) => {
+      const target = e.target as HTMLInputElement;
+      const file = target?.files?.[0];
+      if (!file) return;
+
+      originalFilename = file.name;
+      const reader = new FileReader();
+
+      reader.onload = (event) => {
+        const buffer = event.target?.result as ArrayBuffer;
+        if (!buffer) return;
+        const uint8 = new Uint8Array(buffer.slice(0, 512));
+        let isBinary = false;
+        if (uint8.length >= 4 && uint8[0] === 0x00 && uint8[1] === 0x00 && uint8[2] === 0x01 && uint8[3] === 0xba) {
+          isBinary = true;
+        } else {
+          for (let i = 0; i < uint8.length; i++) {
+            if (uint8[i] === 0) {
+              isBinary = true;
+              break;
+            }
+          }
+        }
+
+        if (isBinary) {
+          subInput.value = '[Binary VobSub Subtitle File]';
+          doConversion();
+        } else {
+          const textDecoder = new TextDecoder('utf-8');
+          try {
+            subInput.value = textDecoder.decode(buffer);
+          } catch {
+            const fallbackDecoder = new TextDecoder('windows-1252');
+            subInput.value = fallbackDecoder.decode(buffer);
+          }
+          doConversion();
+        }
+      };
+
+      reader.readAsArrayBuffer(file);
+    });
+
+    // Drag and Drop
+    ['dragenter', 'dragover'].forEach(eventName => {
+      dropzone?.addEventListener(eventName, (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        dropzone.classList.add('drag-active');
+      }, false);
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+      dropzone?.addEventListener(eventName, (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        dropzone.classList.remove('drag-active');
+      }, false);
+    });
+
+    dropzone?.addEventListener('drop', (e) => {
+      const dt = (e as DragEvent).dataTransfer;
+      const file = dt?.files?.[0];
+      if (!file) return;
+
+      originalFilename = file.name;
+      const reader = new FileReader();
+
+      reader.onload = (event) => {
+        const buffer = event.target?.result as ArrayBuffer;
+        if (!buffer) return;
+        const uint8 = new Uint8Array(buffer.slice(0, 512));
+        let isBinary = false;
+        if (uint8.length >= 4 && uint8[0] === 0x00 && uint8[1] === 0x00 && uint8[2] === 0x01 && uint8[3] === 0xba) {
+          isBinary = true;
+        } else {
+          for (let i = 0; i < uint8.length; i++) {
+            if (uint8[i] === 0) {
+              isBinary = true;
+              break;
+            }
+          }
+        }
+
+        if (isBinary) {
+          subInput.value = '[Binary VobSub Subtitle File]';
+          doConversion();
+        } else {
+          const textDecoder = new TextDecoder('utf-8');
+          try {
+            subInput.value = textDecoder.decode(buffer);
+          } catch {
+            const fallbackDecoder = new TextDecoder('windows-1252');
+            subInput.value = fallbackDecoder.decode(buffer);
+          }
+          doConversion();
+        }
+      };
+
+      reader.readAsArrayBuffer(file);
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initSubToSrt);
+  } else {
+    initSubToSrt();
+  }
+</script>
+
+<style>
+  .tool-workspace {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .privacy-banner {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    background-color: var(--accent-light);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    font-size: 0.875rem;
+    color: var(--accent-text);
+  }
+
+  .privacy-banner svg {
+    color: var(--accent-primary);
+    flex-shrink: 0;
+  }
+
+  .tool-controls-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.25rem;
+    padding: 1rem 1.25rem;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .control-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .control-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .detected-format-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.375rem 0.75rem;
+    background-color: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: 9999px;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .badge-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--text-muted);
+  }
+
+  .detected-format-badge.is-microdvd {
+    background-color: var(--accent-light);
+    border-color: var(--accent-primary);
+    color: var(--accent-text);
+  }
+  .detected-format-badge.is-microdvd .badge-dot {
+    background-color: var(--accent-primary);
+  }
+
+  .detected-format-badge.is-subviewer {
+    background-color: var(--success-bg);
+    border-color: var(--success);
+    color: var(--success);
+  }
+  .detected-format-badge.is-subviewer .badge-dot {
+    background-color: var(--success);
+  }
+
+  .detected-format-badge.is-vobsub {
+    background-color: var(--warning-bg);
+    border-color: var(--warning);
+    color: var(--warning);
+  }
+  .detected-format-badge.is-vobsub .badge-dot {
+    background-color: var(--warning);
+  }
+
+  .control-select {
+    padding: 0.45rem 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-size: 0.875rem;
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .control-select:focus {
+    border-color: var(--border-focus);
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+  }
+
+  .control-checkboxes {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.25rem;
+    margin-left: auto;
+  }
+
+  .control-checkbox-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .control-checkbox-label input[type="checkbox"] {
+    cursor: pointer;
+    width: 1rem;
+    height: 1rem;
+    accent-color: var(--accent-primary);
+  }
+
+  .tool-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+  }
+
+  @media (max-width: 840px) {
+    .tool-grid {
+      grid-template-columns: 1fr;
+    }
+    .control-checkboxes {
+      margin-left: 0;
+    }
+  }
+
+  .tool-pane {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .pane-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+    background-color: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .pane-title {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  .pane-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .dropzone-container {
+    position: relative;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 380px;
+    background-color: var(--bg-primary);
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+  }
+
+  .tool-textarea {
+    flex: 1;
+    width: 100%;
+    min-height: 380px;
+    padding: 1rem;
+    border: none;
+    outline: none;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: var(--text-primary);
+    background-color: transparent;
+    resize: vertical;
+    white-space: pre;
+    overflow-wrap: normal;
+    overflow-x: auto;
+  }
+
+  .tool-textarea:focus {
+    background-color: rgba(59, 130, 246, 0.03);
+  }
+
+  .dropzone-overlay {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.625rem 1rem;
+    background-color: var(--bg-secondary);
+    border-top: 1px dashed var(--border-color);
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+  }
+
+  .file-input-hidden {
+    display: none;
+  }
+
+  .dropzone-container.drag-active {
+    background-color: var(--accent-light);
+  }
+  .dropzone-container.drag-active .tool-textarea {
+    border: 2px dashed var(--accent-primary);
+  }
+
+  .pane-footer-counts {
+    padding: 0.5rem 1rem;
+    background-color: var(--bg-secondary);
+    border-top: 1px solid var(--border-color);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-align: right;
+  }
+
+  .vobsub-warning-card {
+    margin: 1rem;
+    padding: 1.25rem;
+    background-color: var(--warning-bg);
+    border: 1px solid var(--warning);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+  }
+
+  .vobsub-warning-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--warning);
+  }
+
+  .vobsub-warning-card p {
+    font-size: 0.875rem;
+    line-height: 1.6;
+    margin: 0;
+    color: var(--text-secondary);
+  }
+
+  .vobsub-warning-card strong {
+    color: var(--text-primary);
+  }
+</style>

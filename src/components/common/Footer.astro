@@ -20,6 +20,8 @@ const srtToVttPath = getRoutePath('srt-to-vtt', locale);
 const vttToSrtPath = getRoutePath('vtt-to-srt', locale);
 const srtToAssPath = getRoutePath('srt-to-ass', locale);
 const assToSrtPath = getRoutePath('ass-to-srt', locale);
+const srtToSubPath = getRoutePath('srt-to-sub', locale);
+const subToSrtPath = getRoutePath('sub-to-srt', locale);
 ---
 
 <footer class="site-footer">
@@ -54,6 +56,8 @@ const assToSrtPath = getRoutePath('ass-to-srt', locale);
             <li><a href={vttToSrtPath}>{tools.vttToSrt.name}</a></li>
             <li><a href={srtToAssPath}>{tools.srtToAss.name}</a></li>
             <li><a href={assToSrtPath}>{tools.assToSrt.name}</a></li>
+            <li><a href={srtToSubPath}>{tools.srtToSub.name}</a></li>
+            <li><a href={subToSrtPath}>{tools.subToSrt.name}</a></li>
             <li><a href={toolsPath}>{tools.directory.title}</a></li>
           </ul>
         </div>

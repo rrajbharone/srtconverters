@@ -38,9 +38,17 @@ export const SEO_TRANSLATIONS: Record<Locale, Record<RouteId | '404', PageSeo>> 
       title: 'ASS to SRT Converter Online – Convert ASS to SRT Free | SRTConverters',
       description: 'Convert Advanced SubStation Alpha (.ass) subtitles to clean SubRip (.srt) format online for free. Clean tags, convert centiseconds, and download standard SRT files instantly.',
     },
+    'srt-to-sub': {
+      title: "SRT to SUB Converter – Convert Subtitles to SUB Online | SRTConverters",
+      description: "Convert SubRip (.srt) subtitles to SUB format (MicroDVD & SubViewer) online for free. Custom frame rates (FPS), frame-accurate syncing, and 100% browser privacy.",
+    },
+    'sub-to-srt': {
+      title: "SUB to SRT Converter Online – Convert SUB to SRT Free | SRTConverters",
+      description: "Convert SUB subtitles (MicroDVD & SubViewer) to clean SubRip (.srt) format online for free. Auto-detect frame rate (FPS), convert timestamps accurately, and download standard SRT files instantly.",
+    },
     tools: {
       title: 'Free Subtitle & SRT Tools – Convert, Format & Edit | SRTConverters',
-      description: 'Explore our complete suite of free online subtitle tools. Convert TXT to SRT, SRT to Text, SRT to VTT, VTT to SRT, SRT to ASS, and ASS to SRT securely in your browser.',
+      description: "Explore our complete suite of free online subtitle tools. Convert TXT to SRT, SRT to Text, SRT to VTT, VTT to SRT, SRT to ASS, ASS to SRT, and SRT to SUB securely in your browser.",
     },
 
 
@@ -78,9 +86,17 @@ export const SEO_TRANSLATIONS: Record<Locale, Record<RouteId | '404', PageSeo>> 
       title: 'Convertidor ASS a SRT Online – Convertir ASS a SRT Gratis | SRTConverters',
       description: 'Convierte subtítulos Advanced SubStation Alpha (.ass) a formato SubRip (.srt) limpio online y gratis. Limpia etiquetas, convierte marcas de tiempo y descarga archivos SRT al instante.',
     },
+    'srt-to-sub': {
+      title: "Convertidor SRT a SUB – Convertir Subtítulos a SUB Online | SRTConverters",
+      description: "Convierte subtítulos SubRip (.srt) a formato SUB (MicroDVD y SubViewer) online y gratis. Fotogramas por segundo (FPS) ajustables y 100% de privacidad en el navegador.",
+    },
+    'sub-to-srt': {
+      title: "Convertidor SUB a SRT Online – Convertir SUB a SRT Gratis | SRTConverters",
+      description: "Convierte subtítulos SUB (MicroDVD y SubViewer) a formato SubRip (.srt) limpio online y gratis. Detección automática de FPS, conversión precisa de fotogramas a tiempo y 100% de privacidad.",
+    },
     tools: {
       title: 'Herramientas Gratuitas de Subtítulos y SRT | SRTConverters',
-      description: 'Explora nuestra suite completa de herramientas online gratuitas para subtítulos. Convierte TXT a SRT, SRT a Texto, SRT a VTT, VTT a SRT, SRT a ASS y ASS a SRT de forma segura en tu navegador.',
+      description: "Explora nuestra suite completa de herramientas gratuitas de subtítulos. Convierte TXT a SRT, SRT a texto, SRT a VTT, VTT a SRT, SRT a ASS, ASS a SRT, SRT a SUB y SUB a SRT de forma segura.",
     },
 
 
@@ -118,9 +134,17 @@ export const SEO_TRANSLATIONS: Record<Locale, Record<RouteId | '404', PageSeo>> 
       title: 'Conversor ASS para SRT Online – Converter ASS em SRT Grátis | SRTConverters',
       description: 'Converta legendas Advanced SubStation Alpha (.ass) em formato SubRip (.srt) limpo online e grátis. Remova tags de estilo, converta tempos e baixe legendas SRT instantaneamente.',
     },
+    'srt-to-sub': {
+      title: "Conversor SRT para SUB – Converter Legendas em SUB Online | SRTConverters",
+      description: "Converta legendas SubRip (.srt) para formato SUB (MicroDVD e SubViewer) online e grátis. Taxas de quadros (FPS) personalizadas e 100% de privacidade no navegador.",
+    },
+    'sub-to-srt': {
+      title: "Conversor SUB para SRT Online – Converter SUB em SRT Grátis | SRTConverters",
+      description: "Converta legendas SUB (MicroDVD e SubViewer) para o formato SubRip (.srt) limpo online e grátis. Detecção automática de FPS, sincronização precisa de frames para milissegundos e privacidade total.",
+    },
     tools: {
       title: 'Ferramentas Gratuitas de Legendas e SRT | SRTConverters',
-      description: 'Explore nossa suíte de ferramentas online de legendas. Converta TXT para SRT, SRT para Texto, SRT para VTT, VTT para SRT, SRT para ASS e ASS para SRT com privacidade total no navegador.',
+      description: "Explore nossa suíte completa de ferramentas gratuitas de legendas. Converta TXT em SRT, SRT em texto, SRT em VTT, VTT em SRT, SRT em ASS, ASS em SRT, SRT em SUB e SUB em SRT com segurança no seu navegador.",
     },
 
 
@@ -158,9 +182,17 @@ export const SEO_TRANSLATIONS: Record<Locale, Record<RouteId | '404', PageSeo>> 
       title: 'Convertisseur ASS en SRT en Ligne – Convertir ASS en SRT Gratuit | SRTConverters',
       description: 'Convertissez des sous-titres Advanced SubStation Alpha (.ass) au format SubRip (.srt) propre en ligne et gratuitement. Nettoyage des balises et conversion précise du minutage.',
     },
+    'srt-to-sub': {
+      title: "Convertisseur SRT en SUB – Convertir Sous-Titres en SUB Gratuit | SRTConverters",
+      description: "Convertissez des sous-titres SubRip (.srt) au format SUB (MicroDVD et SubViewer) gratuitement en ligne. Choix des images par seconde (FPS) et confidentialité totale.",
+    },
+    'sub-to-srt': {
+      title: "Convertisseur SUB en SRT en Ligne – Convertir SUB en SRT Gratuit | SRTConverters",
+      description: "Convertissez des sous-titres SUB (MicroDVD et SubViewer) au format SubRip (.srt) propre en ligne et gratuitement. Détection automatique des FPS, synchronisation précise des images en millisecondes et confidentialité 100%.",
+    },
     tools: {
       title: 'Outils Gratuits de Sous-titres et SRT | SRTConverters',
-      description: 'Découvrez notre suite d’outils gratuits en ligne pour sous-titres. Convertissez TXT en SRT, SRT en Texte, SRT en VTT, VTT en SRT, SRT en ASS et ASS en SRT en toute sécurité.',
+      description: "Découvrez notre suite complète d'outils de sous-titrage en ligne gratuits. Convertissez TXT en SRT, SRT en texte, SRT en VTT, VTT en SRT, SRT en ASS, ASS en SRT, SRT en SUB et SUB en SRT en toute sécurité.",
     },
 
 
@@ -198,9 +230,17 @@ export const SEO_TRANSLATIONS: Record<Locale, Record<RouteId | '404', PageSeo>> 
       title: 'ASS in SRT Konverter Online – ASS kostenlos in SRT umwandeln | SRTConverters',
       description: 'Konvertieren Sie Advanced SubStation Alpha (.ass) Untertitel kostenlos online in sauberes SubRip (.srt) Format. Tags bereinigen, Zeitstempel anpassen und sofort SRT herunterladen.',
     },
+    'srt-to-sub': {
+      title: "SRT in SUB Konverter – Untertitel kostenlos online in SUB umwandeln | SRTConverters",
+      description: "Konvertieren Sie SubRip (.srt) Untertitel kostenlos online in das SUB-Format (MicroDVD & SubViewer). Bildfrequenz (FPS) wählbar und 100% Datenschutz im Browser.",
+    },
+    'sub-to-srt': {
+      title: "SUB in SRT Konverter Online – SUB kostenlos in SRT umwandeln | SRTConverters",
+      description: "Konvertieren Sie SUB-Untertitel (MicroDVD & SubViewer) kostenlos online in sauberes SubRip (.srt)-Format. Automatische FPS-Erkennung, präzise Frame-in-Zeit-Umrechnung und 100% Browser-Datenschutz.",
+    },
     tools: {
       title: 'Kostenlose Untertitel- & SRT-Tools | SRTConverters',
-      description: 'Entdecken Sie unsere kostenlosen Online-Untertitel-Tools. Konvertieren Sie TXT in SRT, SRT in Text, SRT in VTT, VTT in SRT, SRT in ASS und ASS in SRT sicher in Ihrem Browser.',
+      description: "Entdecken Sie unsere vollständige Suite kostenloser Online-Untertitel-Tools. Konvertieren Sie TXT in SRT, SRT in Text, SRT in VTT, VTT in SRT, SRT in ASS, ASS in SRT, SRT in SUB und SUB in SRT sicher im Browser.",
     },
 
 
@@ -238,9 +278,17 @@ export const SEO_TRANSLATIONS: Record<Locale, Record<RouteId | '404', PageSeo>> 
       title: 'Konverter ASS ke SRT Online – Ubah ASS ke SRT Gratis | SRTConverters',
       description: 'Konversi subtitle Advanced SubStation Alpha (.ass) ke format SubRip (.srt) bersih secara online dan gratis. Bersihkan tag gaya, konversi waktu, dan unduh file SRT secara instan.',
     },
+    'srt-to-sub': {
+      title: "Konverter SRT ke SUB Online – Ubah Subtitle ke SUB Gratis | SRTConverters",
+      description: "Konversi subtitle SubRip (.srt) ke format SUB (MicroDVD & SubViewer) online secara gratis. Pengaturan frame rate (FPS) fleksibel dan 100% privasi browser.",
+    },
+    'sub-to-srt': {
+      title: "Konverter SUB ke SRT Online – Ubah SUB ke SRT Gratis | SRTConverters",
+      description: "Konversi subtitle SUB (MicroDVD & SubViewer) ke format SubRip (.srt) bersih secara online dan gratis. Deteksi FPS otomatis, konversi frame ke waktu yang presisi, dan privasi peramban 100%.",
+    },
     tools: {
       title: 'Alat Subtitle & SRT Gratis Online | SRTConverters',
-      description: 'Jelajahi rangkaian lengkap alat subtitle online gratis. Konversi TXT ke SRT, SRT ke Teks, SRT ke VTT, VTT ke SRT, SRT ke ASS dan ASS ke SRT dengan aman di peramban Anda.',
+      description: "Jelajahi rangkaian lengkap alat subtitle online gratis kami. Konversi TXT ke SRT, SRT ke teks, SRT ke VTT, VTT ke SRT, SRT ke ASS, ASS ke SRT, SRT ke SUB, dan SUB ke SRT secara aman di browser Anda.",
     },
 
 
@@ -278,9 +326,17 @@ export const SEO_TRANSLATIONS: Record<Locale, Record<RouteId | '404', PageSeo>> 
       title: 'ASS - SRT Dönüştürücü Online – ASS Dosyasını SRT Yapma | SRTConverters',
       description: 'Advanced SubStation Alpha (.ass) altyazılarını ücretsiz çevrimiçi temiz SubRip (.srt) formatına dönüştürün. Etiketleri temizleyin, zamanlamayı koruyun ve SRT dosyasını anında indirin.',
     },
+    'srt-to-sub': {
+      title: "SRT - SUB Dönüştürücü – Altyazıyı SUB Formatına Çevirme | SRTConverters",
+      description: "SubRip (.srt) altyazılarını ücretsiz çevrimiçi SUB formatına (MicroDVD ve SubViewer) dönüştürün. Özel kare hızı (FPS) ayarları ve %100 tarayıcı gizliliği.",
+    },
+    'sub-to-srt': {
+      title: "SUB - SRT Dönüştürücü Online – SUB Dosyasını SRT'ye Ücretsiz Dönüştürün | SRTConverters",
+      description: "SUB altyazılarını (MicroDVD ve SubViewer) çevrimiçi ve ücretsiz olarak temiz SubRip (.srt) formatına dönüştürün. Otomatik FPS algılama, karelerden milisaniyeye hassas zamanlama ve %100 tarayıcı gizliliği.",
+    },
     tools: {
       title: 'Ücretsiz Altyazı ve SRT Araçları | SRTConverters',
-      description: 'Ücretsiz çevrimiçi altyazı araçlarımızı keşfedin. TXT dosyasını SRT formatına, SRT dosyasını Metne, SRT dosyasını VTT formatına, VTT dosyasını SRT formatına, SRT dosyasını ASS formatına ve ASS dosyasını SRT formatına güvenle dönüştürün.',
+      description: "Ücretsiz çevrimiçi altyazı araçları paketimizi keşfedin. TXT'yi SRT'ye, SRT'yi metne, SRT'yi VTT'ye, VTT'yi SRT'ye, SRT'yi ASS'ye, ASS'yi SRT'ye, SRT'yi SUB'a ve SUB'u SRT'ye güvenle dönüştürün.",
     },
 
 
@@ -318,9 +374,17 @@ export const SEO_TRANSLATIONS: Record<Locale, Record<RouteId | '404', PageSeo>> 
       title: 'Convertitore da ASS a SRT Online – Converti ASS in SRT Gratis | SRTConverters',
       description: 'Converti sottotitoli Advanced SubStation Alpha (.ass) nel formato pulito SubRip (.srt) online e gratis. Pulisci tag, converti timestamp e scarica file SRT all\'istante.',
     },
+    'srt-to-sub': {
+      title: "Convertitore da SRT a SUB Online – Converti Sottotitoli in SUB Gratis | SRTConverters",
+      description: "Converti sottotitoli SubRip (.srt) nel formato SUB (MicroDVD e SubViewer) online gratis. Frequenza fotogrammi (FPS) personalizzata e massima privacy nel browser.",
+    },
+    'sub-to-srt': {
+      title: "Convertitore da SUB a SRT Online – Converti SUB in SRT Gratis | SRTConverters",
+      description: "Converti sottotitoli SUB (MicroDVD e SubViewer) nel formato SubRip (.srt) pulito online gratuitamente. Rilevamento automatico FPS, sincronizzazione accurata da frame a tempo e massima privacy nel browser.",
+    },
     tools: {
       title: 'Strumenti Gratuiti per Sottotitoli e SRT | SRTConverters',
-      description: 'Esplora la nostra gamma completa di strumenti online gratuiti per sottotitoli. Converti TXT in SRT, SRT in Testo, SRT in VTT, VTT in SRT, SRT in ASS e ASS in SRT in totale sicurezza.',
+      description: "Esplora la nostra suite completa di strumenti online gratuiti per i sottotitoli. Converti TXT in SRT, SRT in testo, SRT in VTT, VTT in SRT, SRT in ASS, ASS in SRT, SRT in SUB e SUB in SRT in totale sicurezza.",
     },
 
 

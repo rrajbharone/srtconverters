@@ -1,0 +1,866 @@
+---
+import { type Locale } from '@/i18n/config';
+import { getRoutePath } from '@/i18n/routes';
+import { getSrtToSubGuideContent } from '@/i18n/srtToSubGuide';
+import { getToolsContent } from '@/i18n/utils';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const guide = getSrtToSubGuideContent(locale);
+const tools = getToolsContent(locale);
+
+const srtToAssUrl = getRoutePath('srt-to-ass', locale);
+const assToSrtUrl = getRoutePath('ass-to-srt', locale);
+const txtToSrtUrl = getRoutePath('txt-to-srt', locale);
+const srtToTextUrl = getRoutePath('srt-to-text', locale);
+const srtToVttUrl = getRoutePath('srt-to-vtt', locale);
+const vttToSrtUrl = getRoutePath('vtt-to-srt', locale);
+
+const uiLabels: Record<Locale, {
+  feature: string;
+  srtBadge: string;
+  microdvdBadge: string;
+  subviewerBadge: string;
+  breakdown: string;
+  fpsCol: string;
+  standardCol: string;
+  useCaseCol: string;
+  issue: string;
+  cause: string;
+  solution: string;
+  relatedTools: string;
+  helpfulArticles: string;
+}> = {
+  en: {
+    feature: 'Feature / Specification',
+    srtBadge: 'Original SubRip SRT (.SRT)',
+    microdvdBadge: 'Converted MicroDVD (.SUB)',
+    subviewerBadge: 'Converted SubViewer 2.0 (.SUB)',
+    breakdown: 'Conversion Breakdown:',
+    fpsCol: 'Frame Rate',
+    standardCol: 'Industry Standard',
+    useCaseCol: 'Typical Video Applications',
+    issue: 'Issue',
+    cause: 'Cause:',
+    solution: 'Solution',
+    relatedTools: 'Related Subtitle Converter Tools',
+    helpfulArticles: 'Helpful Guides & Troubleshooting Articles',
+  },
+  es: {
+    feature: 'Característica / Especificación',
+    srtBadge: 'Subtítulo Original SubRip (.SRT)',
+    microdvdBadge: 'MicroDVD Convertido (.SUB)',
+    subviewerBadge: 'SubViewer 2.0 Convertido (.SUB)',
+    breakdown: 'Análisis de la Conversión:',
+    fpsCol: 'Tasa de Fotogramas',
+    standardCol: 'Estándar de la Industria',
+    useCaseCol: 'Aplicaciones Típicas de Video',
+    issue: 'Problema',
+    cause: 'Causa:',
+    solution: 'Solución',
+    relatedTools: 'Herramientas de Conversión Relacionadas',
+    helpfulArticles: 'Guías Útiles y Artículos de Soporte',
+  },
+  pt: {
+    feature: 'Recurso / Especificação',
+    srtBadge: 'Legenda Original SubRip (.SRT)',
+    microdvdBadge: 'MicroDVD Convertido (.SUB)',
+    subviewerBadge: 'SubViewer 2.0 Convertido (.SUB)',
+    breakdown: 'Análise da Conversão:',
+    fpsCol: 'Taxa de Quadros',
+    standardCol: 'Padrão da Indústria',
+    useCaseCol: 'Aplicações Típicas em Vídeo',
+    issue: 'Problema',
+    cause: 'Causa:',
+    solution: 'Solução',
+    relatedTools: 'Ferramentas de Conversão Relacionadas',
+    helpfulArticles: 'Guias e Artigos de Suporte Recomendados',
+  },
+  fr: {
+    feature: 'Caractéristique / Spécification',
+    srtBadge: 'Sous-Titre Original SubRip (.SRT)',
+    microdvdBadge: 'MicroDVD Converti (.SUB)',
+    subviewerBadge: 'SubViewer 2.0 Converti (.SUB)',
+    breakdown: 'Analyse de la Conversion :',
+    fpsCol: 'Cadence d\'Images',
+    standardCol: 'Standard de l\'Industrie',
+    useCaseCol: 'Applications Vidéo Typiques',
+    issue: 'Problème',
+    cause: 'Cause :',
+    solution: 'Solution',
+    relatedTools: 'Outils de Conversion de Sous-Titres Liés',
+    helpfulArticles: 'Guides Utiles et Articles de Dépannage',
+  },
+  de: {
+    feature: 'Merkmal / Spezifikation',
+    srtBadge: 'Original SubRip SRT (.SRT)',
+    microdvdBadge: 'Konvertiertes MicroDVD (.SUB)',
+    subviewerBadge: 'Konvertiertes SubViewer 2.0 (.SUB)',
+    breakdown: 'Konvertierungs-Analyse:',
+    fpsCol: 'Bildfrequenz (FPS)',
+    standardCol: 'Industrie-Standard',
+    useCaseCol: 'Typische Medienanwendungen',
+    issue: 'Problem',
+    cause: 'Ursache:',
+    solution: 'Lösung',
+    relatedTools: 'Verwandte Untertitel-Tools',
+    helpfulArticles: 'Hilfreiche Anleitungen & Support-Artikel',
+  },
+  id: {
+    feature: 'Fitur / Spesifikasi',
+    srtBadge: 'Subtitle Asli SubRip (.SRT)',
+    microdvdBadge: 'MicroDVD Hasil Konversi (.SUB)',
+    subviewerBadge: 'SubViewer 2.0 Hasil Konversi (.SUB)',
+    breakdown: 'Penjelasan Hasil Konversi:',
+    fpsCol: 'Frame Rate',
+    standardCol: 'Standar Industri',
+    useCaseCol: 'Penerapan Video Umum',
+    issue: 'Masalah',
+    cause: 'Penyebab:',
+    solution: 'Solusi',
+    relatedTools: 'Alat Konversi Subtitle Terkait',
+    helpfulArticles: 'Panduan & Artikel Pemecahan Masalah',
+  },
+  tr: {
+    feature: 'Özellik / Teknik Detay',
+    srtBadge: 'Orijinal SubRip SRT (.SRT)',
+    microdvdBadge: 'Dönüştürülen MicroDVD (.SUB)',
+    subviewerBadge: 'Dönüştürülen SubViewer 2.0 (.SUB)',
+    breakdown: 'Dönüşüm Detay Analizi:',
+    fpsCol: 'Kare Hızı',
+    standardCol: 'Endüstri Standardı',
+    useCaseCol: 'Tipik Video Uygulamaları',
+    issue: 'Sorun',
+    cause: 'Neden:',
+    solution: 'Çözüm',
+    relatedTools: 'İlgili Altyazı Dönüştürme Araçları',
+    helpfulArticles: 'Yararlı Rehberler ve Destek Makaleleri',
+  },
+  it: {
+    feature: 'Caratteristica / Specifica',
+    srtBadge: 'Sottotitolo Originale SubRip (.SRT)',
+    microdvdBadge: 'MicroDVD Convertito (.SUB)',
+    subviewerBadge: 'SubViewer 2.0 Convertito (.SUB)',
+    breakdown: 'Analisi della Conversione:',
+    fpsCol: 'Frequenza Fotogrammi',
+    standardCol: 'Standard Industriale',
+    useCaseCol: 'Applicazioni Video Tipiche',
+    issue: 'Problema',
+    cause: 'Causa:',
+    solution: 'Soluzione',
+    relatedTools: 'Strumenti di Conversione Correlati',
+    helpfulArticles: 'Guide Utili e Articoli di Supporto',
+  },
+};
+
+const curLabels = uiLabels[locale] || uiLabels.en;
+---
+
+<article class="long-form-guide">
+  <!-- Section 1: Intro / Overview -->
+  <section class="guide-section">
+    <div class="guide-section-header">
+      <h2 class="guide-h2">{guide.introTitle}</h2>
+      <p class="guide-lead">{guide.introSubtitle}</p>
+    </div>
+    <div class="guide-content-flow">
+      {guide.introText.map((p) => <p>{p}</p>)}
+    </div>
+  </section>
+
+  <!-- Section 2: What Is SRT & SUB -->
+  <section class="guide-section">
+    <div class="guide-section-header">
+      <h2 class="guide-h2">{guide.whatIsTitle}</h2>
+    </div>
+    <div class="guide-content-flow">
+      {guide.whatIsText.map((p) => <p>{p}</p>)}
+    </div>
+  </section>
+
+  <!-- Section 3: Why Convert (6 Core Pillars) -->
+  <section class="guide-section">
+    <div class="guide-section-header">
+      <h2 class="guide-h2">{guide.whyConvertTitle}</h2>
+      <p class="guide-subtitle">{guide.whyConvertSubtitle}</p>
+    </div>
+    <div class="features-grid" style="margin-top: 1.5rem;">
+      {guide.whyConvertReasons.map((reason) => (
+        <div class="feature-card">
+          <div class="feature-icon-wrapper">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+              <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+          </div>
+          <h3 class="feature-title">{reason.title}</h3>
+          <p class="feature-desc">{reason.description}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Section 4: 10-Point Technical Comparison Table -->
+  <section class="guide-section">
+    <div class="guide-section-header">
+      <h2 class="guide-h2">{guide.differenceTitle}</h2>
+      <p class="guide-subtitle">{guide.differenceSubtitle}</p>
+    </div>
+    <div class="table-container" style="margin-top: 1.5rem;">
+      <table class="specs-table">
+        <thead>
+          <tr>
+            <th>{curLabels.feature}</th>
+            <th>SubRip (.SRT)</th>
+            <th>MicroDVD (.SUB)</th>
+            <th>SubViewer 2.0 (.SUB)</th>
+          </tr>
+        </thead>
+        <tbody>
+          {guide.differenceTable.map((row) => (
+            <tr>
+              <td><strong>{row.feature}</strong></td>
+              <td>{row.srt}</td>
+              <td><span class="highlight-spec">{row.microdvd}</span></td>
+              <td>{row.subviewer}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Section 5: FPS Selection Guide & Standards Table -->
+  <section class="guide-section">
+    <div class="guide-section-header">
+      <h2 class="guide-h2">{guide.fpsGuideTitle}</h2>
+      <p class="guide-subtitle">{guide.fpsGuideSubtitle}</p>
+    </div>
+    <div class="guide-content-flow">
+      {guide.fpsGuideText.map((p) => <p>{p}</p>)}
+    </div>
+    <div class="table-container" style="margin-top: 1.5rem;">
+      <table class="specs-table">
+        <thead>
+          <tr>
+            <th>{curLabels.fpsCol}</th>
+            <th>{curLabels.standardCol}</th>
+            <th>{curLabels.useCaseCol}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {guide.fpsTable.map((f) => (
+            <tr>
+              <td><span class="badge badge-success" style="font-family: monospace;">{f.fps}</span></td>
+              <td><strong>{f.standard}</strong></td>
+              <td>{f.useCase}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Section 6: Mathematics of Frame Conversion -->
+  <section class="guide-section">
+    <div class="guide-section-header">
+      <h2 class="guide-h2">{guide.mathTitle}</h2>
+      <p class="guide-subtitle">{guide.mathSubtitle}</p>
+    </div>
+    <div class="math-callout-box">
+      <div class="math-formula-header">Conversion Formula:</div>
+      <code class="math-formula-code">{guide.mathFormula}</code>
+    </div>
+    <div class="guide-content-flow" style="margin-top: 1.25rem;">
+      {guide.mathExplanation.map((p) => <p>{p}</p>)}
+    </div>
+  </section>
+
+  <!-- Section 7: Step-by-Step Instructions Grid -->
+  <section class="guide-section">
+    <div class="guide-section-header">
+      <h2 class="guide-h2">{guide.howToTitle}</h2>
+      <p class="guide-subtitle">{guide.howToSubtitle}</p>
+    </div>
+    <div class="steps-grid" style="margin-top: 1.5rem;">
+      {guide.howToSteps.map((s) => (
+        <div class="step-card">
+          <div class="step-number">{s.step}</div>
+          <h3 class="step-title">{s.title}</h3>
+          <p class="step-desc">{s.description}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Section 8: Side-by-Side Code Example -->
+  <section class="guide-section">
+    <div class="guide-section-header">
+      <h2 class="guide-h2">{guide.exampleTitle}</h2>
+      <p class="guide-lead">{guide.exampleIntro}</p>
+    </div>
+    
+    <div class="code-compare-triplet" style="margin-top: 1.5rem;">
+      <!-- Original SRT -->
+      <div class="code-box">
+        <div class="code-box-header">
+          <span class="badge badge-outline">{curLabels.srtBadge}</span>
+        </div>
+        <pre class="code-block"><code>{guide.exampleSrtInput}</code></pre>
+      </div>
+
+      <!-- Converted MicroDVD SUB -->
+      <div class="code-box">
+        <div class="code-box-header">
+          <span class="badge badge-success">{curLabels.microdvdBadge}</span>
+        </div>
+        <pre class="code-block"><code>{guide.exampleMicroDvdOutput}</code></pre>
+      </div>
+    </div>
+
+    <!-- Converted SubViewer 2.0 Output -->
+    <div class="code-box" style="margin-top: 1.25rem;">
+      <div class="code-box-header">
+        <span class="badge badge-primary">{curLabels.subviewerBadge}</span>
+      </div>
+      <pre class="code-block"><code>{guide.exampleSubViewerOutput}</code></pre>
+    </div>
+
+    <div class="example-explanation-box" style="margin-top: 1.25rem;">
+      <p><strong>{curLabels.breakdown}</strong> {guide.exampleExplanation}</p>
+    </div>
+  </section>
+
+  <!-- Section 9: MicroDVD vs SubViewer vs VobSub -->
+  <section class="guide-section">
+    <div class="guide-section-header">
+      <h2 class="guide-h2">{guide.formatsComparisonTitle}</h2>
+      <p class="guide-subtitle">{guide.formatsComparisonSubtitle}</p>
+    </div>
+    <div class="guide-content-flow">
+      {guide.formatsComparisonText.map((p) => <p>{p}</p>)}
+    </div>
+  </section>
+
+  <!-- Section 10: FFmpeg Command Line Automation -->
+  <section class="guide-section">
+    <div class="guide-section-header">
+      <h2 class="guide-h2">{guide.ffmpegTitle}</h2>
+      <p class="guide-subtitle">{guide.ffmpegSubtitle}</p>
+    </div>
+    <div class="code-terminal-box">
+      <div class="terminal-header">
+        <div class="terminal-dots">
+          <span></span><span></span><span></span>
+        </div>
+        <span class="terminal-title">Terminal / Bash / PowerShell</span>
+      </div>
+      <pre class="terminal-code"><code>{guide.ffmpegCommand}</code></pre>
+    </div>
+    <ul class="guide-bullet-list" style="margin-top: 1.25rem;">
+      {guide.ffmpegExplanation.map((item) => <li>{item}</li>)}
+    </ul>
+  </section>
+
+  <!-- Section 11: 5 Real-World Practical Use Cases -->
+  <section class="guide-section">
+    <div class="guide-section-header">
+      <h2 class="guide-h2">{guide.useCasesTitle}</h2>
+      <p class="guide-subtitle">{guide.useCasesSubtitle}</p>
+    </div>
+    <div class="usecases-grid" style="margin-top: 1.5rem;">
+      {guide.useCasesList.map((uc) => (
+        <div class="usecase-card">
+          <div class="usecase-header">
+            <svg class="usecase-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            <h3 class="usecase-title">{uc.title}</h3>
+          </div>
+          <p class="usecase-desc">{uc.description}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Section 12: 4 Troubleshooting Scenarios -->
+  <section class="guide-section">
+    <div class="guide-section-header">
+      <h2 class="guide-h2">{guide.troubleshootTitle}</h2>
+      <p class="guide-subtitle">{guide.troubleshootSubtitle}</p>
+    </div>
+    <div class="troubleshoot-grid" style="margin-top: 1.5rem;">
+      {guide.troubleshootTips.map((tip) => (
+        <div class="troubleshoot-card">
+          <div class="troubleshoot-issue">
+            <span class="badge badge-warning">{curLabels.issue}</span>
+            <h3 class="troubleshoot-issue-title">{tip.issue}</h3>
+          </div>
+          <p class="troubleshoot-cause"><strong>{curLabels.cause}</strong> {tip.cause}</p>
+          <div class="troubleshoot-solution">
+            <span class="badge badge-success">{curLabels.solution}</span>
+            <p>{tip.solution}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Section 13: Professional Engineering Workflow -->
+  <section class="guide-section">
+    <div class="guide-section-header">
+      <h2 class="guide-h2">{guide.workflowTitle}</h2>
+      <p class="guide-subtitle">{guide.workflowSubtitle}</p>
+    </div>
+    <div class="workflow-steps-list" style="margin-top: 1.5rem;">
+      {guide.workflowSteps.map((step) => (
+        <div class="workflow-step-row">
+          <div class="workflow-step-dot"></div>
+          <div class="workflow-step-text">{step}</div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Section 14: Conclusion & Key Takeaways -->
+  <section class="guide-section">
+    <div class="guide-section-header">
+      <h2 class="guide-h2">{guide.conclusionTitle}</h2>
+    </div>
+    <div class="guide-content-flow">
+      {guide.conclusionText.map((p) => <p>{p}</p>)}
+    </div>
+  </section>
+
+  <!-- Internal Cross-Links Section -->
+  <section class="guide-section" style="border-top: 1px solid var(--border-color, rgba(255, 255, 255, 0.1)); padding-top: 2.5rem;">
+    <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 1.25rem; color: var(--text-primary);">
+      {curLabels.relatedTools}
+    </h3>
+    <div class="tool-links-pills">
+      <a href={srtToAssUrl} class="pill-link">{tools.srtToAss.name}</a>
+      <a href={assToSrtUrl} class="pill-link">{tools.assToSrt.name}</a>
+      <a href={txtToSrtUrl} class="pill-link">{tools.txtToSrt.name}</a>
+      <a href={srtToTextUrl} class="pill-link">{tools.srtToText.name}</a>
+      <a href={srtToVttUrl} class="pill-link">{tools.srtToVtt.name}</a>
+      <a href={vttToSrtUrl} class="pill-link">{tools.vttToSrt.name}</a>
+    </div>
+
+    <h3 style="font-size: 1.125rem; font-weight: 700; margin: 2rem 0 1rem; color: var(--text-primary);">
+      {curLabels.helpfulArticles}
+    </h3>
+    <ul class="guide-articles-list">
+      <li><a href="/blog/why-is-my-srt-file-not-working/">Why is My SRT File Not Working? Fixes for Bad Timestamps & Parsing</a></li>
+      <li><a href="/blog/how-to-fix-srt-subtitles-out-of-sync/">How to Fix SRT Subtitles Out of Sync (Audio Delay & FPS Drift)</a></li>
+      <li><a href="/blog/how-to-fix-srt-subtitle-encoding-problems/">How to Fix SRT Subtitle Encoding Problems (Mojibake & UTF-8)</a></li>
+      <li><a href="/blog/how-to-convert-srt-to-vtt-without-losing-subtitle-timing/">How to Convert SRT to VTT Without Losing Subtitle Timing</a></li>
+    </ul>
+  </section>
+</article>
+
+<style>
+  .long-form-guide {
+    margin-top: 4rem;
+    color: var(--text-primary, #f8fafc);
+  }
+
+  .guide-section {
+    margin-bottom: 3.5rem;
+  }
+
+  .guide-section-header {
+    margin-bottom: 1.25rem;
+  }
+
+  .guide-h2 {
+    font-size: 1.75rem;
+    font-weight: 800;
+    line-height: 1.3;
+    color: var(--text-primary, #f8fafc);
+    margin-bottom: 0.5rem;
+  }
+
+  .guide-subtitle {
+    font-size: 1.0625rem;
+    color: var(--text-secondary, #94a3b8);
+    line-height: 1.5;
+  }
+
+  .guide-lead {
+    font-size: 1.125rem;
+    color: var(--text-secondary, #94a3b8);
+    line-height: 1.6;
+  }
+
+  .guide-content-flow p {
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--text-secondary, #cbd5e1);
+    margin-bottom: 1rem;
+  }
+
+  .guide-content-flow p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Table styling */
+  .table-container {
+    overflow-x: auto;
+    border: 1px solid var(--border-color, rgba(255, 255, 255, 0.1));
+    border-radius: var(--radius-md, 8px);
+    background-color: var(--surface-primary, #0f172a);
+  }
+
+  .specs-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9375rem;
+    text-align: left;
+  }
+
+  .specs-table th,
+  .specs-table td {
+    padding: 0.85rem 1.15rem;
+    border-bottom: 1px solid var(--border-color, rgba(255, 255, 255, 0.08));
+  }
+
+  .specs-table th {
+    background-color: var(--surface-secondary, rgba(255, 255, 255, 0.04));
+    color: var(--text-primary, #f8fafc);
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .specs-table tr:last-child td {
+    border-bottom: none;
+  }
+
+  .highlight-spec {
+    color: var(--primary, #38bdf8);
+    font-weight: 600;
+  }
+
+  /* Math Callout */
+  .math-callout-box {
+    background-color: var(--surface-primary, #0f172a);
+    border: 1px solid var(--border-color, rgba(255, 255, 255, 0.12));
+    border-left: 4px solid var(--primary, #3b82f6);
+    border-radius: var(--radius-md, 8px);
+    padding: 1.25rem 1.5rem;
+    margin-top: 1rem;
+  }
+
+  .math-formula-header {
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-tertiary, #64748b);
+    margin-bottom: 0.5rem;
+  }
+
+  .math-formula-code {
+    font-size: 1.125rem;
+    font-family: var(--font-mono, monospace);
+    color: var(--accent, #38bdf8);
+    background-color: rgba(56, 189, 248, 0.08);
+    padding: 0.35rem 0.65rem;
+    border-radius: 4px;
+    display: inline-block;
+  }
+
+  /* Side by side code compare */
+  .code-compare-triplet {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .code-box {
+    background-color: var(--surface-primary, #0f172a);
+    border: 1px solid var(--border-color, rgba(255, 255, 255, 0.1));
+    border-radius: var(--radius-md, 8px);
+    overflow: hidden;
+  }
+
+  .code-box-header {
+    padding: 0.65rem 1rem;
+    background-color: var(--surface-secondary, rgba(255, 255, 255, 0.04));
+    border-bottom: 1px solid var(--border-color, rgba(255, 255, 255, 0.08));
+    display: flex;
+    align-items: center;
+  }
+
+  .code-block {
+    padding: 1rem;
+    margin: 0;
+    font-size: 0.8125rem;
+    font-family: var(--font-mono, monospace);
+    line-height: 1.6;
+    color: var(--text-secondary, #cbd5e1);
+    overflow-x: auto;
+    white-space: pre-wrap;
+  }
+
+  .example-explanation-box {
+    background-color: var(--surface-secondary, rgba(255, 255, 255, 0.03));
+    border: 1px solid var(--border-color, rgba(255, 255, 255, 0.08));
+    border-radius: var(--radius-md, 8px);
+    padding: 1rem 1.25rem;
+    font-size: 0.9375rem;
+    color: var(--text-secondary, #cbd5e1);
+  }
+
+  /* Terminal box */
+  .code-terminal-box {
+    background-color: #0b0f19;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: var(--radius-md, 8px);
+    overflow: hidden;
+    margin-top: 1.25rem;
+  }
+
+  .terminal-header {
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 0.65rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .terminal-dots {
+    display: flex;
+    gap: 0.35rem;
+  }
+
+  .terminal-dots span {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #475569;
+  }
+
+  .terminal-dots span:nth-child(1) { background-color: #ef4444; }
+  .terminal-dots span:nth-child(2) { background-color: #f59e0b; }
+  .terminal-dots span:nth-child(3) { background-color: #10b981; }
+
+  .terminal-title {
+    font-size: 0.75rem;
+    color: #94a3b8;
+    font-family: var(--font-mono, monospace);
+  }
+
+  .terminal-code {
+    padding: 1.15rem 1.25rem;
+    margin: 0;
+    color: #38bdf8;
+    font-family: var(--font-mono, monospace);
+    font-size: 0.875rem;
+    line-height: 1.6;
+    overflow-x: auto;
+  }
+
+  .guide-bullet-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .guide-bullet-list li {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 0.65rem;
+    color: var(--text-secondary, #cbd5e1);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+
+  .guide-bullet-list li::before {
+    content: "•";
+    position: absolute;
+    left: 0.4rem;
+    color: var(--primary, #3b82f6);
+    font-size: 1.25rem;
+  }
+
+  /* Use cases grid */
+  .usecases-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .usecase-card {
+    background-color: var(--surface-primary, #0f172a);
+    border: 1px solid var(--border-color, rgba(255, 255, 255, 0.08));
+    border-radius: var(--radius-md, 8px);
+    padding: 1.25rem;
+  }
+
+  .usecase-header {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    margin-bottom: 0.65rem;
+  }
+
+  .usecase-icon {
+    color: var(--primary, #3b82f6);
+    flex-shrink: 0;
+  }
+
+  .usecase-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-primary, #f8fafc);
+    margin: 0;
+  }
+
+  .usecase-desc {
+    font-size: 0.875rem;
+    color: var(--text-secondary, #94a3b8);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* Troubleshooting grid */
+  .troubleshoot-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .troubleshoot-card {
+    background-color: var(--surface-primary, #0f172a);
+    border: 1px solid var(--border-color, rgba(255, 255, 255, 0.08));
+    border-radius: var(--radius-md, 8px);
+    padding: 1.25rem;
+  }
+
+  .troubleshoot-issue {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.4rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .troubleshoot-issue-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-primary, #f8fafc);
+    margin: 0;
+  }
+
+  .troubleshoot-cause {
+    font-size: 0.875rem;
+    color: var(--text-secondary, #cbd5e1);
+    line-height: 1.5;
+    margin-bottom: 0.85rem;
+  }
+
+  .troubleshoot-solution {
+    background-color: var(--surface-secondary, rgba(255, 255, 255, 0.03));
+    border-radius: var(--radius-sm, 6px);
+    padding: 0.75rem 0.85rem;
+    border-left: 3px solid #10b981;
+  }
+
+  .troubleshoot-solution p {
+    margin: 0.4rem 0 0;
+    font-size: 0.85rem;
+    color: var(--text-secondary, #cbd5e1);
+    line-height: 1.5;
+  }
+
+  /* Workflow steps */
+  .workflow-steps-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+
+  .workflow-step-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    background-color: var(--surface-primary, #0f172a);
+    border: 1px solid var(--border-color, rgba(255, 255, 255, 0.08));
+    border-radius: var(--radius-md, 8px);
+    padding: 1rem 1.25rem;
+  }
+
+  .workflow-step-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: var(--primary, #3b82f6);
+    margin-top: 0.35rem;
+    flex-shrink: 0;
+  }
+
+  .workflow-step-text {
+    font-size: 0.9375rem;
+    color: var(--text-secondary, #cbd5e1);
+    line-height: 1.6;
+  }
+
+  /* Cross links */
+  .tool-links-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+  }
+
+  .pill-link {
+    padding: 0.5rem 0.9rem;
+    background-color: var(--surface-secondary, rgba(255, 255, 255, 0.05));
+    border: 1px solid var(--border-color, rgba(255, 255, 255, 0.1));
+    border-radius: var(--radius-full, 9999px);
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-primary, #f8fafc);
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .pill-link:hover {
+    background-color: var(--primary, #3b82f6);
+    color: #ffffff;
+    border-color: var(--primary, #3b82f6);
+  }
+
+  .guide-articles-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .guide-articles-list li {
+    margin-bottom: 0.65rem;
+  }
+
+  .guide-articles-list a {
+    color: var(--primary, #38bdf8);
+    text-decoration: none;
+    font-size: 0.9375rem;
+    font-weight: 500;
+  }
+
+  .guide-articles-list a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 768px) {
+    .code-compare-triplet {
+      grid-template-columns: 1fr;
+    }
+    .usecases-grid, .troubleshoot-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -8,6 +8,8 @@ import SrtToVttTool from '@/components/tools/SrtToVttTool.astro';
 import VttToSrtTool from '@/components/tools/VttToSrtTool.astro';
 import SrtToAssTool from '@/components/tools/SrtToAssTool.astro';
 import AssToSrtTool from '@/components/tools/AssToSrtTool.astro';
+import SrtToSubTool from '@/components/tools/SrtToSubTool.astro';
+import SubToSrtTool from '@/components/tools/SubToSrtTool.astro';
 import ToolCard from '@/components/tools/ToolCard.astro';
 import { ROUTES, type RouteId, getRoutePath } from '@/i18n/routes';
 import { type Locale } from '@/i18n/config';
@@ -132,6 +134,20 @@ const toolsUrl = getRoutePath('tools', locale);
             badge={tools.assToSrt.badge}
             description={tools.assToSrt.description}
           />
+          <ToolCard
+            locale={locale}
+            routeId="srt-to-sub"
+            name={tools.srtToSub.name}
+            badge={tools.srtToSub.badge}
+            description={tools.srtToSub.description}
+          />
+          <ToolCard
+            locale={locale}
+            routeId="sub-to-srt"
+            name={tools.subToSrt.name}
+            badge={tools.subToSrt.badge}
+            description={tools.subToSrt.description}
+          />
         </div>
       </section>
 
@@ -241,6 +257,18 @@ const toolsUrl = getRoutePath('tools', locale);
   </ToolLayout>
 )}
 
+{routeId === 'srt-to-sub' && (
+  <ToolLayout locale={locale} routeId={routeId} tool={tools.srtToSub}>
+    <SrtToSubTool locale={locale} />
+  </ToolLayout>
+)}
+
+{routeId === 'sub-to-srt' && (
+  <ToolLayout locale={locale} routeId={routeId} tool={tools.subToSrt}>
+    <SubToSrtTool locale={locale} />
+  </ToolLayout>
+)}
+
 {routeId === 'tools' && (
   <BaseLayout
     title={seo.title}
@@ -314,6 +342,20 @@ const toolsUrl = getRoutePath('tools', locale);
             name={tools.assToSrt.name}
             badge={tools.assToSrt.badge}
             description={tools.assToSrt.description}
+          />
+          <ToolCard
+            locale={locale}
+            routeId="srt-to-sub"
+            name={tools.srtToSub.name}
+            badge={tools.srtToSub.badge}
+            description={tools.srtToSub.description}
+          />
+          <ToolCard
+            locale={locale}
+            routeId="sub-to-srt"
+            name={tools.subToSrt.name}
+            badge={tools.subToSrt.badge}
+            description={tools.subToSrt.description}
           />
         </div>
       </section>
