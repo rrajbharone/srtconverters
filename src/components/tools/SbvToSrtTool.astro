@@ -1,0 +1,379 @@
+---
+import type { Locale } from '@/i18n/config';
+import { getToolsContent, getUiStrings } from '@/i18n/utils';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const ui = getUiStrings(locale);
+const tools = getToolsContent(locale);
+const tool = tools.sbvToSrt;
+---
+
+<div class="tool-workspace" id="sbv-to-srt-app">
+  <div class="privacy-banner">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+      <path d="M9 12l2 2 4-4"></path>
+    </svg>
+    <span><strong>{ui.privacyNotice.title}:</strong> {ui.privacyNotice.description}</span>
+  </div>
+
+  <div class="tool-grid">
+    <!-- Left Pane: SBV Input -->
+    <div class="tool-pane">
+      <div class="pane-header">
+        <span class="pane-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+            <polyline points="10 9 9 9 8 9"></polyline>
+          </svg>
+          SBV Input (.sbv)
+        </span>
+        <div class="pane-actions">
+          <button type="button" class="btn btn-outline btn-sm" id="btn-load-sbv-sample">
+            {ui.common.loadSample}
+          </button>
+          <button type="button" class="btn btn-outline btn-sm" id="btn-clear-sbv-input">
+            {ui.common.clear}
+          </button>
+        </div>
+      </div>
+
+      <div class="dropzone-container" id="sbv-dropzone">
+        <textarea
+          id="sbv-input"
+          class="tool-textarea"
+          placeholder="0:00:01.000,0:00:04.500&#10;Paste YouTube SBV captions here, or drop a .sbv file...&#10;&#10;0:00:05.100,0:00:08.250&#10;Next subtitle line"
+          spellcheck="false"
+        ></textarea>
+        
+        <div class="dropzone-overlay">
+          <span>{ui.common.dragAndDrop}</span>
+          <label for="sbv-file-upload" class="btn btn-secondary btn-sm" style="margin: 0; cursor: pointer;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="17 8 12 3 7 8"></polyline>
+              <line x1="12" y1="3" x2="12" y2="15"></line>
+            </svg>
+            <span>{ui.common.browseFiles}</span>
+          </label>
+          <input type="file" id="sbv-file-upload" class="file-input-hidden" accept=".sbv,.txt,text/plain" />
+        </div>
+      </div>
+
+      <div class="pane-footer-counts">
+        <span id="sbv-input-stats">0 cues | 0 characters</span>
+      </div>
+    </div>
+
+    <!-- Right Pane: SRT Output -->
+    <div class="tool-pane">
+      <div class="pane-header">
+        <span class="pane-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="4 17 10 11 4 5"></polyline>
+            <line x1="12" y1="19" x2="20" y2="19"></line>
+          </svg>
+          SubRip SRT Output (.srt)
+        </span>
+        <div class="pane-actions">
+          <button type="button" class="btn btn-outline btn-sm" id="btn-copy-srt" disabled>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+            <span id="copy-srt-btn-text">{ui.common.copy}</span>
+          </button>
+          <button type="button" class="btn btn-primary btn-sm" id="btn-download-srt" disabled>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            <span>{ui.common.download}</span>
+          </button>
+        </div>
+      </div>
+
+      <textarea
+        id="srt-output"
+        class="tool-textarea"
+        readonly
+        placeholder="1&#10;00:00:01,000 --> 00:00:04,500&#10;Converted SubRip SRT subtitles will appear here...&#10;&#10;2&#10;00:00:05,100 --> 00:00:08,250&#10;Ready for Premiere Pro, DaVinci Resolve, VLC & Plex!"
+      ></textarea>
+
+      <div class="pane-footer-counts">
+        <span id="sbv-output-stats">0 cues | 0 characters</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Settings Panel -->
+  <div class="settings-panel">
+    <div class="settings-panel-title">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="3"></circle>
+        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+      </svg>
+      {tool.settingsLabels.timingMode || ui.common.settings}
+    </div>
+
+    <div class="settings-grid">
+      <label class="setting-checkbox-item" title={tool.settingsLabels.cpsDuration}>
+        <input type="checkbox" id="check-decode-html" checked />
+        <span>{tool.settingsLabels.fixedDuration}</span>
+      </label>
+
+      <label class="setting-checkbox-item" title={tool.settingsLabels.cpsHint}>
+        <input type="checkbox" id="check-remove-sound-tags" />
+        <span>{tool.settingsLabels.cpsLabel}</span>
+      </label>
+
+      <label class="setting-checkbox-item" title={tool.settingsLabels.startTimeHint}>
+        <input type="checkbox" id="check-normalize-whitespace" checked />
+        <span>{tool.settingsLabels.startTime}</span>
+      </label>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { convertSbvToSrt, SAMPLE_SBV } from '@/lib/sbv-converters';
+
+  function initSbvToSrt() {
+    const sbvInput = document.getElementById('sbv-input') as HTMLTextAreaElement | null;
+    const srtOutput = document.getElementById('srt-output') as HTMLTextAreaElement | null;
+    const btnSample = document.getElementById('btn-load-sbv-sample') as HTMLButtonElement | null;
+    const btnClear = document.getElementById('btn-clear-sbv-input') as HTMLButtonElement | null;
+    const btnCopy = document.getElementById('btn-copy-srt') as HTMLButtonElement | null;
+    const btnDownload = document.getElementById('btn-download-srt') as HTMLButtonElement | null;
+    const copyBtnText = document.getElementById('copy-srt-btn-text') as HTMLElement | null;
+    const fileUpload = document.getElementById('sbv-file-upload') as HTMLInputElement | null;
+    const dropzone = document.getElementById('sbv-dropzone') as HTMLElement | null;
+    const inputStats = document.getElementById('sbv-input-stats') as HTMLElement | null;
+    const outputStats = document.getElementById('sbv-output-stats') as HTMLElement | null;
+
+    const checkDecodeHtml = document.getElementById('check-decode-html') as HTMLInputElement | null;
+    const checkRemoveSound = document.getElementById('check-remove-sound-tags') as HTMLInputElement | null;
+    const checkNormalizeWhitespace = document.getElementById('check-normalize-whitespace') as HTMLInputElement | null;
+
+    let originalFilename = 'captions';
+
+    function doConversion() {
+      if (!sbvInput || !srtOutput) return;
+      const rawText = sbvInput.value;
+
+      // Update input stats
+      const rawChars = rawText.length;
+      const rawLines = rawText ? rawText.split('\n').length : 0;
+      if (inputStats) {
+        inputStats.textContent = `${rawLines} lines | ${rawChars} characters`;
+      }
+
+      if (!rawText.trim()) {
+        srtOutput.value = '';
+        if (outputStats) outputStats.textContent = '0 cues | 0 characters';
+        if (btnCopy) btnCopy.disabled = true;
+        if (btnDownload) btnDownload.disabled = true;
+        return;
+      }
+
+      const result = convertSbvToSrt(rawText, {
+        decodeHtmlEntities: checkDecodeHtml?.checked ?? true,
+        removeSoundDescriptions: checkRemoveSound?.checked ?? false,
+        cleanWhitespace: checkNormalizeWhitespace?.checked ?? true,
+      });
+
+      srtOutput.value = result.srt;
+
+      if (outputStats) {
+        outputStats.textContent = `${result.cueCount} cues | ${result.srt.length} characters`;
+      }
+
+      const hasContent = Boolean(result.srt && result.srt.trim().length > 0);
+      if (btnCopy) btnCopy.disabled = !hasContent;
+      if (btnDownload) btnDownload.disabled = !hasContent;
+    }
+
+    sbvInput?.addEventListener('input', doConversion);
+    checkDecodeHtml?.addEventListener('change', doConversion);
+    checkRemoveSound?.addEventListener('change', doConversion);
+    checkNormalizeWhitespace?.addEventListener('change', doConversion);
+
+    btnSample?.addEventListener('click', () => {
+      if (sbvInput) {
+        sbvInput.value = SAMPLE_SBV;
+        originalFilename = 'sample_captions';
+        doConversion();
+      }
+    });
+
+    btnClear?.addEventListener('click', () => {
+      if (sbvInput) {
+        sbvInput.value = '';
+        originalFilename = 'captions';
+        doConversion();
+      }
+    });
+
+    // File Upload handling
+    fileUpload?.addEventListener('change', (e) => {
+      const target = e.target as HTMLInputElement;
+      if (target.files && target.files[0]) {
+        const file = target.files[0];
+        originalFilename = file.name.replace(/\.[^/.]+$/, '');
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          if (sbvInput && typeof event.target?.result === 'string') {
+            sbvInput.value = event.target.result;
+            doConversion();
+          }
+        };
+        reader.readAsText(file);
+      }
+    });
+
+    // Drag and Drop
+    if (dropzone) {
+      ['dragenter', 'dragover'].forEach((eventName) => {
+        dropzone.addEventListener(eventName, (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          dropzone.classList.add('dragover');
+        });
+      });
+
+      ['dragleave', 'drop'].forEach((eventName) => {
+        dropzone.addEventListener(eventName, (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          dropzone.classList.remove('dragover');
+        });
+      });
+
+      dropzone.addEventListener('drop', (e: DragEvent) => {
+        const dt = e.dataTransfer;
+        if (dt && dt.files && dt.files[0]) {
+          const file = dt.files[0];
+          originalFilename = file.name.replace(/\.[^/.]+$/, '');
+          const reader = new FileReader();
+          reader.onload = (event) => {
+            if (sbvInput && typeof event.target?.result === 'string') {
+              sbvInput.value = event.target.result;
+              doConversion();
+            }
+          };
+          reader.readAsText(file);
+        }
+      });
+    }
+
+    // Clipboard Copy
+    btnCopy?.addEventListener('click', async () => {
+      if (!srtOutput?.value) return;
+      try {
+        await navigator.clipboard.writeText(srtOutput.value);
+        if (copyBtnText) {
+          const orig = copyBtnText.textContent;
+          copyBtnText.textContent = 'Copied!';
+          setTimeout(() => {
+            if (copyBtnText) copyBtnText.textContent = orig;
+          }, 2000);
+        }
+      } catch (err) {
+        console.error('Clipboard copy failed:', err);
+      }
+    });
+
+    // Download SRT
+    btnDownload?.addEventListener('click', () => {
+      if (!srtOutput?.value) return;
+      const blob = new Blob([srtOutput.value], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${originalFilename}.srt`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    });
+
+    // Auto load sample on first load if empty
+    if (sbvInput && !sbvInput.value.trim()) {
+      sbvInput.value = SAMPLE_SBV;
+      doConversion();
+    }
+  }
+
+  // Initialize on initial load and Astro view transitions
+  initSbvToSrt();
+  document.addEventListener('astro:page-load', initSbvToSrt);
+</script>
+
+<style>
+  .tool-textarea {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .pane-footer-counts {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    padding: 0.4rem 0.5rem 0;
+  }
+
+  .setting-checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    font-size: 0.875rem;
+    color: var(--text-primary);
+    user-select: none;
+  }
+
+  .setting-checkbox-item input[type="checkbox"] {
+    cursor: pointer;
+    width: 1rem;
+    height: 1rem;
+    accent-color: var(--accent-primary);
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 768px) {
+    .tool-textarea {
+      height: 180px !important;
+      min-height: 160px;
+      padding: 0.75rem;
+      font-size: 0.8125rem;
+      line-height: 1.5;
+    }
+
+    .dropzone-container {
+      min-height: unset;
+    }
+
+    .dropzone-overlay {
+      padding: 0.45rem 0.75rem;
+      font-size: 0.75rem;
+    }
+
+    .pane-header {
+      padding: 0.5rem 0.75rem;
+    }
+
+    .pane-footer-counts {
+      padding: 0.25rem 0.5rem 0;
+      font-size: 0.6875rem;
+    }
+  }
+</style>

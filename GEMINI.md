@@ -1,4 +1,4 @@
-﻿# PERMANENT PROJECT RULE: COMPLETE MULTILINGUAL PARITY FOR ALL TOOLS
+# PERMANENT PROJECT RULE: COMPLETE MULTILINGUAL PARITY FOR ALL TOOLS
 
 > **CRITICAL MANDATE**: English (`en`) is the master / reference version. Every tool, page, and feature on `srtconverters.com` MUST maintain 100% complete quality and structural parity across all 8 supported languages (`en`, `es`, `pt`, `fr`, `de`, `id`, `tr`, `it`). Quality and parity are always prioritized over speed.
 
@@ -58,5 +58,20 @@ Before declaring any tool, feature, or page complete, the agent must:
 - [ ] Verify that FAQ count in `src/i18n/tools.ts` matches English across all locales.
 - [ ] Verify all UI labels, badges, and error messages are properly wired through localization dictionaries.
 - [ ] Verify meta titles, descriptions, and slugs in `src/i18n/seo.ts` and `src/i18n/routes.ts`.
+- [ ] Verify mobile responsiveness on small screens (≤ 375px / 768px): dropdowns contained within card, compact textarea height (~180px–200px), no horizontal overflow.
+- [ ] Verify dark mode contrast and readability across the tool UI and full content guide.
 - [ ] Run `cmd.exe /c npm run build` and ensure all static routes compile with 0 errors.
 - [ ] Inspect generated HTML files in `dist/` to confirm word counts and complete rendering.
+
+---
+
+## 5. UI/UX Reference Standard: TXT to SRT & SRT to Text
+Whenever creating ANY new tool on `srtconverters.com`, the agent **MUST** use the existing **“TXT to SRT Converter”** (`src/components/tools/TxtToSrtTool.astro`) and **“SRT to Text Converter”** (`src/components/tools/SrtToTextTool.astro`) as the primary design, layout, and UX references:
+
+* **Design Pattern Reuse**: Do NOT invent a new design pattern or layout for each tool. Reuse and follow the proven layout, spacing, and classes from `TxtToSrtTool` / `SrtToTextTool` / `global.css`.
+* **Dropdown & Select Responsiveness**: Dropdowns and select boxes (`.control-select`, `<select>`) must never overflow outside the tool card on mobile (`max-width: 100%; width: 100%; min-width: 0; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;`).
+* **Compact Mobile Textarea Height**: Text input / textarea areas (`.tool-textarea`) must have a compact, sensible height on mobile screens (`180px`–`200px`) so they do not waste excessive vertical space, while keeping standard `260px` on desktop.
+* **No Horizontal Overflow**: Card containers, control bars, grids, and overlays must remain contained within viewport bounds on small screens (320px–480px).
+* **Dark Mode Parity**: Use the established CSS variable system (`var(--bg-card)`, `var(--bg-primary)`, `var(--bg-secondary)`, `var(--border-color)`, `var(--text-primary)`, `var(--text-secondary)`, etc.) ensuring full readability and contrast in both light and dark modes across the tool UI and content sections.
+* **Consistent Layouts Across Devices**: Clean spacing, aligned headers and action buttons, properly styled drag-and-drop zones, and clear visual hierarchy across mobile, tablet, and desktop.
+

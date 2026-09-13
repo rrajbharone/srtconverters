@@ -80,6 +80,7 @@ export interface ToolsContent {
   assToSrt: ToolDetail;
   srtToSub: ToolDetail;
   subToSrt: ToolDetail;
+  sbvToSrt: ToolDetail;
 }
 
 export const TOOLS_TRANSLATIONS: Record<Locale, ToolsContent> = {
@@ -833,7 +834,103 @@ export const TOOLS_TRANSLATIONS: Record<Locale, ToolsContent> = {
                       "answer": "You can convert SUB subtitles to standard SRT using FFmpeg on your terminal. For timestamped SubViewer files, run: ffmpeg -i input.sub output.srt. For frame-indexed MicroDVD files, you must specify the video frame rate using the -r flag so FFmpeg knows how to calculate timestamps: ffmpeg -r 23.976 -i input.sub output.srt. If your SUB file uses legacy ANSI/Windows-1252 or ISO-8859-1 character encoding with accented letters, add the sub_charenc parameter: ffmpeg -sub_charenc CP1252 -r 25 -i input.sub output.srt. This is especially useful for automated batch folder processing and command-line video workflows."
                 }
           ]
-    }
+    },
+    sbvToSrt: {
+      "id": "sbv-to-srt",
+      "name": "SBV to SRT Converter",
+      "shortName": "SBV to SRT",
+      "badge": "Free & Client-Side",
+      "tagline": "Convert YouTube Captions (.SBV) to Standard SubRip (.SRT) Online",
+      "description": "Convert YouTube SBV and SubViewer subtitle files to clean, universal SubRip (.srt) format online for free. Auto-format timestamps, decode HTML entities, remove sound cues, and download standard SRT files instantly.",
+      "h1": "SBV to SRT Converter Online",
+      "metaTitle": "SBV to SRT Converter Online – Convert YouTube Captions to SRT Free | SRTConverters",
+      "metaDescription": "Convert YouTube SBV and SubViewer subtitle files to clean SubRip (.srt) format online for free. Auto-format timestamps, decode HTML entities, and download standard SRT files instantly.",
+      "settingsLabels": {
+            "timingMode": "Subtitle Cleaning Options",
+            "fixedDuration": "Decode HTML Entities",
+            "cpsDuration": "Converts &amp;, &#39;, &quot;, &lt;, &gt; to clean readable characters",
+            "cpsLabel": "Remove Sound Descriptors",
+            "cpsHint": "Strip [Music], [Applause], and sound effects from dialogue cues",
+            "startTime": "Normalize Whitespace",
+            "startTimeHint": "Clean redundant spaces and remove empty subtitle lines"
+      },
+      "stepsTitle": "How to Convert SBV to SRT Online in 3 Steps",
+      "steps": [
+            {
+                  "step": "1",
+                  "title": "Upload or Paste SBV Subtitles",
+                  "description": "Drag and drop your YouTube .sbv file into the dropzone or paste your SubViewer caption text directly into the input area."
+            },
+            {
+                  "step": "2",
+                  "title": "Configure Cleaning Preferences",
+                  "description": "Optionally toggle HTML entity decoding (fixing &amp; and &#39;) and choose whether to strip automated sound descriptors like [Music] or [Applause]."
+            },
+            {
+                  "step": "3",
+                  "title": "Download Converted SRT File",
+                  "description": "Click Download .SRT to instantly save your converted SubRip subtitle file, or copy the formatted text directly to your clipboard for your video editor or player."
+            }
+      ],
+      "featuresTitle": "Why Use Our Online SBV to SRT Converter?",
+      "features": [
+            {
+                  "title": "Exact Millisecond Preservation",
+                  "description": "Every start and end timestamp is accurately preserved down to the millisecond, converting SBV decimal dots into standard SRT comma delimiters with two-digit hour padding.",
+                  "icon": "zap"
+            },
+            {
+                  "title": "Automatic HTML Entity Decoding",
+                  "description": "YouTube caption exports frequently contain raw HTML entities like &amp;, &#39;, and &quot;. Our tool automatically decodes them into clean, human-readable text.",
+                  "icon": "layers"
+            },
+            {
+                  "title": "Sound Effect Filtering",
+                  "description": "Easily strip automated speech-to-text sound cues such as [Music], [Applause], and [Laughter] to produce clean, professional dialogue subtitles.",
+                  "icon": "shield"
+            },
+            {
+                  "title": "100% Client-Side Privacy",
+                  "description": "All conversion runs purely inside your browser. Your subtitle files, scripts, and video transcripts are never uploaded, stored, or sent to external servers.",
+                  "icon": "split"
+            }
+      ],
+      "faqsTitle": "Frequently Asked Questions About SBV to SRT Conversion",
+      "faqs": [
+            {
+                  "question": "What is an SBV file and how does it differ from an SRT file?",
+                  "answer": "An SBV (.sbv) file, also known as YouTube SubViewer format, is a plain-text subtitle format developed by Google specifically for YouTube captions. In an SBV file, each subtitle block begins directly with a comma-separated timestamp pair (e.g., 0:00:01.000,0:00:04.500) followed by the dialogue text, with no sequential cue index numbers. In contrast, SubRip (.srt) is the worldwide standard for subtitles across video players and editing software. An SRT file requires a numeric cue counter (1, 2, 3...), uses an arrow separator (' --> ') with commas before milliseconds (00:00:01,000 --> 00:00:04,500), and pads hours to two digits. Converting SBV to SRT enables you to use YouTube captions in external software like Premiere Pro, DaVinci Resolve, VLC, and Plex."
+            },
+            {
+                  "question": "Why does YouTube Studio export captions in .sbv format instead of .srt?",
+                  "answer": "YouTube historically adopted the SubViewer format variant (.sbv) during the early days of automated speech recognition and captioning. The format was chosen for its minimalistic structure: it omits cue index numbers and uses a concise comma delimiter between start and end timestamps. While YouTube Studio allows creators to download automatic or manual captions as .sbv, most professional video editing suites, television sets, and media players do not support .sbv files natively, necessitating conversion to standard .srt."
+            },
+            {
+                  "question": "How do I download an SBV subtitle file from YouTube Studio?",
+                  "answer": "To download your captions from YouTube: (1) Log in to YouTube Studio and select 'Subtitles' from the left menu. (2) Click on the video containing the captions you want. (3) Next to the published subtitle language or automatic captions track, click the three-dots menu (Options) and select 'Download'. (4) Choose '.sbv' (or SubViewer). YouTube will download a file named 'captions.sbv', which you can drop directly into our converter to transform into standard .srt."
+            },
+            {
+                  "question": "How do SBV timestamps differ from standard SubRip SRT timestamps?",
+                  "answer": "SBV timestamps use a single comma between the start and end timecodes and periods before milliseconds, frequently using single-digit hours: '0:01:23.450,0:01:27.800'. SubRip SRT timestamps require an arrow with spaces (' --> '), commas before milliseconds, and strictly two digits for hours: '00:01:23,450 --> 00:01:27,800'. Additionally, SRT requires an integer sequence number (1, 2, 3...) immediately above the timestamp line. Our converter handles all of these reformatting adjustments automatically."
+            },
+            {
+                  "question": "Why does my YouTube SBV file contain strange codes like &amp; and &#39;?",
+                  "answer": "YouTube caption export tools encode special typographic characters as HTML entities to ensure safe rendering inside web browsers. For example, an ampersand is exported as '&amp;', single quotes or apostrophes as '&#39;' or '&apos;', quotation marks as '&quot;', and angle brackets as '&lt;' and '&gt;'. When played in a desktop video editor or VLC, these raw codes appear literally on screen, making dialogue look broken. Our converter automatically decodes all HTML entities into their actual punctuation characters."
+            },
+            {
+                  "question": "Can I import the converted SRT subtitles into Premiere Pro, DaVinci Resolve, and Final Cut Pro?",
+                  "answer": "Yes. Standard SubRip (.srt) is universally recognized by all professional non-linear video editing (NLE) software, including Adobe Premiere Pro, DaVinci Resolve, Apple Final Cut Pro, Avid Media Composer, CapCut, and Vegas Pro. Once converted, simply import the .srt file into your media pool and drag it onto your editing timeline as a dedicated subtitle or caption track."
+            },
+            {
+                  "question": "Are my subtitle files uploaded to a remote server during conversion?",
+                  "answer": "No. SRTConverters processes 100% of your subtitle files locally inside your web browser using client-side JavaScript. Your SBV captions, video transcripts, and converted SRT files never leave your computer, ensuring complete confidentiality, zero data leakage, and compliance with corporate privacy policies."
+            },
+            {
+                  "question": "How can I convert SBV to SRT on the command line using Python or FFmpeg?",
+                  "answer": "You can convert SBV to SRT using FFmpeg with the command: 'ffmpeg -i input.sbv -c:s srt output.srt'. If using Python, you can read the file in blocks of lines, split timestamps on the comma, replace decimal dots with commas, and write sequential counters. Our online tool performs the exact same mathematical parsing instantly without requiring Python, terminal installations, or FFmpeg binaries."
+            }
+      ]
+}
   },
   "es": {
     "directory": {
@@ -1585,7 +1682,103 @@ export const TOOLS_TRANSLATIONS: Record<Locale, ToolsContent> = {
                       "answer": "Puedes convertir subtítulos SUB a SRT desde la línea de comandos con FFmpeg. Para archivos SubViewer basados en tiempo, ejecuta: ffmpeg -i entrada.sub salida.srt. Para archivos MicroDVD basados en fotogramas, debes indicar los FPS del vídeo mediante el parámetro -r para que FFmpeg calcule los tiempos: ffmpeg -r 23.976 -i entrada.sub salida.srt. Si el archivo original incluye caracteres acentuados o especiales en codificación ANSI o Windows-1252, añade el parámetro de codificación: ffmpeg -sub_charenc CP1252 -r 25 -i entrada.sub salida.srt. Esto resulta ideal para automatizaciones por lotes en terminal."
                 }
           ]
-    }
+    },
+    sbvToSrt: {
+      "id": "sbv-to-srt",
+      "name": "Convertidor de SBV a SRT",
+      "shortName": "SBV a SRT",
+      "badge": "Gratis y en el Navegador",
+      "tagline": "Convierte Subtítulos de YouTube (.SBV) a SubRip (.SRT) Estándar Online",
+      "description": "Convierte subtítulos SBV y SubViewer de YouTube a formato SubRip (.srt) limpio y universal online gratis. Formatea marcas de tiempo, decodifica entidades HTML y descarga archivos SRT al instante.",
+      "h1": "Convertidor de SBV a SRT Online",
+      "metaTitle": "Convertidor de SBV a SRT Online – Subtítulos de YouTube a SRT Gratis | SRTConverters",
+      "metaDescription": "Convierte archivos de subtítulos SBV y SubViewer de YouTube a formato SubRip (.srt) limpio gratis en línea. Formatea marcas de tiempo, decodifica entidades HTML y descarga al instante.",
+      "settingsLabels": {
+            "timingMode": "Opciones de Limpieza de Subtítulos",
+            "fixedDuration": "Decodificar Entidades HTML",
+            "cpsDuration": "Convierte &amp;, &#39;, &quot;, &lt;, &gt; en caracteres legibles",
+            "cpsLabel": "Eliminar Descriptores de Sonido",
+            "cpsHint": "Elimina [Música], [Aplausos] y efectos sonoros de los diálogos",
+            "startTime": "Normalizar Espacios en Blanco",
+            "startTimeHint": "Limpia espacios redundantes y elimina líneas vacías"
+      },
+      "stepsTitle": "Cómo Convertir SBV a SRT Online en 3 Pasos",
+      "steps": [
+            {
+                  "step": "1",
+                  "title": "Sube o Pega tus Subtítulos SBV",
+                  "description": "Arrastra y suelta tu archivo .sbv de YouTube en la zona de carga o pega el texto directamente en el área de entrada."
+            },
+            {
+                  "step": "2",
+                  "title": "Configura tus Preferencias de Limpieza",
+                  "description": "Activa la decodificación de entidades HTML (como &amp; o &#39;) y elige si deseas remover descriptores automáticos como [Música]."
+            },
+            {
+                  "step": "3",
+                  "title": "Descarga tu Archivo SRT Convertido",
+                  "description": "Haz clic en Descargar .SRT para guardar tu archivo SubRip o copia el texto con formato para usarlo en tu editor de video o reproductor."
+            }
+      ],
+      "featuresTitle": "¿Por Qué Usar Nuestro Convertidor de SBV a SRT?",
+      "features": [
+            {
+                  "title": "Preservación Exacta de Milisegundos",
+                  "description": "Cada marca de tiempo se mantiene con precisión de milisegundos, convirtiendo los puntos decimales de SBV en comas de SRT con horas en dos dígitos.",
+                  "icon": "zap"
+            },
+            {
+                  "title": "Decodificación Automática de HTML",
+                  "description": "Las exportaciones de YouTube suelen contener entidades como &amp; y &#39;. Nuestra herramienta las convierte en texto limpio y legible.",
+                  "icon": "layers"
+            },
+            {
+                  "title": "Filtrado de Efectos de Sonido",
+                  "description": "Elimina fácilmente indicadores automáticos como [Música] y [Aplausos] para obtener subtítulos de diálogo profesionales.",
+                  "icon": "shield"
+            },
+            {
+                  "title": "Privacidad 100% en el Navegador",
+                  "description": "Toda la conversión se ejecuta localmente en tu navegador. Tus archivos de subtítulos nunca se suben ni se almacenan en servidores externos.",
+                  "icon": "split"
+            }
+      ],
+      "faqsTitle": "Preguntas Frecuentes Sobre la Conversión de SBV a SRT",
+      "faqs": [
+            {
+                  "question": "¿Qué es un archivo SBV y en qué se diferencia de un archivo SRT?",
+                  "answer": "Un archivo SBV (.sbv), conocido como formato YouTube SubViewer, es un formato de subtítulos de texto plano desarrollado por Google específicamente para los subtítulos de YouTube. En un archivo SBV, cada bloque inicia directamente con un par de marcas de tiempo separadas por coma (ej. 0:00:01.000,0:00:04.500) seguido del diálogo, sin números de índice secuencial. En cambio, SubRip (.srt) es el estándar mundial compatible con reproductores y editores de video. Un archivo SRT requiere un contador numérico (1, 2, 3...), una flecha separadora (' --> ') con comas antes de los milisegundos (00:00:01,000 --> 00:00:04,500) y horas con dos dígitos. Convertir SBV a SRT te permite usar subtítulos de YouTube en Premiere Pro, DaVinci Resolve, VLC y Plex."
+            },
+            {
+                  "question": "¿Por qué YouTube Studio exporta subtítulos en formato .sbv en lugar de .srt?",
+                  "answer": "Históricamente, YouTube adoptó la variante SubViewer (.sbv) durante las primeras etapas de su sistema de reconocimiento de voz y subtitulado automático. Se eligió por su estructura minimalista: omite números de índice y utiliza una coma compacta entre tiempos de inicio y fin. Aunque YouTube Studio permite descargar subtítulos como .sbv, la mayoría de suites de edición y televisores inteligentes no admiten .sbv de forma nativa, lo que hace indispensable convertir a .srt."
+            },
+            {
+                  "question": "¿Cómo descargo un archivo de subtítulos SBV desde YouTube Studio?",
+                  "answer": "Para descargar tus subtítulos desde YouTube: (1) Inicia sesión en YouTube Studio y selecciona 'Subtítulos' en el menú izquierdo. (2) Haz clic en el video deseado. (3) Junto a la pista de subtítulos publicada o automática, haz clic en el menú de tres puntos (Opciones) y selecciona 'Descargar'. (4) Elige '.sbv' (o SubViewer). YouTube descargará un archivo llamado 'captions.sbv', el cual puedes arrastrar a nuestro convertidor para transformarlo en .srt estándar."
+            },
+            {
+                  "question": "¿Cómo se diferencian las marcas de tiempo de SBV respecto a las de SRT?",
+                  "answer": "Las marcas de tiempo de SBV usan una sola coma entre inicio y fin y puntos decimales antes de los milisegundos, a menudo con horas en un solo dígito: '0:01:23.450,0:01:27.800'. Los subtítulos SubRip SRT requieren una flecha con espacios (' --> '), comas antes de los milisegundos y estrictamente dos dígitos en las horas: '00:01:23,450 --> 00:01:27,800'. Además, SRT exige un número entero secuencial sobre cada bloque. Nuestro convertidor realiza todas estas transformaciones de manera automática."
+            },
+            {
+                  "question": "¿Por qué mi archivo SBV de YouTube contiene códigos extraños como &amp; y &#39;?",
+                  "answer": "YouTube codifica ciertos signos de puntuación como entidades HTML para garantizar que se muestren correctamente en navegadores web. Por ejemplo, el signo ampersand se exporta como '&amp;', las comillas simples o apóstrofes como '&#39;' o '&apos;', y las comillas dobles como '&quot;'. En reproductores locales o editores como Premiere, estos códigos se muestran literalmente en pantalla arruinando la lectura. Nuestro convertidor decodifica automáticamente todas las entidades HTML en sus caracteres reales."
+            },
+            {
+                  "question": "¿Puedo importar los subtítulos SRT convertidos en Premiere Pro, DaVinci Resolve y Final Cut Pro?",
+                  "answer": "Sí. El formato SubRip (.srt) es universalmente reconocido por todos los editores de video profesionales, incluidos Adobe Premiere Pro, DaVinci Resolve, Apple Final Cut Pro, Avid Media Composer y CapCut. Una vez convertido tu archivo, simplemente impórtalo a tu biblioteca de medios y arrástralo a la línea de tiempo como pista de subtítulos."
+            },
+            {
+                  "question": "¿Mis archivos de subtítulos se suben a un servidor externo durante la conversión?",
+                  "answer": "No. SRTConverters procesa el 100% de tus archivos localmente en tu navegador web mediante JavaScript en el lado del cliente. Tus subtítulos SBV, transcripciones y archivos SRT generados nunca salen de tu dispositivo, garantizando total privacidad y confidencialidad."
+            },
+            {
+                  "question": "¿Cómo puedo convertir SBV a SRT desde la terminal usando Python o FFmpeg?",
+                  "answer": "Puedes convertir SBV a SRT con FFmpeg mediante el comando: 'ffmpeg -i input.sbv -c:s srt output.srt'. Si utilizas Python, puedes leer el archivo por bloques, separar las marcas de tiempo por la coma y escribir los contadores numéricos. Nuestra herramienta online ejecuta exactamente la misma transformación matemática de forma instantánea sin requerir instalaciones ni comandos en la terminal."
+            }
+      ]
+}
   },
   "pt": {
     "directory": {
@@ -2337,7 +2530,103 @@ export const TOOLS_TRANSLATIONS: Record<Locale, ToolsContent> = {
                       "answer": "Você pode converter legendas SUB para SRT via terminal com o FFmpeg. Para legendas SubViewer baseadas em tempo, use: ffmpeg -i entrada.sub saida.srt. Para legendas MicroDVD baseadas em frames, informe a taxa de quadros com a flag -r para que os tempos sejam calculados corretamente: ffmpeg -r 23.976 -i entrada.sub saida.srt. Se o arquivo tiver acentos em codificação ANSI ou Windows-1252, adicione o parâmetro de codificação: ffmpeg -sub_charenc CP1252 -r 25 -i entrada.sub saida.srt. Essa abordagem é excelente para rotinas de processamento em lote."
                 }
           ]
-    }
+    },
+    sbvToSrt: {
+      "id": "sbv-to-srt",
+      "name": "Conversor de SBV para SRT",
+      "shortName": "SBV para SRT",
+      "badge": "Grátis e no Navegador",
+      "tagline": "Converta Legendas do YouTube (.SBV) para SubRip (.SRT) Padrão Online",
+      "description": "Converta arquivos de legendas SBV e SubViewer do YouTube para o formato universal SubRip (.srt) online e grátis. Ajuste marcações de tempo, decodifique entidades HTML e baixe arquivos SRT instantaneamente.",
+      "h1": "Conversor de SBV para SRT Online",
+      "metaTitle": "Conversor de SBV para SRT Online – Legendas do YouTube para SRT Grátis | SRTConverters",
+      "metaDescription": "Converta arquivos de legendas SBV e SubViewer do YouTube em formato SubRip (.srt) limpo online e grátis. Formate marcações de tempo, decodifique entidades HTML e baixe instantaneamente.",
+      "settingsLabels": {
+            "timingMode": "Opções de Limpeza de Legendas",
+            "fixedDuration": "Decodificar Entidades HTML",
+            "cpsDuration": "Converte &amp;, &#39;, &quot;, &lt;, &gt; em texto legível e limpo",
+            "cpsLabel": "Remover Descrições de Som",
+            "cpsHint": "Exclui [Música], [Aplausos] e efeitos sonoros dos diálogos",
+            "startTime": "Normalizar Espaços em Branco",
+            "startTimeHint": "Remove espaços redundantes e linhas de diálogo vazias"
+      },
+      "stepsTitle": "Como Converter SBV para SRT Online em 3 Passos",
+      "steps": [
+            {
+                  "step": "1",
+                  "title": "Carregue ou Cole suas Legendas SBV",
+                  "description": "Arraste e solte seu arquivo .sbv do YouTube na área de upload ou cole o texto das legendas diretamente no campo de entrada."
+            },
+            {
+                  "step": "2",
+                  "title": "Configure as Preferências de Limpeza",
+                  "description": "Ative a decodificação de entidades HTML (&amp;, &#39;) e escolha se deseja remover marcadores sonoros automáticos como [Música]."
+            },
+            {
+                  "step": "3",
+                  "title": "Baixe o Arquivo SRT Convertido",
+                  "description": "Clique em Baixar .SRT para salvar seu arquivo SubRip instantaneamente ou copie o texto formatado para seu editor de vídeo ou player."
+            }
+      ],
+      "featuresTitle": "Por Que Usar Nosso Conversor de SBV para SRT?",
+      "features": [
+            {
+                  "title": "Preservação Exata de Milissegundos",
+                  "description": "Cada marcação de tempo é preservada com precisão milimétrica, convertendo os pontos decimais do SBV em vírgulas com horas em dois dígitos.",
+                  "icon": "zap"
+            },
+            {
+                  "title": "Decodificação Automática de HTML",
+                  "description": "As legendas do YouTube frequentemente contêm entidades como &amp; e &#39;. Nossa ferramenta as converte em texto limpo e legível.",
+                  "icon": "layers"
+            },
+            {
+                  "title": "Filtragem de Efeitos Sonoros",
+                  "description": "Remova com facilidade marcadores automáticos como [Música] e [Aplausos] para obter legendas de diálogo com acabamento profissional.",
+                  "icon": "shield"
+            },
+            {
+                  "title": "Privacidade 100% no Navegador",
+                  "description": "Toda a conversão ocorre localmente no seu navegador. Seus arquivos de legendas nunca são enviados nem armazenados em servidores externos.",
+                  "icon": "split"
+            }
+      ],
+      "faqsTitle": "Perguntas Frequentes Sobre a Conversão de SBV para SRT",
+      "faqs": [
+            {
+                  "question": "O que é um arquivo SBV e como ele se diferencia do formato SRT?",
+                  "answer": "Um arquivo SBV (.sbv), conhecido como formato YouTube SubViewer, é um padrão de legendas em texto simples desenvolvido pelo Google especialmente para legendas no YouTube. No arquivo SBV, cada bloco começa diretamente com um par de marcações de tempo separadas por vírgula (ex.: 0:00:01.000,0:00:04.500) seguido pelas falas, sem numeração de índice sequencial. Em contrapartida, o SubRip (.srt) é o padrão universal para players e editores de vídeo, exigindo números de índice (1, 2, 3...), seta separadora (' --> ') com vírgulas antes dos milissegundos (00:00:01,000 --> 00:00:04,500) e horas com dois dígitos. Converter SBV para SRT permite usar legendas do YouTube no Premiere Pro, DaVinci Resolve, VLC e Plex."
+            },
+            {
+                  "question": "Por que o YouTube Studio exporta legendas em formato .sbv em vez de .srt?",
+                  "answer": "Historicamente, o YouTube adotou a variante SubViewer (.sbv) nos primórdios do seu sistema de transcrição automática. A escolha se deu pela simplicidade da estrutura: sem números de índice e com uma vírgula direta entre os tempos de início e fim. Embora o YouTube Studio permita baixar legendas em .sbv, a grande maioria dos editores de vídeo e smart TVs não aceita .sbv nativamente, tornando a conversão para .srt essencial."
+            },
+            {
+                  "question": "Como baixar um arquivo de legendas SBV do YouTube Studio?",
+                  "answer": "Para baixar suas legendas do YouTube: (1) Faça login no YouTube Studio e selecione 'Legendas' no menu lateral. (2) Clique no vídeo desejado. (3) Ao lado da faixa de legendas publicada ou automática, clique no menu de três pontos (Opções) e selecione 'Fazer download'. (4) Escolha '.sbv' (ou SubViewer). O YouTube baixará o arquivo 'captions.sbv', que você pode arrastar para o nosso conversor para obter o formato .srt."
+            },
+            {
+                  "question": "Como as marcações de tempo do SBV diferem das do SubRip SRT?",
+                  "answer": "As marcações de tempo do SBV utilizam uma única vírgula entre início e fim e pontos decimais antes dos milissegundos, frequentemente com horas em um dígito: '0:01:23.450,0:01:27.800'. Já o formato SubRip SRT exige uma seta com espaços (' --> '), vírgulas antes dos milissegundos e estritamente dois dígitos para as horas: '00:01:23,450 --> 00:01:27,800'. Além disso, o SRT exige um índice sequencial sobre cada bloco. Nosso conversor realiza todas essas correções automaticamente."
+            },
+            {
+                  "question": "Por que meu arquivo SBV do YouTube exibe códigos como &amp; e &#39;?",
+                  "answer": "O YouTube codifica certos caracteres tipográficos como entidades HTML para assegurar a renderização segura em navegadores web. Por exemplo, o 'e' comercial vira '&amp;', aspas simples ou apóstrofos viram '&#39;' ou '&apos;', e aspas duplas viram '&quot;'. Em players locais ou no Premiere, esses códigos aparecem literalmente na tela, quebrando o texto. Nosso conversor decodifica automaticamente todas essas entidades nos seus caracteres reais."
+            },
+            {
+                  "question": "Posso importar as legendas SRT convertidas no Premiere Pro, DaVinci Resolve e Final Cut Pro?",
+                  "answer": "Sim. O formato SubRip (.srt) é universalmente compatível com todos os softwares profissionais de edição de vídeo, como Adobe Premiere Pro, DaVinci Resolve, Apple Final Cut Pro, Avid Media Composer e CapCut. Basta importar o arquivo .srt convertido para a sua biblioteca e arrastá-lo para a linha do tempo."
+            },
+            {
+                  "question": "Meus arquivos de legendas são enviados para algum servidor durante a conversão?",
+                  "answer": "Não. O SRTConverters processa 100% dos seus arquivos localmente no navegador por meio de JavaScript no cliente. Suas legendas SBV, transcrições e arquivos SRT gerados nunca saem do seu computador, garantindo total segurança e conformidade com políticas de privacidade."
+            },
+            {
+                  "question": "Como posso converter SBV para SRT na linha de comando usando Python ou FFmpeg?",
+                  "answer": "Você pode converter SBV para SRT com o FFmpeg usando: 'ffmpeg -i input.sbv -c:s srt output.srt'. No Python, você pode ler o arquivo em blocos, dividir as marcações pela vírgula e adicionar os contadores numéricos. Nossa ferramenta online executa a mesma lógica instantaneamente no navegador sem necessidade de instalar dependências ou comandos no terminal."
+            }
+      ]
+}
   },
   "fr": {
     "directory": {
@@ -3089,7 +3378,103 @@ export const TOOLS_TRANSLATIONS: Record<Locale, ToolsContent> = {
                       "answer": "Vous pouvez convertir des sous-titres SUB en SRT via le terminal avec FFmpeg. Pour un fichier SubViewer basé sur le temps, tapez : ffmpeg -i entree.sub sortie.srt. Pour un fichier MicroDVD basé sur les images, précisez impérativement la cadence de la vidéo avec l'option -r pour que les temps soient calculés avec justesse : ffmpeg -r 23.976 -i entree.sub sortie.srt. Si le fichier comprend des caractères accentués sous encodage ANSI ou Windows-1252, ajoutez le paramètre d'encodage : ffmpeg -sub_charenc CP1252 -r 25 -i entree.sub sortie.srt. C'est parfait pour automatiser le traitement de dossiers entiers."
                 }
           ]
-    }
+    },
+    sbvToSrt: {
+      "id": "sbv-to-srt",
+      "name": "Convertisseur SBV en SRT",
+      "shortName": "SBV en SRT",
+      "badge": "Gratuit & Côté Client",
+      "tagline": "Convertissez les Sous-titres YouTube (.SBV) en SubRip (.SRT) Standard en Ligne",
+      "description": "Convertissez les fichiers de sous-titres SBV et SubViewer de YouTube au format universel SubRip (.srt) en ligne et gratuitement. Horodatages précis, décodage HTML et téléchargement immédiat.",
+      "h1": "Convertisseur SBV en SRT en Ligne",
+      "metaTitle": "Convertisseur SBV en SRT en Ligne – Sous-titres YouTube en SRT Gratuit | SRTConverters",
+      "metaDescription": "Convertissez vos sous-titres SBV et SubViewer YouTube en format SubRip (.srt) propre et gratuit en ligne. Formatage précis des horodatages, décodage HTML et téléchargement immédiat.",
+      "settingsLabels": {
+            "timingMode": "Options de Nettoyage des Sous-titres",
+            "fixedDuration": "Décoder les Entités HTML",
+            "cpsDuration": "Convertit &amp;, &#39;, &quot;, &lt;, &gt; en texte propre et lisible",
+            "cpsLabel": "Supprimer les Bruits et Effets",
+            "cpsHint": "Supprime les mentions [Musique], [Applaudissements] et effets sonores",
+            "startTime": "Normaliser les Espaces",
+            "startTimeHint": "Nettoie les espaces superflus et supprime les lignes vides"
+      },
+      "stepsTitle": "Comment Convertir un Fichier SBV en SRT en 3 Étapes",
+      "steps": [
+            {
+                  "step": "1",
+                  "title": "Importez ou Collez vos Sous-titres SBV",
+                  "description": "Glissez-déposez votre fichier .sbv de YouTube dans la zone de dépôt ou collez directement le texte dans la zone de saisie."
+            },
+            {
+                  "step": "2",
+                  "title": "Configurez vos Préférences de Nettoyage",
+                  "description": "Activez le décodage des entités HTML (&amp;, &#39;) et choisissez de supprimer ou non les marqueurs sonores automatiques comme [Musique]."
+            },
+            {
+                  "step": "3",
+                  "title": "Téléchargez votre Fichier SRT Converti",
+                  "description": "Cliquez sur Télécharger .SRT pour enregistrer votre fichier SubRip ou copiez le texte formaté pour votre logiciel de montage ou lecteur vidéo."
+            }
+      ],
+      "featuresTitle": "Pourquoi Utiliser Notre Convertisseur SBV en SRT ?",
+      "features": [
+            {
+                  "title": "Précision Temporelle à la Milliseconde",
+                  "description": "Chaque code temporel est fidèlement converti à la milliseconde près, remplaçant les points décimaux par des virgules et ajoutant deux chiffres aux heures.",
+                  "icon": "zap"
+            },
+            {
+                  "title": "Décodage Automatique du HTML",
+                  "description": "Les exports YouTube comportent souvent des entités comme &amp; ou &#39;. Notre outil les transforme en caractères alphabétiques et ponctuations corrects.",
+                  "icon": "layers"
+            },
+            {
+                  "title": "Filtrage des Effets Sonores",
+                  "description": "Supprimez facilement les descriptions automatiques comme [Musique] et [Applaudissements] pour un sous-titrage clair et professionnel.",
+                  "icon": "shield"
+            },
+            {
+                  "title": "Confidentialité 100% dans le Navigateur",
+                  "description": "La conversion s'effectue intégralement dans votre navigateur. Vos sous-titres ne sont jamais transmis ni stockés sur des serveurs distants.",
+                  "icon": "split"
+            }
+      ],
+      "faqsTitle": "Foire Aux Questions Sur la Conversion SBV en SRT",
+      "faqs": [
+            {
+                  "question": "Qu'est-ce qu'un fichier SBV et en quoi diffère-t-il du format SRT ?",
+                  "answer": "Un fichier SBV (.sbv), également appelé format YouTube SubViewer, est un format de sous-titres en texte brut conçu par Google pour les sous-titres de YouTube. Chaque réplique commence directement par deux horodatages séparés par une virgule (ex. : 0:00:01.000,0:00:04.500) suivis du dialogue, sans numéros d'index séquentiels. À l'inverse, le format SubRip (.srt) est le standard universel pour les lecteurs et logiciels de montage. Un fichier SRT requiert un compteur numérique (1, 2, 3...), une flèche de séparation (' --> ') avec des virgules pour les millisecondes (00:00:01,000 --> 00:00:04,500) et deux chiffres pour les heures. Convertir SBV en SRT permet d'utiliser les sous-titres YouTube dans Premiere Pro, DaVinci Resolve, VLC et Plex."
+            },
+            {
+                  "question": "Pourquoi YouTube Studio exporte-t-il les sous-titres au format .sbv plutôt qu'en .srt ?",
+                  "answer": "Historiquement, YouTube a sélectionné la variante SubViewer (.sbv) au lancement de ses fonctionnalités de transcription automatique pour sa syntaxe allégée : elle se dispense d'index numériques et lie les temps par une simple virgule. Cependant, la grande majorité des logiciels de montage vidéo et téléviseurs connectés ne prennent pas en charge le format .sbv, rendant la conversion vers .srt incontournable."
+            },
+            {
+                  "question": "Comment télécharger un fichier de sous-titres SBV depuis YouTube Studio ?",
+                  "answer": "Pour télécharger vos sous-titres YouTube : (1) Connectez-vous à YouTube Studio et ouvrez l'onglet 'Sous-titres'. (2) Sélectionnez la vidéo concernée. (3) En face de la piste de sous-titres publiée ou automatique, cliquez sur le menu à trois points (Options) et choisissez 'Télécharger'. (4) Sélectionnez '.sbv' (ou SubViewer). YouTube enregistre alors un fichier 'captions.sbv' que vous pouvez glisser directement dans notre convertisseur."
+            },
+            {
+                  "question": "Quelles sont les différences d'horodatage entre SBV et SubRip SRT ?",
+                  "answer": "Les horodatages SBV séparent le début et la fin par une seule virgule et placent un point avant les millisecondes, avec souvent une seule heure : '0:01:23.450,0:01:27.800'. Le format SubRip SRT exige une flèche entourée d'espaces (' --> '), des virgules pour les millisecondes et impérativement deux chiffres pour les heures : '00:01:23,450 --> 00:01:27,800'. De plus, SRT ajoute un numéro de réplique au-dessus de chaque bloc. Notre convertisseur applique automatiquement toutes ces adaptations."
+            },
+            {
+                  "question": "Pourquoi mon fichier SBV YouTube contient-il des codes bizarres comme &amp; et &#39; ?",
+                  "answer": "YouTube encode certains signes typographiques sous forme d'entités HTML afin de garantir leur affichage dans les navigateurs. Ainsi, le symbole et commercial devient '&amp;', l'apostrophe devient '&#39;' ou '&apos;', et les guillemets deviennent '&quot;'. Dans un logiciel de montage ou sur VLC, ces codes s'affichent textuellement, nuisant à la lisibilité. Notre outil décode automatiquement toutes ces entités en véritables signes de ponctuation."
+            },
+            {
+                  "question": "Puis-je importer les sous-titres SRT convertis dans Premiere Pro, DaVinci Resolve ou Final Cut Pro ?",
+                  "answer": "Oui. Le format SubRip (.srt) est universellement accepté par l'ensemble des logiciels de montage vidéo professionnels (Adobe Premiere Pro, DaVinci Resolve, Apple Final Cut Pro, Avid Media Composer, CapCut). Une fois le fichier converti, importez-le simplement dans votre chutier et déposez-le sur votre timeline."
+            },
+            {
+                  "question": "Mes fichiers de sous-titres sont-ils transférés sur un serveur externe lors de la conversion ?",
+                  "answer": "Non. SRTConverters fonctionne à 100 % en local dans votre navigateur grâce à JavaScript côté client. Vos fichiers SBV, transcriptions et fichiers SRT ne quittent jamais votre machine, garantissant une stricte confidentialité."
+            },
+            {
+                  "question": "Comment convertir un fichier SBV en SRT en ligne de commande avec Python ou FFmpeg ?",
+                  "answer": "Avec FFmpeg, utilisez la commande : 'ffmpeg -i input.sbv -c:s srt output.srt'. En Python, vous pouvez lire le fichier par blocs, scinder les horodatages à la virgule et générer les index numériques. Notre convertisseur en ligne applique exactement ce traitement de manière instantanée, sans aucune installation requise."
+            }
+      ]
+}
   },
   "de": {
     "directory": {
@@ -3841,7 +4226,103 @@ export const TOOLS_TRANSLATIONS: Record<Locale, ToolsContent> = {
                       "answer": "Mit FFmpeg lässt sich die Konvertierung von SUB in SRT bequem im Terminal durchführen. Bei zeitbasierten SubViewer-Dateien genügt der Befehl: ffmpeg -i eingabe.sub ausgabe.srt. Bei framebasierten MicroDVD-Dateien müssen Sie die Bildrate mit dem Flag -r angeben, damit FFmpeg die Zeitwerte berechnen kann: ffmpeg -r 23.976 -i eingabe.sub ausgabe.srt. Falls Umlaute oder Sonderzeichen in ANSI/Windows-1252-Kodierung vorliegen, ergänzen Sie den Parameter für den Zeichensatz: ffmpeg -sub_charenc CP1252 -r 25 -i eingabe.sub ausgabe.srt. Dies ist ideal für automatisierte Batch-Skripte."
                 }
           ]
-    }
+    },
+    sbvToSrt: {
+      "id": "sbv-to-srt",
+      "name": "SBV in SRT Konverter",
+      "shortName": "SBV in SRT",
+      "badge": "Kostenlos & Clientseitig",
+      "tagline": "YouTube Untertitel (.SBV) kostenlos online in Standard SubRip (.SRT) umwandeln",
+      "description": "Konvertieren Sie YouTube SBV- und SubViewer-Untertiteldateien kostenlos online in das universelle SubRip (.srt) Format. Automatische Zeitstempel-Korrektur, HTML-Bereinigung und direkter SRT-Download.",
+      "h1": "SBV in SRT Konverter Online",
+      "metaTitle": "SBV in SRT Konverter Online – YouTube Untertitel in SRT Kostenlos | SRTConverters",
+      "metaDescription": "Konvertieren Sie YouTube SBV- und SubViewer-Untertiteldateien kostenlos online in sauberes SubRip (.srt) Format. Automatische Zeitstempel, HTML-Bereinigung und sofortiger Download.",
+      "settingsLabels": {
+            "timingMode": "Bereinigungsoptionen für Untertitel",
+            "fixedDuration": "HTML-Entitäten Dekodieren",
+            "cpsDuration": "Wandelt &amp;, &#39;, &quot;, &lt;, &gt; in saubere Textzeichen um",
+            "cpsLabel": "Geräusch-Deskriptoren Entfernen",
+            "cpsHint": "Entfernt [Musik], [Applaus] und Soundeffekte aus Dialogzeilen",
+            "startTime": "Leerzeichen Normalisieren",
+            "startTimeHint": "Entfernt doppelte Leerzeichen und leere Untertitelzeilen"
+      },
+      "stepsTitle": "In 3 Schritten SBV in SRT Online Konvertieren",
+      "steps": [
+            {
+                  "step": "1",
+                  "title": "SBV-Untertitel Hochladen oder Einfügen",
+                  "description": "Ziehen Sie Ihre YouTube .sbv-Datei per Drag & Drop in den Upload-Bereich oder fügen Sie den Untertiteltext direkt in das Textfeld ein."
+            },
+            {
+                  "step": "2",
+                  "title": "Bereinigungseinstellungen Konfigurieren",
+                  "description": "Wählen Sie optional die HTML-Dekodierung (&amp;, &#39;) und entscheiden Sie, ob automatische Audio-Deskriptoren wie [Musik] entfernt werden sollen."
+            },
+            {
+                  "step": "3",
+                  "title": "Konvertierte SRT-Datei Herunterladen",
+                  "description": "Klicken Sie auf .SRT Herunterladen, um Ihre SubRip-Datei sofort zu speichern, oder kopieren Sie den Text direkt in Ihre Zwischenablage."
+            }
+      ],
+      "featuresTitle": "Warum Unseren Online SBV in SRT Konverter Nutzen?",
+      "features": [
+            {
+                  "title": "Präzision auf die Millisekunde",
+                  "description": "Jeder Zeitstempel wird millimetergenau beibehalten. Dezimalpunkte werden in SRT-Kommas umgewandelt und Stunden zweistellig aufgefüllt.",
+                  "icon": "zap"
+            },
+            {
+                  "title": "Automatische HTML-Dekodierung",
+                  "description": "YouTube-Exporte enthalten oft HTML-Codes wie &amp; oder &#39;. Unser Tool stellt die korrekten Sonderzeichen wieder her.",
+                  "icon": "layers"
+            },
+            {
+                  "title": "Filterung von Soundeffekten",
+                  "description": "Entfernen Sie automatische Textmarker wie [Musik] und [Applaus] mühelos für saubere, professionelle Dialoguntertitel.",
+                  "icon": "shield"
+            },
+            {
+                  "title": "100% Datenschutz im Browser",
+                  "description": "Die gesamte Konvertierung findet lokal in Ihrem Browser statt. Ihre Dateien werden niemals auf externe Server übertragen oder gespeichert.",
+                  "icon": "split"
+            }
+      ],
+      "faqsTitle": "Häufig Gestellte Fragen zur SBV in SRT Konvertierung",
+      "faqs": [
+            {
+                  "question": "Was ist eine SBV-Datei und wie unterscheidet sie sich von einer SRT-Datei?",
+                  "answer": "Eine SBV-Datei (.sbv), auch als YouTube SubViewer-Format bekannt, ist ein einfaches Textuntertitelformat, das Google speziell für YouTube entwickelt hat. In einer SBV-Datei beginnt jeder Untertitelblock direkt mit einem durch Komma getrennten Zeitstempelpaar (z. B. 0:00:01.000,0:00:04.500) gefolgt vom Dialogtext – ohne fortlaufende Indexnummern. SubRip (.srt) hingegen ist der weltweite Standard für Mediaplayer und Schnittprogramme. Eine SRT-Datei erfordert Nummerierungen (1, 2, 3...), einen Pfeil (' --> ') mit Kommas vor den Millisekunden (00:00:01,000 --> 00:00:04,500) und zweistellige Stundenangaben. Die Konvertierung von SBV in SRT ermöglicht die Nutzung von YouTube-Untertiteln in Premiere Pro, DaVinci Resolve, VLC und Plex."
+            },
+            {
+                  "question": "Warum exportiert YouTube Studio Untertitel im .sbv-Format anstelle von .srt?",
+                  "answer": "YouTube entschied sich bei der Einführung seiner automatischen Spracherkennung für die schlanke SubViewer-Variante (.sbv), da diese ohne Indexzeilen auskommt und Start- und Endzeit mit einem einfachen Komma trennt. Da jedoch professionelle Schnittprogramme und Smart-TVs das .sbv-Format meist nicht unterstützen, ist eine Umwandlung in das universelle .srt-Format erforderlich."
+            },
+            {
+                  "question": "Wie lade ich eine SBV-Untertiteldatei aus YouTube Studio herunter?",
+                  "answer": "So laden Sie Ihre Untertitel herunter: (1) Melden Sie sich in YouTube Studio an und wählen Sie links 'Untertitel'. (2) Klicken Sie auf das gewünschte Video. (3) Klicken Sie neben der gewünschten Untertitelspur auf das Drei-Punkte-Menü (Optionen) und wählen Sie 'Herunterladen'. (4) Wählen Sie '.sbv' (oder SubViewer). YouTube lädt eine Datei namens 'captions.sbv' herunter, die Sie direkt in unseren Konverter einfügen können."
+            },
+            {
+                  "question": "Wie unterscheiden sich SBV-Zeitstempel von SubRip SRT-Zeitstempeln?",
+                  "answer": "SBV-Zeitstempel verwenden ein einzelnes Komma zwischen Start- und Endzeit sowie Punkte vor den Millisekunden, oft mit einstelligen Stunden: '0:01:23.450,0:01:27.800'. SubRip SRT verlangt einen Pfeil mit Leerzeichen (' --> '), Kommas vor Millisekunden und strikt zweistellige Stunden: '00:01:23,450 --> 00:01:27,800'. Zudem benötigt SRT eine Zeilennummer über jedem Block. Unser Konverter führt diese Anpassungen automatisch durch."
+            },
+            {
+                  "question": "Warum enthält meine YouTube SBV-Datei Codes wie &amp; und &#39;?",
+                  "answer": "YouTube kodiert Sonderzeichen als HTML-Entitäten, um eine fehlerfreie Webanzeige zu gewährleisten. So wird das Und-Zeichen als '&amp;' und Apostrophe als '&#39;' exportiert. In Videoschnittprogrammen oder im VLC-Player werden diese Codes buchstabengetreu angezeigt, was unschön aussieht. Unser Tool dekodiert alle HTML-Entitäten automatisch in die korrekten Satzzeichen."
+            },
+            {
+                  "question": "Kann ich die konvertierten SRT-Untertitel in Premiere Pro, DaVinci Resolve und Final Cut Pro importieren?",
+                  "answer": "Ja. Das SubRip (.srt)-Format wird von sämtlichen professionellen Videoschnittprogrammen wie Adobe Premiere Pro, DaVinci Resolve, Apple Final Cut Pro, Avid und CapCut nativ unterstützt. Ziehen Sie die fertige .srt-Datei nach der Konvertierung einfach in Ihre Timeline."
+            },
+            {
+                  "question": "Werden meine Untertiteldateien während der Konvertierung auf einen Server hochgeladen?",
+                  "answer": "Nein. SRTConverters arbeitet vollständig lokal in Ihrem Webbrowser mittels JavaScript. Ihre Untertiteldaten verlassen Ihren Computer zu keinem Zeitpunkt, was absolute Datensicherheit garantiert."
+            },
+            {
+                  "question": "Wie kann ich SBV in SRT über die Kommandozeile mit Python oder FFmpeg konvertieren?",
+                  "answer": "Mit FFmpeg gelingt dies über den Befehl: 'ffmpeg -i input.sbv -c:s srt output.srt'. In Python können Sie die Datei zeilenweise parsen, die Zeitstempel am Komma trennen und die SRT-Nummerierung hinzufügen. Unser Webtool erledigt dies ohne Software-Installationen sofort im Browser."
+            }
+      ]
+}
   },
   "id": {
     "directory": {
@@ -4593,7 +5074,103 @@ export const TOOLS_TRANSLATIONS: Record<Locale, ToolsContent> = {
                       "answer": "Anda dapat mengonversi file SUB ke SRT menggunakan FFmpeg di terminal. Untuk file SubViewer berbasis waktu, jalankan: ffmpeg -i input.sub output.srt. Untuk file MicroDVD berbasis frame, Anda wajib mencantumkan frame rate video dengan opsi -r agar FFmpeg dapat mengalkulasi waktu dengan tepat: ffmpeg -r 23.976 -i input.sub output.srt. Jika file Anda memakai pengkodean karakter Windows-1252/ANSI, sertakan parameter pengkodean: ffmpeg -sub_charenc CP1252 -r 25 -i input.sub output.srt. Perintah ini sangat berguna untuk pemrosesan banyak file sekaligus."
                 }
           ]
-    }
+    },
+    sbvToSrt: {
+      "id": "sbv-to-srt",
+      "name": "Konverter SBV ke SRT",
+      "shortName": "SBV ke SRT",
+      "badge": "Gratis & Sisi Klien",
+      "tagline": "Ubah Subtitle YouTube (.SBV) ke SubRip (.SRT) Standar Online",
+      "description": "Konversi file subtitle SBV dan SubViewer YouTube ke format SubRip (.srt) bersih dan universal online gratis. Pemformatan timestamp otomatis, decode entitas HTML, dan unduh file SRT instan.",
+      "h1": "Konverter SBV ke SRT Online",
+      "metaTitle": "Konverter SBV ke SRT Online – Ubah Subtitle YouTube ke SRT Gratis | SRTConverters",
+      "metaDescription": "Konversi file subtitle SBV dan SubViewer YouTube ke format SubRip (.srt) bersih online gratis. Format timestamp otomatis, decode entitas HTML, dan unduh file SRT instan.",
+      "settingsLabels": {
+            "timingMode": "Opsi Pembersihan Subtitle",
+            "fixedDuration": "Decode Entitas HTML",
+            "cpsDuration": "Mengubah &amp;, &#39;, &quot;, &lt;, &gt; menjadi teks bersih dan terbaca",
+            "cpsLabel": "Hapus Deskripsi Suara",
+            "cpsHint": "Hapus tanda [Musik], [Tepuk Tangan], dan efek suara dari dialog",
+            "startTime": "Normalisasi Spasi",
+            "startTimeHint": "Bersihkan spasi berlebih dan hapus baris dialog kosong"
+      },
+      "stepsTitle": "Cara Konversi SBV ke SRT Online dalam 3 Langkah",
+      "steps": [
+            {
+                  "step": "1",
+                  "title": "Unggah atau Tempel Subtitle SBV",
+                  "description": "Tarik dan lepas file .sbv YouTube Anda ke area upload atau tempel teks subtitle langsung ke kotak input."
+            },
+            {
+                  "step": "2",
+                  "title": "Atur Preferensi Pembersihan",
+                  "description": "Pilih opsi decode entitas HTML (&amp;, &#39;) dan tentukan apakah ingin menghapus efek suara otomatis seperti [Musik]."
+            },
+            {
+                  "step": "3",
+                  "title": "Unduh File SRT Hasil Konversi",
+                  "description": "Klik Unduh .SRT untuk menyimpan file SubRip Anda secara instan atau salin teks berformat langsung ke clipboard Anda."
+            }
+      ],
+      "featuresTitle": "Mengapa Menggunakan Konverter SBV ke SRT Kami?",
+      "features": [
+            {
+                  "title": "Presisi Milidetik Akurat",
+                  "description": "Setiap timestamp waktu dipertahankan secara akurat hingga milidetik, mengubah titik desimal SBV menjadi koma standar SRT dengan dua digit jam.",
+                  "icon": "zap"
+            },
+            {
+                  "title": "Decode HTML Otomatis",
+                  "description": "Ekspor subtitle YouTube sering memuat entitas HTML seperti &amp; dan &#39;. Alat kami mengubahnya menjadi karakter bacaan yang benar.",
+                  "icon": "layers"
+            },
+            {
+                  "title": "Penyaringan Efek Suara",
+                  "description": "Hapus teks otomatis seperti [Musik] dan [Tepuk Tangan] dengan mudah agar dialog subtitle terlihat rapi dan profesional.",
+                  "icon": "shield"
+            },
+            {
+                  "title": "Privasi 100% di Browser",
+                  "description": "Semua proses konversi berjalan lokal di browser Anda. File subtitle Anda tidak pernah diunggah atau disimpan di server eksternal.",
+                  "icon": "split"
+            }
+      ],
+      "faqsTitle": "Pertanyaan yang Sering Diajukan Seputar Konversi SBV ke SRT",
+      "faqs": [
+            {
+                  "question": "Apa itu file SBV dan apa perbedaannya dengan file SRT?",
+                  "answer": "File SBV (.sbv), yang dikenal sebagai format YouTube SubViewer, adalah format subtitle teks biasa yang dikembangkan oleh Google khusus untuk subtitle YouTube. Pada file SBV, setiap blok subtitle diawali langsung dengan pasangan timestamp yang dipisahkan koma (misalnya 0:00:01.000,0:00:04.500) diikuti teks dialog, tanpa nomor urut indeks. Sebaliknya, SubRip (.srt) adalah standar global untuk pemutar video dan software editing. File SRT membutuhkan nomor urut (1, 2, 3...), tanda panah (' --> ') dengan koma sebelum milidetik (00:00:01,000 --> 00:00:04,500), dan format jam dua digit. Mengonversi SBV ke SRT memungkinkan Anda menggunakan subtitle YouTube di Premiere Pro, DaVinci Resolve, VLC, dan Plex."
+            },
+            {
+                  "question": "Mengapa YouTube Studio mengekspor subtitle dalam format .sbv bukan .srt?",
+                  "answer": "Secara historis, YouTube memilih varian SubViewer (.sbv) saat meluncurkan fitur captioning otomatis karena strukturnya yang ringkas tanpa nomor indeks dan hanya memakai koma sebagai pemisah waktu. Namun, karena mayoritas software editing video dan smart TV tidak mendukung .sbv secara native, konversi ke format .srt menjadi kebutuhan wajib."
+            },
+            {
+                  "question": "Bagaimana cara mengunduh file subtitle SBV dari YouTube Studio?",
+                  "answer": "Untuk mengunduh subtitle YouTube Anda: (1) Masuk ke YouTube Studio dan pilih 'Subtitle' di menu sebelah kiri. (2) Pilih video yang diinginkan. (3) Di samping trek subtitle yang dipublikasikan atau otomatis, klik menu titik tiga (Opsi) lalu pilih 'Download'. (4) Pilih opsi '.sbv' (atau SubViewer). File 'captions.sbv' akan terunduh dan siap dikonversi di situs kami."
+            },
+            {
+                  "question": "Bagaimana perbedaan format waktu antara SBV dan SubRip SRT?",
+                  "answer": "Timestamp SBV memakai satu koma di antara waktu mulai dan akhir serta titik sebelum milidetik, kerap menggunakan satu digit jam: '0:01:23.450,0:01:27.800'. SubRip SRT memerlukan tanda panah berjarak (' --> '), koma sebelum milidetik, serta dua digit jam: '00:01:23,450 --> 00:01:27,800'. Selain itu, SRT menuntut nomor urut baris di atasnya. Konverter kami melakukan seluruh perubahan format ini secara otomatis."
+            },
+            {
+                  "question": "Mengapa file SBV YouTube saya memuat kode aneh seperti &amp; dan &#39;?",
+                  "answer": "YouTube mengekspor tanda baca tertentu sebagai entitas HTML agar aman saat dirender di browser web. Karakter dan (&) diekspor sebagai '&amp;', tanda kutip tunggal/apostrof sebagai '&#39;', dan tanda kutip ganda sebagai '&quot;'. Pada pemutar video lokal atau software editing, kode tersebut muncul mentah di layar. Konverter kami otomatis mendekode entitas tersebut menjadi tanda baca yang sebenarnya."
+            },
+            {
+                  "question": "Bisakah saya mengimpor subtitle SRT hasil konversi ke Premiere Pro, DaVinci Resolve, dan Final Cut Pro?",
+                  "answer": "Ya. Format SubRip (.srt) didukung secara universal oleh semua software editing video profesional seperti Adobe Premiere Pro, DaVinci Resolve, Apple Final Cut Pro, Avid Media Composer, dan CapCut. Cukup impor file .srt ke media pool Anda dan letakkan di timeline video."
+            },
+            {
+                  "question": "Apakah file subtitle saya diunggah ke server selama proses konversi?",
+                  "answer": "Tidak. SRTConverters memproses 100% file Anda secara lokal di dalam browser menggunakan JavaScript sisi klien. Subtitle SBV, transkrip, dan file SRT Anda tidak pernah meninggalkan perangkat Anda, menjaga privasi sepenuhnya."
+            },
+            {
+                  "question": "Bagaimana cara mengonversi SBV ke SRT di command line menggunakan Python atau FFmpeg?",
+                  "answer": "Dengan FFmpeg, jalankan perintah: 'ffmpeg -i input.sbv -c:s srt output.srt'. Jika menggunakan Python, Anda dapat membaca file per blok, memisahkan timestamp berdasarkan koma, dan menambahkan nomor urut. Alat online kami mengeksekusi konversi ini secara instan di browser tanpa instalasi apa pun."
+            }
+      ]
+}
   },
   "tr": {
     "directory": {
@@ -5345,7 +5922,103 @@ export const TOOLS_TRANSLATIONS: Record<Locale, ToolsContent> = {
                       "answer": "Terminal üzerinden FFmpeg ile SUB dosyalarını SRT'ye dönüştürebilirsiniz. Zaman damgalı SubViewer dosyaları için: ffmpeg -i girdi.sub cikti.srt komutu yeterlidir. Kare tabanlı MicroDVD dosyalarında ise zamanların doğru hesaplanabilmesi için -r parametresiyle video kare hızını belirtmelisiniz: ffmpeg -r 23.976 -i girdi.sub cikti.srt. Dosyanız Türkçe karakterler içeren ANSI veya Windows-1254 kodlamasına sahipse karakter kodlama parametresini ekleyebilirsiniz: ffmpeg -sub_charenc CP1254 -r 25 -i girdi.sub cikti.srt. Bu yöntem toplu dönüştürme işlemleri için oldukça pratiktir."
                 }
           ]
-    }
+    },
+    sbvToSrt: {
+      "id": "sbv-to-srt",
+      "name": "SBV - SRT Dönüştürücü",
+      "shortName": "SBV - SRT",
+      "badge": "Ücretsiz & Tarayıcıda",
+      "tagline": "YouTube Altyazılarını (.SBV) Standart SubRip (.SRT) Formatına Online Dönüştürün",
+      "description": "YouTube SBV ve SubViewer altyazı dosyalarını ücretsiz olarak standart SubRip (.srt) formatına dönüştürün. Otomatik zaman damgası düzeltme, HTML varlıklarını temizleme ve anında SRT indirme.",
+      "h1": "SBV - SRT Dönüştürücü Online",
+      "metaTitle": "SBV - SRT Dönüştürücü Online – YouTube Altyazılarını SRT'ye Dönüştürün | SRTConverters",
+      "metaDescription": "YouTube SBV ve SubViewer altyazı dosyalarını ücretsiz olarak temiz SubRip (.srt) formatına dönüştürün. Zaman damgalarını otomatik biçimlendirin ve anında indirin.",
+      "settingsLabels": {
+            "timingMode": "Altyazı Temizleme Seçenekleri",
+            "fixedDuration": "HTML Varlıklarını Çözümle",
+            "cpsDuration": "&amp;, &#39;, &quot;, &lt;, &gt; kodlarını temiz metne dönüştürür",
+            "cpsLabel": "Ses Açıklamalarını Kaldır",
+            "cpsHint": "Diyaloglardan [Müzik], [Alkış] ve efekt ibarelerini siler",
+            "startTime": "Boşlukları Normalleştir",
+            "startTimeHint": "Gereksiz boşlukları ve boş altyazı satırlarını temizler"
+      },
+      "stepsTitle": "3 Adımda Online SBV'yi SRT'ye Dönüştürme",
+      "steps": [
+            {
+                  "step": "1",
+                  "title": "SBV Altyazısını Yükleyin veya Yapıştırın",
+                  "description": "YouTube .sbv dosyanızı yükleme alanına sürükleyip bırakın veya metni doğrudan giriş alanına yapıştırın."
+            },
+            {
+                  "step": "2",
+                  "title": "Temizleme Tercihlerini Belirleyin",
+                  "description": "HTML kod çözme (&amp;, &#39;) seçeneğini etkinleştirin ve [Müzik] gibi otomatik ses ibarelerini kaldırmayı seçin."
+            },
+            {
+                  "step": "3",
+                  "title": "Dönüştürülen SRT Dosyasını İndirin",
+                  "description": "SubRip dosyanızı anında kaydetmek için .SRT İndir butonuna tıklayın veya biçimlendirilmiş metni panonuza kopyalayın."
+            }
+      ],
+      "featuresTitle": "Neden Online SBV - SRT Dönüştürücümüzü Seçmelisiniz?",
+      "features": [
+            {
+                  "title": "Kusursuz Milisaniye Doğruluğu",
+                  "description": "Her zaman damgası milisaniyesine kadar korunur, SBV ondalık noktaları standart SRT virgüllerine ve iki basamaklı saatlere dönüştürülür.",
+                  "icon": "zap"
+            },
+            {
+                  "title": "Otomatik HTML Kod Çözme",
+                  "description": "YouTube altyazıları çoğunlukla &amp; ve &#39; gibi kodlar içerir. Aracımız bunları temiz ve okunabilir karakterlere çevirir.",
+                  "icon": "layers"
+            },
+            {
+                  "title": "Ses Efekti Filtreleme",
+                  "description": "[Müzik] ve [Alkış] gibi otomatik ses etiketlerini kolayca kaldırarak profesyonel diyalog altyazıları elde edin.",
+                  "icon": "shield"
+            },
+            {
+                  "title": "%100 Tarayıcı İçi Gizlilik",
+                  "description": "Tüm dönüştürme işlemi tarayıcınızda yerel olarak çalışır. Dosyalarınız hiçbir zaman sunuculara yüklenmez veya kaydedilmez.",
+                  "icon": "split"
+            }
+      ],
+      "faqsTitle": "SBV - SRT Dönüştürme Hakkında Sıkça Sorulan Sorular",
+      "faqs": [
+            {
+                  "question": "SBV dosyası nedir ve SRT dosyasından nasıl ayrılır?",
+                  "answer": "YouTube SubViewer formatı olarak da bilinen SBV (.sbv) dosyası, Google tarafından YouTube altyazıları için geliştirilmiş düz metin altyazı formatıdır. SBV dosyasında her altyazı bloğu, sıra numarası olmadan doğrudan virgülle ayrılmış bir zaman damgası çiftiyle (örneğin 0:00:01.000,0:00:04.500) ve ardından gelen diyalogla başlar. SubRip (.srt) ise video oynatıcılar ve kurgu yazılımları için evrensel standarttır; sıra numarası (1, 2, 3...), milisaniyeden önce virgüllü ok ayracı (' --> ') ve iki basamaklı saat formatı (00:00:01,000 --> 00:00:04,500) gerektirir. SBV'yi SRT'ye dönüştürmek, YouTube altyazılarınızı Premiere Pro, DaVinci Resolve, VLC ve Plex'te sorunsuz kullanmanızı sağlar."
+            },
+            {
+                  "question": "YouTube Studio altyazıları neden .srt yerine .sbv formatında dışa aktarır?",
+                  "answer": "YouTube, otomatik altyazı sisteminin ilk dönemlerinde sıra numarası gerektirmeyen ve başlangıç/bitiş zamanını tek bir virgülle bağlayan sade SubViewer (.sbv) formatını tercih etmiştir. Ancak video kurgu programları ve akıllı televizyonlar .sbv formatını doğrudan desteklemediği için .srt formatına dönüştürme yapılması gerekir."
+            },
+            {
+                  "question": "YouTube Studio'dan SBV altyazı dosyası nasıl indirilir?",
+                  "answer": "Altyazılarınızı indirmek için: (1) YouTube Studio'da oturum açın ve soldaki menüden 'Altyazılar'ı seçin. (2) İlgili videoya tıklayın. (3) Yayınlanan veya otomatik altyazı satırının yanındaki üç nokta simgesine (Seçenekler) tıklayın ve 'İndir'i seçin. (4) '.sbv' (veya SubViewer) seçeneğini tıklayın. İndirilen 'captions.sbv' dosyasını sitemizdeki dönüştürücüye kolayca yükleyebilirsiniz."
+            },
+            {
+                  "question": "SBV zaman damgaları standart SubRip SRT zaman damgalarından nasıl farklıdır?",
+                  "answer": "SBV zaman damgaları başlangıç ve bitiş arasında tek bir virgül ve milisaniyelerden önce nokta kullanır; saatler genellikle tek basamaklıdır: '0:01:23.450,0:01:27.800'. SubRip SRT ise boşluklu ok ayracı (' --> '), milisaniyeden önce virgül ve iki basamaklı saat gerektirir: '00:01:23,450 --> 00:01:27,800'. Ayrıca her bloğun üstünde sıra numarası bulunur. Dönüştürücümüz tüm bu biçimlendirmeleri otomatik olarak gerçekleştirir."
+            },
+            {
+                  "question": "YouTube SBV dosyamda neden &amp; ve &#39; gibi kodlar görünüyor?",
+                  "answer": "YouTube, özel karakterlerin web tarayıcılarında hatasız görünmesi için bunları HTML varlıkları olarak dışa aktarır. Örneğin '&' işareti '&amp;', kesme işareti/tek tırnak '&#39;' ve çift tırnak '&quot;' olarak kodlanır. Masaüstü oynatıcılarda veya video kurgu programlarında bu kodlar metin gibi görünerek okumayı bozar. Aracımız bu HTML varlıklarını otomatik olarak gerçek noktalama işaretlerine dönüştürür."
+            },
+            {
+                  "question": "Dönüştürülen SRT altyazılarını Premiere Pro, DaVinci Resolve ve Final Cut Pro'ya aktarabilir miyim?",
+                  "answer": "Evet. Standart SubRip (.srt) formatı, Adobe Premiere Pro, DaVinci Resolve, Apple Final Cut Pro, Avid Media Composer ve CapCut dahil tüm profesyonel kurgu programları tarafından eksiksiz desteklenir. Dönüştürdüğünüz .srt dosyasını doğrudan medya havuzunuza ve zaman çizelgenize sürükleyebilirsiniz."
+            },
+            {
+                  "question": "Dönüştürme sırasında altyazı dosyalarım harici bir sunucuya yükleniyor mu?",
+                  "answer": "Hayır. SRTConverters, istemci taraflı JavaScript ile tamamen web tarayıcınızın içinde çalışır. SBV dosyalarınız, metinleriniz ve üretilen SRT dosyaları bilgisayarınızdan asla ayrılmaz; tam gizlilik sağlanır."
+            },
+            {
+                  "question": "Komut satırında Python veya FFmpeg ile SBV'yi SRT'ye nasıl dönüştürebilirim?",
+                  "answer": "FFmpeg ile şu komutu kullanabilirsiniz: 'ffmpeg -i input.sbv -c:s srt output.srt'. Python'da ise dosyayı bloklar halinde okuyup zaman damgalarını virgülden ayırarak sıra numaraları ekleyebilirsiniz. Çevrim içi aracımız hiçbir kuruluma gerek olmadan aynı işlemi tarayıcınızda anında yapar."
+            }
+      ]
+}
   },
   "it": {
     "directory": {
@@ -6097,6 +6770,102 @@ export const TOOLS_TRANSLATIONS: Record<Locale, ToolsContent> = {
                       "answer": "Puoi convertire i sottotitoli da SUB a SRT tramite terminale con FFmpeg. Per i file SubViewer basati sul tempo, digita: ffmpeg -i input.sub output.srt. Per i file MicroDVD basati su frame, devi indicare la frequenza dei fotogrammi tramite il parametro -r in modo che i tempi vengano calcolati con precisione: ffmpeg -r 23.976 -i input.sub output.srt. Se il file contiene caratteri speciali o lettere accentate con codifica ANSI/Windows-1252, specifica il set di caratteri: ffmpeg -sub_charenc CP1252 -r 25 -i input.sub output.srt. Questo metodo è perfetto per script di automazione o conversioni multiple."
                 }
           ]
-    }
+    },
+    sbvToSrt: {
+      "id": "sbv-to-srt",
+      "name": "Convertitore da SBV a SRT",
+      "shortName": "SBV a SRT",
+      "badge": "Gratuito e nel Browser",
+      "tagline": "Converti Sottotitoli YouTube (.SBV) in SubRip (.SRT) Standard Online",
+      "description": "Converti file di sottotitoli SBV e SubViewer di YouTube nel formato standard SubRip (.srt) online gratuitamente. Correzione automatica timestamp, decodifica HTML e download immediato dei file SRT.",
+      "h1": "Convertitore da SBV a SRT Online",
+      "metaTitle": "Convertitore da SBV a SRT Online – Sottotitoli YouTube in SRT Gratis | SRTConverters",
+      "metaDescription": "Converti i sottotitoli SBV e SubViewer di YouTube nel formato standard SubRip (.srt) online gratis. Correggi timestamp, decodifica entità HTML e scarica file SRT all'istante.",
+      "settingsLabels": {
+            "timingMode": "Opzioni di Pulizia dei Sottotitoli",
+            "fixedDuration": "Decodifica Entità HTML",
+            "cpsDuration": "Converte &amp;, &#39;, &quot;, &lt;, &gt; in testo pulito e leggibile",
+            "cpsLabel": "Rimuovi Descrittori Audio",
+            "cpsHint": "Elimina [Musica], [Applausi] ed effetti sonori dai dialoghi",
+            "startTime": "Normalizza Spazi Bianchi",
+            "startTimeHint": "Rimuove spazi ridondanti e linee di sottotitoli vuote"
+      },
+      "stepsTitle": "Come Convertire SBV in SRT Online in 3 Passaggi",
+      "steps": [
+            {
+                  "step": "1",
+                  "title": "Carica o Incolla i Sottotitoli SBV",
+                  "description": "Trascina e rilascia il tuo file .sbv di YouTube nell'area di rilascio oppure incolla il testo direttamente nell'area di input."
+            },
+            {
+                  "step": "2",
+                  "title": "Configura le Preferenze di Pulizia",
+                  "description": "Attiva la decodifica delle entità HTML (&amp;, &#39;) e scegli se rimuovere i marcatori sonori automatici come [Musica]."
+            },
+            {
+                  "step": "3",
+                  "title": "Scarica il File SRT Convertito",
+                  "description": "Fai clic su Scarica .SRT per salvare immediatamente il tuo file SubRip oppure copia il testo formattato per il tuo editor video o player."
+            }
+      ],
+      "featuresTitle": "Perché Usare il Nostro Convertitore da SBV a SRT?",
+      "features": [
+            {
+                  "title": "Accuratezza al Millisecondo",
+                  "description": "Ogni timestamp viene mantenuto con precisione millimetrica, convertendo i punti decimali in virgole e aggiungendo le due cifre all'ora.",
+                  "icon": "zap"
+            },
+            {
+                  "title": "Decodifica HTML Automatica",
+                  "description": "I sottotitoli esportati da YouTube contengono spesso codici come &amp; e &#39;. Il nostro strumento li trasforma in testo corretto.",
+                  "icon": "layers"
+            },
+            {
+                  "title": "Filtraggio Effetti Sonori",
+                  "description": "Rimuovi facilmente descrizioni automatiche come [Musica] e [Applausi] per ottenere sottotitoli di dialogo puliti e professionali.",
+                  "icon": "shield"
+            },
+            {
+                  "title": "Privacy 100% nel Browser",
+                  "description": "Tutta la conversione avviene localmente nel tuo browser. I tuoi file di sottotitoli non vengono mai inviati o salvati su server esterni.",
+                  "icon": "split"
+            }
+      ],
+      "faqsTitle": "Domande Frequenti Sulla Conversione da SBV a SRT",
+      "faqs": [
+            {
+                  "question": "Cos'è un file SBV e in cosa si differenzia da un file SRT?",
+                  "answer": "Un file SBV (.sbv), noto anche come formato YouTube SubViewer, è un formato di sottotitoli in testo semplice creato da Google specificamente per i video di YouTube. In un file SBV, ciascun blocco inizia direttamente con una coppia di timestamp separati da virgola (es. 0:00:01.000,0:00:04.500) seguita dal dialogo, senza numeri di sequenza. Al contrario, SubRip (.srt) è lo standard mondiale per lettori ed editor video: richiede un contatore numerico (1, 2, 3...), una freccia (' --> ') con virgole per i millisecondi (00:00:01,000 --> 00:00:04,500) e ore a due cifre. Convertire SBV in SRT consente di utilizzare i sottotitoli di YouTube in Premiere Pro, DaVinci Resolve, VLC e Plex."
+            },
+            {
+                  "question": "Perché YouTube Studio esporta i sottotitoli in formato .sbv anziché in .srt?",
+                  "answer": "Storicamente, YouTube ha adottato la variante SubViewer (.sbv) all'introduzione della trascrizione automatica per via della sua sintassi essenziale, priva di contatori numerici e con una semplice virgola a separare inizio e fine. Tuttavia, poiché la maggioranza dei software di montaggio e delle smart TV non supporta i file .sbv nativamente, la conversione in .srt risulta indispensabile."
+            },
+            {
+                  "question": "Come posso scaricare un file di sottotitoli SBV da YouTube Studio?",
+                  "answer": "Per scaricare i sottotitoli da YouTube: (1) Accedi a YouTube Studio e clicca su 'Sottotitoli' nel menu a sinistra. (2) Seleziona il video desiderato. (3) Accanto alla traccia pubblicata o automatica, clicca sul menu con i tre puntini (Opzioni) e seleziona 'Scarica'. (4) Scegli '.sbv' (o SubViewer). Verrà scaricato un file 'captions.sbv' pronto da convertire sul nostro sito."
+            },
+            {
+                  "question": "In che modo i timestamp SBV differiscono dai timestamp SubRip SRT?",
+                  "answer": "I timestamp SBV utilizzano una singola virgola tra inizio e fine e punti decimali prima dei millisecondi, con ore spesso a una sola cifra: '0:01:23.450,0:01:27.800'. I sottotitoli SubRip SRT richiedono una freccia con spazi (' --> '), virgole prima dei millisecondi e rigorosamente due cifre per le ore: '00:01:23,450 --> 00:01:27,800'. Inoltre, ogni blocco SRT richiede un numero sequenziale. Il nostro convertitore esegue tutte queste modifiche in automatico."
+            },
+            {
+                  "question": "Perché il mio file SBV di YouTube contiene codici strani come &amp; e &#39;?",
+                  "answer": "YouTube esporta alcuni segni di punteggiatura come entità HTML per garantirne il rendering nei browser. Ad esempio, la 'e' commerciale diventa '&amp;', l'apostrofo diventa '&#39;' e le virgolette doppie diventano '&quot;'. Negli editor video o in VLC, questi codici appaiono come testo grezzo sullo schermo. Il nostro convertitore decodifica automaticamente tutte le entità HTML nei rispettivi caratteri corretti."
+            },
+            {
+                  "question": "Posso importare i sottotitoli SRT convertiti in Premiere Pro, DaVinci Resolve e Final Cut Pro?",
+                  "answer": "Sì. Il formato SubRip (.srt) è universalmente supportato da tutti i principali software di montaggio video professionale (Adobe Premiere Pro, DaVinci Resolve, Apple Final Cut Pro, Avid Media Composer, CapCut). Dopo la conversione, basta importare il file .srt nella libreria e trascinarlo sulla timeline."
+            },
+            {
+                  "question": "I miei file di sottotitoli vengono caricati su un server remoto durante la conversione?",
+                  "answer": "No. SRTConverters elabora il 100% dei tuoi file localmente nel browser web tramite JavaScript lato client. I tuoi sottotitoli SBV, trascrizioni e file SRT non lasciano mai il tuo dispositivo, garantendo la massima riservatezza."
+            },
+            {
+                  "question": "Come posso convertire SBV in SRT da riga di comando usando Python o FFmpeg?",
+                  "answer": "Con FFmpeg puoi utilizzare il comando: 'ffmpeg -i input.sbv -c:s srt output.srt'. In Python puoi leggere il file a blocchi, separare i timestamp alla virgola e generare gli indici numerici. Il nostro convertitore online esegue la stessa elaborazione all'istante senza bisogno di alcuna installazione o riga di comando."
+            }
+      ]
+}
   }
 };

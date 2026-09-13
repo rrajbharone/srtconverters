@@ -471,18 +471,25 @@ const tool = tools.subToSrt;
     border: 1px solid var(--border-color);
     border-radius: var(--radius-md);
     box-shadow: var(--shadow-sm);
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 
   .control-group {
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    min-width: 0;
+    max-width: 100%;
   }
 
   .control-label {
     font-size: 0.875rem;
     font-weight: 600;
     color: var(--text-primary);
+    white-space: nowrap;
+    flex-shrink: 0;
   }
 
   .detected-format-badge {
@@ -496,6 +503,9 @@ const tool = tools.subToSrt;
     font-size: 0.8125rem;
     font-weight: 600;
     color: var(--text-primary);
+    white-space: nowrap;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 
   .badge-dot {
@@ -503,6 +513,7 @@ const tool = tools.subToSrt;
     height: 8px;
     border-radius: 50%;
     background-color: var(--text-muted);
+    flex-shrink: 0;
   }
 
   .detected-format-badge.is-microdvd {
@@ -541,6 +552,12 @@ const tool = tools.subToSrt;
     font-size: 0.875rem;
     outline: none;
     cursor: pointer;
+    box-sizing: border-box;
+    max-width: 100%;
+    min-width: 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
     transition: border-color 0.15s ease, box-shadow 0.15s ease;
   }
 
@@ -555,6 +572,7 @@ const tool = tools.subToSrt;
     align-items: center;
     gap: 1.25rem;
     margin-left: auto;
+    min-width: 0;
   }
 
   .control-checkbox-label {
@@ -573,6 +591,7 @@ const tool = tools.subToSrt;
     width: 1rem;
     height: 1rem;
     accent-color: var(--accent-primary);
+    flex-shrink: 0;
   }
 
   .tool-grid {
@@ -585,8 +604,80 @@ const tool = tools.subToSrt;
     .tool-grid {
       grid-template-columns: 1fr;
     }
+  }
+
+  @media (max-width: 768px) {
+    .tool-controls-bar {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 1rem;
+      padding: 0.875rem 1rem;
+    }
+
+    .control-group {
+      width: 100%;
+      min-width: 0;
+      max-width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    #fps-control-group {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0.375rem;
+    }
+
+    #fps-control-group .control-label {
+      white-space: normal;
+      font-size: 0.8125rem;
+      line-height: 1.35;
+      flex-shrink: initial;
+    }
+
+    #fps-control-group .control-select {
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+    }
+
     .control-checkboxes {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.625rem;
+      width: 100%;
       margin-left: 0;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .dropzone-container {
+      min-height: unset;
+      flex: none;
+    }
+
+    .tool-textarea {
+      height: 180px;
+      min-height: 160px;
+      padding: 0.75rem;
+      font-size: 0.8125rem;
+      line-height: 1.5;
+      flex: none;
+    }
+
+    .dropzone-overlay {
+      padding: 0.45rem 0.75rem;
+      font-size: 0.75rem;
+    }
+
+    .pane-header {
+      padding: 0.5rem 0.75rem;
+    }
+
+    .pane-footer-counts {
+      padding: 0.35rem 0.75rem;
+      font-size: 0.6875rem;
     }
   }
 
@@ -626,7 +717,7 @@ const tool = tools.subToSrt;
     flex: 1;
     display: flex;
     flex-direction: column;
-    min-height: 380px;
+    min-height: 260px;
     background-color: var(--bg-primary);
     transition: background-color 0.2s ease, border-color 0.2s ease;
   }
@@ -634,7 +725,7 @@ const tool = tools.subToSrt;
   .tool-textarea {
     flex: 1;
     width: 100%;
-    min-height: 380px;
+    min-height: 260px;
     padding: 1rem;
     border: none;
     outline: none;
@@ -647,6 +738,7 @@ const tool = tools.subToSrt;
     white-space: pre;
     overflow-wrap: normal;
     overflow-x: auto;
+    box-sizing: border-box;
   }
 
   .tool-textarea:focus {

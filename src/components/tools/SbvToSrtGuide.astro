@@ -1,0 +1,913 @@
+---
+import { type Locale } from '@/i18n/config';
+import { getRoutePath } from '@/i18n/routes';
+import { getSbvToSrtGuideContent } from '@/i18n/sbvToSrtGuide';
+import { getToolsContent } from '@/i18n/utils';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const guide = getSbvToSrtGuideContent(locale);
+const tools = getToolsContent(locale);
+
+const srtToTextUrl = getRoutePath('srt-to-text', locale);
+const srtToVttUrl = getRoutePath('srt-to-vtt', locale);
+const vttToSrtUrl = getRoutePath('vtt-to-srt', locale);
+const txtToSrtUrl = getRoutePath('txt-to-srt', locale);
+const srtToAssUrl = getRoutePath('srt-to-ass', locale);
+const assToSrtUrl = getRoutePath('ass-to-srt', locale);
+const subToSrtUrl = getRoutePath('sub-to-srt', locale);
+const srtToSubUrl = getRoutePath('srt-to-sub', locale);
+
+const uiLabels: Record<Locale, {
+  feature: string;
+  sbvBadge: string;
+  srtBadge: string;
+  entityCol: string;
+  decodedCol: string;
+  descCol: string;
+  issue: string;
+  cause: string;
+  solution: string;
+  relatedTools: string;
+  helpfulArticles: string;
+}> = {
+  en: {
+    feature: 'Feature / Specification',
+    sbvBadge: 'YouTube SBV Format',
+    srtBadge: 'Standard SubRip (.SRT)',
+    entityCol: 'HTML Entity',
+    decodedCol: 'Decoded Character',
+    descCol: 'Typographic Context',
+    issue: 'Issue',
+    cause: 'Cause:',
+    solution: 'Solution',
+    relatedTools: 'Related Subtitle Converter Tools',
+    helpfulArticles: 'Helpful Guides & Troubleshooting Articles',
+  },
+  es: {
+    feature: 'Característica / Especificación',
+    sbvBadge: 'Formato YouTube SBV',
+    srtBadge: 'SubRip Estándar (.SRT)',
+    entityCol: 'Entidad HTML',
+    decodedCol: 'Carácter Decodificado',
+    descCol: 'Contexto Tipográfico',
+    issue: 'Problema',
+    cause: 'Causa:',
+    solution: 'Solución',
+    relatedTools: 'Herramientas de Conversión Relacionadas',
+    helpfulArticles: 'Guías Útiles y Artículos de Soporte',
+  },
+  pt: {
+    feature: 'Recurso / Especificação',
+    sbvBadge: 'Formato YouTube SBV',
+    srtBadge: 'SubRip Padrão (.SRT)',
+    entityCol: 'Entidade HTML',
+    decodedCol: 'Caractere Decodificado',
+    descCol: 'Contexto Tipográfico',
+    issue: 'Problema',
+    cause: 'Causa:',
+    solution: 'Solução',
+    relatedTools: 'Ferramentas de Conversão Relacionadas',
+    helpfulArticles: 'Guias e Artigos de Suporte Recomendados',
+  },
+  fr: {
+    feature: 'Caractéristique / Spécification',
+    sbvBadge: 'Format YouTube SBV',
+    srtBadge: 'SubRip Standard (.SRT)',
+    entityCol: 'Entité HTML',
+    decodedCol: 'Caractère Décodé',
+    descCol: 'Contexte Typographique',
+    issue: 'Problème',
+    cause: 'Cause :',
+    solution: 'Solution',
+    relatedTools: 'Outils de Conversion de Sous-Titres Liés',
+    helpfulArticles: 'Guides Utiles et Articles de Dépannage',
+  },
+  de: {
+    feature: 'Merkmal / Spezifikation',
+    sbvBadge: 'YouTube SBV-Format',
+    srtBadge: 'Standard SubRip (.SRT)',
+    entityCol: 'HTML-Entität',
+    decodedCol: 'Dekodiertes Zeichen',
+    descCol: 'Typografischer Kontext',
+    issue: 'Problem',
+    cause: 'Ursache:',
+    solution: 'Lösung',
+    relatedTools: 'Verwandte Untertitel-Tools',
+    helpfulArticles: 'Hilfreiche Anleitungen & Support-Artikel',
+  },
+  id: {
+    feature: 'Fitur / Spesifikasi',
+    sbvBadge: 'Format YouTube SBV',
+    srtBadge: 'SubRip Standar (.SRT)',
+    entityCol: 'Entitas HTML',
+    decodedCol: 'Karakter Hasil Decode',
+    descCol: 'Konteks Tipografi',
+    issue: 'Masalah',
+    cause: 'Penyebab:',
+    solution: 'Solusi',
+    relatedTools: 'Alat Konversi Subtitle Terkait',
+    helpfulArticles: 'Panduan & Artikel Pemecahan Masalah',
+  },
+  tr: {
+    feature: 'Özellik / Teknik Detay',
+    sbvBadge: 'YouTube SBV Formatı',
+    srtBadge: 'Standart SubRip (.SRT)',
+    entityCol: 'HTML Varlığı',
+    decodedCol: 'Çözümlenen Karakter',
+    descCol: 'Tipografik Bağlam',
+    issue: 'Sorun',
+    cause: 'Neden:',
+    solution: 'Çözüm',
+    relatedTools: 'İlgili Altyazı Dönüştürme Araçları',
+    helpfulArticles: 'Yararlı Rehberler ve Destek Makaleleri',
+  },
+  it: {
+    feature: 'Caratteristica / Specifica',
+    sbvBadge: 'Formato YouTube SBV',
+    srtBadge: 'SubRip Standard (.SRT)',
+    entityCol: 'Entità HTML',
+    decodedCol: 'Carattere Decodificato',
+    descCol: 'Contesto Tipografico',
+    issue: 'Problema',
+    cause: 'Causa:',
+    solution: 'Soluzione',
+    relatedTools: 'Strumenti Correlati per Sottotitoli',
+    helpfulArticles: 'Guide Utili e Risoluzione dei Problemi',
+  },
+};
+
+const labels = uiLabels[locale] || uiLabels.en;
+---
+
+<article class="sbv-to-srt-guide-container">
+  <!-- Section 1: Intro -->
+  <section class="guide-section">
+    <h2 class="guide-h2">{guide.introTitle}</h2>
+    <p class="guide-subtitle">{guide.introSubtitle}</p>
+    {guide.introText.map((p) => (
+      <p class="guide-p">{p}</p>
+    ))}
+  </section>
+
+  <!-- Section 2: What is SBV -->
+  <section class="guide-section">
+    <h2 class="guide-h2">{guide.whatIsTitle}</h2>
+    {guide.whatIsText.map((p) => (
+      <p class="guide-p">{p}</p>
+    ))}
+  </section>
+
+  <!-- Section 3: Why Convert -->
+  <section class="guide-section">
+    <h2 class="guide-h2">{guide.whyConvertTitle}</h2>
+    <p class="guide-subtitle">{guide.whyConvertSubtitle}</p>
+    <div class="benefits-grid">
+      {guide.whyConvertReasons.map((reason) => (
+        <div class="benefit-card">
+          <div class="benefit-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+              <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+          </div>
+          <div class="benefit-content">
+            <h3 class="benefit-title">{reason.title}</h3>
+            <p class="benefit-desc">{reason.description}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Section 4: How To Steps -->
+  <section class="guide-section">
+    <h2 class="guide-h2">{guide.howToTitle}</h2>
+    <p class="guide-subtitle">{guide.howToSubtitle}</p>
+    <div class="steps-container">
+      {guide.howToSteps.map((step) => (
+        <div class="guide-step-card">
+          <div class="step-badge">{step.step}</div>
+          <div class="step-body">
+            <h3 class="step-h3">{step.title}</h3>
+            <p class="step-text">{step.description}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Section 5: Difference Comparison Table -->
+  <section class="guide-section">
+    <h2 class="guide-h2">{guide.differenceTitle}</h2>
+    <p class="guide-subtitle">{guide.differenceSubtitle}</p>
+    <div class="table-responsive">
+      <table class="guide-table">
+        <thead>
+          <tr>
+            <th>{labels.feature}</th>
+            <th>{labels.sbvBadge}</th>
+            <th>{labels.srtBadge}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {guide.differenceTable.map((row) => (
+            <tr>
+              <td class="font-medium text-primary">{row.feature}</td>
+              <td class="table-cell-sbv">{row.sbv}</td>
+              <td class="table-cell-srt">{row.srt}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Section 6: YouTube Studio Download Workflow -->
+  <section class="guide-section">
+    <h2 class="guide-h2">{guide.youtubeWorkflowTitle}</h2>
+    <p class="guide-subtitle">{guide.youtubeWorkflowSubtitle}</p>
+    <div class="workflow-steps-list">
+      {guide.youtubeWorkflowSteps.map((item) => (
+        <div class="workflow-card">
+          <div class="workflow-num">{item.step}</div>
+          <div class="workflow-info">
+            <h3 class="workflow-title">{item.title}</h3>
+            <p class="workflow-desc">{item.description}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Section 7: Timestamp Architecture -->
+  <section class="guide-section">
+    <h2 class="guide-h2">{guide.architectureTitle}</h2>
+    <p class="guide-subtitle">{guide.architectureSubtitle}</p>
+    {guide.architectureText.map((p) => (
+      <p class="guide-p">{p}</p>
+    ))}
+  </section>
+
+  <!-- Section 8: Concrete Code Example -->
+  <section class="guide-section">
+    <h2 class="guide-h2">{guide.exampleTitle}</h2>
+    <p class="guide-p">{guide.exampleIntro}</p>
+
+    <div class="code-comparison-grid">
+      <div class="code-block-card">
+        <div class="code-header">
+          <span class="code-tag sbv-tag">{labels.sbvBadge}</span>
+        </div>
+        <pre class="code-content"><code>{guide.exampleSbvInput}</code></pre>
+      </div>
+
+      <div class="code-block-card">
+        <div class="code-header">
+          <span class="code-tag srt-tag">{labels.srtBadge}</span>
+        </div>
+        <pre class="code-content"><code>{guide.exampleSrtOutput}</code></pre>
+      </div>
+    </div>
+
+    <div class="example-explanation-box">
+      <p><strong>{labels.solution}:</strong> {guide.exampleExplanation}</p>
+    </div>
+  </section>
+
+  <!-- Section 9: HTML Entities Table -->
+  <section class="guide-section">
+    <h2 class="guide-h2">{guide.htmlEntitiesTitle}</h2>
+    <p class="guide-subtitle">{guide.htmlEntitiesSubtitle}</p>
+    <div class="table-responsive">
+      <table class="guide-table">
+        <thead>
+          <tr>
+            <th>{labels.entityCol}</th>
+            <th>{labels.decodedCol}</th>
+            <th>{labels.descCol}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {guide.htmlEntitiesTable.map((row) => (
+            <tr>
+              <td><code>{row.entity}</code></td>
+              <td><strong style="font-size: 1.1rem; color: var(--accent-primary);">{row.decoded}</strong></td>
+              <td>{row.description}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Section 10: FFmpeg Command Line -->
+  <section class="guide-section">
+    <h2 class="guide-h2">{guide.ffmpegTitle}</h2>
+    <p class="guide-subtitle">{guide.ffmpegSubtitle}</p>
+    <div class="terminal-card">
+      <div class="terminal-header">
+        <span class="terminal-dot dot-red"></span>
+        <span class="terminal-dot dot-yellow"></span>
+        <span class="terminal-dot dot-green"></span>
+        <span class="terminal-title">bash / terminal</span>
+      </div>
+      <pre class="terminal-body"><code>{guide.ffmpegCommand}</code></pre>
+    </div>
+    {guide.ffmpegExplanation.map((p) => (
+      <p class="guide-p">{p}</p>
+    ))}
+  </section>
+
+  <!-- Section 11: Real-World Use Cases -->
+  <section class="guide-section">
+    <h2 class="guide-h2">{guide.useCasesTitle}</h2>
+    <p class="guide-subtitle">{guide.useCasesSubtitle}</p>
+    <div class="use-cases-grid">
+      {guide.useCasesList.map((uc) => (
+        <div class="use-case-card">
+          <div class="use-case-header">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+            </svg>
+            <h3 class="use-case-title">{uc.title}</h3>
+          </div>
+          <p class="use-case-desc">{uc.description}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Section 12: Troubleshooting -->
+  <section class="guide-section">
+    <h2 class="guide-h2">{guide.troubleshootTitle}</h2>
+    <p class="guide-subtitle">{guide.troubleshootSubtitle}</p>
+    <div class="troubleshoot-grid">
+      {guide.troubleshootTips.map((tip) => (
+        <div class="troubleshoot-card">
+          <div class="troubleshoot-header">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="8" x2="12" y2="12"></line>
+              <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+            <h3 class="troubleshoot-title">{tip.issue}</h3>
+          </div>
+          <div class="troubleshoot-body">
+            <p><strong>{labels.cause}</strong> {tip.cause}</p>
+            <div class="troubleshoot-solution">
+              <strong>{labels.solution}:</strong> {tip.solution}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Section 13: Conclusion -->
+  <section class="guide-section conclusion-section">
+    <h2 class="guide-h2">{guide.conclusionTitle}</h2>
+    {guide.conclusionText.map((p) => (
+      <p class="guide-p">{p}</p>
+    ))}
+  </section>
+
+  <!-- Related Tools Navigation -->
+  <section class="guide-section related-tools-section">
+    <h3 class="related-tools-h3">{labels.relatedTools}</h3>
+    <div class="related-tools-pills">
+      <a href={subToSrtUrl} class="tool-pill">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="16 18 22 12 16 6"></polyline>
+          <polyline points="8 6 2 12 8 18"></polyline>
+        </svg>
+        <span>{tools.subToSrt.name}</span>
+      </a>
+      <a href={srtToSubUrl} class="tool-pill">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="16 18 22 12 16 6"></polyline>
+          <polyline points="8 6 2 12 8 18"></polyline>
+        </svg>
+        <span>{tools.srtToSub.name}</span>
+      </a>
+      <a href={txtToSrtUrl} class="tool-pill">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="16 18 22 12 16 6"></polyline>
+          <polyline points="8 6 2 12 8 18"></polyline>
+        </svg>
+        <span>{tools.txtToSrt.name}</span>
+      </a>
+      <a href={srtToTextUrl} class="tool-pill">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="16 18 22 12 16 6"></polyline>
+          <polyline points="8 6 2 12 8 18"></polyline>
+        </svg>
+        <span>{tools.srtToText.name}</span>
+      </a>
+      <a href={srtToVttUrl} class="tool-pill">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="16 18 22 12 16 6"></polyline>
+          <polyline points="8 6 2 12 8 18"></polyline>
+        </svg>
+        <span>{tools.srtToVtt.name}</span>
+      </a>
+      <a href={vttToSrtUrl} class="tool-pill">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="16 18 22 12 16 6"></polyline>
+          <polyline points="8 6 2 12 8 18"></polyline>
+        </svg>
+        <span>{tools.vttToSrt.name}</span>
+      </a>
+      <a href={srtToAssUrl} class="tool-pill">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="16 18 22 12 16 6"></polyline>
+          <polyline points="8 6 2 12 8 18"></polyline>
+        </svg>
+        <span>{tools.srtToAss.name}</span>
+      </a>
+      <a href={assToSrtUrl} class="tool-pill">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="16 18 22 12 16 6"></polyline>
+          <polyline points="8 6 2 12 8 18"></polyline>
+        </svg>
+        <span>{tools.assToSrt.name}</span>
+      </a>
+    </div>
+  </section>
+</article>
+
+<style>
+  .sbv-to-srt-guide-container {
+    max-width: 900px;
+    margin: 3rem auto 2rem;
+    color: var(--text-primary);
+  }
+
+  .guide-section {
+    margin-bottom: 3.25rem;
+  }
+
+  .guide-h2 {
+    font-size: 1.625rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+    margin-bottom: 0.75rem;
+    line-height: 1.3;
+  }
+
+  .guide-subtitle {
+    font-size: 1.0625rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+
+  .guide-p {
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--text-secondary);
+    margin-bottom: 1.25rem;
+  }
+
+  /* Benefits Grid */
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.25rem;
+    margin-top: 1.5rem;
+  }
+
+  .benefit-card {
+    display: flex;
+    gap: 1rem;
+    padding: 1.25rem;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .benefit-icon {
+    color: var(--accent-primary);
+    flex-shrink: 0;
+    margin-top: 0.15rem;
+  }
+
+  .benefit-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.35rem;
+  }
+
+  .benefit-desc {
+    font-size: 0.875rem;
+    line-height: 1.55;
+    color: var(--text-secondary);
+    margin: 0;
+  }
+
+  /* Steps Container */
+  .steps-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin-top: 1.5rem;
+  }
+
+  .guide-step-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.25rem;
+    padding: 1.25rem 1.5rem;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .step-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    background-color: var(--accent-primary);
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 1.125rem;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .step-h3 {
+    font-size: 1.0625rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.35rem;
+  }
+
+  .step-text {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin: 0;
+  }
+
+  /* Table Responsive */
+  .table-responsive {
+    overflow-x: auto;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    background-color: var(--bg-card);
+    box-shadow: var(--shadow-sm);
+    margin-top: 1.5rem;
+  }
+
+  .guide-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+    text-align: left;
+  }
+
+  .guide-table th {
+    background-color: var(--bg-secondary);
+    padding: 0.875rem 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    border-bottom: 1px solid var(--border-color);
+    white-space: nowrap;
+  }
+
+  .guide-table td {
+    padding: 0.875rem 1.25rem;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  .guide-table tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  .table-cell-sbv {
+    font-family: var(--font-mono);
+    color: var(--text-primary);
+    font-size: 0.8125rem;
+  }
+
+  .table-cell-srt {
+    font-family: var(--font-mono);
+    color: var(--accent-primary);
+    font-weight: 600;
+    font-size: 0.8125rem;
+  }
+
+  /* Workflow Steps */
+  .workflow-steps-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .workflow-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.25rem;
+    padding: 1.125rem 1.25rem;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+  }
+
+  .workflow-num {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    font-weight: 700;
+    font-size: 0.9375rem;
+    border-radius: var(--radius-sm);
+    flex-shrink: 0;
+  }
+
+  .workflow-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.25rem;
+  }
+
+  .workflow-desc {
+    font-size: 0.875rem;
+    line-height: 1.55;
+    color: var(--text-secondary);
+    margin: 0;
+  }
+
+  /* Code Comparison Grid */
+  .code-comparison-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+    margin: 1.5rem 0 1rem;
+  }
+
+  @media (max-width: 640px) {
+    .code-comparison-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .code-block-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .code-header {
+    padding: 0.5rem 0.875rem;
+    background-color: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .code-tag {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .sbv-tag {
+    color: var(--text-secondary);
+  }
+
+  .srt-tag {
+    color: var(--accent-primary);
+  }
+
+  .code-content {
+    margin: 0;
+    padding: 1rem;
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    line-height: 1.6;
+    color: var(--text-primary);
+    background-color: var(--bg-primary);
+    overflow-x: auto;
+  }
+
+  .example-explanation-box {
+    padding: 1rem 1.25rem;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+  }
+
+  /* Terminal Card */
+  .terminal-card {
+    background-color: #1e293b;
+    border: 1px solid #334155;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    margin: 1.25rem 0 1.5rem;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .terminal-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.625rem 1rem;
+    background-color: #0f172a;
+    border-bottom: 1px solid #334155;
+  }
+
+  .terminal-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+
+  .dot-red { background-color: #ef4444; }
+  .dot-yellow { background-color: #f59e0b; }
+  .dot-green { background-color: #10b981; }
+
+  .terminal-title {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: #94a3b8;
+    margin-left: 0.25rem;
+  }
+
+  .terminal-body {
+    margin: 0;
+    padding: 1rem;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    color: #38bdf8;
+    background-color: transparent;
+    overflow-x: auto;
+  }
+
+  /* Use Cases Grid */
+  .use-cases-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.25rem;
+    margin-top: 1.5rem;
+  }
+
+  .use-case-card {
+    padding: 1.25rem;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .use-case-header {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    margin-bottom: 0.5rem;
+    color: var(--accent-primary);
+  }
+
+  .use-case-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  .use-case-desc {
+    font-size: 0.875rem;
+    line-height: 1.55;
+    color: var(--text-secondary);
+    margin: 0;
+  }
+
+  /* Troubleshooting Grid */
+  .troubleshoot-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+    margin-top: 1.5rem;
+  }
+
+  @media (max-width: 640px) {
+    .troubleshoot-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .troubleshoot-card {
+    padding: 1.25rem;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .troubleshoot-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--accent-primary);
+    margin-bottom: 0.75rem;
+  }
+
+  .troubleshoot-title {
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  .troubleshoot-body p {
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+    margin: 0 0 0.625rem;
+  }
+
+  .troubleshoot-solution {
+    padding: 0.625rem 0.875rem;
+    background-color: var(--bg-secondary);
+    border-radius: var(--radius-sm);
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--text-primary);
+  }
+
+  /* Conclusion Section */
+  .conclusion-section {
+    padding: 1.75rem 2rem;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+  }
+
+  .conclusion-section .guide-h2 {
+    margin-bottom: 1rem;
+  }
+
+  .conclusion-section .guide-p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Related Tools Section */
+  .related-tools-section {
+    margin-top: 3.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-color);
+  }
+
+  .related-tools-h3 {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+  }
+
+  .related-tools-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.625rem;
+  }
+
+  .tool-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.875rem;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 9999px;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: all 0.15s ease;
+  }
+
+  .tool-pill:hover {
+    border-color: var(--accent-primary);
+    color: var(--accent-primary);
+    transform: translateY(-1px);
+  }
+</style>

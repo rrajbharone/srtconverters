@@ -62,6 +62,12 @@ const allToolsList: Array<{ routeId: RouteId; name: string; badge: string; descr
     badge: tools.subToSrt.badge,
     description: tools.subToSrt.description,
   },
+  {
+    routeId: 'sbv-to-srt',
+    name: tools.sbvToSrt.name,
+    badge: tools.sbvToSrt.badge,
+    description: tools.sbvToSrt.description,
+  },
 ];
 
 const filteredTools = allToolsList.filter((t) => t.routeId !== currentRouteId);

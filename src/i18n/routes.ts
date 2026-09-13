@@ -10,6 +10,7 @@ export type RouteId =
   | 'ass-to-srt'
   | 'srt-to-sub'
   | 'sub-to-srt'
+  | 'sbv-to-srt'
   | 'tools';
 
 export const ROUTES: Record<RouteId, Record<Locale, string>> = {
@@ -102,6 +103,16 @@ export const ROUTES: Record<RouteId, Record<Locale, string>> = {
     id: '/id/konverter-sub-ke-srt/',
     tr: '/tr/sub-srt-donusturucu/',
     it: '/it/convertitore-da-sub-a-srt/',
+  },
+  'sbv-to-srt': {
+    en: '/sbv-to-srt-converter/',
+    es: '/es/convertidor-sbv-a-srt/',
+    pt: '/pt/conversor-sbv-para-srt/',
+    fr: '/fr/convertisseur-sbv-en-srt/',
+    de: '/de/sbv-in-srt-konverter/',
+    id: '/id/konverter-sbv-ke-srt/',
+    tr: '/tr/sbv-srt-donusturucu/',
+    it: '/it/convertitore-da-sbv-a-srt/',
   },
   tools: {
     en: '/tools/',

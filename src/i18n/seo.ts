@@ -46,6 +46,10 @@ export const SEO_TRANSLATIONS: Record<Locale, Record<RouteId | '404', PageSeo>> 
       title: "SUB to SRT Converter Online – Convert SUB to SRT Free | SRTConverters",
       description: "Convert SUB subtitles (MicroDVD & SubViewer) to clean SubRip (.srt) format online for free. Auto-detect frame rate (FPS), convert timestamps accurately, and download standard SRT files instantly.",
     },
+    'sbv-to-srt': {
+      title: "SBV to SRT Converter Online – Convert YouTube Captions to SRT Free | SRTConverters",
+      description: "Convert YouTube SBV and SubViewer subtitle files to clean SubRip (.srt) format online for free. Auto-format timestamps, decode HTML entities, and download standard SRT files instantly.",
+    },
     tools: {
       title: 'Free Subtitle & SRT Tools – Convert, Format & Edit | SRTConverters',
       description: "Explore our complete suite of free online subtitle tools. Convert TXT to SRT, SRT to Text, SRT to VTT, VTT to SRT, SRT to ASS, ASS to SRT, and SRT to SUB securely in your browser.",
@@ -93,6 +97,10 @@ export const SEO_TRANSLATIONS: Record<Locale, Record<RouteId | '404', PageSeo>> 
     'sub-to-srt': {
       title: "Convertidor SUB a SRT Online – Convertir SUB a SRT Gratis | SRTConverters",
       description: "Convierte subtítulos SUB (MicroDVD y SubViewer) a formato SubRip (.srt) limpio online y gratis. Detección automática de FPS, conversión precisa de fotogramas a tiempo y 100% de privacidad.",
+    },
+    'sbv-to-srt': {
+      title: "Convertidor de SBV a SRT Online – Subtítulos de YouTube a SRT Gratis | SRTConverters",
+      description: "Convierte archivos de subtítulos SBV y SubViewer de YouTube a formato SubRip (.srt) limpio gratis en línea. Formatea marcas de tiempo, decodifica entidades HTML y descarga al instante.",
     },
     tools: {
       title: 'Herramientas Gratuitas de Subtítulos y SRT | SRTConverters',
@@ -142,6 +150,10 @@ export const SEO_TRANSLATIONS: Record<Locale, Record<RouteId | '404', PageSeo>> 
       title: "Conversor SUB para SRT Online – Converter SUB em SRT Grátis | SRTConverters",
       description: "Converta legendas SUB (MicroDVD e SubViewer) para o formato SubRip (.srt) limpo online e grátis. Detecção automática de FPS, sincronização precisa de frames para milissegundos e privacidade total.",
     },
+    'sbv-to-srt': {
+      title: "Conversor de SBV para SRT Online – Legendas do YouTube para SRT Grátis | SRTConverters",
+      description: "Converta arquivos de legendas SBV e SubViewer do YouTube em formato SubRip (.srt) limpo online e grátis. Formate marcações de tempo, decodifique entidades HTML e baixe instantaneamente.",
+    },
     tools: {
       title: 'Ferramentas Gratuitas de Legendas e SRT | SRTConverters',
       description: "Explore nossa suíte completa de ferramentas gratuitas de legendas. Converta TXT em SRT, SRT em texto, SRT em VTT, VTT em SRT, SRT em ASS, ASS em SRT, SRT em SUB e SUB em SRT com segurança no seu navegador.",
@@ -189,6 +201,10 @@ export const SEO_TRANSLATIONS: Record<Locale, Record<RouteId | '404', PageSeo>> 
     'sub-to-srt': {
       title: "Convertisseur SUB en SRT en Ligne – Convertir SUB en SRT Gratuit | SRTConverters",
       description: "Convertissez des sous-titres SUB (MicroDVD et SubViewer) au format SubRip (.srt) propre en ligne et gratuitement. Détection automatique des FPS, synchronisation précise des images en millisecondes et confidentialité 100%.",
+    },
+    'sbv-to-srt': {
+      title: "Convertisseur SBV en SRT en Ligne – Sous-titres YouTube en SRT Gratuit | SRTConverters",
+      description: "Convertissez vos sous-titres SBV et SubViewer YouTube en format SubRip (.srt) propre et gratuit en ligne. Formatage précis des horodatages, décodage HTML et téléchargement immédiat.",
     },
     tools: {
       title: 'Outils Gratuits de Sous-titres et SRT | SRTConverters',
@@ -238,6 +254,10 @@ export const SEO_TRANSLATIONS: Record<Locale, Record<RouteId | '404', PageSeo>> 
       title: "SUB in SRT Konverter Online – SUB kostenlos in SRT umwandeln | SRTConverters",
       description: "Konvertieren Sie SUB-Untertitel (MicroDVD & SubViewer) kostenlos online in sauberes SubRip (.srt)-Format. Automatische FPS-Erkennung, präzise Frame-in-Zeit-Umrechnung und 100% Browser-Datenschutz.",
     },
+    'sbv-to-srt': {
+      title: "SBV in SRT Konverter Online – YouTube Untertitel in SRT Kostenlos | SRTConverters",
+      description: "Konvertieren Sie YouTube SBV- und SubViewer-Untertiteldateien kostenlos online in sauberes SubRip (.srt) Format. Automatische Zeitstempel, HTML-Bereinigung und sofortiger Download.",
+    },
     tools: {
       title: 'Kostenlose Untertitel- & SRT-Tools | SRTConverters',
       description: "Entdecken Sie unsere vollständige Suite kostenloser Online-Untertitel-Tools. Konvertieren Sie TXT in SRT, SRT in Text, SRT in VTT, VTT in SRT, SRT in ASS, ASS in SRT, SRT in SUB und SUB in SRT sicher im Browser.",
@@ -285,6 +305,10 @@ export const SEO_TRANSLATIONS: Record<Locale, Record<RouteId | '404', PageSeo>> 
     'sub-to-srt': {
       title: "Konverter SUB ke SRT Online – Ubah SUB ke SRT Gratis | SRTConverters",
       description: "Konversi subtitle SUB (MicroDVD & SubViewer) ke format SubRip (.srt) bersih secara online dan gratis. Deteksi FPS otomatis, konversi frame ke waktu yang presisi, dan privasi peramban 100%.",
+    },
+    'sbv-to-srt': {
+      title: "Konverter SBV ke SRT Online – Ubah Subtitle YouTube ke SRT Gratis | SRTConverters",
+      description: "Konversi file subtitle SBV dan SubViewer YouTube ke format SubRip (.srt) bersih online gratis. Format timestamp otomatis, decode entitas HTML, dan unduh file SRT instan.",
     },
     tools: {
       title: 'Alat Subtitle & SRT Gratis Online | SRTConverters',
@@ -334,6 +358,10 @@ export const SEO_TRANSLATIONS: Record<Locale, Record<RouteId | '404', PageSeo>> 
       title: "SUB - SRT Dönüştürücü Online – SUB Dosyasını SRT'ye Ücretsiz Dönüştürün | SRTConverters",
       description: "SUB altyazılarını (MicroDVD ve SubViewer) çevrimiçi ve ücretsiz olarak temiz SubRip (.srt) formatına dönüştürün. Otomatik FPS algılama, karelerden milisaniyeye hassas zamanlama ve %100 tarayıcı gizliliği.",
     },
+    'sbv-to-srt': {
+      title: "SBV - SRT Dönüştürücü Online – YouTube Altyazılarını SRT'ye Dönüştürün | SRTConverters",
+      description: "YouTube SBV ve SubViewer altyazı dosyalarını ücretsiz olarak temiz SubRip (.srt) formatına dönüştürün. Zaman damgalarını otomatik biçimlendirin ve anında indirin.",
+    },
     tools: {
       title: 'Ücretsiz Altyazı ve SRT Araçları | SRTConverters',
       description: "Ücretsiz çevrimiçi altyazı araçları paketimizi keşfedin. TXT'yi SRT'ye, SRT'yi metne, SRT'yi VTT'ye, VTT'yi SRT'ye, SRT'yi ASS'ye, ASS'yi SRT'ye, SRT'yi SUB'a ve SUB'u SRT'ye güvenle dönüştürün.",
@@ -381,6 +409,10 @@ export const SEO_TRANSLATIONS: Record<Locale, Record<RouteId | '404', PageSeo>> 
     'sub-to-srt': {
       title: "Convertitore da SUB a SRT Online – Converti SUB in SRT Gratis | SRTConverters",
       description: "Converti sottotitoli SUB (MicroDVD e SubViewer) nel formato SubRip (.srt) pulito online gratuitamente. Rilevamento automatico FPS, sincronizzazione accurata da frame a tempo e massima privacy nel browser.",
+    },
+    'sbv-to-srt': {
+      title: "Convertitore da SBV a SRT Online – Sottotitoli YouTube in SRT Gratis | SRTConverters",
+      description: "Converti i sottotitoli SBV e SubViewer di YouTube nel formato standard SubRip (.srt) online gratis. Correggi timestamp, decodifica entità HTML e scarica file SRT all'istante.",
     },
     tools: {
       title: 'Strumenti Gratuiti per Sottotitoli e SRT | SRTConverters',
