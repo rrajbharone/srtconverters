@@ -68,6 +68,24 @@ const allToolsList: Array<{ routeId: RouteId; name: string; badge: string; descr
     badge: tools.sbvToSrt.badge,
     description: tools.sbvToSrt.description,
   },
+  {
+    routeId: 'smi-to-srt',
+    name: tools.smiToSrt.name,
+    badge: tools.smiToSrt.badge,
+    description: tools.smiToSrt.description,
+  },
+  {
+    routeId: 'srt-to-smi',
+    name: tools.srtToSmi.name,
+    badge: tools.srtToSmi.badge,
+    description: tools.srtToSmi.description,
+  },
+  {
+    routeId: 'lrc-to-srt',
+    name: tools.lrcToSrt.name,
+    badge: tools.lrcToSrt.badge,
+    description: tools.lrcToSrt.description,
+  },
 ];
 
 const filteredTools = allToolsList.filter((t) => t.routeId !== currentRouteId);

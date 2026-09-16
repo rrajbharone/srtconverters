@@ -1,0 +1,693 @@
+---
+import { type Locale } from '@/i18n/config';
+import { getLrcToSrtGuideContent } from '@/i18n/lrcToSrtGuide';
+import { getRoutePath } from '@/i18n/routes';
+import { getToolsContent } from '@/i18n/utils';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const guide = getLrcToSrtGuideContent(locale);
+const tools = getToolsContent(locale);
+
+const srtToTextUrl = getRoutePath('srt-to-text', locale);
+const srtToVttUrl = getRoutePath('srt-to-vtt', locale);
+const vttToSrtUrl = getRoutePath('vtt-to-srt', locale);
+const txtToSrtUrl = getRoutePath('txt-to-srt', locale);
+const srtToAssUrl = getRoutePath('srt-to-ass', locale);
+const assToSrtUrl = getRoutePath('ass-to-srt', locale);
+const subToSrtUrl = getRoutePath('sub-to-srt', locale);
+const srtToSubUrl = getRoutePath('srt-to-sub', locale);
+const sbvToSrtUrl = getRoutePath('sbv-to-srt', locale);
+const smiToSrtUrl = getRoutePath('smi-to-srt', locale);
+const srtToSmiUrl = getRoutePath('srt-to-smi', locale);
+
+const uiLabels: Record<Locale, {
+  feature: string;
+  lrcBadge: string;
+  srtBadge: string;
+  issue: string;
+  cause: string;
+  solution: string;
+  relatedTools: string;
+}> = {
+  en: {
+    feature: 'Feature / Specification',
+    lrcBadge: 'Synchronized LRC Lyrics (.LRC)',
+    srtBadge: 'Standard SubRip Subtitles (.SRT)',
+    issue: 'Issue',
+    cause: 'Cause:',
+    solution: 'Solution',
+    relatedTools: 'Related Subtitle Converter Tools',
+  },
+  es: {
+    feature: 'Característica / Especificación',
+    lrcBadge: 'Letra Sincronizada LRC (.LRC)',
+    srtBadge: 'Subtítulos SubRip Estándar (.SRT)',
+    issue: 'Problema',
+    cause: 'Causa:',
+    solution: 'Solución',
+    relatedTools: 'Herramientas de Subtítulos Relacionadas',
+  },
+  pt: {
+    feature: 'Recurso / Especificação',
+    lrcBadge: 'Letras Sincronizadas LRC (.LRC)',
+    srtBadge: 'Legendas SubRip Padrão (.SRT)',
+    issue: 'Problema',
+    cause: 'Causa:',
+    solution: 'Solução',
+    relatedTools: 'Ferramentas de Legenda Relacionadas',
+  },
+  fr: {
+    feature: 'Fonctionnalité / Spécification',
+    lrcBadge: 'Paroles Synchronisées LRC (.LRC)',
+    srtBadge: 'Sous-titres SubRip Standard (.SRT)',
+    issue: 'Problème',
+    cause: 'Cause :',
+    solution: 'Solution',
+    relatedTools: 'Outils de Sous-titrage Associés',
+  },
+  de: {
+    feature: 'Merkmal / Spezifikation',
+    lrcBadge: 'Synchronisierte LRC-Liedtexte (.LRC)',
+    srtBadge: 'Standard SubRip Untertitel (.SRT)',
+    issue: 'Problem',
+    cause: 'Ursache:',
+    solution: 'Lösung',
+    relatedTools: 'Verwandte Untertitel-Tools',
+  },
+  id: {
+    feature: 'Fitur / Spesifikasi',
+    lrcBadge: 'Lirik Tersinkronisasi LRC (.LRC)',
+    srtBadge: 'Subtitle Standar SubRip (.SRT)',
+    issue: 'Kendala',
+    cause: 'Penyebab:',
+    solution: 'Solusi',
+    relatedTools: 'Alat Konversi Subtitle Terkait',
+  },
+  tr: {
+    feature: 'Özellik / Belirtim',
+    lrcBadge: 'Senkronize LRC Şarkı Sözü (.LRC)',
+    srtBadge: 'Standart SubRip Altyazı (.SRT)',
+    issue: 'Sorun',
+    cause: 'Neden:',
+    solution: 'Çözüm',
+    relatedTools: 'İlgili Altyazı Dönüştürme Araçları',
+  },
+  it: {
+    feature: 'Caratteristica / Specifica',
+    lrcBadge: 'Testo Sincronizzato LRC (.LRC)',
+    srtBadge: 'Sottotitoli Standard SubRip (.SRT)',
+    issue: 'Problema',
+    cause: 'Causa:',
+    solution: 'Soluzione',
+    relatedTools: 'Strumenti di Sottotitolaggio Correlati',
+  },
+};
+
+const labels = uiLabels[locale] || uiLabels.en;
+---
+
+<article class="smi-to-srt-guide-container">
+  <!-- Section 1: Intro Overview -->
+  <section class="guide-section">
+    <h2 class="guide-h2">{guide.introTitle}</h2>
+    <p class="guide-subtitle">{guide.introSubtitle}</p>
+    {guide.introText.map((p) => (
+      <p class="guide-p">{p}</p>
+    ))}
+  </section>
+
+  <!-- Section 2: What is LRC and What is SRT -->
+  <section class="guide-section">
+    <h2 class="guide-h2">{guide.whatIsTitle}</h2>
+    {guide.whatIsText.map((p) => (
+      <p class="guide-p">{p}</p>
+    ))}
+  </section>
+
+  <!-- Section 3: Why Convert -->
+  <section class="guide-section">
+    <h2 class="guide-h2">{guide.whyConvertTitle}</h2>
+    <p class="guide-subtitle">{guide.whyConvertSubtitle}</p>
+    <div class="benefits-grid">
+      {guide.whyConvertReasons.map((reason) => (
+        <div class="benefit-card">
+          <div class="benefit-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+              <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+          </div>
+          <div class="benefit-content">
+            <h3 class="benefit-title">{reason.title}</h3>
+            <p class="benefit-desc">{reason.description}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Section 4: How To Steps -->
+  <section class="guide-section">
+    <h2 class="guide-h2">{guide.howToTitle}</h2>
+    <p class="guide-subtitle">{guide.howToSubtitle}</p>
+    <div class="steps-container">
+      {guide.howToSteps.map((step) => (
+        <div class="guide-step-card">
+          <div class="step-badge">{step.step}</div>
+          <div class="step-body">
+            <h3 class="step-h3">{step.title}</h3>
+            <p class="step-text">{step.description}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Section 5: Difference Comparison Table -->
+  <section class="guide-section">
+    <h2 class="guide-h2">{guide.differenceTitle}</h2>
+    <p class="guide-subtitle">{guide.differenceSubtitle}</p>
+    <div class="table-responsive">
+      <table class="guide-table">
+        <thead>
+          <tr>
+            <th>{labels.feature}</th>
+            <th>{labels.lrcBadge}</th>
+            <th>{labels.srtBadge}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {guide.differenceTable.map((row) => (
+            <tr>
+              <td class="font-medium text-primary">{row.feature}</td>
+              <td class="table-cell-smi">{row.lrc}</td>
+              <td class="table-cell-srt">{row.srt}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Section 6: Timing Mechanics -->
+  <section class="guide-section">
+    <h2 class="guide-h2">{guide.timingMechanicsTitle}</h2>
+    <p class="guide-subtitle">{guide.timingMechanicsSubtitle}</p>
+    {guide.timingMechanicsText.map((p) => (
+      <p class="guide-p">{p}</p>
+    ))}
+  </section>
+
+  <!-- Section 7: Multi-Timestamp Lines & Offset Headers -->
+  <section class="guide-section">
+    <h2 class="guide-h2">{guide.multiTimestampTitle}</h2>
+    <p class="guide-subtitle">{guide.multiTimestampSubtitle}</p>
+    {guide.multiTimestampText.map((p) => (
+      <p class="guide-p">{p}</p>
+    ))}
+  </section>
+
+  <!-- Section 8: Concrete Code Example -->
+  <section class="guide-section">
+    <h2 class="guide-h2">{guide.exampleTitle}</h2>
+    <p class="guide-p">{guide.exampleIntro}</p>
+
+    <div class="code-comparison-grid">
+      <div class="code-block-card">
+        <div class="code-header">
+          <span class="code-tag smi-tag">{labels.lrcBadge}</span>
+        </div>
+        <pre class="code-content"><code>{guide.exampleLrcInput}</code></pre>
+      </div>
+
+      <div class="code-block-card">
+        <div class="code-header">
+          <span class="code-tag srt-tag">{labels.srtBadge}</span>
+        </div>
+        <pre class="code-content"><code>{guide.exampleSrtOutput}</code></pre>
+      </div>
+    </div>
+
+    <div class="example-explanation-box">
+      <p><strong>{labels.solution}:</strong> {guide.exampleExplanation}</p>
+    </div>
+  </section>
+
+  <!-- Section 9: FFmpeg Command Line -->
+  <section class="guide-section">
+    <h2 class="guide-h2">{guide.ffmpegTitle}</h2>
+    <p class="guide-subtitle">{guide.ffmpegSubtitle}</p>
+    <div class="ffmpeg-block">
+      <pre class="ffmpeg-code"><code>{guide.ffmpegCommand}</code></pre>
+    </div>
+    {guide.ffmpegExplanation.map((p) => (
+      <p class="guide-p">{p}</p>
+    ))}
+  </section>
+
+  <!-- Section 10: Real-World Use Cases -->
+  <section class="guide-section">
+    <h2 class="guide-h2">{guide.useCasesTitle}</h2>
+    <p class="guide-subtitle">{guide.useCasesSubtitle}</p>
+    <div class="use-cases-grid">
+      {guide.useCasesList.map((uc) => (
+        <div class="use-case-card">
+          <h3 class="use-case-title">{uc.title}</h3>
+          <p class="use-case-desc">{uc.description}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Section 11: Troubleshooting Common Issues -->
+  <section class="guide-section">
+    <h2 class="guide-h2">{guide.troubleshootTitle}</h2>
+    <p class="guide-subtitle">{guide.troubleshootSubtitle}</p>
+    <div class="troubleshoot-list">
+      {guide.troubleshootTips.map((tip) => (
+        <div class="troubleshoot-card">
+          <div class="troubleshoot-header">
+            <span class="badge-issue">{labels.issue}</span>
+            <h3 class="troubleshoot-h3">{tip.issue}</h3>
+          </div>
+          <div class="troubleshoot-body">
+            <p class="troubleshoot-cause"><strong>{labels.cause}</strong> {tip.cause}</p>
+            <p class="troubleshoot-solution"><strong>{labels.solution}:</strong> {tip.solution}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Section 12: Related Subtitle Tools -->
+  <section class="guide-section">
+    <h2 class="guide-h2">{labels.relatedTools}</h2>
+    <div class="related-tools-grid">
+      <a href={smiToSrtUrl} class="related-tool-card">
+        <span class="related-tool-title">{tools.smiToSrt.name}</span>
+        <span class="related-tool-desc">{tools.smiToSrt.tagline}</span>
+      </a>
+      <a href={srtToSmiUrl} class="related-tool-card">
+        <span class="related-tool-title">{tools.srtToSmi.name}</span>
+        <span class="related-tool-desc">{tools.srtToSmi.tagline}</span>
+      </a>
+      <a href={txtToSrtUrl} class="related-tool-card">
+        <span class="related-tool-title">{tools.txtToSrt.name}</span>
+        <span class="related-tool-desc">{tools.txtToSrt.tagline}</span>
+      </a>
+      <a href={srtToTextUrl} class="related-tool-card">
+        <span class="related-tool-title">{tools.srtToText.name}</span>
+        <span class="related-tool-desc">{tools.srtToText.tagline}</span>
+      </a>
+      <a href={srtToVttUrl} class="related-tool-card">
+        <span class="related-tool-title">{tools.srtToVtt.name}</span>
+        <span class="related-tool-desc">{tools.srtToVtt.tagline}</span>
+      </a>
+      <a href={vttToSrtUrl} class="related-tool-card">
+        <span class="related-tool-title">{tools.vttToSrt.name}</span>
+        <span class="related-tool-desc">{tools.vttToSrt.tagline}</span>
+      </a>
+      <a href={sbvToSrtUrl} class="related-tool-card">
+        <span class="related-tool-title">{tools.sbvToSrt.name}</span>
+        <span class="related-tool-desc">{tools.sbvToSrt.tagline}</span>
+      </a>
+      <a href={srtToAssUrl} class="related-tool-card">
+        <span class="related-tool-title">{tools.srtToAss.name}</span>
+        <span class="related-tool-desc">{tools.srtToAss.tagline}</span>
+      </a>
+      <a href={assToSrtUrl} class="related-tool-card">
+        <span class="related-tool-title">{tools.assToSrt.name}</span>
+        <span class="related-tool-desc">{tools.assToSrt.tagline}</span>
+      </a>
+      <a href={subToSrtUrl} class="related-tool-card">
+        <span class="related-tool-title">{tools.subToSrt.name}</span>
+        <span class="related-tool-desc">{tools.subToSrt.tagline}</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- Section 13: Conclusion -->
+  <section class="guide-section">
+    <h2 class="guide-h2">{guide.conclusionTitle}</h2>
+    {guide.conclusionText.map((p) => (
+      <p class="guide-p">{p}</p>
+    ))}
+  </section>
+</article>
+
+<style>
+  .smi-to-srt-guide-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2.5rem 1rem;
+    color: var(--text-primary);
+    font-size: 1rem;
+    line-height: 1.75;
+  }
+
+  .guide-section {
+    margin-bottom: 3.5rem;
+  }
+
+  .guide-h2 {
+    font-size: 1.625rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.015em;
+  }
+
+  .guide-subtitle {
+    font-size: 1.0625rem;
+    color: var(--text-secondary);
+    margin-bottom: 1.25rem;
+  }
+
+  .guide-p {
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+    line-height: 1.75;
+  }
+
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.25rem;
+    margin-top: 1.25rem;
+  }
+
+  .benefit-card {
+    display: flex;
+    gap: 1rem;
+    padding: 1.25rem;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .benefit-icon {
+    flex-shrink: 0;
+    color: var(--accent-primary);
+    margin-top: 0.125rem;
+  }
+
+  .benefit-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.375rem;
+  }
+
+  .benefit-desc {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  .steps-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin-top: 1.25rem;
+  }
+
+  .guide-step-card {
+    display: flex;
+    gap: 1.25rem;
+    padding: 1.25rem;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    align-items: flex-start;
+  }
+
+  .step-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    background-color: var(--accent-primary);
+    color: white;
+    font-weight: 700;
+    font-size: 1rem;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .step-h3 {
+    font-size: 1.0625rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.375rem;
+  }
+
+  .step-text {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  .table-responsive {
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    background-color: var(--bg-card);
+  }
+
+  .guide-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+    text-align: left;
+  }
+
+  .guide-table th {
+    background-color: var(--bg-secondary);
+    padding: 0.875rem 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .guide-table td {
+    padding: 0.875rem 1rem;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    vertical-align: top;
+  }
+
+  .guide-table tr:last-child td {
+    border-bottom: none;
+  }
+
+  .font-medium {
+    font-weight: 500;
+  }
+
+  .table-cell-srt {
+    color: var(--text-primary);
+  }
+
+  .table-cell-smi {
+    color: var(--accent-primary);
+  }
+
+  .code-comparison-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+    margin: 1.25rem 0;
+  }
+
+  @media (max-width: 768px) {
+    .code-comparison-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .code-block-card {
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    background-color: var(--bg-secondary);
+    overflow: hidden;
+  }
+
+  .code-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.625rem 1rem;
+    border-bottom: 1px solid var(--border-color);
+    background-color: var(--bg-card);
+  }
+
+  .code-tag {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.2rem 0.5rem;
+    border-radius: var(--radius-sm);
+  }
+
+  .srt-tag {
+    background-color: rgba(59, 130, 246, 0.1);
+    color: #3b82f6;
+  }
+
+  .smi-tag {
+    background-color: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+  }
+
+  .code-content {
+    padding: 1rem;
+    margin: 0;
+    font-family: 'Fira Code', 'Cascadia Code', monospace;
+    font-size: 0.8125rem;
+    line-height: 1.6;
+    overflow-x: auto;
+    color: var(--text-primary);
+  }
+
+  .example-explanation-box {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-left: 4px solid var(--accent-primary);
+    border-radius: var(--radius-md);
+    padding: 1rem 1.25rem;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  .ffmpeg-block {
+    background-color: #0f172a;
+    border-radius: var(--radius-md);
+    padding: 1rem;
+    margin: 1rem 0;
+    overflow-x: auto;
+  }
+
+  .ffmpeg-code code {
+    color: #38bdf8;
+    font-family: 'Fira Code', 'Cascadia Code', monospace;
+    font-size: 0.875rem;
+  }
+
+  .use-cases-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.25rem;
+    margin-top: 1.25rem;
+  }
+
+  .use-case-card {
+    padding: 1.25rem;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+  }
+
+  .use-case-title {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+  }
+
+  .use-case-desc {
+    font-size: 0.8125rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  .troubleshoot-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin-top: 1.25rem;
+  }
+
+  .troubleshoot-card {
+    padding: 1.25rem;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+  }
+
+  .troubleshoot-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .badge-issue {
+    background-color: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    padding: 0.2rem 0.5rem;
+    border-radius: var(--radius-sm);
+    text-transform: uppercase;
+  }
+
+  .troubleshoot-h3 {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .troubleshoot-cause {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.375rem;
+  }
+
+  .troubleshoot-solution {
+    font-size: 0.875rem;
+    color: var(--text-primary);
+  }
+
+  .related-tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+    margin-top: 1.25rem;
+  }
+
+  .related-tool-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+    padding: 1rem;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    transition: transform var(--transition-fast), border-color var(--transition-fast);
+  }
+
+  .related-tool-card:hover {
+    border-color: var(--accent-primary);
+    transform: translateY(-2px);
+  }
+
+  .related-tool-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .related-tool-desc {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+  }
+</style>

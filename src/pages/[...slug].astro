@@ -11,6 +11,9 @@ import AssToSrtTool from '@/components/tools/AssToSrtTool.astro';
 import SrtToSubTool from '@/components/tools/SrtToSubTool.astro';
 import SubToSrtTool from '@/components/tools/SubToSrtTool.astro';
 import SbvToSrtTool from '@/components/tools/SbvToSrtTool.astro';
+import SmiToSrtTool from '@/components/tools/SmiToSrtTool.astro';
+import SrtToSmiTool from '@/components/tools/SrtToSmiTool.astro';
+import LrcToSrtTool from '@/components/tools/LrcToSrtTool.astro';
 import ToolCard from '@/components/tools/ToolCard.astro';
 import { ROUTES, type RouteId, getRoutePath } from '@/i18n/routes';
 import { type Locale } from '@/i18n/config';
@@ -156,6 +159,27 @@ const toolsUrl = getRoutePath('tools', locale);
             badge={tools.sbvToSrt.badge}
             description={tools.sbvToSrt.description}
           />
+          <ToolCard
+            locale={locale}
+            routeId="smi-to-srt"
+            name={tools.smiToSrt.name}
+            badge={tools.smiToSrt.badge}
+            description={tools.smiToSrt.description}
+          />
+          <ToolCard
+            locale={locale}
+            routeId="srt-to-smi"
+            name={tools.srtToSmi.name}
+            badge={tools.srtToSmi.badge}
+            description={tools.srtToSmi.description}
+          />
+          <ToolCard
+            locale={locale}
+            routeId="lrc-to-srt"
+            name={tools.lrcToSrt.name}
+            badge={tools.lrcToSrt.badge}
+            description={tools.lrcToSrt.description}
+          />
         </div>
       </section>
 
@@ -283,6 +307,24 @@ const toolsUrl = getRoutePath('tools', locale);
   </ToolLayout>
 )}
 
+{routeId === 'smi-to-srt' && (
+  <ToolLayout locale={locale} routeId={routeId} tool={tools.smiToSrt}>
+    <SmiToSrtTool locale={locale} />
+  </ToolLayout>
+)}
+
+{routeId === 'srt-to-smi' && (
+  <ToolLayout locale={locale} routeId={routeId} tool={tools.srtToSmi}>
+    <SrtToSmiTool locale={locale} />
+  </ToolLayout>
+)}
+
+{routeId === 'lrc-to-srt' && (
+  <ToolLayout locale={locale} routeId={routeId} tool={tools.lrcToSrt}>
+    <LrcToSrtTool locale={locale} />
+  </ToolLayout>
+)}
+
 {routeId === 'tools' && (
   <BaseLayout
     title={seo.title}
@@ -377,6 +419,27 @@ const toolsUrl = getRoutePath('tools', locale);
             name={tools.sbvToSrt.name}
             badge={tools.sbvToSrt.badge}
             description={tools.sbvToSrt.description}
+          />
+          <ToolCard
+            locale={locale}
+            routeId="smi-to-srt"
+            name={tools.smiToSrt.name}
+            badge={tools.smiToSrt.badge}
+            description={tools.smiToSrt.description}
+          />
+          <ToolCard
+            locale={locale}
+            routeId="srt-to-smi"
+            name={tools.srtToSmi.name}
+            badge={tools.srtToSmi.badge}
+            description={tools.srtToSmi.description}
+          />
+          <ToolCard
+            locale={locale}
+            routeId="lrc-to-srt"
+            name={tools.lrcToSrt.name}
+            badge={tools.lrcToSrt.badge}
+            description={tools.lrcToSrt.description}
           />
         </div>
       </section>

@@ -50,6 +50,18 @@ export const SEO_TRANSLATIONS: Record<Locale, Record<RouteId | '404', PageSeo>> 
       title: "SBV to SRT Converter Online – Convert YouTube Captions to SRT Free | SRTConverters",
       description: "Convert YouTube SBV and SubViewer subtitle files to clean SubRip (.srt) format online for free. Auto-format timestamps, decode HTML entities, and download standard SRT files instantly.",
     },
+    'smi-to-srt': {
+      title: "SMI to SRT Converter Online – Convert SAMI Subtitles to SRT Free | SRTConverters",
+      description: "Convert SAMI (.smi) subtitle files to clean SubRip (.srt) format online for free. Accurate millisecond sync, Korean EUC-KR / CP949 encoding support, and instant download.",
+    },
+    'srt-to-smi': {
+      title: "SRT to SMI Converter Online – Convert SubRip to SAMI Free | SRTConverters",
+      description: "Convert SubRip (.srt) subtitles to Microsoft SAMI (.smi) format online for free. Accurate millisecond sync, custom language classes (KRCC/ENCC), and 100% browser privacy.",
+    },
+    'lrc-to-srt': {
+      title: "LRC to SRT Converter Online – Convert Lyrics to Subtitles Free | SRTConverters",
+      description: "Convert LRC lyrics files to SubRip (.srt) subtitles online for free. Accurate timestamp synchronization, multi-timestamp support, metadata handling, and 100% browser privacy.",
+    },
     tools: {
       title: 'Free Subtitle & SRT Tools – Convert, Format & Edit | SRTConverters',
       description: "Explore our complete suite of free online subtitle tools. Convert TXT to SRT, SRT to Text, SRT to VTT, VTT to SRT, SRT to ASS, ASS to SRT, and SRT to SUB securely in your browser.",
@@ -101,6 +113,18 @@ export const SEO_TRANSLATIONS: Record<Locale, Record<RouteId | '404', PageSeo>> 
     'sbv-to-srt': {
       title: "Convertidor de SBV a SRT Online – Subtítulos de YouTube a SRT Gratis | SRTConverters",
       description: "Convierte archivos de subtítulos SBV y SubViewer de YouTube a formato SubRip (.srt) limpio gratis en línea. Formatea marcas de tiempo, decodifica entidades HTML y descarga al instante.",
+    },
+    'smi-to-srt': {
+      title: "Convertidor SMI a SRT Online – Convierte Subtítulos SAMI a SRT Gratis | SRTConverters",
+      description: "Convierte archivos de subtítulos SAMI (.smi) a formato SubRip (.srt) limpio online y gratis. Sincronización precisa en milisegundos, soporte de codificación coreana y descarga instantánea.",
+    },
+    'srt-to-smi': {
+      title: "Convertidor SRT a SMI Online – Convierte SubRip a SAMI Gratis | SRTConverters",
+      description: "Convierte subtítulos SubRip (.srt) al formato Microsoft SAMI (.smi) gratis en línea. Sincronización precisa en milisegundos, clases de idioma personalizadas y total privacidad.",
+    },
+    'lrc-to-srt': {
+      title: "Convertidor LRC a SRT Online – Convierte Letras a Subtítulos Gratis | SRTConverters",
+      description: "Convierte archivos de letras LRC a subtítulos SubRip (.srt) gratis en línea. Sincronización precisa de tiempos, soporte multilínea y 100% de privacidad en el navegador.",
     },
     tools: {
       title: 'Herramientas Gratuitas de Subtítulos y SRT | SRTConverters',
@@ -154,6 +178,18 @@ export const SEO_TRANSLATIONS: Record<Locale, Record<RouteId | '404', PageSeo>> 
       title: "Conversor de SBV para SRT Online – Legendas do YouTube para SRT Grátis | SRTConverters",
       description: "Converta arquivos de legendas SBV e SubViewer do YouTube em formato SubRip (.srt) limpo online e grátis. Formate marcações de tempo, decodifique entidades HTML e baixe instantaneamente.",
     },
+    'smi-to-srt': {
+      title: "Conversor SMI para SRT Online – Converta Legendas SAMI para SRT Grátis | SRTConverters",
+      description: "Converta arquivos de legendas SAMI (.smi) para o formato SubRip (.srt) limpo online e grátis. Sincronização precisa de milissegundos, suporte a codificação coreana e download instantâneo.",
+    },
+    'srt-to-smi': {
+      title: "Conversor SRT para SMI Online – Converta SubRip para SAMI Grátis | SRTConverters",
+      description: "Converta legendas SubRip (.srt) para o formato Microsoft SAMI (.smi) online gratuitamente. Sincronização em milissegundos, classes de idioma personalizadas e 100% privado.",
+    },
+    'lrc-to-srt': {
+      title: "Conversor LRC para SRT Online – Converta Letras em Legendas Grátis | SRTConverters",
+      description: "Converta arquivos de letras LRC em legendas SubRip (.srt) online gratuitamente. Sincronização precisa de tempos, suporte a metadados e privacidade total no navegador.",
+    },
     tools: {
       title: 'Ferramentas Gratuitas de Legendas e SRT | SRTConverters',
       description: "Explore nossa suíte completa de ferramentas gratuitas de legendas. Converta TXT em SRT, SRT em texto, SRT em VTT, VTT em SRT, SRT em ASS, ASS em SRT, SRT em SUB e SUB em SRT com segurança no seu navegador.",
@@ -205,6 +241,18 @@ export const SEO_TRANSLATIONS: Record<Locale, Record<RouteId | '404', PageSeo>> 
     'sbv-to-srt': {
       title: "Convertisseur SBV en SRT en Ligne – Sous-titres YouTube en SRT Gratuit | SRTConverters",
       description: "Convertissez vos sous-titres SBV et SubViewer YouTube en format SubRip (.srt) propre et gratuit en ligne. Formatage précis des horodatages, décodage HTML et téléchargement immédiat.",
+    },
+    'smi-to-srt': {
+      title: "Convertisseur SMI en SRT en Ligne – Convertir les Sous-titres SAMI en SRT | SRTConverters",
+      description: "Convertissez des fichiers de sous-titres SAMI (.smi) au format SubRip (.srt) propre en ligne et gratuitement. Synchronisation précise en millisecondes et prise en charge des encodages coréens.",
+    },
+    'srt-to-smi': {
+      title: "Convertisseur SRT en SMI en Ligne – Convertir SubRip en SAMI | SRTConverters",
+      description: "Convertissez vos sous-titres SubRip (.srt) au format Microsoft SAMI (.smi) en ligne gratuitement. Synchronisation précise en millisecondes et confidentialité 100% navigateur.",
+    },
+    'lrc-to-srt': {
+      title: "Convertisseur LRC en SRT en Ligne – Convertir Paroles en Sous-titres | SRTConverters",
+      description: "Convertissez vos fichiers de paroles LRC en sous-titres SubRip (.srt) en ligne gratuitement. Synchronisation précise des minutages et confidentialité 100% navigateur.",
     },
     tools: {
       title: 'Outils Gratuits de Sous-titres et SRT | SRTConverters',
@@ -258,6 +306,18 @@ export const SEO_TRANSLATIONS: Record<Locale, Record<RouteId | '404', PageSeo>> 
       title: "SBV in SRT Konverter Online – YouTube Untertitel in SRT Kostenlos | SRTConverters",
       description: "Konvertieren Sie YouTube SBV- und SubViewer-Untertiteldateien kostenlos online in sauberes SubRip (.srt) Format. Automatische Zeitstempel, HTML-Bereinigung und sofortiger Download.",
     },
+    'smi-to-srt': {
+      title: "SMI in SRT Konverter Online – SAMI Untertitel Kostenlos in SRT Umwandeln | SRTConverters",
+      description: "Konvertieren Sie SAMI (.smi) Untertiteldateien kostenlos online in sauberes SubRip (.srt) Format. Millisekundengenaue Synchronisation, koreanische Kodierungsunterstützung und Sofort-Download.",
+    },
+    'srt-to-smi': {
+      title: "SRT in SMI Konverter Online – SubRip in SAMI Umwandeln | SRTConverters",
+      description: "Wandeln Sie SubRip (.srt) Untertitel kostenlos online in das Microsoft SAMI (.smi) Format um. Präzise Millisekunden-Synchronisation und 100% Datenschutz im Browser.",
+    },
+    'lrc-to-srt': {
+      title: "LRC in SRT Konverter Online – Songtexte in Untertitel Umwandeln | SRTConverters",
+      description: "Wandeln Sie LRC-Songtextdateien kostenlos online in SubRip (.srt) Untertitel um. Präzise Zeitstempel-Synchronisation und 100% Datenschutz im Browser.",
+    },
     tools: {
       title: 'Kostenlose Untertitel- & SRT-Tools | SRTConverters',
       description: "Entdecken Sie unsere vollständige Suite kostenloser Online-Untertitel-Tools. Konvertieren Sie TXT in SRT, SRT in Text, SRT in VTT, VTT in SRT, SRT in ASS, ASS in SRT, SRT in SUB und SUB in SRT sicher im Browser.",
@@ -309,6 +369,18 @@ export const SEO_TRANSLATIONS: Record<Locale, Record<RouteId | '404', PageSeo>> 
     'sbv-to-srt': {
       title: "Konverter SBV ke SRT Online – Ubah Subtitle YouTube ke SRT Gratis | SRTConverters",
       description: "Konversi file subtitle SBV dan SubViewer YouTube ke format SubRip (.srt) bersih online gratis. Format timestamp otomatis, decode entitas HTML, dan unduh file SRT instan.",
+    },
+    'smi-to-srt': {
+      title: "Konverter SMI ke SRT Online – Ubah Subtitle SAMI ke SRT Gratis | SRTConverters",
+      description: "Konversi file subtitle SAMI (.smi) ke format SubRip (.srt) bersih secara online dan gratis. Sinkronisasi milidetik akurat, dukungan encoding Korea EUC-KR, dan unduh instan.",
+    },
+    'srt-to-smi': {
+      title: "Konverter SRT ke SMI Online – Ubah SubRip ke SAMI Gratis | SRTConverters",
+      description: "Ubah subtitle SubRip (.srt) ke format Microsoft SAMI (.smi) secara online gratis. Sinkronisasi milidetik presisi, pemisahan track bahasa, dan 100% privasi browser.",
+    },
+    'lrc-to-srt': {
+      title: "Konverter LRC ke SRT Online – Ubah Lirik ke Subtitle Gratis | SRTConverters",
+      description: "Ubah file lirik lagu LRC ke subtitle SubRip (.srt) secara online gratis. Sinkronisasi stempel waktu presisi, penanganan metadata, dan 100% privasi browser.",
     },
     tools: {
       title: 'Alat Subtitle & SRT Gratis Online | SRTConverters',
@@ -362,6 +434,18 @@ export const SEO_TRANSLATIONS: Record<Locale, Record<RouteId | '404', PageSeo>> 
       title: "SBV - SRT Dönüştürücü Online – YouTube Altyazılarını SRT'ye Dönüştürün | SRTConverters",
       description: "YouTube SBV ve SubViewer altyazı dosyalarını ücretsiz olarak temiz SubRip (.srt) formatına dönüştürün. Zaman damgalarını otomatik biçimlendirin ve anında indirin.",
     },
+    'smi-to-srt': {
+      title: "SMI SRT Dönüştürücü Online – SAMI Altyazılarını Ücretsiz SRT'ye Çevir | SRTConverters",
+      description: "SAMI (.smi) altyazı dosyalarını ücretsiz olarak çevrimiçi temiz SubRip (.srt) formatına dönüştürün. Doğru milisaniye senkronizasyonu, Korece kodlama desteği ve anında indirme.",
+    },
+    'srt-to-smi': {
+      title: "SRT SMI Dönüştürücü Online – SubRip Altyazılarını SAMI Yapma | SRTConverters",
+      description: "SubRip (.srt) altyazılarını ücretsiz olarak Microsoft SAMI (.smi) formatına çevirin. Milisaniye senkronizasyonu, dil sınıfları ve %100 tarayıcı gizliliği.",
+    },
+    'lrc-to-srt': {
+      title: "LRC SRT Dönüştürücü Online – Şarkı Sözlerini Altyazı Yapma | SRTConverters",
+      description: "LRC şarkı sözü dosyalarını ücretsiz olarak SubRip (.srt) altyazı formatına dönüştürün. Hassas zamanlama senkronizasyonu ve %100 tarayıcı içi gizlilik.",
+    },
     tools: {
       title: 'Ücretsiz Altyazı ve SRT Araçları | SRTConverters',
       description: "Ücretsiz çevrimiçi altyazı araçları paketimizi keşfedin. TXT'yi SRT'ye, SRT'yi metne, SRT'yi VTT'ye, VTT'yi SRT'ye, SRT'yi ASS'ye, ASS'yi SRT'ye, SRT'yi SUB'a ve SUB'u SRT'ye güvenle dönüştürün.",
@@ -413,6 +497,18 @@ export const SEO_TRANSLATIONS: Record<Locale, Record<RouteId | '404', PageSeo>> 
     'sbv-to-srt': {
       title: "Convertitore da SBV a SRT Online – Sottotitoli YouTube in SRT Gratis | SRTConverters",
       description: "Converti i sottotitoli SBV e SubViewer di YouTube nel formato standard SubRip (.srt) online gratis. Correggi timestamp, decodifica entità HTML e scarica file SRT all'istante.",
+    },
+    'smi-to-srt': {
+      title: "Convertitore da SMI a SRT Online – Converti Sottotitoli SAMI in SRT Gratis | SRTConverters",
+      description: "Converti file di sottotitoli SAMI (.smi) nel formato pulito SubRip (.srt) online gratuitamente. Sincronizzazione precisa al millisecondo, supporto codifica coreana e download istantaneo.",
+    },
+    'srt-to-smi': {
+      title: "Convertitore da SRT a SMI Online – Converti SubRip in SAMI Gratis | SRTConverters",
+      description: "Converti sottotitoli SubRip (.srt) nel formato Microsoft SAMI (.smi) online gratis. Sincronizzazione precisa in millisecondi, classi di lingua e privacy al 100% nel browser.",
+    },
+    'lrc-to-srt': {
+      title: "Convertitore da LRC a SRT Online – Converti Testi in Sottotitoli Gratis | SRTConverters",
+      description: "Converti file di testi sincronizzati LRC in sottotitoli SubRip (.srt) online gratis. Sincronizzazione precisa dei timestamp e privacy al 100% nel browser.",
     },
     tools: {
       title: 'Strumenti Gratuiti per Sottotitoli e SRT | SRTConverters',

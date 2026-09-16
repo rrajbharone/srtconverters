@@ -81,6 +81,9 @@ export interface ToolsContent {
   srtToSub: ToolDetail;
   subToSrt: ToolDetail;
   sbvToSrt: ToolDetail;
+  smiToSrt: ToolDetail;
+  srtToSmi: ToolDetail;
+  lrcToSrt: ToolDetail;
 }
 
 export const TOOLS_TRANSLATIONS: Record<Locale, ToolsContent> = {
@@ -930,7 +933,295 @@ export const TOOLS_TRANSLATIONS: Record<Locale, ToolsContent> = {
                   "answer": "You can convert SBV to SRT using FFmpeg with the command: 'ffmpeg -i input.sbv -c:s srt output.srt'. If using Python, you can read the file in blocks of lines, split timestamps on the comma, replace decimal dots with commas, and write sequential counters. Our online tool performs the exact same mathematical parsing instantly without requiring Python, terminal installations, or FFmpeg binaries."
             }
       ]
-}
+},
+    smiToSrt: {
+      "id": "smi-to-srt",
+      "name": "SMI to SRT Converter",
+      "shortName": "SMI to SRT",
+      "badge": "Free & Client-Side",
+      "tagline": "Convert SAMI (.SMI) Subtitles to Standard SubRip (.SRT) Online",
+      "description": "Convert SAMI (.smi) subtitle files to clean, universal SubRip (.srt) format online for free. Accurate millisecond sync, Korean EUC-KR / CP949 encoding support, HTML markup stripping, and instant download.",
+      "h1": "SMI to SRT Converter Online",
+      "metaTitle": "SMI to SRT Converter Online – Convert SAMI Subtitles to SRT Free | SRTConverters",
+      "metaDescription": "Convert SAMI (.smi) subtitle files to clean SubRip (.srt) format online for free. Accurate millisecond sync, Korean EUC-KR / CP949 encoding support, and instant download.",
+      "settingsLabels": {
+            "timingMode": "Subtitle & Language Options",
+            "fixedDuration": "Language Track (Class)",
+            "cpsDuration": "Select language class to extract, e.g. Korean (KRCC) or English (ENCC)",
+            "cpsLabel": "Clean HTML / SAMI Tags",
+            "cpsHint": "Strip <FONT>, <P>, and formatting tags while keeping dialogue intact",
+            "startTime": "Encoding (Korean / Unicode)",
+            "startTimeHint": "Select character encoding (UTF-8, EUC-KR/CP949) to fix garbled Korean text"
+      },
+      "stepsTitle": "How to Convert SMI to SRT Online in 3 Steps",
+      "steps": [
+            {
+                  "step": "1",
+                  "title": "Upload or Paste SMI / SAMI Subtitles",
+                  "description": "Drag and drop your .smi file into the dropzone, click Browse Files, or paste your SAMI subtitle code directly into the input area."
+            },
+            {
+                  "step": "2",
+                  "title": "Choose Language & Encoding Options",
+                  "description": "Select whether to extract all subtitles or a specific language track (such as KRCC for Korean or ENCC for English), and verify the file encoding."
+            },
+            {
+                  "step": "3",
+                  "title": "Download Converted SRT File",
+                  "description": "Click Download .SRT to instantly save your universal SubRip subtitle file, or copy the formatted text directly to your clipboard for VLC, Plex, or Premiere Pro."
+            }
+      ],
+      "featuresTitle": "Why Use Our Online SMI to SRT Converter?",
+      "features": [
+            {
+                  "title": "Precise SAMI Timestamp Conversion",
+                  "description": "Calculates accurate start and end timestamps from <SYNC Start=\"...\"> tags, using subsequent sync points and non-breaking space clear points.",
+                  "icon": "zap"
+            },
+            {
+                  "title": "Korean Encoding (EUC-KR / CP949) Support",
+                  "description": "Fixes mojibake and broken Korean characters by decoding legacy ANSI/Windows-949 and EUC-KR subtitle files safely in your browser.",
+                  "icon": "layers"
+            },
+            {
+                  "title": "Bilingual Class Separation",
+                  "description": "Easily isolate Korean (.KRCC) or English (.ENCC) dialogue tracks from bilingual Korean movie and TV drama SAMI files.",
+                  "icon": "split"
+            },
+            {
+                  "title": "100% Client-Side Privacy",
+                  "description": "All conversion runs locally in your web browser. Your subtitle files, scripts, and video transcripts never touch external servers or cloud storage.",
+                  "icon": "shield"
+            }
+      ],
+      "faqsTitle": "Frequently Asked Questions About SMI to SRT Conversion",
+      "faqs": [
+            {
+                  "question": "What is an SMI (SAMI) file and how does it differ from an SRT file?",
+                  "answer": "SMI (Synchronized Accessible Media Interchange), developed by Microsoft in the late 1990s, is an HTML-based caption format originally created for Windows Media Player. It uses HTML-like tags such as <SAMI>, <HEAD>, <STYLE>, <BODY>, and <SYNC Start=12345> with embedded CSS styling. In contrast, SubRip (.srt) is the worldwide standard for video subtitles across VLC, Plex, YouTube, and professional editors (Premiere Pro, DaVinci Resolve). SRT uses simple numbered blocks and clock timestamps (HH:MM:SS,mmm --> HH:MM:SS,mmm) without complex HTML markup, ensuring universal compatibility across modern operating systems, TVs, and mobile devices."
+            },
+            {
+                  "question": "Why are SMI subtitles so popular in South Korea and Korean dramas?",
+                  "answer": "During the late 1990s and 2000s, South Korea experienced rapid high-speed internet adoption, and Windows Media Player was the default media engine on Windows PC systems. Microsoft's SAMI (.smi) specification was widely adopted by Korean fansubbing communities because it natively supported custom font sizes, text colors, ruby annotations, and dual-language tracks (<P Class=KRCC> for Korean and <P Class=ENCC> for English). While SAMI remains a beloved legacy standard in Korea, modern streaming apps, TV operating systems, and smart devices require standard SubRip (.srt)."
+            },
+            {
+                  "question": "Why do Korean characters look like broken symbols or question marks (mojibake) in my SMI file?",
+                  "answer": "Most older Korean SMI subtitle files were saved using legacy Windows-949 (CP949) or EUC-KR ANSI character encodings rather than modern UTF-8 Unicode. When modern software or media players try to decode a CP949 file as UTF-8, Korean Hangul syllables collapse into random symbols, accented Latin letters, or question marks (known as mojibake). Our converter includes dedicated browser-based encoding detection, allowing you to select EUC-KR / CP949 or UTF-8 to restore pristine Korean characters before exporting to standard UTF-8 SRT."
+            },
+            {
+                  "question": "How does this tool calculate subtitle end times when SAMI files only have Start times?",
+                  "answer": "Unlike SRT subtitles which explicitly declare both start and end timecodes on every line (e.g. 00:00:01,000 --> 00:00:04,500), SAMI files only include a <SYNC Start=...> attribute for cue start. To determine when a subtitle disappears, the converter inspects the subsequent <SYNC> tag. In standard SAMI authoring, subtitles are cleared by a subsequent sync point containing an empty paragraph or non-breaking space (<SYNC Start=4500><P Class=KRCC>&nbsp;). If no explicit clear tag exists, our parser calculates the end time based on the next dialogue cue or dynamically estimates it using natural reading duration (15–20 characters per second, capped at safe maximum intervals)."
+            },
+            {
+                  "question": "How does the converter handle bilingual SMI files containing both Korean (KRCC) and English (ENCC)?",
+                  "answer": "Many Korean media releases feature dual-language subtitles where each dialogue sync point contains two paragraph tags: <P Class=KRCC> for the Korean translation and <P Class=ENCC> for the original English dialogue. Our converter allows you to choose your desired track: you can export all subtitle lines, extract only the Korean track (KRCC), or extract only the English track (ENCC). This prevents visual clutter and overlapping text when watching in modern media players."
+            },
+            {
+                  "question": "Can I import converted SRT subtitles into Adobe Premiere Pro, DaVinci Resolve, and Final Cut Pro?",
+                  "answer": "Yes. Major professional non-linear video editing (NLE) platforms like Adobe Premiere Pro, DaVinci Resolve, Apple Final Cut Pro, CapCut, and Avid Media Composer do not natively support Microsoft SAMI (.smi) files. Converting your SMI subtitles into universal SubRip (.srt) format allows you to immediately drag and drop them onto your editing timeline, edit captions natively, customize styles, or burn them into exported MP4/MKV video files."
+            },
+            {
+                  "question": "Are my subtitle files uploaded to a server during conversion?",
+                  "answer": "No. SRTConverters processes 100% of your subtitle files locally inside your web browser using modern JavaScript and Web APIs. Your SMI captions, video scripts, personal transcripts, and converted SRT files never leave your computer or mobile device. No data is stored, cached, or transmitted across the network, ensuring complete confidentiality and privacy compliance."
+            },
+            {
+                  "question": "How can I convert SMI to SRT on the command line using FFmpeg?",
+                  "answer": "You can convert SMI to SRT using FFmpeg by running: ffmpeg -i input.smi output.srt. If your SMI file is encoded in Korean CP949 / EUC-KR, specify the character encoding parameter to prevent corrupted text: ffmpeg -sub_charenc CP949 -i input.smi output.srt. If you prefer a lightweight terminal solution without external dependencies, our online tool delivers identical mathematical accuracy directly in your web browser."
+            }
+      ]
+},
+    srtToSmi: {
+      "id": "srt-to-smi",
+      "name": "SRT to SMI Converter",
+      "shortName": "SRT to SMI",
+      "badge": "Free & Client-Side",
+      "tagline": "Convert SubRip (.SRT) Subtitles to Microsoft SAMI (.SMI) Online",
+      "description": "Convert standard SubRip (.srt) subtitle files into Microsoft SAMI (.smi) format online for free. Accurate millisecond sync, custom language classes (KRCC/ENCC), clean HTML formatting, and 100% browser privacy.",
+      "h1": "SRT to SMI Converter",
+      "metaTitle": "SRT to SMI Converter Online – Convert SubRip to SAMI Free | SRTConverters",
+      "metaDescription": "Convert SubRip (.srt) subtitles to Microsoft SAMI (.smi) format online for free. Accurate millisecond sync, custom language classes (KRCC/ENCC), and 100% browser privacy.",
+      "settingsLabels": {
+            "timingMode": "Subtitle & SAMI Options",
+            "fixedDuration": "Language Class (.Class)",
+            "cpsDuration": "SAMI CSS class name for the subtitle track (e.g., KRCC, ENCC)",
+            "cpsLabel": "Add Blank Sync Points",
+            "cpsHint": "Emit <SYNC Start=endMs><P Class=...>&nbsp; to cleanly clear subtitles when cues finish",
+            "startTime": "Preserve HTML Formatting",
+            "startTimeHint": "Retain <i>, <b>, <u> formatting tags or strip them for plain text"
+      },
+      "stepsTitle": "How to Convert SRT to SMI Online in 3 Steps",
+      "steps": [
+            {
+                  "step": "1",
+                  "title": "Upload or Paste SRT Subtitles",
+                  "description": "Drag and drop your .srt file into the upload zone, click Browse Files, or paste your SubRip subtitle text directly into the input area."
+            },
+            {
+                  "step": "2",
+                  "title": "Configure SAMI Language & Timing Options",
+                  "description": "Select your target SAMI language class (such as KRCC for Korean or ENCC for English) and choose whether to include blank sync clearance points."
+            },
+            {
+                  "step": "3",
+                  "title": "Download Converted SMI File",
+                  "description": "Click Download .SMI to instantly save your Microsoft SAMI subtitle file, or copy the formatted markup directly to your clipboard for GOM Player, PotPlayer, or Windows Media Player."
+            }
+      ],
+      "featuresTitle": "Why Use Our Online SRT to SMI Converter?",
+      "features": [
+            {
+                  "title": "Millisecond-Accurate SAMI Synchronization",
+                  "description": "Converts SRT clock timestamps (HH:MM:SS,mmm) into precise <SYNC Start=\"...\"> millisecond integer timecodes for jitter-free playback.",
+                  "icon": "zap"
+            },
+            {
+                  "title": "Clean Blank Sync Point Insertion",
+                  "description": "Automatically inserts non-breaking space clear points (&nbsp;) at each subtitle's end time to prevent subtitles from lingering on screen.",
+                  "icon": "layers"
+            },
+            {
+                  "title": "Customizable Language Classes",
+                  "description": "Configure standard SAMI language classes (.KRCC, .ENCC, .FRCC, .ESCC) for seamless bilingual video playback in Korean and international media players.",
+                  "icon": "split"
+            },
+            {
+                  "title": "100% Client-Side Privacy",
+                  "description": "All parsing and conversion runs locally in your web browser. Your subtitle files, transcripts, and personal media never upload to any remote server.",
+                  "icon": "shield"
+            }
+      ],
+      "faqsTitle": "Frequently Asked Questions About SRT to SMI Conversion",
+      "faqs": [
+            {
+                  "question": "What is an SMI (SAMI) file and how is it structured?",
+                  "answer": "An SMI (Synchronized Accessible Media Interchange) file is an HTML-based caption format created by Microsoft. It uses standard HTML document wrappers (<SAMI>, <HEAD>, <STYLE>, <BODY>) combined with custom timecode tags like <SYNC Start=12345> and paragraph class tags like <P Class=KRCC>. Timestamps in SAMI are represented in total elapsed milliseconds from the start of the video, rather than the HH:MM:SS,mmm clock format used by SubRip (.srt)."
+            },
+            {
+                  "question": "Why would I need to convert an SRT file into an SMI (SAMI) file?",
+                  "answer": "While SRT is the most widely supported modern subtitle format, SAMI (.smi) remains essential for legacy Windows media systems, specialized educational players, automotive entertainment units, and South Korean video streaming software (such as GOM Player, PotPlayer, and KMPlayer). Many Korean TV broadcasts and local drama repositories still mandate .smi files with KRCC classes for bilingual or closed-caption presentation."
+            },
+            {
+                  "question": "How are SRT start and end timestamps converted into SAMI <SYNC> tags?",
+                  "answer": "Our converter converts clock timecodes into elapsed milliseconds using the formula: Total Ms = (Hours * 3,600,000) + (Minutes * 60,000) + (Seconds * 1,000) + Milliseconds. The subtitle start time is placed in a `<SYNC Start=startMs><P Class=KRCC>` tag. Because SAMI lacks an explicit end-time attribute on the cue itself, the converter emits a clearing tag `<SYNC Start=endMs><P Class=KRCC>&nbsp;` at the cue's end timestamp, ensuring the subtitle vanishes on cue."
+            },
+            {
+                  "question": "What do .KRCC and .ENCC class names mean in SAMI subtitle files?",
+                  "answer": ".KRCC and .ENCC are CSS style classes specified in the <STYLE> block of a SAMI header. By convention, KRCC stands for Korean Closed Caption (lang: ko-KR), and ENCC stands for English Closed Caption (lang: en-US). Korean media players inspect these class names to allow viewers to switch between Korean and English subtitle tracks inside the same file."
+            },
+            {
+                  "question": "Will multi-line subtitles in my SRT file be preserved in the SMI output?",
+                  "answer": "Yes. When an SRT cue contains multiple lines of dialogue, our converter automatically joins them using standard HTML line breaks (`<BR>`) inside the `<P Class=...>` element. This ensures that dialogue formatting, two-speaker dashes, and line breaks are displayed identically in SAMI-compatible video players."
+            },
+            {
+                  "question": "Does the SRT to SMI conversion process support special characters and Unicode?",
+                  "answer": "Yes. The converter fully supports UTF-8 Unicode characters, including Korean Hangul (한글), Japanese Kanji/Kana, Chinese Hanzi, Cyrillic, Arabic, and accented Latin characters. If you plan to open the resulting .smi file in legacy Windows Media Player 9/11 on a Korean Windows installation, you can save or re-encode the output as EUC-KR / CP949 if your specific player requires legacy ANSI encoding."
+            },
+            {
+                  "question": "Can I convert SRT to SMI on the command line using FFmpeg?",
+                  "answer": "Yes, FFmpeg can convert SRT to SAMI using the command: `ffmpeg -i subtitles.srt -c:s sami output.smi`. However, FFmpeg's built-in SAMI muxer produces basic templates and may not configure customized language track headers (.KRCC/.ENCC) or handle malformed cue timestamps cleanly. Our online converter lets you visually preview, customize language classes, adjust clearance sync points, and download compliant .smi files instantly with zero command-line configuration."
+            },
+            {
+                  "question": "Are my subtitle files uploaded or stored on your servers?",
+                  "answer": "No. The entire conversion process executes 100% client-side inside your web browser using modern JavaScript. Your SRT files and subtitle scripts never leave your device, ensuring total privacy, confidential script security, and instantaneous processing regardless of file size."
+            }
+      ]
+},
+    lrcToSrt: {
+      "id": "lrc-to-srt",
+      "name": "LRC to SRT Converter",
+      "shortName": "LRC to SRT",
+      "badge": "Free & Client-Side",
+      "tagline": "Convert LRC Lyrics & Subtitles to SubRip (.SRT) Format Online",
+      "description": "Convert LRC lyric files into standard SubRip (.srt) subtitles online for free. Accurate millisecond sync, smart end-time derivation, multi-timestamp support, and 100% browser privacy.",
+      "h1": "LRC to SRT Converter",
+      "metaTitle": "LRC to SRT Converter Online – Convert LRC Lyrics to SRT Free | SRTConverters",
+      "metaDescription": "Convert LRC lyric files to SubRip (.srt) subtitle format online for free. Millisecond-accurate timing, smart cue duration calculation, and 100% browser privacy.",
+      "settingsLabels": {
+            "timingMode": "Lyrics & Timing Options",
+            "fixedDuration": "Max Cue Duration (sec)",
+            "cpsDuration": "Maximum display duration for a single line before closing during instrumental gaps",
+            "cpsLabel": "Gap Between Subtitles (ms)",
+            "cpsHint": "Time gap left before the next lyric starts (default: 50ms)",
+            "startTime": "Apply [offset:] Tag",
+            "startTimeHint": "Adjust global lyric timing when an [offset:+/-ms] tag is present in the LRC header"
+      },
+      "stepsTitle": "How to Convert LRC to SRT Online in 3 Steps",
+      "steps": [
+            {
+                  "step": "1",
+                  "title": "Upload or Paste LRC Lyrics",
+                  "description": "Drag and drop your .lrc file into the upload zone, click Browse Files, or paste your synchronized lyric text directly into the input area."
+            },
+            {
+                  "step": "2",
+                  "title": "Configure Cue Duration & Gap Settings",
+                  "description": "Customize the maximum duration cap for instrumental breaks, define inter-cue gaps, and toggle LRC global offset adjustment."
+            },
+            {
+                  "step": "3",
+                  "title": "Download Converted SRT File",
+                  "description": "Click Download .SRT to instantly save your converted SubRip subtitle file, or copy the formatted text directly to your clipboard for VLC, Premiere Pro, or YouTube."
+            }
+      ],
+      "featuresTitle": "Why Use Our Online LRC to SRT Converter?",
+      "features": [
+            {
+                  "title": "Accurate Millisecond Timing",
+                  "description": "Parses centisecond [mm:ss.xx] and millisecond [mm:ss.xxx] timestamps into exact SubRip 00:00:00,000 timecodes without rounding drift.",
+                  "icon": "zap"
+            },
+            {
+                  "title": "Intelligent End-Time Derivation",
+                  "description": "Automatically computes subtitle end times based on the next lyric cue's start time, with smart duration caps for long instrumental pauses.",
+                  "icon": "layers"
+            },
+            {
+                  "title": "Multi-Timestamp Line Support",
+                  "description": "Effortlessly handles lines with multiple timestamp tags (e.g. repeated chorus lines) by cloning and chronologically sorting every cue.",
+                  "icon": "split"
+            },
+            {
+                  "title": "100% Browser-Based Privacy",
+                  "description": "All conversion logic executes client-side inside your browser. Your lyric files, personal music audio, and video transcripts never touch a server.",
+                  "icon": "shield"
+            }
+      ],
+      "faqsTitle": "Frequently Asked Questions About LRC to SRT Conversion",
+      "faqs": [
+            {
+                  "question": "What is an LRC file and how does it differ from an SRT subtitle?",
+                  "answer": "An LRC (Lyrics) file is a lightweight text file used by music players to synchronize song lyrics with audio playback. LRC files only record the start timestamp of each line (such as [01:23.45]Lyric text) and do not natively define when a lyric ends. In contrast, SubRip (.SRT) subtitle files require explicit start AND end timecodes (e.g., 00:01:23,450 --> 00:01:27,000) for every cue, along with sequential index numbers. Our converter bridges this fundamental architectural difference by intelligently calculating natural end times for each line."
+            },
+            {
+                  "question": "How does the converter calculate the end time for each subtitle?",
+                  "answer": "Since standard LRC files only contain start times, our converter determines the end time of each cue using the start timestamp of the immediately following cue, minus a customizable gap (default: 50 milliseconds). If there is a long instrumental break or pause between lines, the converter applies a maximum cue duration cap (default: 5.0 seconds) to prevent subtitles from unnaturally lingering on screen during silent musical passages. For the final lyric cue, duration is calculated using a natural reading speed heuristic."
+            },
+            {
+                  "question": "Can this tool handle lines with multiple timestamps?",
+                  "answer": "Yes. In many LRC files, repetitive verses or choruses share a single text line prefixed with multiple timestamps, such as '[00:15.20][01:30.50]We are the champions'. Our converter automatically identifies each individual timestamp tag on the line, creates separate subtitle entries for each timestamp with the corresponding lyric text, and sorts all resulting cues chronologically into clean sequential SubRip order."
+            },
+            {
+                  "question": "What timestamp formats are supported in LRC files?",
+                  "answer": "Our parser supports standard centisecond LRC timestamps ([mm:ss.xx]), extended millisecond timestamps ([mm:ss.xxx]), and non-standard hour variations ([hh:mm:ss.xx] or [hh:mm:ss.xxx]). Centiseconds are mathematically scaled to milliseconds (e.g., .45 becomes 450ms) to ensure sample-accurate alignment with video and audio players."
+            },
+            {
+                  "question": "What happens to LRC header metadata like [ar:Artist] and [ti:Title]?",
+                  "answer": "Standard LRC metadata tags (such as [ar:Artist], [ti:Title], [al:Album], [by:Author], [length:03:45], and [re:Player]) are automatically recognized and safely filtered out so they do not clutter your video subtitles. If an [offset:+/-ms] tag is present in the header, you can choose whether to apply it automatically to adjust the synchronization of all lyric cues."
+            },
+            {
+                  "question": "How does the [offset:] tag work in LRC files?",
+                  "answer": "The LRC [offset:] tag specifies a global timing adjustment in milliseconds. A positive value (e.g., [offset:500]) shifts lyrics earlier or delays playback timing, while a negative value (e.g., [offset:-300]) advances the cues. When the 'Apply [offset:] Tag' option is enabled, our converter automatically adds the specified millisecond offset to all timestamp calculations."
+            },
+            {
+                  "question": "Will the converted SRT work in video editing software and media players?",
+                  "answer": "Yes, 100%. The generated .srt file conforms strictly to the official SubRip specification with sequential numeric cue IDs, standard comma-separated millisecond timestamps (00:00:00,000 --> 00:00:00,000), clean line breaks, and UTF-8 encoding. It is universally compatible with Adobe Premiere Pro, DaVinci Resolve, Final Cut Pro, CapCut, VLC Media Player, PotPlayer, MPV, YouTube Studio, and Facebook Video."
+            },
+            {
+                  "question": "Is my subtitle and lyric data secure when using this converter?",
+                  "answer": "Absolutely. All processing, parsing, and SRT file generation is executed 100% client-side in your web browser using JavaScript. No files, lyrics, transcripts, or personal data are ever uploaded, transmitted, or stored on any external server, ensuring complete confidentiality and privacy."
+            }
+      ]
+},
   },
   "es": {
     "directory": {
@@ -1778,7 +2069,295 @@ export const TOOLS_TRANSLATIONS: Record<Locale, ToolsContent> = {
                   "answer": "Puedes convertir SBV a SRT con FFmpeg mediante el comando: 'ffmpeg -i input.sbv -c:s srt output.srt'. Si utilizas Python, puedes leer el archivo por bloques, separar las marcas de tiempo por la coma y escribir los contadores numéricos. Nuestra herramienta online ejecuta exactamente la misma transformación matemática de forma instantánea sin requerir instalaciones ni comandos en la terminal."
             }
       ]
-}
+},
+    smiToSrt: {
+      "id": "smi-to-srt",
+      "name": "Convertidor SMI a SRT",
+      "shortName": "SMI a SRT",
+      "badge": "Gratis y en el Navegador",
+      "tagline": "Convierte Subtítulos SAMI (.SMI) a SubRip (.SRT) Estándar Online",
+      "description": "Convierte archivos de subtítulos SAMI (.smi) a formato SubRip (.srt) limpio y universal online y gratis. Sincronización precisa en milisegundos, compatibilidad con codificación coreana EUC-KR / CP949, eliminación de etiquetas HTML y descarga instantánea.",
+      "h1": "Convertidor SMI a SRT Online",
+      "metaTitle": "Convertidor SMI a SRT Online – Convierte Subtítulos SAMI a SRT Gratis | SRTConverters",
+      "metaDescription": "Convierte archivos de subtítulos SAMI (.smi) a formato SubRip (.srt) limpio online y gratis. Sincronización precisa en milisegundos, soporte de codificación coreana y descarga instantánea.",
+      "settingsLabels": {
+            "timingMode": "Opciones de Subtítulos e Idioma",
+            "fixedDuration": "Pista de Idioma (Clase)",
+            "cpsDuration": "Selecciona la clase de idioma a extraer, p. ej. coreano (KRCC) o inglés (ENCC)",
+            "cpsLabel": "Limpiar Etiquetas HTML / SAMI",
+            "cpsHint": "Elimina etiquetas <FONT>, <P> y formato conservando el texto del diálogo",
+            "startTime": "Codificación (Coreano / Unicode)",
+            "startTimeHint": "Selecciona la codificación (UTF-8, EUC-KR/CP949) para corregir caracteres ilegibles"
+      },
+      "stepsTitle": "Cómo Convertir SMI a SRT Online en 3 Pasos",
+      "steps": [
+            {
+                  "step": "1",
+                  "title": "Sube o Pega Subtítulos SMI / SAMI",
+                  "description": "Arrastra y suelta tu archivo .smi en la zona de carga, haz clic en Explorar Archivos o pega el código SAMI directamente en el cuadro de texto."
+            },
+            {
+                  "step": "2",
+                  "title": "Selecciona Opciones de Idioma y Codificación",
+                  "description": "Elige si deseas extraer todos los subtítulos o una pista de idioma específica (como KRCC para coreano o ENCC para inglés) y verifica la codificación."
+            },
+            {
+                  "step": "3",
+                  "title": "Descarga el Archivo SRT Convertido",
+                  "description": "Haz clic en Descargar .SRT para guardar al instante tu archivo de subtítulos SubRip, o copia el texto formateado directamente a tu portapapeles."
+            }
+      ],
+      "featuresTitle": "¿Por Qué Usar Nuestro Convertidor SMI a SRT Online?",
+      "features": [
+            {
+                  "title": "Sincronización Precisa en Milisegundos",
+                  "description": "Calcula marcas de tiempo de inicio y fin exactas a partir de etiquetas <SYNC Start=\"...\"> utilizando los puntos de borrado posteriores.",
+                  "icon": "zap"
+            },
+            {
+                  "title": "Soporte de Codificación Coreana (EUC-KR / CP949)",
+                  "description": "Corrige caracteres coreanos dañados (mojibake) decodificando archivos ANSI/CP949 antiguos de forma segura en tu navegador.",
+                  "icon": "layers"
+            },
+            {
+                  "title": "Separación de Pistas Bilingües",
+                  "description": "Aísla fácilmente pistas de diálogo en coreano (.KRCC) o inglés (.ENCC) de archivos SAMI bilingües.",
+                  "icon": "split"
+            },
+            {
+                  "title": "Privacidad 100% en el Navegador",
+                  "description": "Toda la conversión se procesa localmente en tu navegador web. Tus archivos de subtítulos nunca se suben ni se almacenan en servidores.",
+                  "icon": "shield"
+            }
+      ],
+      "faqsTitle": "Preguntas Frecuentes Sobre la Conversión de SMI a SRT",
+      "faqs": [
+            {
+                  "question": "¿Qué es un archivo SMI (SAMI) y en qué se diferencia de un archivo SRT?",
+                  "answer": "SMI (Synchronized Accessible Media Interchange), desarrollado por Microsoft a finales de los años 90, es un formato de subtítulos basado en HTML creado originalmente para Windows Media Player. Emplea etiquetas similares a HTML como <SAMI>, <HEAD>, <STYLE>, <BODY> y <SYNC Start=12345> con estilos CSS. En contraste, SubRip (.srt) es el estándar universal en reproductores (VLC, Plex) y editores de video (Premiere Pro, DaVinci Resolve). SRT utiliza números secuenciales y marcas de tiempo de reloj (HH:MM:SS,mmm --> HH:MM:SS,mmm) sin etiquetas complejas, garantizando compatibilidad universal."
+            },
+            {
+                  "question": "¿Por qué los subtítulos SMI son tan populares en Corea del Sur y dramas coreanos?",
+                  "answer": "A finales de los 90 y principios de los 2000, Corea del Sur adoptó rápidamente internet de alta velocidad y Windows Media Player era el reproductor predeterminado. El formato SAMI (.smi) fue adoptado masivamente por comunidades de subtitulaje coreanas gracias a su soporte nativo de estilos tipográficos, colores y pistas bilingües (<P Class=KRCC> para coreano y <P Class=ENCC> para inglés). Aunque SAMI sigue siendo un clásico en Corea, las plataformas y televisores actuales exigen formato SubRip (.srt)."
+            },
+            {
+                  "question": "¿Por qué los caracteres coreanos aparecen como símbolos extraños o signos de interrogación (mojibake)?",
+                  "answer": "Muchos archivos SMI coreanos antiguos se guardaron con codificación ANSI Windows-949 (CP949) o EUC-KR en lugar de UTF-8 Unicode. Cuando un reproductor moderno intenta abrir estos archivos como UTF-8, los caracteres coreanos se convierten en símbolos extraños o mojibake. Nuestro convertidor incluye selección y decodificación de codificación en el navegador (EUC-KR / CP949 o UTF-8) para restaurar el texto coreano original y guardarlo en SRT UTF-8 limpio."
+            },
+            {
+                  "question": "¿Cómo calcula esta herramienta el final del subtítulo si los archivos SAMI solo tienen tiempo de inicio?",
+                  "answer": "A diferencia de SRT que declara inicio y fin en cada bloque, SAMI solo incluye un atributo <SYNC Start=...>. Para saber cuándo desaparece el diálogo, el convertidor examina la siguiente etiqueta <SYNC>. En SAMI, el subtítulo se borra mediante un punto de sincronización posterior con espacio vacío (<SYNC Start=4500><P Class=KRCC>&nbsp;). Si no existe una etiqueta explícita de borrado, nuestro sistema calcula el fin en base al siguiente diálogo o estima una duración natural de lectura."
+            },
+            {
+                  "question": "¿Cómo maneja el convertidor archivos SMI bilingües con coreano (KRCC) e inglés (ENCC)?",
+                  "answer": "Muchos subtítulos de películas coreanas contienen diálogos bilingües con dos etiquetas por punto: <P Class=KRCC> para coreano y <P Class=ENCC> para inglés. Nuestro convertidor te permite elegir si deseas conservar ambas pistas o extraer únicamente el coreano (KRCC) o el inglés (ENCC), evitando subtítulos duplicados o sobrecargados en pantalla."
+            },
+            {
+                  "question": "¿Puedo importar los subtítulos SRT convertidos a Premiere Pro, DaVinci Resolve y Final Cut Pro?",
+                  "answer": "Sí. Las principales aplicaciones de edición de video (Adobe Premiere Pro, DaVinci Resolve, Apple Final Cut Pro, CapCut) no admiten archivos SAMI (.smi). Al convertirlos a SubRip (.srt), podrás importarlos de inmediato en tu línea de tiempo, ajustar estilos y exportarlos con tu video."
+            },
+            {
+                  "question": "¿Mis archivos de subtítulos se suben a un servidor durante la conversión?",
+                  "answer": "No. SRTConverters procesa el 100% de tus archivos localmente en tu navegador web mediante JavaScript. Tus archivos SMI y los SRT generados nunca salen de tu dispositivo ni se almacenan en servidores externos, garantizando privacidad absoluta."
+            },
+            {
+                  "question": "¿Cómo puedo convertir SMI a SRT desde la terminal usando FFmpeg?",
+                  "answer": "Puedes convertir SMI a SRT con FFmpeg usando el comando: ffmpeg -i entrada.smi salida.srt. Si el archivo está codificado en CP949 / EUC-KR, añade el parámetro de codificación: ffmpeg -sub_charenc CP949 -i entrada.smi salida.srt. Nuestra herramienta web realiza la misma conversión exacta de forma instantánea sin necesidad de comandos."
+            }
+      ]
+},
+    srtToSmi: {
+      "id": "srt-to-smi",
+      "name": "Convertidor SRT a SMI",
+      "shortName": "SRT a SMI",
+      "badge": "Gratis y Seguro",
+      "tagline": "Convierte Subtítulos SubRip (.SRT) a Microsoft SAMI (.SMI) Online",
+      "description": "Convierte archivos de subtítulos SubRip (.srt) al formato Microsoft SAMI (.smi) gratis en línea. Sincronización precisa en milisegundos, clases de idioma (KRCC/ENCC), código limpio y 100% de privacidad en el navegador.",
+      "h1": "Convertidor SRT a SMI",
+      "metaTitle": "Convertidor SRT a SMI Online – Convierte SubRip a SAMI Gratis | SRTConverters",
+      "metaDescription": "Convierte subtítulos SubRip (.srt) al formato Microsoft SAMI (.smi) gratis en línea. Sincronización precisa en milisegundos, clases de idioma personalizadas y total privacidad.",
+      "settingsLabels": {
+            "timingMode": "Opciones de Subtítulos y SAMI",
+            "fixedDuration": "Clase de Idioma (.Class)",
+            "cpsDuration": "Nombre de clase CSS de SAMI para la pista (ej. KRCC, ENCC, ESCC)",
+            "cpsLabel": "Añadir Puntos de Borrado Sincronizados",
+            "cpsHint": "Inserta <SYNC Start=endMs><P Class=...>&nbsp; para ocultar los subtítulos al terminar el tiempo",
+            "startTime": "Conservar Formato HTML",
+            "startTimeHint": "Mantén etiquetas <i>, <b>, <u> o límpialas para texto plano"
+      },
+      "stepsTitle": "Cómo Convertir SRT a SMI Online en 3 Pasos",
+      "steps": [
+            {
+                  "step": "1",
+                  "title": "Sube o Pega tus Subtítulos SRT",
+                  "description": "Arrastra y suelta tu archivo .srt en el área de carga, haz clic en Explorar Archivos o pega el texto de tus subtítulos SubRip directamente en el editor."
+            },
+            {
+                  "step": "2",
+                  "title": "Configura las Opciones de Idioma y Tiempos SAMI",
+                  "description": "Selecciona la clase de idioma deseada (como KRCC para coreano o ENCC para inglés) y elige si deseas incluir marcas de borrado al final de cada subtítulo."
+            },
+            {
+                  "step": "3",
+                  "title": "Descarga el Archivo SMI Convertido",
+                  "description": "Haz clic en Descargar .SMI para guardar instantáneamente tu archivo de subtítulos SAMI, o copia el texto generado para usarlo en GOM Player, PotPlayer o Windows Media Player."
+            }
+      ],
+      "featuresTitle": "¿Por Qué Usar Nuestro Convertidor SRT a SMI?",
+      "features": [
+            {
+                  "title": "Sincronización Milimétrica en SAMI",
+                  "description": "Convierte los códigos de tiempo de reloj SRT (HH:MM:SS,mmm) en marcas precisas <SYNC Start=\"...\"> en milisegundos enteros para una reproducción sin desfases.",
+                  "icon": "zap"
+            },
+            {
+                  "title": "Puntos de Borrado Limpios",
+                  "description": "Inserta automáticamente marcas de espacio no separable (&nbsp;) al final de cada subtítulo para evitar que el texto permanezca congelado en pantalla.",
+                  "icon": "layers"
+            },
+            {
+                  "title": "Clases de Idioma Personalizables",
+                  "description": "Configura clases estándar SAMI (.KRCC, .ENCC, .ESCC) para una perfecta reproducción bilingüe en reproductores multimedia coreanos e internacionales.",
+                  "icon": "split"
+            },
+            {
+                  "title": "Privacidad 100% en el Navegador",
+                  "description": "Todo el procesamiento se ejecuta localmente en tu navegador. Tus subtítulos, guiones y vídeos jamás se envían a servidores remotos ni a la nube.",
+                  "icon": "shield"
+            }
+      ],
+      "faqsTitle": "Preguntas Frecuentes Sobre la Conversión de SRT a SMI",
+      "faqs": [
+            {
+                  "question": "¿Qué es un archivo SMI (SAMI) y cómo está estructurado?",
+                  "answer": "Un archivo SMI (Synchronized Accessible Media Interchange) es un formato de subtítulos basado en HTML desarrollado por Microsoft. Utiliza etiquetas estándar de documento (<SAMI>, <HEAD>, <STYLE>, <BODY>) junto con marcas de tiempo personalizadas como <SYNC Start=12345> y clases de párrafo como <P Class=KRCC>. En lugar de códigos de tiempo de reloj (HH:MM:SS,mmm), SAMI expresa todos los tiempos en milisegundos transcurridos desde el inicio del vídeo."
+            },
+            {
+                  "question": "¿Por qué necesitaría convertir un archivo SRT a SMI (SAMI)?",
+                  "answer": "Aunque SRT es el formato estándar más universal en la actualidad, SAMI (.smi) sigue siendo indispensable en reproductores clásicos de Windows, sistemas educativos interactivos y reproductores multimedia coreanos muy populares como GOM Player, PotPlayer y KMPlayer, los cuales utilizan clases KRCC para la gestión de subtítulos bilingües y accesibilidad."
+            },
+            {
+                  "question": "¿Cómo se convierten los tiempos de inicio y fin de SRT a etiquetas SAMI <SYNC>?",
+                  "answer": "Nuestro convertidor transforma las horas, minutos, segundos y milisegundos de SRT en milisegundos totales mediante la fórmula: (Horas * 3.600.000) + (Minutos * 60.000) + (Segundos * 1.000) + Milisegundos. Dado que SAMI no cuenta con un atributo de tiempo final en la misma etiqueta, se inserta una etiqueta de borrado `<SYNC Start=finMs><P Class=KRCC>&nbsp;` para garantizar que el subtítulo desaparezca exactamente a tiempo."
+            },
+            {
+                  "question": "¿Qué significan las clases .KRCC y .ENCC en los subtítulos SAMI?",
+                  "answer": ".KRCC y .ENCC son clases CSS definidas en la cabecera <STYLE> del archivo SAMI. Tradicionalmente, KRCC representa 'Korean Closed Caption' (idioma coreano) y ENCC representa 'English Closed Caption' (idioma inglés). Los reproductores multimedia compatibles leen estas clases para permitir al espectador alternar fácilmente entre pistas de subtítulos en un único archivo."
+            },
+            {
+                  "question": "¿Se conservan los subtítulos de múltiples líneas en el archivo SMI resultante?",
+                  "answer": "Sí. Cuando un bloque SRT contiene varias líneas de diálogo, nuestro convertidor las une automáticamente mediante la etiqueta de salto de línea `<BR>` dentro del elemento `<P Class=...>`. Esto asegura que los diálogos entre dos hablantes y las divisiones de texto se muestren de forma limpia y fiel en pantalla."
+            },
+            {
+                  "question": "¿Admite la conversión de SRT a SMI caracteres especiales y Unicode?",
+                  "answer": "Sí, nuestra herramienta es compatible al 100% con la codificación universal UTF-8 Unicode, incluyendo caracteres en español con tildes y eñes (á, é, í, ó, ú, ñ), además de alfabetos asiáticos (hangul coreano, kanji japonés, hanzi chino) y cirílico. Para reproductores muy antiguos que exijan ANSI/EUC-KR, el archivo resultante puede guardarse en la codificación correspondiente."
+            },
+            {
+                  "question": "¿Es posible convertir SRT a SMI desde la línea de comandos con FFmpeg?",
+                  "answer": "Sí, puedes realizar la conversión en terminal ejecutando: `ffmpeg -i subtitulos.srt -c:s sami salida.smi`. No obstante, el multiplexor SAMI de FFmpeg genera plantillas genéricas sin opciones avanzadas para configurar clases bilingües o corregir desfases de tiempos. Nuestra herramienta online realiza esta conversión al instante de forma gráfica y personalizable sin necesidad de instalar terminales."
+            },
+            {
+                  "question": "¿Se almacenan o envían mis subtítulos a servidores externos?",
+                  "answer": "No. La conversión se procesa íntegramente de forma local en tu navegador mediante JavaScript. Tus archivos y textos jamás salen de tu ordenador o dispositivo móvil, garantizando máxima seguridad, privacidad absoluta y velocidad de descarga instantánea."
+            }
+      ]
+},
+    lrcToSrt: {
+      "id": "lrc-to-srt",
+      "name": "Convertidor LRC a SRT",
+      "shortName": "LRC a SRT",
+      "badge": "Gratis y en el Navegador",
+      "tagline": "Convierte Letras y Subtítulos LRC al Formato SubRip (.SRT) en Línea",
+      "description": "Convierte archivos de letras LRC a subtítulos SubRip (.srt) estándar en línea de forma gratuita. Sincronización milimétrica precisa, cálculo inteligente de tiempo final y 100% de privacidad.",
+      "h1": "Convertidor LRC a SRT",
+      "metaTitle": "Convertidor LRC a SRT Online – Convierte Letras LRC a SRT Gratis | SRTConverters",
+      "metaDescription": "Convierte archivos de letras LRC a formato SubRip (.srt) online gratis. Sincronización milimétrica, cálculo inteligente de duración y máxima privacidad.",
+      "settingsLabels": {
+            "timingMode": "Opciones de Letras y Tiempos",
+            "fixedDuration": "Duración Máxima de Subtítulo (s)",
+            "cpsDuration": "Duración máxima en pantalla antes de cerrar el subtítulo durante pausas instrumentales",
+            "cpsLabel": "Espacio entre Subtítulos (ms)",
+            "cpsHint": "Intervalo de tiempo antes de que comience el siguiente verso (por defecto: 50 ms)",
+            "startTime": "Aplicar Etiqueta [offset:]",
+            "startTimeHint": "Ajustar la sincronización global si existe una etiqueta [offset:+/-ms] en el encabezado"
+      },
+      "stepsTitle": "Cómo Convertir LRC a SRT en Línea en 3 Pasos",
+      "steps": [
+            {
+                  "step": "1",
+                  "title": "Sube o Pega la Letra LRC",
+                  "description": "Arrastra y suelta tu archivo .lrc en el área de carga, haz clic en Explorar Archivos o pega el texto directamente en el editor."
+            },
+            {
+                  "step": "2",
+                  "title": "Configura la Duración y Espaciado",
+                  "description": "Personaliza el límite de duración para pausas instrumentales, define el intervalo entre versos y activa el ajuste por offset."
+            },
+            {
+                  "step": "3",
+                  "title": "Descarga el Archivo SRT Convertido",
+                  "description": "Haz clic en Descargar .SRT para guardar tu archivo SubRip al instante o copia el texto al portapapeles para VLC o Premiere Pro."
+            }
+      ],
+      "featuresTitle": "¿Por Qué Usar Nuestro Convertidor LRC a SRT Online?",
+      "features": [
+            {
+                  "title": "Sincronización Precisa al Milisegundo",
+                  "description": "Analiza marcas en centésimas [mm:ss.xx] y milésimas [mm:ss.xxx] convirtiéndolas en códigos SubRip 00:00:00,000 sin desincronización.",
+                  "icon": "zap"
+            },
+            {
+                  "title": "Cálculo Inteligente de Tiempo Final",
+                  "description": "Calcula automáticamente el fin de cada subtítulo a partir del inicio del siguiente verso, limitando pausas instrumentales.",
+                  "icon": "layers"
+            },
+            {
+                  "title": "Soporte para Múltiples Marcas de Tiempo",
+                  "description": "Gestiona líneas con múltiples etiquetas de tiempo (versos repetidos) clonando y ordenando cronológicamente cada línea.",
+                  "icon": "split"
+            },
+            {
+                  "title": "Privacidad 100% en el Navegador",
+                  "description": "Todo el procesamiento se realiza localmente en tu navegador web. Tus archivos de audio y letras nunca se envían a servidores.",
+                  "icon": "shield"
+            }
+      ],
+      "faqsTitle": "Preguntas Frecuentes Sobre la Conversión de LRC a SRT",
+      "faqs": [
+            {
+                  "question": "¿Qué es un archivo LRC y en qué se diferencia de un subtítulo SRT?",
+                  "answer": "Un archivo LRC (Lyrics) es un formato de texto ligero utilizado por reproductores musicales para sincronizar letras con canciones. Los archivos LRC solo registran la marca de inicio de cada línea (como [01:23.45]Texto) y no definen cuándo termina el verso. Por contra, los archivos SubRip (.SRT) requieren tiempos explícitos de inicio Y fin (00:01:23,450 --> 00:01:27,000) e índices numéricos secuenciales. Nuestro convertidor resuelve esta diferencia calculando de forma inteligente la duración adecuada de cada subtítulo."
+            },
+            {
+                  "question": "¿Cómo calcula el convertidor el tiempo de fin para cada subtítulo?",
+                  "answer": "Dado que el estándar LRC solo incluye marcas iniciales, el convertidor determina el final de cada línea usando el tiempo de inicio de la siguiente, restando un pequeño intervalo (por defecto 50 ms). En pausas instrumentales largas, aplica un límite de duración máxima (por defecto 5,0 segundos) para que la letra no quede congelada en pantalla. Para la última línea, estima la duración mediante velocidad natural de lectura."
+            },
+            {
+                  "question": "¿Puede esta herramienta procesar líneas con múltiples marcas de tiempo?",
+                  "answer": "Sí. En muchos archivos LRC, estribillos o versos repetidos comparten una sola línea con varios tiempos, por ejemplo '[00:15.20][01:30.50]Somos los campeones'. Nuestra herramienta reconoce cada etiqueta temporal, genera subtítulos independientes para cada una y los ordena en estricto orden cronológico en el SRT resultante."
+            },
+            {
+                  "question": "¿Qué formatos de marcas de tiempo son compatibles?",
+                  "answer": "Admite marcas estándar en centésimas de segundo ([mm:ss.xx]), milésimas ([mm:ss.xxx]) y formatos extendidos con horas ([hh:mm:ss.xx]). Las centésimas se convierten con exactitud matemática a milisegundos para garantizar una sincronización perfecta con el reproductor."
+            },
+            {
+                  "question": "¿Qué ocurre con los metadatos LRC como [ar:Artista] y [ti:Título]?",
+                  "answer": "Las etiquetas de metadatos estándar ([ar:], [ti:], [al:], [by:], [length:], [re:]) se reconocen y filtran de forma limpia para que no interfieran en los subtítulos del vídeo. Si existe una etiqueta [offset:+/-ms], puedes aplicarla para corregir el desfase temporal de toda la canción."
+            },
+            {
+                  "question": "¿Cómo funciona la etiqueta [offset:] en los archivos LRC?",
+                  "answer": "La etiqueta [offset:] indica un desfase temporal global en milisegundos. Un valor positivo retrasa las letras y uno negativo las adelanta. Al activar la opción 'Aplicar Etiqueta [offset:]', la herramienta suma o resta automáticamente ese valor en todos los cálculos temporales."
+            },
+            {
+                  "question": "¿El archivo SRT generado funciona en programas de edición de vídeo?",
+                  "answer": "Sí, con total compatibilidad. El archivo .srt generado cumple rigurosamente el estándar SubRip con numeración secuencial, marcas de tiempo con comas (00:00:00,000 --> 00:00:00,000) y codificación UTF-8. Es compatible con Adobe Premiere Pro, DaVinci Resolve, Final Cut Pro, CapCut, VLC, PotPlayer y YouTube."
+            },
+            {
+                  "question": "¿Mis datos y letras están seguros con este convertidor?",
+                  "answer": "Totalmente seguros. Todo el análisis, conversión y generación del archivo SRT se procesa en el navegador del usuario mediante JavaScript. No se transmite ni almacena ningún archivo en servidores remotos, garantizando máxima privacidad."
+            }
+      ]
+},
   },
   "pt": {
     "directory": {
@@ -2626,7 +3205,295 @@ export const TOOLS_TRANSLATIONS: Record<Locale, ToolsContent> = {
                   "answer": "Você pode converter SBV para SRT com o FFmpeg usando: 'ffmpeg -i input.sbv -c:s srt output.srt'. No Python, você pode ler o arquivo em blocos, dividir as marcações pela vírgula e adicionar os contadores numéricos. Nossa ferramenta online executa a mesma lógica instantaneamente no navegador sem necessidade de instalar dependências ou comandos no terminal."
             }
       ]
-}
+},
+    smiToSrt: {
+      "id": "smi-to-srt",
+      "name": "Conversor SMI para SRT",
+      "shortName": "SMI para SRT",
+      "badge": "Gratuito e no Navegador",
+      "tagline": "Converta Legendas SAMI (.SMI) para SubRip (.SRT) Padrão Online",
+      "description": "Converta arquivos de legendas SAMI (.smi) para o formato SubRip (.srt) limpo e universal online e grátis. Sincronização precisa de milissegundos, suporte a codificação coreana EUC-KR / CP949, limpeza de tags HTML e download instantâneo.",
+      "h1": "Conversor SMI para SRT Online",
+      "metaTitle": "Conversor SMI para SRT Online – Converta Legendas SAMI para SRT Grátis | SRTConverters",
+      "metaDescription": "Converta arquivos de legendas SAMI (.smi) para o formato SubRip (.srt) limpo online e grátis. Sincronização precisa de milissegundos, suporte a codificação coreana e download instantâneo.",
+      "settingsLabels": {
+            "timingMode": "Opções de Legenda e Idioma",
+            "fixedDuration": "Faixa de Idioma (Classe)",
+            "cpsDuration": "Selecione a classe de idioma a extrair, ex.: coreano (KRCC) ou inglês (ENCC)",
+            "cpsLabel": "Limpar Tags HTML / SAMI",
+            "cpsHint": "Remove tags <FONT>, <P> e formatação mantendo o diálogo intacto",
+            "startTime": "Codificação (Coreano / Unicode)",
+            "startTimeHint": "Selecione a codificação (UTF-8, EUC-KR/CP949) para corrigir texto corrompido"
+      },
+      "stepsTitle": "Como Converter SMI para SRT Online em 3 Passos",
+      "steps": [
+            {
+                  "step": "1",
+                  "title": "Carregue ou Cole Legendas SMI / SAMI",
+                  "description": "Arraste e solte seu arquivo .smi na área de upload, clique em Procurar Arquivos ou cole o código SAMI diretamente no campo de texto."
+            },
+            {
+                  "step": "2",
+                  "title": "Selecione as Opções de Idioma e Codificação",
+                  "description": "Escolha se deseja extrair todas as legendas ou uma faixa de idioma específica (como KRCC para coreano ou ENCC para inglês) e confira a codificação."
+            },
+            {
+                  "step": "3",
+                  "title": "Baixe o Arquivo SRT Convertido",
+                  "description": "Clique em Baixar .SRT para salvar instantaneamente seu arquivo SubRip, ou copie o texto formatado diretamente para a área de transferência."
+            }
+      ],
+      "featuresTitle": "Por Que Usar Nosso Conversor SMI para SRT Online?",
+      "features": [
+            {
+                  "title": "Sincronização Precisa de Milissegundos",
+                  "description": "Calcula marcas de início e fim com exatidão a partir de tags <SYNC Start=\"...\"> usando os pontos de limpeza posteriores.",
+                  "icon": "zap"
+            },
+            {
+                  "title": "Suporte à Codificação Coreana (EUC-KR / CP949)",
+                  "description": "Corrige caracteres coreanos corrompidos (mojibake) decodificando arquivos ANSI/CP949 com segurança diretamente no navegador.",
+                  "icon": "layers"
+            },
+            {
+                  "title": "Separação de Faixas Bilíngues",
+                  "description": "Isole facilmente faixas de diálogo em coreano (.KRCC) ou inglês (.ENCC) presentes em arquivos SAMI bilíngues.",
+                  "icon": "split"
+            },
+            {
+                  "title": "Privacidade 100% no Navegador",
+                  "description": "Toda a conversão ocorre localmente no seu navegador web. Seus arquivos de legendas nunca são enviados nem salvos em servidores externos.",
+                  "icon": "shield"
+            }
+      ],
+      "faqsTitle": "Perguntas Frequentes Sobre a Conversão de SMI para SRT",
+      "faqs": [
+            {
+                  "question": "O que é um arquivo SMI (SAMI) e como ele difere de um arquivo SRT?",
+                  "answer": "O SMI (Synchronized Accessible Media Interchange), criado pela Microsoft no final dos anos 1990, é um formato de legenda baseado em HTML desenvolvido para o Windows Media Player. Ele utiliza tags como <SAMI>, <HEAD>, <STYLE>, <BODY> e <SYNC Start=12345> com estilização CSS. Já o SubRip (.srt) é o padrão mundial de legendas aceito pelo VLC, Plex, YouTube e programas de edição (Premiere Pro, DaVinci Resolve). O SRT utiliza contadores numéricos simples e tempos de relógio (HH:MM:SS,mmm --> HH:MM:SS,mmm) sem tags HTML complexas, garantindo total compatibilidade."
+            },
+            {
+                  "question": "Por que as legendas SMI são tão populares na Coreia do Sul e em k-dramas?",
+                  "answer": "Na virada dos anos 2000, a Coreia do Sul popularizou a internet rápida e o Windows Media Player era o reprodutor padrão em PCs. As comunidades de fansub coreanas adotaram o formato SAMI (.smi) por permitir cores de fonte, tamanhos personalizados e suporte nativo a dois idiomas simultâneos (<P Class=KRCC> para coreano e <P Class=ENCC> para inglês). Apesar de clássico na Coreia, os aparelhos e aplicativos modernos exigem legendas no formato padrão SubRip (.srt)."
+            },
+            {
+                  "question": "Por que os caracteres coreanos aparecem quebrados ou com símbolos estranhos (mojibake)?",
+                  "answer": "Muitos arquivos SMI coreanos antigos foram gravados com codificação ANSI Windows-949 (CP949) ou EUC-KR em vez de UTF-8 Unicode. Quando reprodutores modernos tentam abri-los como UTF-8, o texto em hangul se transforma em símbolos ilegíveis. Nosso conversor inclui decodificação de codificação nativa no navegador (EUC-KR / CP949 ou UTF-8) para restaurar os caracteres coreanos autênticos antes de gerar o SRT em UTF-8."
+            },
+            {
+                  "question": "Como esta ferramenta calcula o tempo final da legenda se os arquivos SAMI só têm tempo inicial?",
+                  "answer": "Ao contrário do SRT que especifica início e fim em cada legenda, o SAMI traz apenas o atributo <SYNC Start=...>. Para identificar quando a legenda deve sumir, o conversor examina a tag <SYNC> seguinte. No padrão SAMI, a legenda é ocultada por um ponto de sincronização com espaço em branco (<SYNC Start=4500><P Class=KRCC>&nbsp;). Se essa tag não existir, o sistema usa o próximo diálogo ou calcula uma duração natural de leitura."
+            },
+            {
+                  "question": "Como o conversor lida com arquivos SMI bilíngues com coreano (KRCC) e inglês (ENCC)?",
+                  "answer": "Muitos filmes e séries coreanas trazem legendas duplas com duas tags por ponto: <P Class=KRCC> para coreano e <P Class=ENCC> para inglês. Nosso conversor permite selecionar a faixa desejada: você pode manter ambas as falas ou extrair apenas o coreano (KRCC) ou o inglês (ENCC), evitando legendas sobrepostas ou confusas."
+            },
+            {
+                  "question": "Posso importar legendas SRT convertidas no Adobe Premiere Pro, DaVinci Resolve e Final Cut Pro?",
+                  "answer": "Sim. Os principais editores de vídeo profissionais (Adobe Premiere Pro, DaVinci Resolve, Apple Final Cut Pro, CapCut) não suportam arquivos SAMI (.smi). Ao converter para SubRip (.srt), você pode arrastar o arquivo diretamente para a sua timeline de edição."
+            },
+            {
+                  "question": "Meus arquivos de legendas são enviados para algum servidor durante a conversão?",
+                  "answer": "Não. O SRTConverters processa 100% dos seus arquivos localmente no navegador via JavaScript. Seus arquivos SMI e legendas convertidas nunca saem do seu dispositivo nem são gravados em servidores na nuvem."
+            },
+            {
+                  "question": "Como converter SMI para SRT na linha de comando usando o FFmpeg?",
+                  "answer": "Você pode converter SMI para SRT com o FFmpeg executando: ffmpeg -i entrada.smi saida.srt. Caso o arquivo use codificação coreana CP949 / EUC-KR, adicione o parâmetro de codificação: ffmpeg -sub_charenc CP949 -i entrada.smi saida.srt. Nossa ferramenta online oferece a mesma precisão sem necessidade de instalar comandos."
+            }
+      ]
+},
+    srtToSmi: {
+      "id": "srt-to-smi",
+      "name": "Conversor SRT para SMI",
+      "shortName": "SRT para SMI",
+      "badge": "Gratuito e Seguro",
+      "tagline": "Converta Legendas SubRip (.SRT) para Microsoft SAMI (.SMI) Online",
+      "description": "Converta arquivos de legenda SubRip (.srt) para o formato Microsoft SAMI (.smi) gratuitamente online. Sincronização precisa em milissegundos, classes de idioma (KRCC/ENCC) e total privacidade no navegador.",
+      "h1": "Conversor SRT para SMI",
+      "metaTitle": "Conversor SRT para SMI Online – Converta SubRip para SAMI Grátis | SRTConverters",
+      "metaDescription": "Converta legendas SubRip (.srt) para o formato Microsoft SAMI (.smi) online gratuitamente. Sincronização em milissegundos, classes de idioma personalizadas e 100% privado.",
+      "settingsLabels": {
+            "timingMode": "Opções de Legenda e SAMI",
+            "fixedDuration": "Classe de Idioma (.Class)",
+            "cpsDuration": "Nome da classe CSS SAMI para a faixa (ex.: KRCC, ENCC, PTCC)",
+            "cpsLabel": "Adicionar Pontos de Limpeza Sincronizados",
+            "cpsHint": "Insira <SYNC Start=endMs><P Class=...>&nbsp; para ocultar a legenda ao finalizar o tempo",
+            "startTime": "Preservar Formatação HTML",
+            "startTimeHint": "Mantenha tags <i>, <b>, <u> ou limpe para texto simples"
+      },
+      "stepsTitle": "Como Converter SRT para SMI Online em 3 Passos",
+      "steps": [
+            {
+                  "step": "1",
+                  "title": "Envie ou Cole Legendas SRT",
+                  "description": "Arraste e solte seu arquivo .srt na área de envio, clique em Procurar Arquivos ou cole o texto da legenda SubRip diretamente no editor."
+            },
+            {
+                  "step": "2",
+                  "title": "Configure Opções de Idioma e Tempo SAMI",
+                  "description": "Selecione a classe de idioma desejada (como KRCC para coreano ou ENCC para inglês) e defina a inclusão de pontos de limpeza de tela."
+            },
+            {
+                  "step": "3",
+                  "title": "Baixe o Arquivo SMI Convertido",
+                  "description": "Clique em Baixar .SMI para salvar instantaneamente seu arquivo SAMI, ou copie o código gerado para uso no GOM Player, PotPlayer ou Windows Media Player."
+            }
+      ],
+      "featuresTitle": "Por Que Escolher Nosso Conversor SRT para SMI?",
+      "features": [
+            {
+                  "title": "Sincronização Precisa em Milissegundos",
+                  "description": "Transforma marcações de relógio SRT (HH:MM:SS,mmm) em códigos de tempo inteiros <SYNC Start=\"...\"> para reprodução impecável.",
+                  "icon": "zap"
+            },
+            {
+                  "title": "Inserção de Ponto de Limpeza",
+                  "description": "Adiciona marcações de espaço não separável (&nbsp;) ao final de cada legenda para que o texto não permaneça congelado no vídeo.",
+                  "icon": "layers"
+            },
+            {
+                  "title": "Classes de Idioma Personalizadas",
+                  "description": "Configure classes SAMI padrão (.KRCC, .ENCC, .PTCC) para compatibilidade perfeita com reprodutores de mídia coreanos e ocidentais.",
+                  "icon": "split"
+            },
+            {
+                  "title": "Privacidade 100% no Navegador",
+                  "description": "Todo o processamento ocorre no próprio navegador via JavaScript. Seus arquivos de legenda e roteiros nunca são enviados para servidores externos.",
+                  "icon": "shield"
+            }
+      ],
+      "faqsTitle": "Perguntas Frequentes Sobre a Conversão de SRT para SMI",
+      "faqs": [
+            {
+                  "question": "O que é um arquivo SMI (SAMI) e como ele é estruturado?",
+                  "answer": "Um arquivo SMI (Synchronized Accessible Media Interchange) é um formato de legenda baseado em HTML desenvolvido pela Microsoft no fim dos anos 90. Ele utiliza estrutura de documento (<SAMI>, <HEAD>, <STYLE>, <BODY>) e marcações de tempo personalizadas como <SYNC Start=12345> com classes de parágrafo (<P Class=KRCC>). Em vez do formato de relógio HH:MM:SS,mmm do SubRip, todos os tempos são medidos em milissegundos corridos."
+            },
+            {
+                  "question": "Por que converter um arquivo SRT para SMI (SAMI)?",
+                  "answer": "Embora o SRT seja o formato mais popular atualmente, o SAMI (.smi) ainda é amplamente exigido em reprodutores multimídia coreanos (como GOM Player, PotPlayer e KMPlayer), softwares educativos e sistemas de transmissão televisiva que utilizam a estrutura de classes KRCC para legendagem bilingue."
+            },
+            {
+                  "question": "Como os tempos inicial e final do SRT são convertidos em tags SAMI <SYNC>?",
+                  "answer": "A conversão calcula os milissegundos totais: (Horas * 3.600.000) + (Minutos * 60.000) + (Segundos * 1.000) + Milissegundos. O tempo inicial é inserido na tag `<SYNC Start=inicioMs><P Class=KRCC>`. Como o formato SAMI não possui um atributo de término de exibição na mesma tag, uma marcação de limpeza `<SYNC Start=fimMs><P Class=KRCC>&nbsp;` é adicionada ao término do bloco."
+            },
+            {
+                  "question": "O que representam as classes .KRCC e .ENCC nos arquivos SAMI?",
+                  "answer": "Representam classes de estilo CSS definidas no cabeçalho <STYLE> do arquivo. Por convenção, KRCC significa 'Korean Closed Caption' (coreano) e ENCC significa 'English Closed Caption' (inglês). Reprodutores compatíveis leem essas classes para permitir a alternância de faixas de áudio/legenda em um único arquivo."
+            },
+            {
+                  "question": "Legendas com várias linhas são mantidas na saída SMI?",
+                  "answer": "Sim. Se um bloco SRT contiver múltiplas linhas de fala, o conversor une as linhas utilizando a tag HTML `<BR>` dentro de `<P Class=...>`. Dessa forma, quebras de linha e diálogos de dois personagens são exibidos com perfeição."
+            },
+            {
+                  "question": "O conversor suporta caracteres especiais, acentos e Unicode?",
+                  "answer": "Sim, suporta totalmente a codificação UTF-8, incluindo acentos do português (á, é, ã, ç), caracteres coreanos (Hangul), japoneses e cirílicos. Caso utilize um reprodutor antigo do Windows que exija codificação ANSI/EUC-KR, o arquivo baixado pode ser facilmente reencodado."
+            },
+            {
+                  "question": "É possível converter SRT para SMI via linha de comando com o FFmpeg?",
+                  "answer": "Sim, usando o comando: `ffmpeg -i legenda.srt -c:s sami saida.smi`. No entanto, o FFmpeg gera marcações genéricas sem suporte visual a classes personalizadas (.KRCC) ou ajustes de limpeza. Nosso conversor online entrega tudo pronto e configurado diretamente no navegador."
+            },
+            {
+                  "question": "Meus arquivos são enviados ou salvos em algum servidor?",
+                  "answer": "Não. A conversão ocorre 100% no lado do cliente no navegador. Nenhum arquivo de texto ou legenda sai da sua máquina, garantindo privacidade absoluta e segurança total para conteúdos inéditos ou confidenciais."
+            }
+      ]
+},
+    lrcToSrt: {
+      "id": "lrc-to-srt",
+      "name": "Conversor LRC para SRT",
+      "shortName": "LRC para SRT",
+      "badge": "Gratuito e no Navegador",
+      "tagline": "Converta Letras e Legendas LRC para o Formato SubRip (.SRT) Online",
+      "description": "Converta arquivos de letras LRC em legendas SubRip (.srt) padrão online gratuitamente. Sincronização precisa em milissegundos, cálculo inteligente de duração e 100% de privacidade.",
+      "h1": "Conversor LRC para SRT",
+      "metaTitle": "Conversor LRC para SRT Online – Converta Letras LRC em SRT Grátis | SRTConverters",
+      "metaDescription": "Converta arquivos de letras LRC para o formato SubRip (.srt) online grátis. Sincronização precisa, cálculo inteligente de tempo final e privacidade total.",
+      "settingsLabels": {
+            "timingMode": "Opções de Letras e Temporização",
+            "fixedDuration": "Duração Máxima da Legenda (s)",
+            "cpsDuration": "Tempo máximo de exibição de uma linha antes de fechar durante pausas instrumentais",
+            "cpsLabel": "Intervalo entre Legendas (ms)",
+            "cpsHint": "Intervalo deixado antes do início do próximo verso (padrão: 50 ms)",
+            "startTime": "Aplicar Tag [offset:]",
+            "startTimeHint": "Ajustar sincronização geral caso exista tag [offset:+/-ms] no cabeçalho LRC"
+      },
+      "stepsTitle": "Como Converter LRC para SRT Online em 3 Passos",
+      "steps": [
+            {
+                  "step": "1",
+                  "title": "Envie ou Cole a Letra LRC",
+                  "description": "Arraste e solte o arquivo .lrc na área de upload, clique em Procurar Arquivos ou cole o texto sincronizado diretamente no editor."
+            },
+            {
+                  "step": "2",
+                  "title": "Configure a Duração e o Intervalo",
+                  "description": "Defina o limite de duração para pausas instrumentais, o intervalo entre versos e a aplicação do deslocamento global."
+            },
+            {
+                  "step": "3",
+                  "title": "Baixe o Arquivo SRT Convertido",
+                  "description": "Clique em Baixar .SRT para salvar seu arquivo de legendas SubRip ou copie o texto formatado para uso no Premiere, DaVinci ou VLC."
+            }
+      ],
+      "featuresTitle": "Por Que Usar Nosso Conversor LRC para SRT Online?",
+      "features": [
+            {
+                  "title": "Temporização Precisa em Milissegundos",
+                  "description": "Analisa marcas em centésimos [mm:ss.xx] e milissegundos [mm:ss.xxx], convertendo em timecodes SubRip 00:00:00,000 sem desvios.",
+                  "icon": "zap"
+            },
+            {
+                  "title": "Cálculo Inteligente de Fim de Legenda",
+                  "description": "Calcula automaticamente o término de cada fala a partir do início do verso seguinte, limitando tempos em pausas instrumentais.",
+                  "icon": "layers"
+            },
+            {
+                  "title": "Suporte a Múltiplas Marcas na Mesma Linha",
+                  "description": "Lida perfeitamente com refrões repetidos que possuem múltiplas marcas de tempo, gerando e ordenando legendas individuais.",
+                  "icon": "split"
+            },
+            {
+                  "title": "Privacidade 100% no Navegador",
+                  "description": "Todo o processamento ocorre localmente no seu navegador. Suas letras musicais e arquivos de vídeo nunca sobem para servidores.",
+                  "icon": "shield"
+            }
+      ],
+      "faqsTitle": "Perguntas Frequentes Sobre a Conversão de LRC para SRT",
+      "faqs": [
+            {
+                  "question": "O que é um arquivo LRC e como ele difere de uma legenda SRT?",
+                  "answer": "Um arquivo LRC (Lyrics) é um formato de texto leve utilizado por tocadores de áudio para sincronizar letras com músicas. Ele armazena apenas o instante em que cada verso começa (como [01:23.45]Letra) e não define quando termina. Já as legendas SubRip (.SRT) exigem marcações explícitas de início E término (00:01:23,450 --> 00:01:27,000) e números sequenciais de índice. Nosso conversor faz essa ponte arquitetural calculando durações naturais para cada verso."
+            },
+            {
+                  "question": "Como o conversor calcula o tempo final de cada legenda?",
+                  "answer": "Como arquivos LRC comuns só trazem tempos iniciais, o conversor define o final de cada fala baseado no início da seguinte, subtraindo um pequeno intervalo de folga (padrão: 50 ms). Em pausas instrumentais prolongadas, um limite de duração máxima é aplicado (padrão: 5,0 segundos) para que o texto não fique parado indefinidamente na tela. O último verso usa uma métrica baseada em velocidade de leitura."
+            },
+            {
+                  "question": "A ferramenta suporta linhas com múltiplos marcadores de tempo?",
+                  "answer": "Sim. Em várias músicas, refrões repetidos aparecem em uma única linha precedida por múltiplos marcadores, como '[00:15.20][01:30.50]Somos os campeões'. Nosso conversor identifica cada tag de tempo, gera blocos de legenda independentes para cada ocorrência e reorganiza tudo em perfeita ordem cronológica."
+            },
+            {
+                  "question": "Quais formatos de marcação temporal são aceitos?",
+                  "answer": "Suporta marcas em centésimos de segundo ([mm:ss.xx]), milissegundos ([mm:ss.xxx]) e marcações com indicação de horas ([hh:mm:ss.xx]). Os centésimos são convertidos com precisão matemática em milissegundos para assegurar sincronia absoluta com o áudio."
+            },
+            {
+                  "question": "O que acontece com metadados do cabeçalho como [ar:Artista] e [ti:Título]?",
+                  "answer": "Tags de metadados padrão como [ar:], [ti:], [al:], [by:], [length:] e [re:] são automaticamente filtradas para manter o arquivo de legendas limpo. Caso haja uma tag [offset:+/-ms], você pode optar por aplicá-la para recalcular os tempos."
+            },
+            {
+                  "question": "Como funciona a tag [offset:] em arquivos LRC?",
+                  "answer": "A tag [offset:] define um ajuste de sincronização global em milissegundos. Valores positivos atrasam a letra e valores negativos a adiantam. Ativando a opção correspondente, o conversor incorpora esse deslocamento em todas as legendas geradas."
+            },
+            {
+                  "question": "O arquivo SRT resultante é compatível com editores de vídeo?",
+                  "answer": "Sim, 100%. O arquivo .srt gerado segue estritamente a especificação SubRip com numeração sequencial, timestamps formatados com vírgula (00:00:00,000 --> 00:00:00,000) e codificação UTF-8. É universalmente reconhecido pelo Adobe Premiere Pro, DaVinci Resolve, Final Cut Pro, CapCut e VLC."
+            },
+            {
+                  "question": "Meus dados e letras permanecem seguros ao usar esta ferramenta?",
+                  "answer": "Com certeza. Todo o algoritmo opera diretamente no navegador cliente via JavaScript. Nenhum arquivo, áudio ou letra é enviado para a nuvem, garantindo total privacidade e confidencialidade."
+            }
+      ]
+},
   },
   "fr": {
     "directory": {
@@ -3474,7 +4341,295 @@ export const TOOLS_TRANSLATIONS: Record<Locale, ToolsContent> = {
                   "answer": "Avec FFmpeg, utilisez la commande : 'ffmpeg -i input.sbv -c:s srt output.srt'. En Python, vous pouvez lire le fichier par blocs, scinder les horodatages à la virgule et générer les index numériques. Notre convertisseur en ligne applique exactement ce traitement de manière instantanée, sans aucune installation requise."
             }
       ]
-}
+},
+    smiToSrt: {
+      "id": "smi-to-srt",
+      "name": "Convertisseur SMI en SRT",
+      "shortName": "SMI en SRT",
+      "badge": "Gratuit & Côté Client",
+      "tagline": "Convertir les Sous-titres SAMI (.SMI) en SubRip (.SRT) en Ligne",
+      "description": "Convertissez des fichiers de sous-titres SAMI (.smi) au format SubRip (.srt) propre et universel en ligne et gratuitement. Synchronisation précise en millisecondes, prise en charge des encodages coréens EUC-KR / CP949, suppression des balises HTML et téléchargement instantané.",
+      "h1": "Convertisseur SMI en SRT en Ligne",
+      "metaTitle": "Convertisseur SMI en SRT en Ligne – Convertir les Sous-titres SAMI en SRT | SRTConverters",
+      "metaDescription": "Convertissez des fichiers de sous-titres SAMI (.smi) au format SubRip (.srt) propre en ligne et gratuitement. Synchronisation précise en millisecondes et prise en charge des encodages coréens.",
+      "settingsLabels": {
+            "timingMode": "Options de Sous-titres et de Langue",
+            "fixedDuration": "Piste de Langue (Classe)",
+            "cpsDuration": "Sélectionnez la classe de langue à extraire, ex. coréen (KRCC) ou anglais (ENCC)",
+            "cpsLabel": "Nettoyer les Balises HTML / SAMI",
+            "cpsHint": "Supprime les balises <FONT>, <P> et le formatage en préservant le dialogue",
+            "startTime": "Encodage (Coréen / Unicode)",
+            "startTimeHint": "Sélectionnez l'encodage (UTF-8, EUC-KR/CP949) pour corriger les caractères corrompus"
+      },
+      "stepsTitle": "Comment Convertir SMI en SRT en Ligne en 3 Étapes",
+      "steps": [
+            {
+                  "step": "1",
+                  "title": "Téléversez ou Collez des Sous-titres SMI / SAMI",
+                  "description": "Glissez-déposez votre fichier .smi dans la zone de dépôt, cliquez sur Parcourir ou collez directement le texte SAMI dans la zone de saisie."
+            },
+            {
+                  "step": "2",
+                  "title": "Choisissez les Options de Langue et d'Encodage",
+                  "description": "Choisissez d'extraire tous les sous-titres ou une piste linguistique spécifique (comme KRCC pour le coréen ou ENCC pour l'anglais) et vérifiez l'encodage."
+            },
+            {
+                  "step": "3",
+                  "title": "Téléchargez le Fichier SRT Converti",
+                  "description": "Cliquez sur Télécharger .SRT pour enregistrer immédiatement votre fichier de sous-titres SubRip standard, ou copiez le texte formaté dans votre presse-papiers."
+            }
+      ],
+      "featuresTitle": "Pourquoi Utiliser Notre Convertisseur SMI en SRT en Ligne ?",
+      "features": [
+            {
+                  "title": "Synchronisation Précise à la Milliseconde",
+                  "description": "Calcule les codes temporels de début et de fin avec exactitude à partir des balises <SYNC Start=\"...\"> et des points d'effacement.",
+                  "icon": "zap"
+            },
+            {
+                  "title": "Prise en Charge des Encodages Coréens (EUC-KR / CP949)",
+                  "description": "Corrige les caractères coréens illisibles (mojibake) en décodant les fichiers ANSI/CP949 directement dans votre navigateur.",
+                  "icon": "layers"
+            },
+            {
+                  "title": "Séparation des Pistes Bilingues",
+                  "description": "Isolez facilement les dialogues coréens (.KRCC) ou anglais (.ENCC) contenus dans les fichiers SAMI bilingues.",
+                  "icon": "split"
+            },
+            {
+                  "title": "Confidentialité 100% Côté Client",
+                  "description": "Toute la conversion s'exécute localement dans votre navigateur web. Vos sous-titres et transcriptions ne sont jamais envoyés à des serveurs.",
+                  "icon": "shield"
+            }
+      ],
+      "faqsTitle": "Foire Aux Questions Sur la Conversion SMI en SRT",
+      "faqs": [
+            {
+                  "question": "Qu'est-ce qu'un fichier SMI (SAMI) et en quoi diffère-t-il d'un fichier SRT ?",
+                  "answer": "Le format SMI (Synchronized Accessible Media Interchange), développé par Microsoft à la fin des années 1990, est un format de sous-titres basé sur HTML conçu pour Windows Media Player. Il utilise des balises de type HTML (<SAMI>, <HEAD>, <STYLE>, <BODY>, <SYNC Start=12345>) avec styles CSS. En revanche, SubRip (.srt) est la norme internationale pour VLC, Plex, YouTube et les logiciels de montage (Premiere Pro, DaVinci Resolve). Le format SRT utilise des numéros de séquence simples et des horodatages précis (HH:MM:SS,mmm --> HH:MM:SS,mmm) sans balises complexes, garantissant une compatibilité universelle."
+            },
+            {
+                  "question": "Pourquoi les sous-titres SMI sont-ils si répandus en Corée du Sud et pour les séries coréennes ?",
+                  "answer": "À l'essor d'Internet au début des années 2000, la Corée du Sud utilisait massivement Windows Media Player. Les communautés de fansubbing coréennes ont plébiscité le format SAMI (.smi) car il permettait de choisir la police, les couleurs et d'intégrer deux langues simultanément (<P Class=KRCC> pour le coréen et <P Class=ENCC> pour l'anglais). Bien qu'il s'agisse d'un classique en Corée, les téléviseurs et applications de streaming actuels exigent le format standard SubRip (.srt)."
+            },
+            {
+                  "question": "Pourquoi les caractères coréens apparaissent-ils sous forme de symboles incompréhensibles (mojibake) ?",
+                  "answer": "De nombreux anciens fichiers SMI coréens ont été enregistrés avec l'encodage ANSI Windows-949 (CP949) ou EUC-KR au lieu de l'Unicode UTF-8. Lorsque les lecteurs modernes tentent de les lire en UTF-8, le texte hangul se transforme en symboles illisibles. Notre convertisseur intègre un sélecteur d'encodage dans le navigateur (EUC-KR / CP949 ou UTF-8) pour restituer fidèlement les caractères coréens avant d'exporter en SRT UTF-8."
+            },
+            {
+                  "question": "Comment cet outil calcule-t-il la fin du sous-titre alors que les fichiers SAMI n'indiquent que le début ?",
+                  "answer": "Contrairement au format SRT qui précise début et fin pour chaque réplique, le format SAMI ne fournit qu'un attribut <SYNC Start=...>. Pour déterminer quand le sous-titre doit disparaître, le convertisseur analyse la balise <SYNC> suivante. En SAMI, l'effacement s'effectue par un point de synchronisation contenant un espace insécable (<SYNC Start=4500><P Class=KRCC>&nbsp;). En l'absence de balise explicite, notre outil utilise la réplique suivante ou calcule une durée naturelle de lecture."
+            },
+            {
+                  "question": "Comment le convertisseur gère-t-il les fichiers SMI bilingues coréen (KRCC) et anglais (ENCC) ?",
+                  "answer": "De nombreux films coréens comportent deux pistes de sous-titres par réplique : <P Class=KRCC> pour le coréen et <P Class=ENCC> pour l'anglais. Notre convertisseur vous permet d'exporter toutes les lignes ou d'isoler uniquement la piste coréenne (KRCC) ou anglaise (ENCC), évitant les sous-titres doublés ou encombrants à l'écran."
+            },
+            {
+                  "question": "Puis-je importer les sous-titres SRT convertis dans Premiere Pro, DaVinci Resolve et Final Cut Pro ?",
+                  "answer": "Oui. Les logiciels de montage vidéo professionnels (Adobe Premiere Pro, DaVinci Resolve, Apple Final Cut Pro, CapCut) ne prennent pas en charge les fichiers SAMI (.smi). La conversion en SubRip (.srt) vous permet de glisser-déposer immédiatement vos sous-titres sur votre piste de montage."
+            },
+            {
+                  "question": "Mes fichiers de sous-titres sont-ils téléversés sur un serveur pendant la conversion ?",
+                  "answer": "Non. SRTConverters traite 100% de vos fichiers localement dans votre navigateur grâce à JavaScript. Vos fichiers SMI et vos fichiers SRT ne quittent jamais votre appareil et ne sont jamais stockés sur des serveurs externes, vous assurant une confidentialité absolue."
+            },
+            {
+                  "question": "Comment convertir SMI en SRT en ligne de commande avec FFmpeg ?",
+                  "answer": "Vous pouvez convertir SMI en SRT avec FFmpeg grâce à la commande : ffmpeg -i entree.smi sortie.srt. Si le fichier est encodé en CP949 / EUC-KR, spécifiez le paramètre d'encodage : ffmpeg -sub_charenc CP949 -i entree.smi sortie.srt. Notre outil en ligne fournit la même précision mathématique directement dans votre navigateur."
+            }
+      ]
+},
+    srtToSmi: {
+      "id": "srt-to-smi",
+      "name": "Convertisseur SRT en SMI",
+      "shortName": "SRT en SMI",
+      "badge": "Gratuit & Sécurisé",
+      "tagline": "Convertissez vos Sous-titres SubRip (.SRT) en Microsoft SAMI (.SMI) en Ligne",
+      "description": "Convertissez gratuitement vos fichiers de sous-titres SubRip (.srt) au format Microsoft SAMI (.smi) en ligne. Synchronisation milliseconde précise, classes de langue (KRCC/ENCC) et confidentialité 100% navigateur.",
+      "h1": "Convertisseur SRT en SMI",
+      "metaTitle": "Convertisseur SRT en SMI en Ligne – Convertir SubRip en SAMI | SRTConverters",
+      "metaDescription": "Convertissez vos sous-titres SubRip (.srt) au format Microsoft SAMI (.smi) en ligne gratuitement. Synchronisation précise en millisecondes et confidentialité 100% navigateur.",
+      "settingsLabels": {
+            "timingMode": "Options de Sous-titres et SAMI",
+            "fixedDuration": "Classe de Langue (.Class)",
+            "cpsDuration": "Nom de classe CSS SAMI pour la piste (ex. KRCC, ENCC, FRCC)",
+            "cpsLabel": "Insérer des Balises d'Effacement",
+            "cpsHint": "Ajoute <SYNC Start=endMs><P Class=...>&nbsp; pour effacer les sous-titres dès la fin du minutage",
+            "startTime": "Conserver le Formatage HTML",
+            "startTimeHint": "Conservez les balises <i>, <b>, <u> ou nettoyez pour obtenir du texte brut"
+      },
+      "stepsTitle": "Comment Convertir un Fichier SRT en SMI en 3 Étapes",
+      "steps": [
+            {
+                  "step": "1",
+                  "title": "Téléversez ou Collez vos Sous-titres SRT",
+                  "description": "Glissez-déposez votre fichier .srt dans la zone de dépôt, cliquez sur Parcourir ou collez directement le texte de vos sous-titres SubRip."
+            },
+            {
+                  "step": "2",
+                  "title": "Configurez la Langue et les Minutages SAMI",
+                  "description": "Choisissez la classe de langue appropriée (comme KRCC pour le coréen ou ENCC pour l'anglais) et activez les points d'effacement de fin de réplique."
+            },
+            {
+                  "step": "3",
+                  "title": "Téléchargez le Fichier SMI Converti",
+                  "description": "Cliquez sur Télécharger .SMI pour enregistrer immédiatement votre fichier Microsoft SAMI, ou copiez le texte généré pour GOM Player, PotPlayer ou Windows Media Player."
+            }
+      ],
+      "featuresTitle": "Pourquoi Choisir Notre Convertisseur SRT en SMI ?",
+      "features": [
+            {
+                  "title": "Synchronisation Milliseconde Précise",
+                  "description": "Convertit les codes temporels d'horloge SRT (HH:MM:SS,mmm) en balises <SYNC Start=\"...\"> en millisecondes entières pour une fluidité parfaite.",
+                  "icon": "zap"
+            },
+            {
+                  "title": "Effacement Propre des Sous-titres",
+                  "description": "Insère automatiquement des espaces insécables (&nbsp;) à la fin de chaque sous-titre pour éviter que le texte ne reste figé à l'écran.",
+                  "icon": "layers"
+            },
+            {
+                  "title": "Classes de Langue Personnalisables",
+                  "description": "Prend en charge les classes standard (.KRCC, .ENCC, .FRCC) pour une compatibilité irréprochable avec les lecteurs coréens et internationaux.",
+                  "icon": "split"
+            },
+            {
+                  "title": "Confidentialité 100% dans le Navigateur",
+                  "description": "L'intégralité du traitement s'exécute localement dans votre navigateur. Vos sous-titres et scripts ne transitent par aucun serveur externe.",
+                  "icon": "shield"
+            }
+      ],
+      "faqsTitle": "Foire Aux Questions sur la Conversion de SRT en SMI",
+      "faqs": [
+            {
+                  "question": "Qu'est-ce qu'un fichier SMI (SAMI) et comment est-il composé ?",
+                  "answer": "Un fichier SMI (Synchronized Accessible Media Interchange) est un format de sous-titrage basé sur HTML créé par Microsoft. Il utilise une structure de document classique (<SAMI>, <HEAD>, <STYLE>, <BODY>) associée à des balises temporelles spécifiques comme <SYNC Start=12345> et des classes CSS comme <P Class=KRCC>. Au lieu du format d'horloge HH:MM:SS,mmm, le format SAMI mesure le temps en millisecondes écoulées."
+            },
+            {
+                  "question": "Pourquoi convertir un fichier SRT au format SMI (SAMI) ?",
+                  "answer": "Bien que le format SRT soit la norme moderne universelle, le format SAMI (.smi) reste indispensable pour les anciens environnements Windows, les lecteurs éducatifs spécialisés et les logiciels multimédias coréens très populaires (tels que GOM Player, PotPlayer ou KMPlayer) qui exploitent les classes KRCC pour la gestion des sous-titres bilingues."
+            },
+            {
+                  "question": "Comment les repères temporels SRT sont-ils convertis en balises SAMI <SYNC> ?",
+                  "answer": "Notre outil convertit les heures, minutes, secondes et millisecondes en millisecondes absolues : (Heures * 3 600 000) + (Minutes * 60 000) + (Secondes * 1 000) + Millisecondes. Le début est placé dans `<SYNC Start=debutMs><P Class=KRCC>`. Comme SAMI ne comporte pas d'attribut de fin de réplique, une balise d'effacement `<SYNC Start=finMs><P Class=KRCC>&nbsp;` est insérée au minutage final."
+            },
+            {
+                  "question": "Que signifient les classes .KRCC et .ENCC dans les fichiers SAMI ?",
+                  "answer": "Ce sont des classes CSS déclarées dans l'en-tête <STYLE> du fichier SAMI. Par convention, KRCC désigne 'Korean Closed Caption' (coréen) et ENCC 'English Closed Caption' (anglais). Les lecteurs compatibles permettent aux spectateurs de basculer instantanément d'une langue à l'autre."
+            },
+            {
+                  "question": "Les répliques sur plusieurs lignes sont-elles préservées lors de la conversion ?",
+                  "answer": "Oui. Lorsque vos sous-titres SRT comportent deux lignes ou plus, le convertisseur insère automatiquement des balises de saut de ligne HTML `<BR>` au sein de l'élément `<P Class=...>`. Vos dialogues et échanges restent parfaitement formatés."
+            },
+            {
+                  "question": "La conversion prend-elle en charge les accents français et les caractères Unicode ?",
+                  "answer": "Oui, notre convertisseur gère intégralement l'encodage universel UTF-8 : caractères accentués français (é, è, ê, à, ç), caractères coréens (Hangul), japonais, arabes et cyrilliques. Si un lecteur ancien nécessite un encodage ANSI spécifique, le fichier téléchargé peut être converti dans l'éditeur de votre choix."
+            },
+            {
+                  "question": "Peut-on convertir du SRT en SMI en ligne de commande avec FFmpeg ?",
+                  "answer": "Oui, en utilisant la commande : `ffmpeg -i sous-titres.srt -c:s sami sortie.smi`. Toutefois, FFmpeg produit des balises minimalistes sans gestion fine des classes bilingues (.KRCC) ni insertion automatique de balises d'effacement. Notre outil en ligne offre un contrôle visuel direct sans aucune installation logicielle."
+            },
+            {
+                  "question": "Mes fichiers de sous-titres sont-ils envoyés sur vos serveurs ?",
+                  "answer": "Non. Le traitement est réalisé à 100 % côté client dans votre navigateur web grâce à JavaScript. Vos fichiers et vos textes ne quittent jamais votre ordinateur ou smartphone, assurant une sécurité absolue et une confidentialité totale."
+            }
+      ]
+},
+    lrcToSrt: {
+      "id": "lrc-to-srt",
+      "name": "Convertisseur LRC en SRT",
+      "shortName": "LRC en SRT",
+      "badge": "Gratuit et Navigateur",
+      "tagline": "Convertissez Paroles et Sous-titres LRC en Format SubRip (.SRT) en Ligne",
+      "description": "Convertissez des fichiers de paroles LRC en sous-titres SubRip (.srt) standard en ligne gratuitement. Synchronisation précise à la milliseconde, calcul intelligent de la durée et 100% de confidentialité.",
+      "h1": "Convertisseur LRC en SRT",
+      "metaTitle": "Convertisseur LRC en SRT en Ligne – Convertir Paroles LRC en SRT Gratuit | SRTConverters",
+      "metaDescription": "Convertissez des paroles LRC au format SubRip (.srt) en ligne gratuitement. Synchronisation précise à la milliseconde, calcul intelligent et respect total de la vie privée.",
+      "settingsLabels": {
+            "timingMode": "Options Paroles et Synchronisation",
+            "fixedDuration": "Durée Maximale du Sous-titre (s)",
+            "cpsDuration": "Durée d'affichage maximale d'une ligne avant fermeture pendant les ponts instrumentaux",
+            "cpsLabel": "Intervalle entre Sous-titres (ms)",
+            "cpsHint": "Délai de respiration avant le début du vers suivant (par défaut : 50 ms)",
+            "startTime": "Appliquer la Balise [offset:]",
+            "startTimeHint": "Ajuster la synchronisation globale si une balise [offset:+/-ms] est présente dans l'en-tête LRC"
+      },
+      "stepsTitle": "Comment Convertir LRC en SRT en Ligne en 3 Étapes",
+      "steps": [
+            {
+                  "step": "1",
+                  "title": "Téléversez ou Collez les Paroles LRC",
+                  "description": "Glissez-déposez votre fichier .lrc dans la zone de téléversement, cliquez sur Parcourir ou collez directement le texte synchronisé."
+            },
+            {
+                  "step": "2",
+                  "title": "Configurez Durée et Espacement",
+                  "description": "Définissez le plafond de durée pour les passages instrumentaux, l'intervalle entre vers et la prise en compte du décalage global."
+            },
+            {
+                  "step": "3",
+                  "title": "Téléchargez le Fichier SRT Converti",
+                  "description": "Cliquez sur Télécharger .SRT pour obtenir immédiatement votre fichier SubRip ou copiez le texte formaté pour VLC ou Premiere Pro."
+            }
+      ],
+      "featuresTitle": "Pourquoi Utiliser Notre Convertisseur LRC en SRT en Ligne ?",
+      "features": [
+            {
+                  "title": "Synchronisation Précise à la Milliseconde",
+                  "description": "Analyse les horodatages en centièmes [mm:ss.xx] et millisecondes [mm:ss.xxx] pour créer des timecodes SubRip parfaits sans dérive.",
+                  "icon": "zap"
+            },
+            {
+                  "title": "Calcul Intelligent de Fin de Réplique",
+                  "description": "Détermine automatiquement la fin de chaque sous-titre selon le début du suivant, en limitant l'affichage lors des silences musicaux.",
+                  "icon": "layers"
+            },
+            {
+                  "title": "Prise en Charge des Horodatages Multiples",
+                  "description": "Traite sans effort les refrains répétés ayant plusieurs balises temporelles sur une même ligne en créant des sous-titres distincts.",
+                  "icon": "split"
+            },
+            {
+                  "title": "100% Confidentiel dans le Navigateur",
+                  "description": "Tout le traitement s'exécute localement dans votre navigateur web. Vos paroles, musiques et vidéos ne sont jamais téléversées.",
+                  "icon": "shield"
+            }
+      ],
+      "faqsTitle": "Foire Aux Questions Sur la Conversion LRC vers SRT",
+      "faqs": [
+            {
+                  "question": "Qu'est-ce qu'un fichier LRC et en quoi diffère-t-il d'un sous-titre SRT ?",
+                  "answer": "Un fichier LRC (Lyrics) est un format texte léger utilisé par les lecteurs audio pour synchroniser des paroles de chansons. Les fichiers LRC n'enregistrent que le début de chaque ligne (comme [01:23.45]Texte) sans préciser quand le vers se termine. En revanche, le format SubRip (.SRT) requiert impérativement un début ET une fin (00:01:23,450 --> 00:01:27,000) ainsi qu'une numérotation continue. Notre outil comble cette différence structurelle en calculant une durée d'affichage optimale pour chaque vers."
+            },
+            {
+                  "question": "Comment le convertisseur détermine-t-il l'heure de fin de chaque sous-titre ?",
+                  "answer": "Puisque les fichiers LRC standards ne précisent que le début, le convertisseur calcule la fin d'un sous-titre à partir du début de la ligne suivante, en retranchant un court intervalle (50 ms par défaut). Lors d'un long pont instrumental, il applique un plafond de durée maximale (5,0 secondes par défaut) afin que les paroles ne restent pas figées à l'écran. Pour le dernier vers, la durée est calculée selon une vitesse naturelle de lecture."
+            },
+            {
+                  "question": "L'outil gère-t-il les lignes comportant plusieurs balises temporelles ?",
+                  "answer": "Oui. Dans de nombreux fichiers LRC, les refrains répétés sont regroupés sur une seule ligne précédée de plusieurs horodatages, comme '[00:15.20][01:30.50]We are the champions'. Notre convertisseur identifie chaque balise, duplique la ligne correspondante et reclasse l'ensemble dans un ordre chronologique strict au format SRT."
+            },
+            {
+                  "question": "Quels formats d'horodatage LRC sont compatibles ?",
+                  "answer": "Le convertisseur supporte les horodatages en centièmes de seconde ([mm:ss.xx]), en millisecondes ([mm:ss.xxx]) ainsi que les variantes avec heures ([hh:mm:ss.xx]). Les centièmes sont convertis avec précision en millisecondes pour un calage vidéo et audio parfait."
+            },
+            {
+                  "question": "Que deviennent les métadonnées de l'en-tête comme [ar:Artiste] et [ti:Titre] ?",
+                  "answer": "Les balises d'en-tête telles que [ar:], [ti:], [al:], [by:], [length:] et [re:] sont automatiquement ignorées pour que vos sous-titres restent propres. Si une balise [offset:+/-ms] est détectée, vous pouvez choisir de l'appliquer pour synchroniser l'ensemble des paroles."
+            },
+            {
+                  "question": "Comment fonctionne la balise [offset:] dans un fichier LRC ?",
+                  "answer": "La balise [offset:] indique un décalage global en millisecondes. Une valeur positive retarde les paroles et une valeur négative les avance. En cochant l'option correspondante, notre outil applique automatiquement cette correction à tous les calculs temporels."
+            },
+            {
+                  "question": "Le fichier SRT est-il compatible avec les logiciels de montage vidéo ?",
+                  "answer": "Oui, parfaitement. Le fichier .srt produit respecte rigoureusement la norme SubRip avec indexation ordonnée, virgule comme séparateur de millisecondes (00:00:00,000 --> 00:00:00,000) et encodage UTF-8. Il est immédiatement reconnu par Adobe Premiere Pro, DaVinci Resolve, Final Cut Pro, CapCut, VLC et YouTube."
+            },
+            {
+                  "question": "Mes paroles et fichiers musicaux sont-ils protégés pendant la conversion ?",
+                  "answer": "Totalement. Tout le traitement est effectué en local dans votre navigateur grâce à JavaScript. Aucun fichier, texte ou élément personnel n'est transmis à un serveur, ce qui garantit une confidentialité absolue."
+            }
+      ]
+},
   },
   "de": {
     "directory": {
@@ -4322,7 +5477,295 @@ export const TOOLS_TRANSLATIONS: Record<Locale, ToolsContent> = {
                   "answer": "Mit FFmpeg gelingt dies über den Befehl: 'ffmpeg -i input.sbv -c:s srt output.srt'. In Python können Sie die Datei zeilenweise parsen, die Zeitstempel am Komma trennen und die SRT-Nummerierung hinzufügen. Unser Webtool erledigt dies ohne Software-Installationen sofort im Browser."
             }
       ]
-}
+},
+    smiToSrt: {
+      "id": "smi-to-srt",
+      "name": "SMI in SRT Konverter",
+      "shortName": "SMI in SRT",
+      "badge": "Kostenlos & Browserbasiert",
+      "tagline": "SAMI (.SMI) Untertitel Kostenlos Online in Standard-SubRip (.SRT) Umwandeln",
+      "description": "Konvertieren Sie SAMI (.smi) Untertiteldateien kostenlos online in sauberes, universelles SubRip (.srt) Format. Millisekundengenaue Synchronisation, koreanische EUC-KR / CP949 Kodierungsunterstützung, HTML-Tag-Bereinigung und Sofort-Download.",
+      "h1": "SMI in SRT Konverter Online",
+      "metaTitle": "SMI in SRT Konverter Online – SAMI Untertitel Kostenlos in SRT Umwandeln | SRTConverters",
+      "metaDescription": "Konvertieren Sie SAMI (.smi) Untertiteldateien kostenlos online in sauberes SubRip (.srt) Format. Millisekundengenaue Synchronisation, koreanische Kodierungsunterstützung und Sofort-Download.",
+      "settingsLabels": {
+            "timingMode": "Untertitel- & Sprachoptionen",
+            "fixedDuration": "Sprachspur (Klasse)",
+            "cpsDuration": "Wählen Sie die zu extrahierende Sprachklasse, z. B. Koreanisch (KRCC) oder Englisch (ENCC)",
+            "cpsLabel": "HTML / SAMI Tags Bereinigen",
+            "cpsHint": "Entfernt <FONT>-, <P>- und Formatierungs-Tags, während Dialogtexte erhalten bleiben",
+            "startTime": "Zeichenkodierung (Koreanisch / Unicode)",
+            "startTimeHint": "Wählen Sie die Kodierung (UTF-8, EUC-KR/CP949), um unleserlichen Text zu beheben"
+      },
+      "stepsTitle": "So Konvertieren Sie SMI in SRT Online in 3 Schritten",
+      "steps": [
+            {
+                  "step": "1",
+                  "title": "SMI / SAMI Untertitel Hochladen oder Einfügen",
+                  "description": "Ziehen Sie Ihre .smi-Datei per Drag-and-Drop in den Upload-Bereich, klicken Sie auf Durchsuchen oder fügen Sie den SAMI-Text direkt ein."
+            },
+            {
+                  "step": "2",
+                  "title": "Sprach- und Kodierungsoptionen Wählen",
+                  "description": "Wählen Sie, ob alle Untertitel oder eine bestimmte Sprachspur (z. B. KRCC für Koreanisch oder ENCC für Englisch) extrahiert werden sollen, und prüfen Sie die Kodierung."
+            },
+            {
+                  "step": "3",
+                  "title": "Konvertierte SRT-Datei Herunterladen",
+                  "description": "Klicken Sie auf .SRT Herunterladen, um Ihre SubRip-Datei sofort zu speichern, oder kopieren Sie den Text direkt in Ihre Zwischenablage."
+            }
+      ],
+      "featuresTitle": "Warum Unseren Online SMI in SRT Konverter Nutzen?",
+      "features": [
+            {
+                  "title": "Exakte Millisekunden-Synchronisation",
+                  "description": "Berechnet genaue Start- und Endzeitstempel aus <SYNC Start=\"...\">-Tags anhand nachfolgender Löschzeitpunkte.",
+                  "icon": "zap"
+            },
+            {
+                  "title": "Koreanische Kodierungsunterstützung (EUC-KR / CP949)",
+                  "description": "Behebt beschädigte koreanische Schriftzeichen (Mojibake), indem ältere ANSI/CP949-Dateien sicher im Browser dekodiert werden.",
+                  "icon": "layers"
+            },
+            {
+                  "title": "Bilinguale Spurtrennung",
+                  "description": "Trennen Sie koreanische (.KRCC) und englische (.ENCC) Dialogspuren aus zweisprachigen SAMI-Dateien problemlos.",
+                  "icon": "split"
+            },
+            {
+                  "title": "100% Privatsphäre im Browser",
+                  "description": "Die gesamte Konvertierung erfolgt lokal in Ihrem Browser. Ihre Untertiteldateien werden niemals auf externe Server übertragen.",
+                  "icon": "shield"
+            }
+      ],
+      "faqsTitle": "Häufig Gestellte Fragen Zur SMI in SRT Konvertierung",
+      "faqs": [
+            {
+                  "question": "Was ist eine SMI (SAMI) Datei und wie unterscheidet sie sich von einer SRT Datei?",
+                  "answer": "SMI (Synchronized Accessible Media Interchange), Ende der 1990er von Microsoft entwickelt, ist ein HTML-basiertes Untertitelformat für den Windows Media Player. Es nutzt HTML-ähnliche Tags wie <SAMI>, <HEAD>, <STYLE>, <BODY> und <SYNC Start=12345> mit CSS-Styling. SubRip (.srt) hingegen ist der weltweite Standard für VLC, Plex, YouTube und Videoschnittprogramme (Premiere Pro, DaVinci Resolve). SRT verwendet einfache Nummerierungen und Zeitstempel (HH:MM:SS,mmm --> HH:MM:SS,mmm) ohne komplexe Tags, was maximale Kompatibilität gewährleistet."
+            },
+            {
+                  "question": "Warum sind SMI-Untertitel in Südkorea und bei K-Dramen so weit verbreitet?",
+                  "answer": "Zur Jahrtausendwende baute Südkorea sein Breitbandnetz rasant aus und der Windows Media Player war der Standardplayer auf Windows-PCs. Koreanische Fansub-Communitys nutzten das SAMI-Format (.smi), weil es individuelle Schriftfarben, Schriftgrößen und zwei parallele Sprachspuren unterstützte (<P Class=KRCC> für Koreanisch und <P Class=ENCC> für Englisch). Trotz der Beliebtheit in Korea erfordern moderne Smart-TVs und Streaming-Dienste heute das SubRip (.srt) Format."
+            },
+            {
+                  "question": "Warum erscheinen koreanische Zeichen als seltsame Symbole oder Fragezeichen (Mojibake)?",
+                  "answer": "Viele ältere koreanische SMI-Dateien wurden mit Windows-949 (CP949) oder EUC-KR ANSI-Kodierung anstelle von UTF-8 Unicode gespeichert. Wenn moderne Mediaplayer versuchen, solche Dateien als UTF-8 zu lesen, zerfallen die Hangul-Zeichen in Zeichensalat. Unser Konverter ermöglicht die gezielte Auswahl der Kodierung (EUC-KR / CP949 oder UTF-8) direkt im Browser, um den koreanischen Text fehlerfrei als UTF-8 SRT zu exportieren."
+            },
+            {
+                  "question": "Wie berechnet dieses Tool das Untertitel-Ende, wenn SAMI-Dateien nur Startzeiten enthalten?",
+                  "answer": "Während SRT für jeden Untertitel Start- und Endzeitpunkte angibt, enthält SAMI nur ein <SYNC Start=...>-Attribut. Um das Ende eines Untertitels zu bestimmen, analysiert der Konverter den nachfolgenden <SYNC>-Tag. In SAMI werden Untertitel üblicherweise durch einen leeren Synchronisationspunkt ausgeblendet (<SYNC Start=4500><P Class=KRCC>&nbsp;). Fehlt ein solcher Tag, berechnet unser Parser das Ende anhand des nächsten Dialogs oder schätzt eine natürliche Lesedauer."
+            },
+            {
+                  "question": "Wie geht der Konverter mit zweisprachigen SMI-Dateien um (Koreanisch KRCC und Englisch ENCC)?",
+                  "answer": "Zahlreiche koreanische Medien enthalten zwei Sprachspuren: <P Class=KRCC> für Koreanisch und <P Class=ENCC> für Englisch. Unser Konverter erlaubt es Ihnen, entweder alle Untertitel zu behalten oder gezielt nur die koreanische (KRCC) bzw. englische (ENCC) Tonspur zu extrahieren, um überladene Untertitelanzeigen zu vermeiden."
+            },
+            {
+                  "question": "Kann ich konvertierte SRT-Untertitel in Premiere Pro, DaVinci Resolve und Final Cut Pro importieren?",
+                  "answer": "Ja. Gängige Schnittprogramme wie Adobe Premiere Pro, DaVinci Resolve, Apple Final Cut Pro und CapCut unterstützen keine SAMI (.smi) Dateien. Durch die Umwandlung in SubRip (.srt) können Sie die Untertitel direkt auf Ihre Zeitleiste ziehen und wie gewohnt bearbeiten."
+            },
+            {
+                  "question": "Werden meine Untertiteldateien während der Konvertierung auf einen Server hochgeladen?",
+                  "answer": "Nein. SRTConverters verarbeitet Ihre Dateien zu 100 % lokal in Ihrem Webbrowser mittels JavaScript. Ihre Untertitel, Skripte und SRT-Dateien verlassen Ihren Computer niemals, wodurch absolute Vertraulichkeit gewährleistet ist."
+            },
+            {
+                  "question": "Wie kann ich SMI über die Kommandozeile mit FFmpeg in SRT umwandeln?",
+                  "answer": "Mit FFmpeg gelingt die Umwandlung über: ffmpeg -i eingabe.smi ausgabe.srt. Falls die Datei in CP949 / EUC-KR kodiert ist, geben Sie den Zeichensatzparameter an: ffmpeg -sub_charenc CP949 -i eingabe.smi ausgabe.srt. Unser Online-Konverter liefert dieselbe Genauigkeit sofort im Browser ohne Installationen."
+            }
+      ]
+},
+    srtToSmi: {
+      "id": "srt-to-smi",
+      "name": "SRT in SMI Konverter",
+      "shortName": "SRT in SMI",
+      "badge": "Kostenlos & Sicher",
+      "tagline": "SubRip (.SRT) Untertitel Kostenlos Online in Microsoft SAMI (.SMI) Umwandeln",
+      "description": "Wandeln Sie SubRip (.srt) Untertiteldateien kostenlos online in das Microsoft SAMI (.smi) Format um. Präzise Millisekunden-Synchronisation, anpassbare Sprachklassen (KRCC/ENCC) und 100% Datenschutz im Browser.",
+      "h1": "SRT in SMI Konverter",
+      "metaTitle": "SRT in SMI Konverter Online – SubRip in SAMI Umwandeln | SRTConverters",
+      "metaDescription": "Wandeln Sie SubRip (.srt) Untertitel kostenlos online in das Microsoft SAMI (.smi) Format um. Präzise Millisekunden-Synchronisation und 100% Datenschutz im Browser.",
+      "settingsLabels": {
+            "timingMode": "Untertitel- & SAMI-Optionen",
+            "fixedDuration": "Sprachklasse (.Class)",
+            "cpsDuration": "SAMI CSS-Klassenname für die Spur (z. B. KRCC, ENCC, DECC)",
+            "cpsLabel": "Synchronisations-Löschpunkte Hinzufügen",
+            "cpsHint": "<SYNC Start=endMs><P Class=...>&nbsp; einfügen, um Untertitel am Ende exakt auszublenden",
+            "startTime": "HTML-Formatierung Beibehalten",
+            "startTimeHint": "Tags wie <i>, <b>, <u> erhalten oder als reinen Text bereinigen"
+      },
+      "stepsTitle": "In 3 Schritten SRT in SMI Online Umwandeln",
+      "steps": [
+            {
+                  "step": "1",
+                  "title": "SRT-Untertitel Hochladen oder Einfügen",
+                  "description": "Ziehen Sie Ihre .srt-Datei per Drag & Drop in den Upload-Bereich, klicken Sie auf Durchsuchen oder fügen Sie den Text direkt in das Eingabefeld ein."
+            },
+            {
+                  "step": "2",
+                  "title": "SAMI Sprach- und Zeit-Optionen Festlegen",
+                  "description": "Wählen Sie die gewünschte Sprachklasse (z. B. KRCC für Koreanisch oder ENCC für Englisch) und aktivieren Sie bei Bedarf automatische Löschpunkte."
+            },
+            {
+                  "step": "3",
+                  "title": "Konvertierte SMI-Datei Herunterladen",
+                  "description": "Klicken Sie auf .SMI Herunterladen, um Ihre Microsoft SAMI-Datei sofort zu speichern, oder kopieren Sie das Markup direkt für den GOM Player oder PotPlayer."
+            }
+      ],
+      "featuresTitle": "Warum Unseren SRT in SMI Konverter Nutzen?",
+      "features": [
+            {
+                  "title": "Millisekundengenaue Synchronisation",
+                  "description": "Wandelt SRT-Uhrzeitcodes (HH:MM:SS,mmm) in exakte ganzzahlige <SYNC Start=\"...\">-Millisekunden für absolut ruckelfreie Wiedergabe um.",
+                  "icon": "zap"
+            },
+            {
+                  "title": "Saubere Löschpunkt-Erstellung",
+                  "description": "Fügt geschützte Leerzeichen (&nbsp;) am Ende jeder Untertitelpassage ein, damit kein Text unnötig auf dem Bildschirm stehen bleibt.",
+                  "icon": "layers"
+            },
+            {
+                  "title": "Flexible Sprachklassen",
+                  "description": "Unterstützt Standard-SAMI-Klassen (.KRCC, .ENCC, .DECC) für zweisprachige Untertitelspuren in koreanischen und internationalen Playern.",
+                  "icon": "split"
+            },
+            {
+                  "title": "100% Privatsphäre im Browser",
+                  "description": "Alle Vorgänge laufen lokal auf Ihrem Endgerät per JavaScript. Ihre Untertiteldateien und Drehbücher verlassen niemals Ihren Browser.",
+                  "icon": "shield"
+            }
+      ],
+      "faqsTitle": "Häufig Gestellte Fragen zur SRT-in-SMI-Konvertierung",
+      "faqs": [
+            {
+                  "question": "Was ist eine SMI- (SAMI-) Datei und wie ist sie aufgebaut?",
+                  "answer": "Eine SMI- (Synchronized Accessible Media Interchange) Datei ist ein von Microsoft entwickeltes, HTML-basiertes Untertitelformat. Sie nutzt klassische HTML-Elemente (<SAMI>, <HEAD>, <STYLE>, <BODY>) kombiniert mit Timecode-Tags wie <SYNC Start=12345> und Absatzklassen wie <P Class=KRCC>. Zeitstempel werden dabei in abgelaufenen Gesamt-Millisekunden angegeben."
+            },
+            {
+                  "question": "Warum sollte man eine SRT-Datei in das SMI- (SAMI-) Format umwandeln?",
+                  "answer": "Obwohl SRT der heutige Weltstandard ist, bleibt SAMI (.smi) für ältere Windows-Systeme, interaktive Lernplattformen und vor allem für führende südkoreanische Mediaplayer (wie GOM Player, PotPlayer und KMPlayer) unverzichtbar, die auf KRCC-Klassen für zweisprachige Untertitel setzen."
+            },
+            {
+                  "question": "Wie werden SRT-Start- und Endzeiten in SAMI <SYNC>-Tags umgerechnet?",
+                  "answer": "Unser Konverter rechnet Stunden, Minuten, Sekunden und Millisekunden in absolute Millisekunden um: (Stunden * 3.600.000) + (Minuten * 60.000) + (Sekunden * 1.000) + Millisekunden. Da SAMI kein eigenes Endzeit-Attribut innerhalb derselben Marke kennt, wird zum Endzeitpunkt ein leeres Tag `<SYNC Start=EndeMs><P Class=KRCC>&nbsp;` erzeugt, um die Anzeige pünktlich zu leeren."
+            },
+            {
+                  "question": "Was bedeuten die Klassen .KRCC und .ENCC in SAMI-Dateien?",
+                  "answer": "Dabei handelt es sich um CSS-Klassen im <STYLE>-Header. Nach Konvention steht KRCC für 'Korean Closed Caption' (koreanisch) und ENCC für 'English Closed Caption' (englisch). Kompatible Videoplayer nutzen diese Klassen, um dem Anwender das Umschalten zwischen mehreren Sprachspuren zu ermöglichen."
+            },
+            {
+                  "question": "Bleiben mehrzeilige Untertitel bei der Konvertierung in SMI erhalten?",
+                  "answer": "Ja. Enthält ein SRT-Block mehrere Textzeilen, verbindet der Konverter diese automatisch mit dem HTML-Zeilenumbruch `<BR>` innerhalb des `<P Class=...>`-Tags. Dialogzeilen und Sprecherwechsel bleiben so originalgetreu formatiert."
+            },
+            {
+                  "question": "Unterstützt das Tool deutsche Umlaute und Sonderzeichen?",
+                  "answer": "Ja, der Konverter unterstützt den vollständigen UTF-8 Zeichensatz inklusive deutscher Umlaute (ä, ö, ü, ß) sowie asiatischer Schriftsysteme (Koreanisch, Japanisch, Chinesisch). Falls ein historischer Player die ANSI- bzw. EUC-KR-Codierung verlangt, kann die exportierte Datei problemlos entsprechend gespeichert werden."
+            },
+            {
+                  "question": "Kann man SRT mit FFmpeg auf der Kommandozeile in SMI umwandeln?",
+                  "answer": "Ja, mit dem Befehl: `ffmpeg -i untertitel.srt -c:s sami ausgabe.smi`. Allerdings erzeugt FFmpeg nur rudimentäre Vorlagen ohne spezifische Sprachklassen (.KRCC) oder feinjustierte Löschmarken. Unser Online-Konverter liefert sofort einsatzbereite, perfekt formatierte Dateien ohne Konsolen-Aufwand."
+            },
+            {
+                  "question": "Werden meine Dateien auf Server hochgeladen oder gespeichert?",
+                  "answer": "Nein. Die Konvertierung erfolgt zu 100 % clientseitig in Ihrem Browser. Ihre Dateien, Drehbücher und Texte bleiben stets privat auf Ihrem Computer oder Smartphone geschützt."
+            }
+      ]
+},
+    lrcToSrt: {
+      "id": "lrc-to-srt",
+      "name": "LRC in SRT Konverter",
+      "shortName": "LRC in SRT",
+      "badge": "Kostenlos & Browserbasiert",
+      "tagline": "LRC-Liedtexte & Untertitel online in das SubRip-Format (.SRT) konvertieren",
+      "description": "Konvertieren Sie LRC-Songtextdateien kostenlos online in standardmäßige SubRip (.srt) Untertitel. Millisekundengenaue Synchronisierung, intelligente Endzeitberechnung und 100% Datenschutz im Browser.",
+      "h1": "LRC in SRT Konverter",
+      "metaTitle": "LRC in SRT Konverter Online – LRC Songtexte kostenlos umwandeln | SRTConverters",
+      "metaDescription": "Konvertieren Sie LRC-Dateien kostenlos online in das SubRip (.srt) Format. Millisekundengenaue Synchronisation, smarte Dauerberechnung und garantierte Privatsphäre.",
+      "settingsLabels": {
+            "timingMode": "Songtext- & Timing-Optionen",
+            "fixedDuration": "Max. Untertiteldauer (Sek)",
+            "cpsDuration": "Maximale Anzeigezeit einer Zeile vor dem Ausblenden bei Instrumentalpausen",
+            "cpsLabel": "Abstand zwischen Zeilen (ms)",
+            "cpsHint": "Ruhepause vor Beginn des nächsten Verses (Standard: 50 ms)",
+            "startTime": "[offset:]-Tag anwenden",
+            "startTimeHint": "Globalen Zeitversatz automatisch anpassen, wenn ein [offset:+/-ms]-Tag im LRC-Kopf steht"
+      },
+      "stepsTitle": "So konvertieren Sie LRC in 3 Schritten online in SRT",
+      "steps": [
+            {
+                  "step": "1",
+                  "title": "LRC-Text hochladen oder einfügen",
+                  "description": "Ziehen Sie Ihre .lrc-Datei in das Upload-Feld, klicken Sie auf Durchsuchen oder fügen Sie den Songtext direkt in den Editor ein."
+            },
+            {
+                  "step": "2",
+                  "title": "Dauer und Abstände anpassen",
+                  "description": "Legen Sie das Anzeigelimit für Instrumentalpausen fest, bestimmen Sie den Zeilenabstand und aktivieren Sie den Offset-Ausgleich."
+            },
+            {
+                  "step": "3",
+                  "title": "Konvertierte SRT-Datei herunterladen",
+                  "description": "Klicken Sie auf .SRT herunterladen, um Ihre SubRip-Datei sofort zu speichern, oder kopieren Sie den Text für VLC oder Premiere Pro."
+            }
+      ],
+      "featuresTitle": "Warum unseren Online LRC in SRT Konverter nutzen?",
+      "features": [
+            {
+                  "title": "Millisekundengenaue Präzision",
+                  "description": "Analysiert Zeitstempel in Hundertstelsekunden [mm:ss.xx] und Millisekunden [mm:ss.xxx] und erzeugt fehlerfreie SubRip-Timecodes.",
+                  "icon": "zap"
+            },
+            {
+                  "title": "Intelligente Endzeitberechnung",
+                  "description": "Ermittelt das Ende jeder Textzeile dynamisch anhand des folgenden Verses und begrenzt die Anzeige bei Musikpausen.",
+                  "icon": "layers"
+            },
+            {
+                  "title": "Unterstützung mehrerer Zeitstempel",
+                  "description": "Verarbeitet Refrains mit mehreren Zeitstempeln auf einer Zeile mühelos durch Duplizieren und chronologisches Sortieren.",
+                  "icon": "split"
+            },
+            {
+                  "title": "100% Datenschutz im Browser",
+                  "description": "Die gesamte Konvertierung erfolgt lokal in Ihrem Browser. Ihre Songtexte und persönlichen Daten verlassen niemals Ihr Gerät.",
+                  "icon": "shield"
+            }
+      ],
+      "faqsTitle": "Häufig gestellte Fragen zur LRC-in-SRT-Konvertierung",
+      "faqs": [
+            {
+                  "question": "Was ist eine LRC-Datei und wie unterscheidet sie sich von Untertiteln im SRT-Format?",
+                  "answer": "Eine LRC-Datei (Lyrics) ist ein kompaktes Textformat, mit dem Musikplayer Liedtexte synchron zur Audiowiedergabe anzeigen. LRC-Dateien speichern lediglich den Beginn jeder Textzeile (z. B. [01:23.45]Liedtext) und enthalten keine Information über das Zeilenende. SubRip-Untertitel (.SRT) erfordern hingegen zwingend eine Start- UND Endzeit (00:01:23,450 --> 00:01:27,000) sowie fortlaufende Sequenznummern. Unser Konverter schließt diese Lücke, indem er realistische Endzeiten für jede Zeile kalkuliert."
+            },
+            {
+                  "question": "Wie berechnet der Konverter das Ende jedes Untertitels?",
+                  "answer": "Da gewöhnliche LRC-Dateien nur Startzeiten enthalten, ermittelt der Konverter die Endzeit einer Zeile anhand des Starts der darauffolgenden Zeile abzüglich einer kurzen Pause (Standard: 50 ms). Bei längeren Instrumentalpausen begrenzt eine Maximallaufzeit (Standard: 5,0 Sekunden) die Dauer, damit Texte nicht grundlos auf dem Bildschirm verbleiben. Die letzte Zeile wird anhand einer natürlichen Lesegeschwindigkeit berechnet."
+            },
+            {
+                  "question": "Kann das Tool Zeilen mit mehreren Zeitstempeln verarbeiten?",
+                  "answer": "Ja. In vielen LRC-Dateien teilen sich wiederholte Textpassagen wie Refrains eine einzige Zeile mit mehreren Zeitmarken, z. B. '[00:15.20][01:30.50]We are the champions'. Unser Konverter erkennt jede Zeitmarke separat, generiert für jede Marke einen eigenen Untertiteleintrag und ordnet alle Einträge strikt chronologisch im SRT-Dokument an."
+            },
+            {
+                  "question": "Welche Zeitstempelformate werden unterstützt?",
+                  "answer": "Der Parser unterstützt Hundertstelsekunden ([mm:ss.xx]), Millisekunden ([mm:ss.xxx]) sowie Zeitstempel mit Stundenangaben ([hh:mm:ss.xx]). Hundertstelsekunden werden mathematisch exakt in Millisekunden umgerechnet, um Bild- und Tonasynchronität auszuschließen."
+            },
+            {
+                  "question": "Was geschieht mit Kopfzeilen wie [ar:Künstler] und [ti:Titel]?",
+                  "answer": "Typische LRC-Metadaten wie [ar:], [ti:], [al:], [by:], [length:] und [re:] werden automatisch herausgefiltert, damit keine störenden Tags im Videountertitel erscheinen. Ist ein [offset:+/-ms]-Tag vorhanden, können Sie diesen aktivieren, um das gesamte Timing synchron anzupassen."
+            },
+            {
+                  "question": "Welche Funktion hat das [offset:]-Tag in LRC-Dateien?",
+                  "answer": "Das [offset:]-Tag definiert einen globalen Zeitversatz in Millisekunden. Ein positiver Wert verzögert die Textanzeige, während ein negativer Wert sie vorverlegt. Mit der aktivierten Option rechnet der Konverter diesen Offset automatisch in alle Zeitcodes ein."
+            },
+            {
+                  "question": "Ist die erzeugte SRT-Datei mit Videoschnittprogrammen kompatibel?",
+                  "answer": "Ja, uneingeschränkt. Die generierte .srt-Datei entspricht exakt der SubRip-Spezifikation mit nummerierten Abschnitten, Kommas als Millisekundentrenner (00:00:00,000 --> 00:00:00,000) und UTF-8-Codierung. Sie funktioniert einwandfrei in Adobe Premiere Pro, DaVinci Resolve, Final Cut Pro, CapCut, VLC und YouTube."
+            },
+            {
+                  "question": "Sind meine Liedtexte und Daten bei der Konvertierung sicher?",
+                  "answer": "Absolut. Die gesamte Dateianalyse und Texterstellung läuft vollständig lokal in Ihrem Webbrowser mittels JavaScript. Es findet keinerlei Serverübertragung statt, sodass Ihre Dateien vollkommen vertraulich bleiben."
+            }
+      ]
+},
   },
   "id": {
     "directory": {
@@ -5170,7 +6613,295 @@ export const TOOLS_TRANSLATIONS: Record<Locale, ToolsContent> = {
                   "answer": "Dengan FFmpeg, jalankan perintah: 'ffmpeg -i input.sbv -c:s srt output.srt'. Jika menggunakan Python, Anda dapat membaca file per blok, memisahkan timestamp berdasarkan koma, dan menambahkan nomor urut. Alat online kami mengeksekusi konversi ini secara instan di browser tanpa instalasi apa pun."
             }
       ]
-}
+},
+    smiToSrt: {
+      "id": "smi-to-srt",
+      "name": "Konverter SMI ke SRT",
+      "shortName": "SMI ke SRT",
+      "badge": "Gratis & Sisi Klien",
+      "tagline": "Konversi Subtitle SAMI (.SMI) ke SubRip (.SRT) Standar Online",
+      "description": "Konversi file subtitle SAMI (.smi) ke format SubRip (.srt) bersih dan universal secara online dan gratis. Sinkronisasi milidetik akurat, dukungan encoding Korea EUC-KR / CP949, pembersihan tag HTML, dan unduh instan.",
+      "h1": "Konverter SMI ke SRT Online",
+      "metaTitle": "Konverter SMI ke SRT Online – Ubah Subtitle SAMI ke SRT Gratis | SRTConverters",
+      "metaDescription": "Konversi file subtitle SAMI (.smi) ke format SubRip (.srt) bersih secara online dan gratis. Sinkronisasi milidetik akurat, dukungan encoding Korea EUC-KR, dan unduh instan.",
+      "settingsLabels": {
+            "timingMode": "Opsi Subtitle & Bahasa",
+            "fixedDuration": "Trek Bahasa (Kelas)",
+            "cpsDuration": "Pilih kelas bahasa yang ingin diekstrak, mis. Korea (KRCC) atau Inggris (ENCC)",
+            "cpsLabel": "Bersihkan Tag HTML / SAMI",
+            "cpsHint": "Hapus tag <FONT>, <P>, dan format teks tanpa merusak dialog",
+            "startTime": "Encoding (Korea / Unicode)",
+            "startTimeHint": "Pilih encoding (UTF-8, EUC-KR/CP949) untuk memperbaiki karakter Korea yang rusak"
+      },
+      "stepsTitle": "Cara Konversi SMI ke SRT Online dalam 3 Langkah",
+      "steps": [
+            {
+                  "step": "1",
+                  "title": "Unggah atau Tempel Subtitle SMI / SAMI",
+                  "description": "Tarik dan lepas file .smi ke area upload, klik Telusuri File, atau tempel teks SAMI langsung ke kotak input."
+            },
+            {
+                  "step": "2",
+                  "title": "Pilih Opsi Bahasa dan Encoding",
+                  "description": "Pilih apakah ingin mengekstrak semua subtitle atau trek bahasa tertentu (seperti KRCC untuk Korea atau ENCC untuk Inggris) dan periksa encoding."
+            },
+            {
+                  "step": "3",
+                  "title": "Unduh File SRT Hasil Konversi",
+                  "description": "Klik Unduh .SRT untuk langsung menyimpan file subtitle SubRip standar, atau salin teks hasil konversi ke clipboard Anda."
+            }
+      ],
+      "featuresTitle": "Mengapa Menggunakan Konverter SMI ke SRT Online Kami?",
+      "features": [
+            {
+                  "title": "Sinkronisasi Milidetik Akurat",
+                  "description": "Menghitung waktu mulai dan akhir secara tepat dari tag <SYNC Start=\"...\"> berdasarkan titik pembersihan berikutnya.",
+                  "icon": "zap"
+            },
+            {
+                  "title": "Dukungan Encoding Korea (EUC-KR / CP949)",
+                  "description": "Memperbaiki huruf Korea yang rusak (mojibake) dengan mendekode file ANSI/CP949 lama secara aman langsung di browser.",
+                  "icon": "layers"
+            },
+            {
+                  "title": "Pemisahan Trek Bilingual",
+                  "description": "Pisahkan trek dialog bahasa Korea (.KRCC) atau Inggris (.ENCC) dari file SAMI bilingual dengan mudah.",
+                  "icon": "split"
+            },
+            {
+                  "title": "Privasi 100% di Sisi Klien",
+                  "description": "Seluruh proses konversi berjalan lokal di browser web Anda. File subtitle Anda tidak pernah diunggah atau disimpan di server luar.",
+                  "icon": "shield"
+            }
+      ],
+      "faqsTitle": "Pertanyaan yang Sering Diajukan Tentang Konversi SMI ke SRT",
+      "faqs": [
+            {
+                  "question": "Apa itu file SMI (SAMI) dan apa perbedaannya dengan file SRT?",
+                  "answer": "SMI (Synchronized Accessible Media Interchange), dikembangkan oleh Microsoft pada akhir 1990-an, adalah format subtitle berbasis HTML yang awalnya dibuat untuk Windows Media Player. Format ini menggunakan tag mirip HTML seperti <SAMI>, <HEAD>, <STYLE>, <BODY>, dan <SYNC Start=12345> dengan styling CSS. Sebaliknya, SubRip (.srt) adalah standar global untuk VLC, Plex, YouTube, dan editor video (Premiere Pro, DaVinci Resolve). SRT menggunakan nomor urut sederhana dan penanda waktu (HH:MM:SS,mmm --> HH:MM:SS,mmm) tanpa tag HTML rumit, menjamin kompatibilitas universal."
+            },
+            {
+                  "question": "Mengapa subtitle SMI sangat populer di Korea Selatan dan drama Korea (K-Drama)?",
+                  "answer": "Pada awal 2000-an, Korea Selatan mengalami pertumbuhan internet broadband yang pesat dan Windows Media Player menjadi pemutar default di PC Windows. Komunitas fansub Korea memilih format SAMI (.smi) karena mendukung warna font, ukuran teks, dan dua bahasa sekaligus (<P Class=KRCC> untuk Korea dan <P Class=ENCC> untuk Inggris). Walaupun sangat populer di Korea, pemutar modern dan smart TV saat ini memerlukan format standar SubRip (.srt)."
+            },
+            {
+                  "question": "Mengapa karakter Korea muncul sebagai simbol acak atau tanda tanya (mojibake)?",
+                  "answer": "Banyak file SMI Korea lama disimpan menggunakan encoding ANSI Windows-949 (CP949) atau EUC-KR dan bukan UTF-8 Unicode. Ketika pemutar modern membukanya sebagai UTF-8, tulisan hangul berubah menjadi simbol acak (mojibake). Konverter kami menyediakan pilihan encoding di browser (EUC-KR / CP949 atau UTF-8) untuk memulihkan karakter Korea secara sempurna sebelum menyimpannya ke SRT UTF-8."
+            },
+            {
+                  "question": "Bagaimana cara alat ini menghitung waktu akhir subtitle jika file SAMI hanya memiliki waktu mulai?",
+                  "answer": "Berbeda dengan SRT yang mencantumkan waktu mulai dan selesai pada setiap baris, file SAMI hanya memiliki atribut <SYNC Start=...>. Untuk menentukan kapan subtitle menghilang, konverter memeriksa tag <SYNC> berikutnya. Dalam format SAMI, teks dihapus oleh titik sinkronisasi kosong (<SYNC Start=4500><P Class=KRCC>&nbsp;). Jika tidak ada tag penghapus, sistem kami memperkirakan waktu selesai berdasarkan dialog berikutnya atau durasi membaca alami."
+            },
+            {
+                  "question": "Bagaimana konverter menangani file SMI bilingual Korea (KRCC) dan Inggris (ENCC)?",
+                  "answer": "Banyak rilisan film Korea memiliki dua bahasa per baris: <P Class=KRCC> untuk terjemahan Korea dan <P Class=ENCC> untuk bahasa Inggris. Konverter kami memungkinkan Anda memilih: simpan semua teks atau pisahkan hanya trek Korea (KRCC) atau Inggris (ENCC), mencegah subtitle tumpang tindih di layar pemutar Anda."
+            },
+            {
+                  "question": "Bisakah saya mengimpor subtitle SRT hasil konversi ke Premiere Pro, DaVinci Resolve, dan Final Cut Pro?",
+                  "answer": "Ya. Editor video profesional seperti Adobe Premiere Pro, DaVinci Resolve, Apple Final Cut Pro, dan CapCut tidak mendukung format SAMI (.smi). Mengonversinya ke SubRip (.srt) memungkinkan Anda langsung menyeret file ke timeline proyek pengeditan Anda."
+            },
+            {
+                  "question": "Apakah file subtitle saya diunggah ke server selama proses konversi?",
+                  "answer": "Tidak. SRTConverters memproses 100% file Anda secara lokal di browser menggunakan JavaScript. File SMI dan hasil SRT Anda tidak pernah meninggalkan perangkat Anda, menjaga privasi dan keamanan secara penuh."
+            },
+            {
+                  "question": "Bagaimana cara mengonversi SMI ke SRT melalui command line menggunakan FFmpeg?",
+                  "answer": "Anda dapat mengonversi SMI ke SRT dengan FFmpeg melalui perintah: ffmpeg -i input.smi output.srt. Jika file menggunakan encoding Korea CP949 / EUC-KR, tambahkan parameter encoding: ffmpeg -sub_charenc CP949 -i input.smi output.srt. Alat online kami memberikan kemudahan yang sama secara instan di browser Anda."
+            }
+      ]
+},
+    srtToSmi: {
+      "id": "srt-to-smi",
+      "name": "Konverter SRT ke SMI",
+      "shortName": "SRT ke SMI",
+      "badge": "Gratis & Aman",
+      "tagline": "Ubah Subtitle SubRip (.SRT) ke Microsoft SAMI (.SMI) Online",
+      "description": "Ubah file subtitle SubRip (.srt) ke format Microsoft SAMI (.smi) gratis secara online. Sinkronisasi milidetik presisi, kelas bahasa kustom (KRCC/ENCC), dan 100% privasi browser.",
+      "h1": "Konverter SRT ke SMI",
+      "metaTitle": "Konverter SRT ke SMI Online – Ubah SubRip ke SAMI Gratis | SRTConverters",
+      "metaDescription": "Ubah subtitle SubRip (.srt) ke format Microsoft SAMI (.smi) secara online gratis. Sinkronisasi milidetik presisi, pemisahan track bahasa, dan 100% privasi browser.",
+      "settingsLabels": {
+            "timingMode": "Opsi Subtitle & SAMI",
+            "fixedDuration": "Kelas Bahasa (.Class)",
+            "cpsDuration": "Nama kelas CSS SAMI untuk trek subtitle (misal: KRCC, ENCC)",
+            "cpsLabel": "Tambahkan Titik Sinkronisasi Kosong",
+            "cpsHint": "Keluarkan <SYNC Start=endMs><P Class=...>&nbsp; agar subtitle bersih saat durasi selesai",
+            "startTime": "Pertahankan Format HTML",
+            "startTimeHint": "Biarkan tag <i>, <b>, <u> atau bersihkan menjadi teks polos"
+      },
+      "stepsTitle": "Cara Mengonversi SRT ke SMI Online dalam 3 Langkah",
+      "steps": [
+            {
+                  "step": "1",
+                  "title": "Unggah atau Tempel Subtitle SRT",
+                  "description": "Seret dan lepas file .srt Anda ke area upload, klik Telusuri File, atau tempel teks subtitle SubRip langsung ke editor."
+            },
+            {
+                  "step": "2",
+                  "title": "Atur Kelas Bahasa & Titik Waktu SAMI",
+                  "description": "Pilih kelas bahasa target (seperti KRCC untuk Korea atau ENCC untuk Inggris) dan tentukan opsi titik pembersihan subtitle."
+            },
+            {
+                  "step": "3",
+                  "title": "Unduh File SMI Hasil Konversi",
+                  "description": "Klik Unduh .SMI untuk langsung menyimpan file Microsoft SAMI Anda, atau salin kode teks untuk digunakan di GOM Player atau PotPlayer."
+            }
+      ],
+      "featuresTitle": "Mengapa Menggunakan Konverter SRT ke SMI Kami?",
+      "features": [
+            {
+                  "title": "Sinkronisasi Milidetik Akurat",
+                  "description": "Mengonversi kode waktu jam SRT (HH:MM:SS,mmm) menjadi timecode bilangan bulat <SYNC Start=\"...\"> milidetik untuk tayangan tanpa jeda keliru.",
+                  "icon": "zap"
+            },
+            {
+                  "title": "Pembersihan Teks Bersih",
+                  "description": "Secara otomatis menambahkan spasi non-breaking (&nbsp;) di akhir setiap subtitle agar teks tidak tertinggal di layar video.",
+                  "icon": "layers"
+            },
+            {
+                  "title": "Kelas Bahasa Fleksibel",
+                  "description": "Mendukung penamaan kelas standar (.KRCC, .ENCC) untuk pemutaran subtitle multibahasa di pemutar video Korea dan internasional.",
+                  "icon": "split"
+            },
+            {
+                  "title": "100% Privasi di Browser",
+                  "description": "Semua proses dijalankan secara lokal di browser Anda menggunakan JavaScript. File dan naskah Anda tidak pernah dikirim ke server luar.",
+                  "icon": "shield"
+            }
+      ],
+      "faqsTitle": "Pertanyaan yang Sering Diajukan Seputar Konversi SRT ke SMI",
+      "faqs": [
+            {
+                  "question": "Apa itu file SMI (SAMI) dan bagaimana strukturnya?",
+                  "answer": "File SMI (Synchronized Accessible Media Interchange) adalah format subtitle berbasis HTML yang dikembangkan oleh Microsoft. Format ini menggunakan kerangka dokumen (<SAMI>, <HEAD>, <STYLE>, <BODY>) yang dipadukan dengan tag penanda waktu seperti <SYNC Start=12345> dan kelas paragraf seperti <P Class=KRCC>. Penanda waktu dituliskan dalam total milidetik sejak awal video."
+            },
+            {
+                  "question": "Mengapa saya perlu mengubah file SRT menjadi SMI (SAMI)?",
+                  "answer": "Meskipun SRT adalah standar paling umum di dunia saat ini, format SAMI (.smi) tetap sangat penting untuk pemutar media lawas Windows, aplikasi edukasi interaktif, serta pemutar media populer asal Korea Selatan seperti GOM Player, PotPlayer, dan KMPlayer yang mengandalkan kelas KRCC untuk teks multibahasa."
+            },
+            {
+                  "question": "Bagaimana penanda waktu SRT diubah menjadi tag SAMI <SYNC>?",
+                  "answer": "Konverter kami menghitung waktu SRT ke dalam milidetik dengan rumus: (Jam * 3.600.000) + (Menit * 60.000) + (Detik * 1.000) + Milidetik. Waktu mulai ditaruh dalam `<SYNC Start=awalMs><P Class=KRCC>`. Karena SAMI tidak memiliki atribut durasi akhir dalam tag yang sama, sebuah tag pembersih `<SYNC Start=akhirMs><P Class=KRCC>&nbsp;` ditambahkan tepat saat subtitle berakhir."
+            },
+            {
+                  "question": "Apa arti nama kelas .KRCC dan .ENCC pada file SAMI?",
+                  "answer": "Nama-nama tersebut adalah kelas style CSS yang ditulis di blok <STYLE>. Menurut standar konvensi, KRCC adalah singkatan dari 'Korean Closed Caption' (bahasa Korea) dan ENCC adalah 'English Closed Caption' (bahasa Inggris). Pemutar media mengenali kelas ini agar penonton bisa beralih bahasa dengan mudah."
+            },
+            {
+                  "question": "Apakah subtitle multi-baris tetap rapi pada output SMI?",
+                  "answer": "Ya. Jika sebuah cue SRT memiliki dua baris kalimat atau lebih, konverter kami secara otomatis menggabungkannya menggunakan tag jeda baris HTML `<BR>` di dalam tag `<P Class=...>`. Format dialog antar tokoh akan tetap utuh dan mudah dibaca."
+            },
+            {
+                  "question": "Apakah alat ini mendukung karakter khusus dan Unicode?",
+                  "answer": "Ya, mendukung penuh encoding UTF-8, termasuk karakter huruf Hangul Korea, karakter Jepang, Mandarin, Arab, serta alfabet beraksen. Jika Anda memakai pemutar lawas yang memerlukan ANSI/EUC-KR, file yang diunduh dapat dengan mudah disesuaikan."
+            },
+            {
+                  "question": "Bisakah mengubah SRT ke SMI melalui command line dengan FFmpeg?",
+                  "answer": "Bisa, menggunakan perintah: `ffmpeg -i subtitle.srt -c:s sami output.smi`. Akan tetapi, keluaran FFmpeg bersifat sangat mendasar tanpa pengaturan kelas bahasa (.KRCC) atau tanda pembersih otomatis. Alat online kami memberikan kemudahan instan dengan hasil siap pakai tanpa instalasi apa pun."
+            },
+            {
+                  "question": "Apakah file subtitle saya diunggah ke server Anda?",
+                  "answer": "Tidak sama sekali. Seluruh proses konversi berjalan 100% di browser Anda (sisi klien). Data dan file Anda tidak pernah meninggalkan perangkat, sehingga aman sepenuhnya untuk dokumen rahasia dan naskah pribadi."
+            }
+      ]
+},
+    lrcToSrt: {
+      "id": "lrc-to-srt",
+      "name": "Konverter LRC ke SRT",
+      "shortName": "LRC ke SRT",
+      "badge": "Gratis & di Browser",
+      "tagline": "Konversi Lirik & Subtitle LRC ke Format SubRip (.SRT) Secara Online",
+      "description": "Ubah file lirik lagu LRC menjadi subtitle standar SubRip (.srt) secara online dan gratis. Sinkronisasi milidetik yang presisi, penghitungan durasi pintar, dan 100% privasi browser.",
+      "h1": "Konverter LRC ke SRT",
+      "metaTitle": "Konverter LRC ke SRT Online – Ubah Lirik Lagu LRC ke SRT Gratis | SRTConverters",
+      "metaDescription": "Konversi file lirik lagu LRC ke format SubRip (.srt) online gratis. Sinkronisasi waktu akurat, hitungan durasi cerdas, dan keamanan data terjamin.",
+      "settingsLabels": {
+            "timingMode": "Opsi Lirik & Pengaturan Waktu",
+            "fixedDuration": "Durasi Maksimal Subtitle (dtk)",
+            "cpsDuration": "Batas durasi tampilan baris sebelum ditutup saat jeda instrumen musik",
+            "cpsLabel": "Jeda Antar Subtitle (ms)",
+            "cpsHint": "Waktu istirahat sebelum bait berikutnya dimulai (default: 50 ms)",
+            "startTime": "Terapkan Tag [offset:]",
+            "startTimeHint": "Sesuaikan pergeseran waktu global jika ada tag [offset:+/-ms] di header LRC"
+      },
+      "stepsTitle": "Cara Konversi LRC ke SRT Online dalam 3 Langkah",
+      "steps": [
+            {
+                  "step": "1",
+                  "title": "Unggah atau Tempel Lirik LRC",
+                  "description": "Seret dan lepas file .lrc Anda ke area unggah, klik Telusuri File, atau tempel teks lirik langsung ke editor."
+            },
+            {
+                  "step": "2",
+                  "title": "Atur Durasi dan Jeda Waktu",
+                  "description": "Tentukan batas durasi maksimal untuk jeda melodi, tentukan jarak antar bait, dan aktifkan koreksi offset."
+            },
+            {
+                  "step": "3",
+                  "title": "Unduh File SRT Hasil Konversi",
+                  "description": "Klik Unduh .SRT untuk menyimpan file SubRip Anda secara instan atau salin teks ke clipboard untuk Premiere Pro atau VLC."
+            }
+      ],
+      "featuresTitle": "Mengapa Memilih Konverter LRC ke SRT Kami?",
+      "features": [
+            {
+                  "title": "Waktu Akurat Hingga Milidetik",
+                  "description": "Membaca penanda waktu seperseratus detik [mm:ss.xx] dan milidetik [mm:ss.xxx] menjadi kode SubRip 00:00:00,000 yang presisi.",
+                  "icon": "zap"
+            },
+            {
+                  "title": "Kalkulasi Waktu Berakhir Pintar",
+                  "description": "Menghitung otomatis waktu selesai setiap baris berdasarkan bait berikutnya, mencegah teks menggantung saat jeda musik.",
+                  "icon": "layers"
+            },
+            {
+                  "title": "Dukungan Banyak Penanda Waktu Sekaligus",
+                  "description": "Memproses bait berulang yang memiliki beberapa timestamp pada satu baris teks dengan menyalin dan mengurutkannya secara kronologis.",
+                  "icon": "split"
+            },
+            {
+                  "title": "Privasi 100% di Dalam Browser",
+                  "description": "Semua proses dijalankan langsung di perangkat Anda melalui browser. File lirik dan musik Anda tidak pernah dikirim ke server.",
+                  "icon": "shield"
+            }
+      ],
+      "faqsTitle": "Pertanyaan Umum Seputar Konversi LRC ke SRT",
+      "faqs": [
+            {
+                  "question": "Apa itu file LRC dan apa bedanya dengan subtitle SRT?",
+                  "answer": "File LRC (Lyrics) adalah format teks sederhana yang digunakan pemutar musik untuk menyelaraskan teks lagu dengan audio. File LRC hanya mencatat waktu mulai dari setiap baris lirik (seperti [01:23.45]Lirik) tanpa informasi kapan baris tersebut berakhir. Sebaliknya, format SubRip (.SRT) mengharuskan waktu mulai DAN selesai (00:01:23,450 --> 00:01:27,000) serta nomor urut baris. Konverter kami menjembatani perbedaan teknis ini dengan menghitung waktu selesai alami untuk tiap baris."
+            },
+            {
+                  "question": "Bagaimana konverter menentukan waktu selesai setiap baris subtitle?",
+                  "answer": "Karena standar LRC hanya memuat penanda awal, konverter mengambil waktu mulai bait berikutnya lalu mengurangi sedikit jeda (default: 50 ms) sebagai waktu berakhir. Jika ada jeda musik atau solo instrumen yang panjang, batas durasi maksimal (default: 5,0 detik) akan diterapkan agar teks tidak membeku di layar. Baris lirik terakhir dihitung berdasarkan kecepatan membaca rata-rata."
+            },
+            {
+                  "question": "Apakah alat ini dapat membaca baris yang memiliki beberapa penanda waktu?",
+                  "answer": "Ya. Pada banyak file LRC, reff atau chorus lagu ditulis pada satu baris dengan beberapa penanda waktu, contohnya '[00:15.20][01:30.50]We are the champions'. Konverter kami secara otomatis memisahkan setiap penanda, membuat entri subtitle masing-masing, dan mengurutkan semuanya secara kronologis ke dalam urutan SRT yang rapi."
+            },
+            {
+                  "question": "Format penanda waktu apa saja yang didukung?",
+                  "answer": "Alat ini mendukung format standar per seratus detik ([mm:ss.xx]), milidetik ([mm:ss.xxx]), hingga format yang menyertakan jam ([hh:mm:ss.xx]). Nilai centisecond dikonversi dengan presisi matematis ke milidetik agar selaras sempurna dengan video maupun audio."
+            },
+            {
+                  "question": "Bagaimana nasib informasi metadata seperti [ar:Artis] dan [ti:Judul]?",
+                  "answer": "Tag metadata seperti [ar:], [ti:], [al:], [by:], [length:], dan [re:] disaring dan disingkirkan secara otomatis agar tidak mengotori teks subtitle video. Jika terdapat tag [offset:+/-ms], Anda dapat memilih untuk menerapkannya guna mengoreksi sinkronisasi."
+            },
+            {
+                  "question": "Bagaimana fungsi tag [offset:] pada file LRC?",
+                  "answer": "Tag [offset:] menentukan pergeseran waktu global dalam satuan milidetik. Nilai positif memperlambat tampilan lirik, sedangkan nilai negatif memajukannya. Dengan mengaktifkan opsi terkait, konverter akan menjumlahkan nilai offset tersebut ke setiap penanda waktu."
+            },
+            {
+                  "question": "Apakah file SRT ini kompatibel dengan aplikasi pengedit video?",
+                  "answer": "Ya, 100% kompatibel. File .srt yang dihasilkan sepenuhnya memenuhi standar SubRip dengan nomor urut, tanda koma pada milidetik (00:00:00,000 --> 00:00:00,000), dan pengodean UTF-8. File ini dapat langsung dibuka di Adobe Premiere Pro, DaVinci Resolve, Final Cut Pro, CapCut, VLC, dan YouTube."
+            },
+            {
+                  "question": "Apakah data lirik saya tetap aman selama proses konversi?",
+                  "answer": "Sangat aman. Semua proses pembacaan dan penyusunan file SRT berlangsung 100% secara lokal di browser Anda dengan JavaScript. Tidak ada file yang diunggah ke server pihak ketiga mana pun."
+            }
+      ]
+},
   },
   "tr": {
     "directory": {
@@ -6018,7 +7749,295 @@ export const TOOLS_TRANSLATIONS: Record<Locale, ToolsContent> = {
                   "answer": "FFmpeg ile şu komutu kullanabilirsiniz: 'ffmpeg -i input.sbv -c:s srt output.srt'. Python'da ise dosyayı bloklar halinde okuyup zaman damgalarını virgülden ayırarak sıra numaraları ekleyebilirsiniz. Çevrim içi aracımız hiçbir kuruluma gerek olmadan aynı işlemi tarayıcınızda anında yapar."
             }
       ]
-}
+},
+    smiToSrt: {
+      "id": "smi-to-srt",
+      "name": "SMI SRT Dönüştürücü",
+      "shortName": "SMI'den SRT'ye",
+      "badge": "Ücretsiz & Tarayıcıda",
+      "tagline": "SAMI (.SMI) Altyazılarını Standart SubRip (.SRT) Formatına Çevirin",
+      "description": "SAMI (.smi) altyazı dosyalarını ücretsiz olarak çevrimiçi temiz ve evrensel SubRip (.srt) formatına dönüştürün. Doğru milisaniye senkronizasyonu, Korece EUC-KR / CP949 kodlama desteği, HTML etiket temizleme ve anında indirme.",
+      "h1": "SMI SRT Dönüştürücü Online",
+      "metaTitle": "SMI SRT Dönüştürücü Online – SAMI Altyazılarını Ücretsiz SRT'ye Çevir | SRTConverters",
+      "metaDescription": "SAMI (.smi) altyazı dosyalarını ücretsiz olarak çevrimiçi temiz SubRip (.srt) formatına dönüştürün. Doğru milisaniye senkronizasyonu, Korece kodlama desteği ve anında indirme.",
+      "settingsLabels": {
+            "timingMode": "Altyazı ve Dil Seçenekleri",
+            "fixedDuration": "Dil İzi (Sınıf)",
+            "cpsDuration": "Ayıklanacak dil sınıfını seçin, örn. Korece (KRCC) veya İngilizce (ENCC)",
+            "cpsLabel": "HTML / SAMI Etiketlerini Temizle",
+            "cpsHint": "Diyalog metnini korurken <FONT>, <P> ve biçimlendirme etiketlerini kaldırır",
+            "startTime": "Karakter Kodlaması (Korece / Unicode)",
+            "startTimeHint": "Bozuk Korece karakterleri düzeltmek için kodlamayı (UTF-8, EUC-KR/CP949) seçin"
+      },
+      "stepsTitle": "SMI Dosyasını 3 Adımda Online SRT'ye Dönüştürme",
+      "steps": [
+            {
+                  "step": "1",
+                  "title": "SMI / SAMI Altyazısını Yükleyin veya Yapıştırın",
+                  "description": ".smi dosyanızı yükleme alanına sürükleyip bırakın, Dosya Seç düğmesine tıklayın veya SAMI kodunu doğrudan metin kutusuna yapıştırın."
+            },
+            {
+                  "step": "2",
+                  "title": "Dil ve Kodlama Ayarlarını Yapılandırın",
+                  "description": "Tüm altyazıları mı yoksa belirli bir dil izini mi (Korece için KRCC veya İngilizce için ENCC) ayıklamak istediğinizi seçin ve kodlamayı kontrol edin."
+            },
+            {
+                  "step": "3",
+                  "title": "Dönüştürülen SRT Dosyasını İndirin",
+                  "description": "SubRip altyazı dosyanızı anında kaydetmek için .SRT İndir düğmesine tıklayın veya metni doğrudan panonuza kopyalayın."
+            }
+      ],
+      "featuresTitle": "Neden Online SMI SRT Dönüştürücümüzü Seçmelisiniz?",
+      "features": [
+            {
+                  "title": "Milisaniye Hassasiyetinde Zamanlama",
+                  "description": "<SYNC Start=\"...\"> etiketlerinden ve sonraki temizleme noktalarından başlangıç ve bitiş zamanlarını eksiksiz hesaplar.",
+                  "icon": "zap"
+            },
+            {
+                  "title": "Korece Kodlama (EUC-KR / CP949) Desteği",
+                  "description": "Eski ANSI/CP949 dosyalarını tarayıcınızda güvenle çözerek bozuk Korece karakterleri (mojibake) tamamen onarır.",
+                  "icon": "layers"
+            },
+            {
+                  "title": "İki Dilli Altyazı Ayrımı",
+                  "description": "İki dilli SAMI dosyalarındaki Korece (.KRCC) veya İngilizce (.ENCC) diyalogları kolayca birbirinden ayırın.",
+                  "icon": "split"
+            },
+            {
+                  "title": "%100 Tarayıcı İçi Gizlilik",
+                  "description": "Tüm dönüştürme işlemi tarayıcınızda yerel olarak gerçekleşir. Altyazı dosyalarınız hiçbir zaman sunuculara yüklenmez.",
+                  "icon": "shield"
+            }
+      ],
+      "faqsTitle": "SMI Altyazılarını SRT'ye Dönüştürme Hakkında Sıkça Sorulan Sorular",
+      "faqs": [
+            {
+                  "question": "SMI (SAMI) dosyası nedir ve SRT dosyasından nasıl ayrılır?",
+                  "answer": "Microsoft tarafından 1990'ların sonunda geliştirilen SMI (Synchronized Accessible Media Interchange), Windows Media Player için tasarlanmış HTML tabanlı bir altyazı formatıdır. <SAMI>, <HEAD>, <STYLE>, <BODY> ve <SYNC Start=12345> gibi HTML benzeri etiketler içerir. Buna karşılık SubRip (.srt), VLC, Plex, YouTube ve montaj programları (Premiere Pro, DaVinci Resolve) için küresel standarttır. SRT, karmaşık etiketler olmadan sıralı sayılar ve saat zaman damgaları (HH:MM:SS,mmm --> HH:MM:SS,mmm) kullanır."
+            },
+            {
+                  "question": "SMI altyazıları Güney Kore'de ve Kore dizilerinde neden bu kadar yaygındır?",
+                  "answer": "2000'lerin başında Güney Kore'de geniş bant internet hızla yaygınlaştı ve Windows Media Player varsayılan oynatıcıydı. Koreli çeviri toplulukları, özel yazı tipleri, renkler ve aynı anda iki dili (<P Class=KRCC> Korece ve <P Class=ENCC> İngilizce) desteklediği için SAMI (.smi) formatını benimsedi. Kore'de çok sevilse de modern cihazlar ve akıllı televizyonlar artık standart SubRip (.srt) gerektirmektedir."
+            },
+            {
+                  "question": "Korece karakterler neden bozuk semboller veya soru işaretleri olarak görünüyor (mojibake)?",
+                  "answer": "Eski Korece SMI altyazıları UTF-8 Unicode yerine Windows-949 (CP949) veya EUC-KR ANSI kodlamasıyla kaydedilmiştir. Güncel oynatıcılar bu dosyaları UTF-8 olarak okumaya çalıştığında karakterler bozulur (mojibake). Dönüştürücümüz tarayıcı içinde EUC-KR / CP949 kodlamasını çözerek Korece metni hatasız bir şekilde UTF-8 SRT olarak kaydeder."
+            },
+            {
+                  "question": "SAMI dosyalarında sadece başlangıç süresi varken altyazı bitiş süresi nasıl hesaplanır?",
+                  "answer": "SRT'nin aksine SAMI dosyalarında yalnızca başlangıç zamanını belirten <SYNC Start=...> etiketi bulunur. Altyazının ne zaman kaybolacağını anlamak için dönüştürücü bir sonraki <SYNC> etiketini inceler. SAMI formatında altyazılar boşluk içeren bir sonraki etiketle (<SYNC Start=4500><P Class=KRCC>&nbsp;) silinir. Açık bir silme etiketi yoksa, sistem bir sonraki repliğe veya doğal okuma süresine göre bitiş süresini belirler."
+            },
+            {
+                  "question": "Dönüştürücü Korece (KRCC) ve İngilizce (ENCC) içeren iki dilli SMI dosyalarını nasıl işler?",
+                  "answer": "Birçok Korece yapımda iki dil bulunur: Korece için <P Class=KRCC> ve İngilizce için <P Class=ENCC>. Dönüştürücümüz her iki dili de tutmanıza veya yalnızca Koreceyi (KRCC) ya da İngilizceyi (ENCC) ayıklamanıza imkan tanır."
+            },
+            {
+                  "question": "Dönüştürülen SRT altyazılarını Premiere Pro, DaVinci Resolve ve Final Cut Pro'ya aktarabilir miyim?",
+                  "answer": "Evet. Profesyonel video düzenleme programları (Adobe Premiere Pro, DaVinci Resolve, Apple Final Cut Pro, CapCut) SAMI (.smi) formatını tanımaz. SubRip (.srt) formatına dönüştürerek doğrudan zaman çizelgenize sürükleyebilirsiniz."
+            },
+            {
+                  "question": "Dönüştürme sırasında altyazı dosyalarım sunucuya yükleniyor mu?",
+                  "answer": "Hayır. SRTConverters tüm işlemleri tarayıcınızda JavaScript ile yerel olarak gerçekleştirir. SMI ve SRT dosyalarınız cihazınızdan kesinlikle dışarı çıkmaz, tam gizlilik sağlanır."
+            },
+            {
+                  "question": "Komut satırında FFmpeg kullanarak SMI nasıl SRT'ye dönüştürülür?",
+                  "answer": "FFmpeg ile dönüştürmek için: ffmpeg -i girdi.smi cikti.srt komutunu kullanabilirsiniz. Dosya Korece CP949 / EUC-KR kodlamasındaysa karakter kodlama parametresi ekleyin: ffmpeg -sub_charenc CP949 -i girdi.smi cikti.srt. Çevrimiçi aracımız aynı hassasiyeti kurulumsuz olarak sunar."
+            }
+      ]
+},
+    srtToSmi: {
+      "id": "srt-to-smi",
+      "name": "SRT SMI Dönüştürücü",
+      "shortName": "SRT - SMI",
+      "badge": "Ücretsiz ve Güvenli",
+      "tagline": "SubRip (.SRT) Altyazılarını Microsoft SAMI (.SMI) Formatına Çevirin",
+      "description": "SubRip (.srt) altyazı dosyalarını ücretsiz olarak Microsoft SAMI (.smi) formatına online dönüştürün. Milisaniye senkronizasyonu, dil sınıfları (KRCC/ENCC) ve %100 tarayıcı gizliliği.",
+      "h1": "SRT SMI Dönüştürücü",
+      "metaTitle": "SRT SMI Dönüştürücü Online – SubRip Altyazılarını SAMI Yapma | SRTConverters",
+      "metaDescription": "SubRip (.srt) altyazılarını ücretsiz olarak Microsoft SAMI (.smi) formatına çevirin. Milisaniye senkronizasyonu, dil sınıfları ve %100 tarayıcı gizliliği.",
+      "settingsLabels": {
+            "timingMode": "Altyazı ve SAMI Seçenekleri",
+            "fixedDuration": "Dil Sınıfı (.Class)",
+            "cpsDuration": "Altyazı parçası için SAMI CSS sınıf adı (örn. KRCC, ENCC, TRCC)",
+            "cpsLabel": "Boş Senkronizasyon Noktası Ekle",
+            "cpsHint": "Süre bitiminde altyazının ekrandan temizlenmesi için <SYNC Start=endMs><P Class=...>&nbsp; ekler",
+            "startTime": "HTML Biçimlendirmesini Koru",
+            "startTimeHint": "<i>, <b>, <u> etiketlerini koruyun veya düz metin olarak temizleyin"
+      },
+      "stepsTitle": "SRT'yi SMI'ye 3 Adımda Online Dönüştürün",
+      "steps": [
+            {
+                  "step": "1",
+                  "title": "SRT Altyazısını Yükleyin veya Yapıştırın",
+                  "description": ".srt dosyanızı yükleme alanına sürükleyip bırakın, Dosyalara Göz At'a tıklayın veya altyazı metninizi doğrudan editöre yapıştırın."
+            },
+            {
+                  "step": "2",
+                  "title": "SAMI Dil ve Zamanlama Ayarlarını Yapın",
+                  "description": "Hedef dil sınıfını (Korece için KRCC, İngilizce için ENCC vb.) seçin ve altyazı temizleme noktası ekleme seçeneğini belirleyin."
+            },
+            {
+                  "step": "3",
+                  "title": "Dönüştürülen SMI Dosyasını İndirin",
+                  "description": "Microsoft SAMI dosyanızı hemen kaydetmek için .SMI İndir butonuna tıklayın veya kodu doğrudan GOM Player ve PotPlayer için kopyalayın."
+            }
+      ],
+      "featuresTitle": "Neden SRT - SMI Dönüştürücümüzü Seçmelisiniz?",
+      "features": [
+            {
+                  "title": "Milisaniye Hassasiyetinde Senkronizasyon",
+                  "description": "SRT saat zaman kodlarını (HH:MM:SS,mmm) tam sayı <SYNC Start=\"...\"> milisaniye değerlerine çevirerek takılmasız oynatma sağlar.",
+                  "icon": "zap"
+            },
+            {
+                  "title": "Kusursuz Ekran Temizleme",
+                  "description": "Her altyazının bitiş anına otomatik olarak boşluk (&nbsp;) etiketi ekleyerek metnin ekranda asılı kalmasını engeller.",
+                  "icon": "layers"
+            },
+            {
+                  "title": "Özelleştirilebilir Dil Sınıfları",
+                  "description": "Kore ve uluslararası medya oynatıcılarında çok dilli altyazı gösterimi için standart SAMI sınıflarını (.KRCC, .ENCC) destekler.",
+                  "icon": "split"
+            },
+            {
+                  "title": "%100 Tarayıcı İçi Gizlilik",
+                  "description": "Tüm ayrıştırma ve dönüştürme işlemleri JavaScript ile cihazınızda yerel olarak çalışır. Dosyalarınız asla harici bir sunucuya gitmez.",
+                  "icon": "shield"
+            }
+      ],
+      "faqsTitle": "SRT - SMI Dönüştürme Hakkında Sıkça Sorulan Sorular",
+      "faqs": [
+            {
+                  "question": "SMI (SAMI) dosyası nedir ve nasıl bir yapıya sahiptir?",
+                  "answer": "SMI (Synchronized Accessible Media Interchange), 90'ların sonunda Microsoft tarafından geliştirilen HTML tabanlı bir altyazı formatıdır. Standart HTML etiketleri (<SAMI>, <HEAD>, <STYLE>, <BODY>) ile <SYNC Start=12345> gibi zamanlama etiketleri ve <P Class=KRCC> gibi stil sınıflarını birleştirir. Zaman değerleri saat yerine toplam milisaniye cinsinden ifade edilir."
+            },
+            {
+                  "question": "Bir SRT dosyasını neden SMI (SAMI) formatına dönüştürmeliyim?",
+                  "answer": "SRT günümüzün en popüler altyazı formatı olsa da, SAMI (.smi) formatı eski Windows sistemleri, özel eğitim yazılımları ve özellikle çok dilli altyazılar için KRCC sınıflarını kullanan popüler Güney Kore medya oynatıcıları (GOM Player, PotPlayer, KMPlayer) için vazgeçilmezdir."
+            },
+            {
+                  "question": "SRT başlangıç ve bitiş zamanları SAMI <SYNC> etiketlerine nasıl çevrilir?",
+                  "answer": "Dönüştürücümüz saat, dakika, saniye ve milisaniyeleri toplam milisaniyeye dönüştürür: (Saat * 3.600.000) + (Dakika * 60.000) + (Saniye * 1.000) + Milisaniye. Başlangıç zamanı `<SYNC Start=baslaMs><P Class=KRCC>` içine yazılır. SAMI etiketinde bitiş süresi parametresi bulunmadığından, bitiş zamanına `<SYNC Start=bitisMs><P Class=KRCC>&nbsp;` temizleme etiketi eklenir."
+            },
+            {
+                  "question": "SAMI dosyalarındaki .KRCC ve .ENCC sınıfları ne anlama gelir?",
+                  "answer": "Bu sınıflar <STYLE> bloğu içinde tanımlanan CSS sınıflarıdır. Standart olarak KRCC 'Korean Closed Caption' (Korece), ENCC ise 'English Closed Caption' (İngilizce) anlamına gelir. Uyumlu medya oynatıcılar bu sınıfları okuyarak kullanıcının tek dosyada altyazı dilleri arasında geçiş yapmasını sağlar."
+            },
+            {
+                  "question": "Çok satırlı SRT altyazıları SMI çıktısında korunur mu?",
+                  "answer": "Evet. SRT bloğunda birden fazla satır diyalog varsa, dönüştürücümüz satırları `<BR>` HTML satır sonu etiketiyle birleştirerek `<P Class=...>` içine yerleştirir. Karakter diyalogları ve satır düzeni bozulmadan korunur."
+            },
+            {
+                  "question": "Dönüştürücü Türkçe karakterleri ve Unicode'u destekliyor mu?",
+                  "answer": "Evet, dönüştürücümüz UTF-8 kodlamasını ve Türkçe karakterleri (ç, ğ, ı, ö, ş, ü) eksiksiz olarak destekler. Korece, Japonca ve Kiril alfabesi gibi tüm diller güvenle işlenir."
+            },
+            {
+                  "question": "FFmpeg komut satırı ile SRT'yi SMI'ye çevirebilir miyim?",
+                  "answer": "Evet, terminalde: `ffmpeg -i altyazi.srt -c:s sami cikti.smi` komutunu çalıştırabilirsiniz. Fakat FFmpeg'in SAMI çıktısı temel seviyededir ve dil sınıflarını (.KRCC) veya temizleme etiketlerini özelleştirmenize izin vermez. Web tabanlı aracımız bunu anında ve hatasız biçimde sunar."
+            },
+            {
+                  "question": "Altyazı dosyalarım sunucularınıza yükleniyor veya kaydediliyor mu?",
+                  "answer": "Hayır. Bütün işlemler tarayıcınızda %100 yerel olarak JavaScript ile gerçekleşir. Dosyalarınız cihazınızdan hiçbir zaman dışarı çıkmaz, gizliliğiniz ve güvenliğiniz kesin olarak korunur."
+            }
+      ]
+},
+    lrcToSrt: {
+      "id": "lrc-to-srt",
+      "name": "LRC - SRT Dönüştürücü",
+      "shortName": "LRC - SRT",
+      "badge": "Ücretsiz ve Tarayıcıda",
+      "tagline": "LRC Şarkı Sözleri ve Altyazılarını Çevrimiçi Olarak SubRip (.SRT) Formatına Dönüştürün",
+      "description": "LRC şarkı sözü dosyalarını ücretsiz olarak standart SubRip (.srt) altyazılarına dönüştürün. Milisaniye hassasiyetinde senkronizasyon, akıllı bitiş zamanı hesaplama ve %100 tarayıcı gizliliği.",
+      "h1": "LRC - SRT Dönüştürücü",
+      "metaTitle": "LRC - SRT Dönüştürücü Online – LRC Şarkı Sözlerini SRT'ye Dönüştür | SRTConverters",
+      "metaDescription": "LRC şarkı sözlerini ücretsiz olarak SubRip (.srt) altyazı formatına çevirin. Milisaniye doğruluğunda zamanlama, akıllı süre hesabı ve tam gizlilik.",
+      "settingsLabels": {
+            "timingMode": "Şarkı Sözü ve Zamanlama Seçenekleri",
+            "fixedDuration": "Maksimum Altyazı Süresi (sn)",
+            "cpsDuration": "Enstrümantal aralarda altyazının ekranda kalacağı azami gösterim süresi",
+            "cpsLabel": "Altyazılar Arası Boşluk (ms)",
+            "cpsHint": "Bir sonraki dize başlamadan önce bırakılan nefes payı (varsayılan: 50 ms)",
+            "startTime": "[offset:] Etiketini Uygula",
+            "startTimeHint": "LRC başlığında [offset:+/-ms] etiketi varsa genel zamanlamayı otomatik kaydır"
+      },
+      "stepsTitle": "LRC Dosyasını 3 Adımda Çevrimiçi SRT'ye Dönüştürme",
+      "steps": [
+            {
+                  "step": "1",
+                  "title": "LRC Şarkı Sözünü Yükleyin veya Yapıştırın",
+                  "description": ".lrc dosyanızı yükleme alanına sürükleyip bırakın, Dosyalara Göz At'a tıklayın ya da senkronize sözleri doğrudan alana yapıştırın."
+            },
+            {
+                  "step": "2",
+                  "title": "Süre ve Boşluk Ayarlarını Yapın",
+                  "description": "Enstrümantal kısımlar için azami gösterim sınırını belirleyin, dizeler arası boşluğu ayarlayın ve ofset düzeltmesini seçin."
+            },
+            {
+                  "step": "3",
+                  "title": "Dönüştürülen SRT Dosyasını İndirin",
+                  "description": "Hazırlanan SubRip altyazı dosyasını hemen kaydetmek için .SRT İndir butonuna tıklayın veya metni kopyalayın."
+            }
+      ],
+      "featuresTitle": "Neden Çevrimiçi LRC - SRT Dönüştürücümüzü Seçmelisiniz?",
+      "features": [
+            {
+                  "title": "Milisaniye Düzeyinde Hassasiyet",
+                  "description": "Yüzde bir saniye [mm:ss.xx] ve milisaniye [mm:ss.xxx] zaman damgalarını kusursuz SubRip 00:00:00,000 kodlarına çevirir.",
+                  "icon": "zap"
+            },
+            {
+                  "title": "Akıllı Bitiş Zamanı Belirleme",
+                  "description": "Her dizenin bitişini bir sonraki satırın başlangıcına göre otomatik hesaplar ve uzun müzik aralarında altyazıyı kapatır.",
+                  "icon": "layers"
+            },
+            {
+                  "title": "Çoklu Zaman Damgası Desteği",
+                  "description": "Aynı satırda birden fazla zaman etiketi bulunan nakaratları otomatik olarak çoğaltır ve kronolojik sıraya dizer.",
+                  "icon": "split"
+            },
+            {
+                  "title": "%100 Tarayıcı İçi Gizlilik",
+                  "description": "Tüm dönüştürme işlemi tarayıcınızda yerel olarak çalışır. Şarkı sözleriniz ve verileriniz asla sunuculara iletilmez.",
+                  "icon": "shield"
+            }
+      ],
+      "faqsTitle": "LRC - SRT Dönüştürme Hakkında Sıkça Sorulan Sorular",
+      "faqs": [
+            {
+                  "question": "LRC dosyası nedir ve SRT altyazısından farkı nedir?",
+                  "answer": "LRC (Lyrics) dosyası, müzik çalarların şarkı sözlerini ses kaydıyla senkronize göstermek için kullandığı hafif bir metin formatıdır. LRC dosyaları yalnızca her dizenin başlangıç zamanını kaydeder (örneğin [01:23.45]Şarkı sözü) ve dizenin ne zaman biteceğini belirtmez. Buna karşılık SubRip (.SRT) altyazıları, her satır için kesin başlangıç VE bitiş zaman kodları (00:01:23,450 --> 00:01:27,000) ile sıralı numara gerektirir. Dönüştürücümüz, dizeler için en uygun bitiş sürelerini akıllıca hesaplayarak bu yapısal farkı çözer."
+            },
+            {
+                  "question": "Dönüştürücü her altyazının bitiş zamanını nasıl hesaplar?",
+                  "answer": "Standart LRC dosyalarında yalnızca başlangıç bilgisi bulunduğundan, aracımız bir sonraki dizenin başlama anından küçük bir boşluk (varsayılan: 50 ms) çıkararak mevcut satırın bitiş zamanını belirler. Uzun sololar veya enstrümantal bölümlerde altyazının ekranda asılı kalmaması için maksimum süre sınırı (varsayılan: 5,0 saniye) uygulanır. Son dize içinse doğal okuma hızı katsayısı kullanılır."
+            },
+            {
+                  "question": "Araç aynı satırda birden fazla zaman damgası olan dosyaları işleyebilir mi?",
+                  "answer": "Evet. Birçok şarkı sözü dosyasında tekrarlanan nakaratlar tek bir satırda birden fazla etiketle yazılır; örneğin '[00:15.20][01:30.50]Biz şampiyonuz'. Aracımız her bir zaman damgasını tek tek ayrıştırır, metni ilgili zamanlar için kopyalar ve tamamını kronolojik SRT sırasına dizer."
+            },
+            {
+                  "question": "Hangi zaman damgası formatları desteklenir?",
+                  "answer": "Yüzde bir saniyelik standart damgalar ([mm:ss.xx]), milisaniyelik damgalar ([mm:ss.xxx]) ve saat içeren varyasyonlar ([hh:mm:ss.xx]) desteklenmektedir. Centisecond değerleri milisaniyeye tam dönüştürülerek video ve seste kayma yaşanması önlenir."
+            },
+            {
+                  "question": "[ar:Sanatçı] ve [ti:Başlık] gibi üst bilgi etiketlerine ne olur?",
+                  "answer": "LRC üst bilgisindeki [ar:], [ti:], [al:], [by:], [length:] ve [re:] gibi etiketler otomatik olarak temizlenir, böylece video altyazınızda gereksiz yazılar görünmez. Eğer bir [offset:+/-ms] etiketi varsa bunu genel zamanlamaya uygulayabilirsiniz."
+            },
+            {
+                  "question": "LRC dosyalarındaki [offset:] etiketi nasıl çalışır?",
+                  "answer": "[offset:] etiketi, şarkı sözlerinin genelinde milisaniye cinsinden kaydırma sağlar. Pozitif değer sözleri geciktirirken negatif değer öne alır. İlgili seçeneği işaretlediğinizde dönüştürücü tüm altyazı zamanlarına bu değeri ekler."
+            },
+            {
+                  "question": "Oluşturulan SRT dosyası video düzenleme programlarında çalışır mı?",
+                  "answer": "Evet, %100 uyumludur. Hazırlanan .srt dosyası, sıralı numaralandırma, virgüllü milisaniye formatı (00:00:00,000 --> 00:00:00,000) ve UTF-8 kodlamasıyla resmi SubRip standardına uygundur. Premiere Pro, DaVinci Resolve, Final Cut Pro, CapCut, VLC ve YouTube ile sorunsuz çalışır."
+            },
+            {
+                  "question": "Şarkı sözlerim ve verilerim bu dönüştürücüyü kullanırken güvende mi?",
+                  "answer": "Kesinlikle güvende. Bütün ayrıştırma ve SRT oluşturma süreci JavaScript ile doğrudan internet tarayıcınızda gerçekleşir. Şarkı sözleriniz veya medya dosyalarınız hiçbir uzak sunucuya aktarılmaz."
+            }
+      ]
+},
   },
   "it": {
     "directory": {
@@ -6866,6 +8885,294 @@ export const TOOLS_TRANSLATIONS: Record<Locale, ToolsContent> = {
                   "answer": "Con FFmpeg puoi utilizzare il comando: 'ffmpeg -i input.sbv -c:s srt output.srt'. In Python puoi leggere il file a blocchi, separare i timestamp alla virgola e generare gli indici numerici. Il nostro convertitore online esegue la stessa elaborazione all'istante senza bisogno di alcuna installazione o riga di comando."
             }
       ]
-}
+},
+    smiToSrt: {
+      "id": "smi-to-srt",
+      "name": "Convertitore da SMI a SRT",
+      "shortName": "SMI in SRT",
+      "badge": "Gratuito & Nel Browser",
+      "tagline": "Converti Sottotitoli SAMI (.SMI) in SubRip (.SRT) Standard Online",
+      "description": "Converti file di sottotitoli SAMI (.smi) nel formato pulito e universale SubRip (.srt) online gratuitamente. Sincronizzazione precisa al millisecondo, supporto codifica coreana EUC-KR / CP949, rimozione tag HTML e download istantaneo.",
+      "h1": "Convertitore da SMI a SRT Online",
+      "metaTitle": "Convertitore da SMI a SRT Online – Converti Sottotitoli SAMI in SRT Gratis | SRTConverters",
+      "metaDescription": "Converti file di sottotitoli SAMI (.smi) nel formato pulito SubRip (.srt) online gratuitamente. Sincronizzazione precisa al millisecondo, supporto codifica coreana e download istantaneo.",
+      "settingsLabels": {
+            "timingMode": "Opzioni Sottotitoli e Lingua",
+            "fixedDuration": "Traccia Lingua (Classe)",
+            "cpsDuration": "Seleziona la classe di lingua da estrarre, es. coreano (KRCC) o inglese (ENCC)",
+            "cpsLabel": "Pulisci Tag HTML / SAMI",
+            "cpsHint": "Rimuove tag <FONT>, <P> e formattazione mantenendo intatto il testo del dialogo",
+            "startTime": "Codifica (Coreano / Unicode)",
+            "startTimeHint": "Seleziona la codifica (UTF-8, EUC-KR/CP949) per correggere i caratteri illeggibili"
+      },
+      "stepsTitle": "Come Convertire SMI in SRT Online in 3 Passaggi",
+      "steps": [
+            {
+                  "step": "1",
+                  "title": "Carica o Incolla Sottotitoli SMI / SAMI",
+                  "description": "Trascina e rilascia il file .smi nell'area di rilascio, fai clic su Sfoglia File o incolla il testo SAMI direttamente nel campo di testo."
+            },
+            {
+                  "step": "2",
+                  "title": "Seleziona le Opzioni di Lingua e Codifica",
+                  "description": "Scegli se estrarre tutti i sottotitoli o una traccia linguistica specifica (come KRCC per il coreano o ENCC per l'inglese) e verifica la codifica."
+            },
+            {
+                  "step": "3",
+                  "title": "Scarica il File SRT Convertito",
+                  "description": "Fai clic su Scarica .SRT per salvare immediatamente il tuo file SubRip, oppure copia il testo formattato direttamente negli appunti."
+            }
+      ],
+      "featuresTitle": "Perché Usare il Nostro Convertitore Online da SMI a SRT?",
+      "features": [
+            {
+                  "title": "Sincronizzazione Precisa al Millisecondo",
+                  "description": "Calcola i timestamp di inizio e fine con precisione millimetrica dai tag <SYNC Start=\"...\"> utilizzando i successivi punti di cancellazione.",
+                  "icon": "zap"
+            },
+            {
+                  "title": "Supporto Codifica Coreana (EUC-KR / CP949)",
+                  "description": "Risolve i caratteri coreani corrotti (mojibake) decodificando i vecchi file ANSI/CP949 in sicurezza direttamente nel tuo browser.",
+                  "icon": "layers"
+            },
+            {
+                  "title": "Separazione Tracce Bilingue",
+                  "description": "Separa facilmente i dialoghi in coreano (.KRCC) o inglese (.ENCC) presenti nei file SAMI bilingue.",
+                  "icon": "split"
+            },
+            {
+                  "title": "Privacy 100% nel Tuo Browser",
+                  "description": "Tutta la conversione avviene localmente nel browser. I tuoi file di sottotitoli non vengono mai inviati né memorizzati su server esterni.",
+                  "icon": "shield"
+            }
+      ],
+      "faqsTitle": "Domande Frequenti Sulla Conversione da SMI a SRT",
+      "faqs": [
+            {
+                  "question": "Cos'è un file SMI (SAMI) e in cosa si differenzia da un file SRT?",
+                  "answer": "SMI (Synchronized Accessible Media Interchange), sviluppato da Microsoft alla fine degli anni '90, è un formato di sottotitoli basato su HTML creato per Windows Media Player. Utilizza tag come <SAMI>, <HEAD>, <STYLE>, <BODY> e <SYNC Start=12345> con stili CSS. Al contrario, SubRip (.srt) è lo standard mondiale per VLC, Plex, YouTube ed editor video (Premiere Pro, DaVinci Resolve). SRT adotta numeri sequenziali e timestamp temporali (HH:MM:SS,mmm --> HH:MM:SS,mmm) senza tag complessi, offrendo massima compatibilità."
+            },
+            {
+                  "question": "Perché i sottotitoli SMI sono così diffusi in Corea del Sud e nei k-drama?",
+                  "answer": "Con il boom di internet nei primi anni 2000 in Corea del Sud, Windows Media Player era il riproduttore multimediale predefinito. I gruppi di fansubbing hanno scelto il formato SAMI (.smi) perché supportava colori, caratteri personalizzati e due tracce linguistiche (<P Class=KRCC> per il coreano e <P Class=ENCC> per l'inglese). Nonostante la sua notorietà storica in Corea, i dispositivi moderni e le smart TV richiedono oggi il formato standard SubRip (.srt)."
+            },
+            {
+                  "question": "Perché i caratteri coreani appaiono come simboli strani o punti interrogativi (mojibake)?",
+                  "answer": "Molti vecchi file SMI coreani sono stati codificati con Windows-949 (CP949) o EUC-KR ANSI invece di UTF-8 Unicode. Quando i lettori moderni tentano di leggerli in UTF-8, le sillabe hangul diventano simboli incomprensibili. Il nostro convertitore include la selezione della codifica (EUC-KR / CP949 o UTF-8) nel browser per ripristinare il testo coreano ed esportarlo in SRT UTF-8 perfetto."
+            },
+            {
+                  "question": "Come viene calcolata la fine del sottotitolo se i file SAMI contengono solo l'orario di inizio?",
+                  "answer": "A differenza di SRT che specifica inizio e fine in ciascun blocco, SAMI include solo l'attributo <SYNC Start=...>. Per sapere quando il sottotitolo scompare, il convertitore analizza il tag <SYNC> successivo. Nei file SAMI il testo viene cancellato da un punto di sincronizzazione vuoto (<SYNC Start=4500><P Class=KRCC>&nbsp;). In assenza di questo tag, il sistema calcola la fine in base alla battuta successiva o stima una durata naturale di lettura."
+            },
+            {
+                  "question": "In che modo il convertitore gestisce file SMI bilingue con coreano (KRCC) e inglese (ENCC)?",
+                  "answer": "Molte serie coreane presentano due tracce: <P Class=KRCC> per il coreano e <P Class=ENCC> per l'inglese. Il convertitore ti consente di mantenere entrambe le tracce o estrarre solo la traccia coreana (KRCC) o solo quella inglese (ENCC), evitando testi sovrapposti sullo schermo."
+            },
+            {
+                  "question": "Posso importare i sottotitoli SRT convertiti in Premiere Pro, DaVinci Resolve e Final Cut Pro?",
+                  "answer": "Sì. I principali programmi di montaggio video professionale (Adobe Premiere Pro, DaVinci Resolve, Apple Final Cut Pro, CapCut) non riconoscono il formato SAMI (.smi). Convertendoli in SubRip (.srt) puoi trascinarli subito sulla timeline del tuo progetto."
+            },
+            {
+                  "question": "I miei file di sottotitoli vengono caricati su un server durante la conversione?",
+                  "answer": "No. SRTConverters elabora il 100% dei tuoi file localmente nel browser web tramite JavaScript. I tuoi file SMI e i file SRT generati non lasciano mai il tuo dispositivo, assicurando totale riservatezza."
+            },
+            {
+                  "question": "Come posso convertire SMI in SRT da riga di comando usando FFmpeg?",
+                  "answer": "Puoi convertire SMI in SRT con FFmpeg tramite il comando: ffmpeg -i input.smi output.srt. Se il file è codificato in coreano CP949 / EUC-KR, specifica il parametro della codifica: ffmpeg -sub_charenc CP949 -i input.smi output.srt. Il nostro strumento online offre la stessa precisione istantaneamente nel tuo browser."
+            }
+      ]
+},
+    srtToSmi: {
+      "id": "srt-to-smi",
+      "name": "Convertitore da SRT a SMI",
+      "shortName": "SRT a SMI",
+      "badge": "Gratuito e Sicuro",
+      "tagline": "Converti Sottotitoli SubRip (.SRT) in Microsoft SAMI (.SMI) Online",
+      "description": "Converti file di sottotitoli SubRip (.srt) nel formato Microsoft SAMI (.smi) online gratis. Sincronizzazione precisa in millisecondi, classi di lingua personalizzate (KRCC/ENCC) e privacy totale nel browser.",
+      "h1": "Convertitore da SRT a SMI",
+      "metaTitle": "Convertitore da SRT a SMI Online – Converti SubRip in SAMI Gratis | SRTConverters",
+      "metaDescription": "Converti sottotitoli SubRip (.srt) nel formato Microsoft SAMI (.smi) online gratis. Sincronizzazione precisa in millisecondi, classi di lingua e privacy al 100% nel browser.",
+      "settingsLabels": {
+            "timingMode": "Opzioni Sottotitoli e SAMI",
+            "fixedDuration": "Classe di Lingua (.Class)",
+            "cpsDuration": "Nome classe CSS SAMI per la traccia (es. KRCC, ENCC, ITCC)",
+            "cpsLabel": "Aggiungi Punti di Cancellazione",
+            "cpsHint": "Inserisce <SYNC Start=endMs><P Class=...>&nbsp; per nascondere il testo al termine della battuta",
+            "startTime": "Mantieni Formattazione HTML",
+            "startTimeHint": "Conserva i tag <i>, <b>, <u> o pulisci come testo semplice"
+      },
+      "stepsTitle": "Come Convertire SRT in SMI Online in 3 Passaggi",
+      "steps": [
+            {
+                  "step": "1",
+                  "title": "Carica o Incolla Sottotitoli SRT",
+                  "description": "Trascina il tuo file .srt nell'area di rilascio, clicca su Sfoglia File o incolla direttamente il testo dei tuoi sottotitoli SubRip nell'editor."
+            },
+            {
+                  "step": "2",
+                  "title": "Configura Lingua e Tempistiche SAMI",
+                  "description": "Seleziona la classe di lingua desiderata (come KRCC per il coreano o ENCC per l'inglese) e imposta i punti di cancellazione automatica."
+            },
+            {
+                  "step": "3",
+                  "title": "Scarica il File SMI Convertito",
+                  "description": "Clicca su Scarica .SMI per salvare immediatamente il tuo file Microsoft SAMI, o copia il markup per l'uso immediato in GOM Player o PotPlayer."
+            }
+      ],
+      "featuresTitle": "Perché Scegliere il Nostro Convertitore da SRT a SMI?",
+      "features": [
+            {
+                  "title": "Sincronizzazione al Millisecondo",
+                  "description": "Trasforma i timestamp SRT (HH:MM:SS,mmm) in timecode interi precisi <SYNC Start=\"...\"> in millisecondi per una riproduzione fluida.",
+                  "icon": "zap"
+            },
+            {
+                  "title": "Punti di Rimozione Puliti",
+                  "description": "Aggiunge uno spazio unificatore (&nbsp;) alla fine di ogni sottotitolo affinché il testo non resti bloccato sullo schermo.",
+                  "icon": "layers"
+            },
+            {
+                  "title": "Classi di Lingua Flessibili",
+                  "description": "Supporta classi SAMI standard (.KRCC, .ENCC, .ITCC) per la riproduzione bilingue sui più diffusi player multimediali coreani e internazionali.",
+                  "icon": "split"
+            },
+            {
+                  "title": "Privacy al 100% nel Browser",
+                  "description": "Tutti i calcoli e le conversioni vengono eseguiti localmente nel tuo browser. I tuoi sottotitoli e file non vengono mai inviati a server esterni.",
+                  "icon": "shield"
+            }
+      ],
+      "faqsTitle": "Domande Frequenti sulla Conversione da SRT a SMI",
+      "faqs": [
+            {
+                  "question": "Che cos'è un file SMI (SAMI) e come è strutturato?",
+                  "answer": "Un file SMI (Synchronized Accessible Media Interchange) è un formato di sottotitoli basato su HTML introdotto da Microsoft alla fine degli anni '90. Utilizza tag tipici del codice HTML (<SAMI>, <HEAD>, <STYLE>, <BODY>) insieme a tag temporali come <SYNC Start=12345> e classi di paragrafo come <P Class=KRCC>. Le tempistiche sono espresse in millisecondi totali trascorsi dall'inizio del video."
+            },
+            {
+                  "question": "Perché dovrei convertire un file SRT in formato SMI (SAMI)?",
+                  "answer": "Sebbene il formato SRT sia lo standard mondiale più universale, il formato SAMI (.smi) rimane essenziale per vecchi sistemi operativi Windows, software didattici interattivi e soprattutto per i celebri lettori multimediali sudcoreani (GOM Player, PotPlayer, KMPlayer) che sfruttano le classi KRCC per i sottotitoli bilingue."
+            },
+            {
+                  "question": "Come vengono convertiti i tempi di inizio e fine SRT nei tag SAMI <SYNC>?",
+                  "answer": "Il nostro convertitore calcola i millisecondi totali: (Ore * 3.600.000) + (Minuti * 60.000) + (Secondi * 1.000) + Millisecondi. Il tempo di inizio è posizionato nel tag `<SYNC Start=inizioMs><P Class=KRCC>`. Poiché SAMI non dispone di un parametro di durata finale, viene generato un tag vuoto `<SYNC Start=fineMs><P Class=KRCC>&nbsp;` al momento esatto di chiusura del blocco."
+            },
+            {
+                  "question": "Cosa indicano le classi .KRCC e .ENCC nei file SAMI?",
+                  "answer": "Indicano classi CSS definite nell'intestazione <STYLE>. Per consuetudine, KRCC sta per 'Korean Closed Caption' (coreano) ed ENCC per 'English Closed Caption' (inglese). I lettori compatibili riconoscono queste classi per consentire il cambio al volo della lingua dei sottotitoli."
+            },
+            {
+                  "question": "I sottotitoli composti da più righe vengono preservati nell'output SMI?",
+                  "answer": "Sì. Se una battuta SRT contiene due o più righe di testo, il convertitore le unisce automaticamente con il tag di a capo HTML `<BR>` all'interno di `<P Class=...>`. In questo modo la divisione dei dialoghi rimane pulita e ben impaginata a schermo."
+            },
+            {
+                  "question": "Il convertitore supporta i caratteri speciali e l'Unicode?",
+                  "answer": "Sì, supporta pienamente la codifica UTF-8, compresi i caratteri accentati italiani (à, è, é, ì, ò, ù), l'alfabeto coreano Hangul, il giapponese e il cirillico. Per i lettori d'epoca che richiedono codifiche ANSI/EUC-KR, il file può essere risalvato facilmente con la codifica desiderata."
+            },
+            {
+                  "question": "È possibile convertire SRT in SMI da riga di comando con FFmpeg?",
+                  "answer": "Sì, digitando: `ffmpeg -i sottotitoli.srt -c:s sami output.smi`. Tuttavia, FFmpeg produce una struttura base senza personalizzazione grafica delle classi bilingue (.KRCC) né gestione precisa dei punti di cancellazione. Il nostro strumento web esegue tutto all'istante senza installare alcun programma."
+            },
+            {
+                  "question": "I miei file vengono caricati o conservati sui vostri server?",
+                  "answer": "No. L'intero processo avviene esclusivamente in locale nel tuo browser tramite JavaScript. I tuoi file e copioni non lasciano mai il tuo dispositivo, assicurando riservatezza e protezione totale."
+            }
+      ]
+},
+    lrcToSrt: {
+      "id": "lrc-to-srt",
+      "name": "Convertitore da LRC a SRT",
+      "shortName": "LRC a SRT",
+      "badge": "Gratuito e nel Browser",
+      "tagline": "Converti Testi di Canzoni e Sottotitoli LRC in Formato SubRip (.SRT) Online",
+      "description": "Converti file di testi LRC in sottotitoli SubRip (.srt) standard online gratuitamente. Sincronizzazione precisa al millisecondo, calcolo intelligente della durata e privacy totale nel browser.",
+      "h1": "Convertitore da LRC a SRT",
+      "metaTitle": "Convertitore da LRC a SRT Online – Converti Testi LRC in SRT Gratis | SRTConverters",
+      "metaDescription": "Converti testi di canzoni LRC in formato SubRip (.srt) online gratis. Sincronizzazione al millisecondo, calcolo intelligente della durata e massima riservatezza.",
+      "settingsLabels": {
+            "timingMode": "Opzioni Testo e Sincronizzazione",
+            "fixedDuration": "Durata Massima Sottotitolo (sec)",
+            "cpsDuration": "Tempo massimo di permanenza su schermo di un verso prima della chiusura durante pause musicali",
+            "cpsLabel": "Intervallo tra Sottotitoli (ms)",
+            "cpsHint": "Spazio di respiro prima dell'inizio del verso successivo (predefinito: 50 ms)",
+            "startTime": "Applica Tag [offset:]",
+            "startTimeHint": "Regola la sincronizzazione generale se è presente un tag [offset:+/-ms] nell'intestazione LRC"
+      },
+      "stepsTitle": "Come Convertire LRC in SRT Online in 3 Passaggi",
+      "steps": [
+            {
+                  "step": "1",
+                  "title": "Carica o Incolla il Testo LRC",
+                  "description": "Trascina e rilascia il file .lrc nella casella di caricamento, clicca su Sfoglia File o incolla il testo sincronizzato nell'editor."
+            },
+            {
+                  "step": "2",
+                  "title": "Configura Durata e Pause",
+                  "description": "Imposta il tetto massimo di durata per i ponti strumentali, definisci la pausa tra versi e scegli se applicare l'offset."
+            },
+            {
+                  "step": "3",
+                  "title": "Scarica il File SRT Convertito",
+                  "description": "Fai clic su Scarica .SRT per salvare subito il tuo file di sottotitoli SubRip o copia il testo per Premiere Pro o VLC."
+            }
+      ],
+      "featuresTitle": "Perché Scegliere il Nostro Convertitore LRC a SRT Online?",
+      "features": [
+            {
+                  "title": "Sincronizzazione Precisa al Millisecondo",
+                  "description": "Elabora timestamp in centesimi di secondo [mm:ss.xx] e millisecondi [mm:ss.xxx] convertendoli in precisi timecode SubRip.",
+                  "icon": "zap"
+            },
+            {
+                  "title": "Calcolo Intelligente della Fine Verso",
+                  "description": "Determina automaticamente la chiusura di ogni battuta in base all'inizio di quella successiva, limitando i tempi morti musicali.",
+                  "icon": "layers"
+            },
+            {
+                  "title": "Supporto Timestamp Multipli per Riga",
+                  "description": "Gestisce con facilità i ritornelli che condividono una sola riga con più tag temporali, sdoppiandoli e ordinandoli cronologicamente.",
+                  "icon": "split"
+            },
+            {
+                  "title": "Privacy Garantita al 100% nel Browser",
+                  "description": "Tutti i calcoli avvengono localmente nel tuo browser. I testi musicali e i tuoi file video non lasciano mai il tuo computer.",
+                  "icon": "shield"
+            }
+      ],
+      "faqsTitle": "Domande Frequenti Sulla Conversione da LRC a SRT",
+      "faqs": [
+            {
+                  "question": "Che cos'è un file LRC e in che cosa differisce da un sottotitolo SRT?",
+                  "answer": "Un file LRC (Lyrics) è un formato di testo semplice impiegato dai lettori multimediali per sincronizzare i testi delle canzoni con la traccia audio. I file LRC indicano solo il secondo in cui ogni verso ha inizio (es. [01:23.45]Testo) e non registrano la durata o la fine della frase. Al contrario, il formato SubRip (.SRT) richiede orari precisi di inizio E di fine (00:01:23,450 --> 00:01:27,000) e indici numerici sequenziali. Il nostro convertitore supera questo limite calcolando orari di chiusura naturali e armonici per ciascun verso."
+            },
+            {
+                  "question": "In che modo il convertitore determina l'orario di fine di ogni sottotitolo?",
+                  "answer": "Poiché i file LRC standard forniscono solo il punto di avvio, il convertitore fissa il termine di ogni riga sul timestamp del verso successivo meno un piccolo intervallo di riposo (predefinito: 50 ms). In presenza di lunghi assoli o pause strumentali, viene imposto un limite massimo di durata (predefinito: 5,0 secondi) affinché la frase non rimanga impressa sullo schermo senza motivo. Per l'ultimo verso si applica una stima basata sulla velocità di lettura media."
+            },
+            {
+                  "question": "Lo strumento supporta righe contenenti più timestamp?",
+                  "answer": "Certamente. In molti file di testi, le strofe ripetute o i ritornelli vengono indicati su un'unica riga con più marcatori temporali, come ad esempio '[00:15.20][01:30.50]Siamo i campioni'. Il nostro convertitore individua tutti i tag orari, replica il testo associato a ciascuno e li riordina in perfetta sequenza temporale nel file SRT finale."
+            },
+            {
+                  "question": "Quali formati di timestamp sono compatibili?",
+                  "answer": "Il programma supporta i formati standard in centesimi di secondo ([mm:ss.xx]), millisecondi ([mm:ss.xxx]) e le indicazioni orarie estese ([hh:mm:ss.xx]). I valori in centesimi vengono scalati in millisecondi garantendo una perfetta sincronia audio-video."
+            },
+            {
+                  "question": "Come vengono gestiti i metadati come [ar:Artista] e [ti:Titolo]?",
+                  "answer": "I metadati di intestazione quali [ar:], [ti:], [al:], [by:], [length:] e [re:] vengono filtrati e rimossi automaticamente, lasciando i sottotitoli puliti e ordinati. Se è presente il tag [offset:+/-ms], puoi scegliere se applicarlo per correggere l'anticipo o il ritardo complessivo."
+            },
+            {
+                  "question": "Come funziona il tag [offset:] nei file LRC?",
+                  "answer": "Il tag [offset:] stabilisce una correzione temporale globale espressa in millisecondi. Un valore positivo ritarda l'uscita delle frasi, mentre uno negativo le anticipa. Selezionando l'opzione apposita, il convertitore applicherà automaticamente lo scostamento a tutti i timecode."
+            },
+            {
+                  "question": "Il file SRT ottenuto può essere importato nei programmi di montaggio video?",
+                  "answer": "Sì, al 100%. Il file .srt generato segue rigorosamente lo standard SubRip con numerazione ordinata, millisecondi separati da virgola (00:00:00,000 --> 00:00:00,000) e codifica UTF-8. È pienamente compatibile con Adobe Premiere Pro, DaVinci Resolve, Final Cut Pro, CapCut, VLC e YouTube."
+            },
+            {
+                  "question": "I miei dati e i file musicali sono al sicuro durante la procedura?",
+                  "answer": "Assolutamente sì. L'intero processo di lettura e scrittura viene elaborato in locale nel tuo browser web tramite JavaScript. Nessun testo o file multimediale viene memorizzato o trasferito su server esterni, garantendo la totale tutela della tua privacy."
+            }
+      ]
+},
   }
 };

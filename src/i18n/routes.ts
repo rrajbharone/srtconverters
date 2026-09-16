@@ -11,6 +11,9 @@ export type RouteId =
   | 'srt-to-sub'
   | 'sub-to-srt'
   | 'sbv-to-srt'
+  | 'smi-to-srt'
+  | 'srt-to-smi'
+  | 'lrc-to-srt'
   | 'tools';
 
 export const ROUTES: Record<RouteId, Record<Locale, string>> = {
@@ -113,6 +116,36 @@ export const ROUTES: Record<RouteId, Record<Locale, string>> = {
     id: '/id/konverter-sbv-ke-srt/',
     tr: '/tr/sbv-srt-donusturucu/',
     it: '/it/convertitore-da-sbv-a-srt/',
+  },
+  'smi-to-srt': {
+    en: '/smi-to-srt-converter/',
+    es: '/es/convertidor-smi-a-srt/',
+    pt: '/pt/conversor-smi-para-srt/',
+    fr: '/fr/convertisseur-smi-en-srt/',
+    de: '/de/smi-in-srt-konverter/',
+    id: '/id/konverter-smi-ke-srt/',
+    tr: '/tr/smi-srt-donusturucu/',
+    it: '/it/convertitore-da-smi-a-srt/',
+  },
+  'srt-to-smi': {
+    en: '/srt-to-smi-converter/',
+    es: '/es/convertidor-srt-a-smi/',
+    pt: '/pt/conversor-srt-para-smi/',
+    fr: '/fr/convertisseur-srt-en-smi/',
+    de: '/de/srt-in-smi-konverter/',
+    id: '/id/konverter-srt-ke-smi/',
+    tr: '/tr/srt-smi-donusturucu/',
+    it: '/it/convertitore-da-srt-a-smi/',
+  },
+  'lrc-to-srt': {
+    en: '/lrc-to-srt-converter/',
+    es: '/es/convertidor-lrc-a-srt/',
+    pt: '/pt/conversor-lrc-para-srt/',
+    fr: '/fr/convertisseur-lrc-en-srt/',
+    de: '/de/lrc-in-srt-konverter/',
+    id: '/id/konverter-lrc-ke-srt/',
+    tr: '/tr/lrc-srt-donusturucu/',
+    it: '/it/convertitore-da-lrc-a-srt/',
   },
   tools: {
     en: '/tools/',

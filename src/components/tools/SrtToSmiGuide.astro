@@ -1,0 +1,782 @@
+---
+import { type Locale } from '@/i18n/config';
+import { getRoutePath } from '@/i18n/routes';
+import { getSrtToSmiGuideContent } from '@/i18n/srtToSmiGuide';
+import { getToolsContent } from '@/i18n/utils';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const guide = getSrtToSmiGuideContent(locale);
+const tools = getToolsContent(locale);
+
+const srtToTextUrl = getRoutePath('srt-to-text', locale);
+const srtToVttUrl = getRoutePath('srt-to-vtt', locale);
+const vttToSrtUrl = getRoutePath('vtt-to-srt', locale);
+const txtToSrtUrl = getRoutePath('txt-to-srt', locale);
+const srtToAssUrl = getRoutePath('srt-to-ass', locale);
+const assToSrtUrl = getRoutePath('ass-to-srt', locale);
+const subToSrtUrl = getRoutePath('sub-to-srt', locale);
+const srtToSubUrl = getRoutePath('srt-to-sub', locale);
+const sbvToSrtUrl = getRoutePath('sbv-to-srt', locale);
+const smiToSrtUrl = getRoutePath('smi-to-srt', locale);
+
+const uiLabels: Record<Locale, {
+  feature: string;
+  smiBadge: string;
+  srtBadge: string;
+  issue: string;
+  cause: string;
+  solution: string;
+  relatedTools: string;
+}> = {
+  en: {
+    feature: 'Feature / Specification',
+    smiBadge: 'Microsoft SAMI Format (.SMI)',
+    srtBadge: 'Standard SubRip (.SRT)',
+    issue: 'Issue',
+    cause: 'Cause:',
+    solution: 'Solution',
+    relatedTools: 'Related Subtitle Converter Tools',
+  },
+  es: {
+    feature: 'Característica / Especificación',
+    smiBadge: 'Formato Microsoft SAMI (.SMI)',
+    srtBadge: 'SubRip Estándar (.SRT)',
+    issue: 'Problema',
+    cause: 'Causa:',
+    solution: 'Solución',
+    relatedTools: 'Herramientas de Subtítulos Relacionadas',
+  },
+  pt: {
+    feature: 'Recurso / Especificação',
+    smiBadge: 'Formato Microsoft SAMI (.SMI)',
+    srtBadge: 'SubRip Padrão (.SRT)',
+    issue: 'Problema',
+    cause: 'Causa:',
+    solution: 'Solução',
+    relatedTools: 'Ferramentas de Legenda Relacionadas',
+  },
+  fr: {
+    feature: 'Fonctionnalité / Spécification',
+    smiBadge: 'Format Microsoft SAMI (.SMI)',
+    srtBadge: 'SubRip Standard (.SRT)',
+    issue: 'Problème',
+    cause: 'Cause :',
+    solution: 'Solution',
+    relatedTools: 'Outils de Sous-titrage Associés',
+  },
+  de: {
+    feature: 'Merkmal / Spezifikation',
+    smiBadge: 'Microsoft SAMI Format (.SMI)',
+    srtBadge: 'Standard SubRip (.SRT)',
+    issue: 'Problem',
+    cause: 'Ursache:',
+    solution: 'Lösung',
+    relatedTools: 'Verwandte Untertitel-Tools',
+  },
+  id: {
+    feature: 'Fitur / Spesifikasi',
+    smiBadge: 'Format Microsoft SAMI (.SMI)',
+    srtBadge: 'SubRip Standar (.SRT)',
+    issue: 'Kendala',
+    cause: 'Penyebab:',
+    solution: 'Solusi',
+    relatedTools: 'Alat Konversi Subtitle Terkait',
+  },
+  tr: {
+    feature: 'Özellik / Belirtim',
+    smiBadge: 'Microsoft SAMI Formatı (.SMI)',
+    srtBadge: 'Standart SubRip (.SRT)',
+    issue: 'Sorun',
+    cause: 'Neden:',
+    solution: 'Çözüm',
+    relatedTools: 'İlgili Altyazı Dönüştürme Araçları',
+  },
+  it: {
+    feature: 'Caratteristica / Specifica',
+    smiBadge: 'Formato Microsoft SAMI (.SMI)',
+    srtBadge: 'SubRip Standard (.SRT)',
+    issue: 'Problema',
+    cause: 'Causa:',
+    solution: 'Soluzione',
+    relatedTools: 'Strumenti di Sottotitolaggio Correlati',
+  },
+};
+
+const labels = uiLabels[locale] || uiLabels.en;
+---
+
+<article class="smi-to-srt-guide-container">
+  <!-- Section 1: Intro Overview -->
+  <section class="guide-section">
+    <h2 class="guide-h2">{guide.introTitle}</h2>
+    <p class="guide-subtitle">{guide.introSubtitle}</p>
+    {guide.introText.map((p) => (
+      <p class="guide-p">{p}</p>
+    ))}
+  </section>
+
+  <!-- Section 2: What is SRT and What is SMI -->
+  <section class="guide-section">
+    <h2 class="guide-h2">{guide.whatIsTitle}</h2>
+    {guide.whatIsText.map((p) => (
+      <p class="guide-p">{p}</p>
+    ))}
+  </section>
+
+  <!-- Section 3: Why Convert -->
+  <section class="guide-section">
+    <h2 class="guide-h2">{guide.whyConvertTitle}</h2>
+    <p class="guide-subtitle">{guide.whyConvertSubtitle}</p>
+    <div class="benefits-grid">
+      {guide.whyConvertReasons.map((reason) => (
+        <div class="benefit-card">
+          <div class="benefit-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+              <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+          </div>
+          <div class="benefit-content">
+            <h3 class="benefit-title">{reason.title}</h3>
+            <p class="benefit-desc">{reason.description}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Section 4: How To Steps -->
+  <section class="guide-section">
+    <h2 class="guide-h2">{guide.howToTitle}</h2>
+    <p class="guide-subtitle">{guide.howToSubtitle}</p>
+    <div class="steps-container">
+      {guide.howToSteps.map((step) => (
+        <div class="guide-step-card">
+          <div class="step-badge">{step.step}</div>
+          <div class="step-body">
+            <h3 class="step-h3">{step.title}</h3>
+            <p class="step-text">{step.description}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Section 5: Difference Comparison Table -->
+  <section class="guide-section">
+    <h2 class="guide-h2">{guide.differenceTitle}</h2>
+    <p class="guide-subtitle">{guide.differenceSubtitle}</p>
+    <div class="table-responsive">
+      <table class="guide-table">
+        <thead>
+          <tr>
+            <th>{labels.feature}</th>
+            <th>{labels.srtBadge}</th>
+            <th>{labels.smiBadge}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {guide.differenceTable.map((row) => (
+            <tr>
+              <td class="font-medium text-primary">{row.feature}</td>
+              <td class="table-cell-srt">{row.srt}</td>
+              <td class="table-cell-smi">{row.smi}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Section 6: Timestamp Mathematics -->
+  <section class="guide-section">
+    <h2 class="guide-h2">{guide.koreanEncodingTitle}</h2>
+    <p class="guide-subtitle">{guide.koreanEncodingSubtitle}</p>
+    {guide.koreanEncodingText.map((p) => (
+      <p class="guide-p">{p}</p>
+    ))}
+  </section>
+
+  <!-- Section 7: Language Classes (.KRCC, .ENCC) -->
+  <section class="guide-section">
+    <h2 class="guide-h2">{guide.endTimeCalculationTitle}</h2>
+    <p class="guide-subtitle">{guide.endTimeCalculationSubtitle}</p>
+    {guide.endTimeCalculationText.map((p) => (
+      <p class="guide-p">{p}</p>
+    ))}
+  </section>
+
+  <!-- Section 8: Concrete Code Example -->
+  <section class="guide-section">
+    <h2 class="guide-h2">{guide.exampleTitle}</h2>
+    <p class="guide-p">{guide.exampleIntro}</p>
+
+    <div class="code-comparison-grid">
+      <div class="code-block-card">
+        <div class="code-header">
+          <span class="code-tag srt-tag">{labels.srtBadge}</span>
+        </div>
+        <pre class="code-content"><code>{guide.exampleSmiInput}</code></pre>
+      </div>
+
+      <div class="code-block-card">
+        <div class="code-header">
+          <span class="code-tag smi-tag">{labels.smiBadge}</span>
+        </div>
+        <pre class="code-content"><code>{guide.exampleSrtOutput}</code></pre>
+      </div>
+    </div>
+
+    <div class="example-explanation-box">
+      <p><strong>{labels.solution}:</strong> {guide.exampleExplanation}</p>
+    </div>
+  </section>
+
+  <!-- Section 9: Line Breaks and HTML Formatting -->
+  <section class="guide-section">
+    <h2 class="guide-h2">{guide.bilingualTitle}</h2>
+    <p class="guide-subtitle">{guide.bilingualSubtitle}</p>
+    {guide.bilingualText.map((p) => (
+      <p class="guide-p">{p}</p>
+    ))}
+  </section>
+
+  <!-- Section 10: FFmpeg Command Line -->
+  <section class="guide-section">
+    <h2 class="guide-h2">{guide.ffmpegTitle}</h2>
+    <p class="guide-subtitle">{guide.ffmpegSubtitle}</p>
+    <div class="terminal-card">
+      <div class="terminal-header">
+        <span class="terminal-dot dot-red"></span>
+        <span class="terminal-dot dot-yellow"></span>
+        <span class="terminal-dot dot-green"></span>
+        <span class="terminal-title">bash / terminal</span>
+      </div>
+      <pre class="terminal-body"><code>{guide.ffmpegCommand}</code></pre>
+    </div>
+    {guide.ffmpegExplanation.map((p) => (
+      <p class="guide-p">{p}</p>
+    ))}
+  </section>
+
+  <!-- Section 11: Real-World Use Cases -->
+  <section class="guide-section">
+    <h2 class="guide-h2">{guide.useCasesTitle}</h2>
+    <p class="guide-subtitle">{guide.useCasesSubtitle}</p>
+    <div class="use-cases-grid">
+      {guide.useCasesList.map((uc) => (
+        <div class="use-case-card">
+          <div class="use-case-header">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+            </svg>
+            <h3 class="use-case-title">{uc.title}</h3>
+          </div>
+          <p class="use-case-desc">{uc.description}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Section 12: Troubleshooting -->
+  <section class="guide-section">
+    <h2 class="guide-h2">{guide.troubleshootTitle}</h2>
+    <p class="guide-subtitle">{guide.troubleshootSubtitle}</p>
+    <div class="troubleshoot-grid">
+      {guide.troubleshootTips.map((tip) => (
+        <div class="troubleshoot-card">
+          <div class="troubleshoot-header">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="8" x2="12" y2="12"></line>
+              <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+            <h3 class="troubleshoot-title">{tip.issue}</h3>
+          </div>
+          <div class="troubleshoot-body">
+            <p><strong>{labels.cause}</strong> {tip.cause}</p>
+            <div class="troubleshoot-solution">
+              <strong>{labels.solution}:</strong> {tip.solution}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Section 13: Conclusion -->
+  <section class="guide-section conclusion-section">
+    <h2 class="guide-h2">{guide.conclusionTitle}</h2>
+    {guide.conclusionText.map((p) => (
+      <p class="guide-p">{p}</p>
+    ))}
+  </section>
+
+  <!-- Related Tools Navigation -->
+  <section class="guide-section related-tools-section">
+    <h3 class="related-tools-h3">{labels.relatedTools}</h3>
+    <div class="related-tools-pills">
+      <a href={smiToSrtUrl} class="tool-pill">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="16 18 22 12 16 6"></polyline>
+          <polyline points="8 6 2 12 8 18"></polyline>
+        </svg>
+        <span>{tools.smiToSrt.name}</span>
+      </a>
+      <a href={subToSrtUrl} class="tool-pill">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="16 18 22 12 16 6"></polyline>
+          <polyline points="8 6 2 12 8 18"></polyline>
+        </svg>
+        <span>{tools.subToSrt.name}</span>
+      </a>
+      <a href={srtToSubUrl} class="tool-pill">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="16 18 22 12 16 6"></polyline>
+          <polyline points="8 6 2 12 8 18"></polyline>
+        </svg>
+        <span>{tools.srtToSub.name}</span>
+      </a>
+      <a href={txtToSrtUrl} class="tool-pill">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="16 18 22 12 16 6"></polyline>
+          <polyline points="8 6 2 12 8 18"></polyline>
+        </svg>
+        <span>{tools.txtToSrt.name}</span>
+      </a>
+      <a href={srtToTextUrl} class="tool-pill">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="16 18 22 12 16 6"></polyline>
+          <polyline points="8 6 2 12 8 18"></polyline>
+        </svg>
+        <span>{tools.srtToText.name}</span>
+      </a>
+      <a href={srtToVttUrl} class="tool-pill">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="16 18 22 12 16 6"></polyline>
+          <polyline points="8 6 2 12 8 18"></polyline>
+        </svg>
+        <span>{tools.srtToVtt.name}</span>
+      </a>
+      <a href={vttToSrtUrl} class="tool-pill">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="16 18 22 12 16 6"></polyline>
+          <polyline points="8 6 2 12 8 18"></polyline>
+        </svg>
+        <span>{tools.vttToSrt.name}</span>
+      </a>
+      <a href={srtToAssUrl} class="tool-pill">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="16 18 22 12 16 6"></polyline>
+          <polyline points="8 6 2 12 8 18"></polyline>
+        </svg>
+        <span>{tools.srtToAss.name}</span>
+      </a>
+    </div>
+  </section>
+</article>
+
+<style>
+  .smi-to-srt-guide-container {
+    max-width: 900px;
+    margin: 3rem auto 2rem;
+    color: var(--text-primary);
+  }
+
+  .guide-section {
+    margin-bottom: 3.25rem;
+  }
+
+  .guide-h2 {
+    font-size: 1.625rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin-bottom: 0.75rem;
+    line-height: 1.3;
+    letter-spacing: -0.015em;
+  }
+
+  .guide-subtitle {
+    font-size: 1.0625rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 1.25rem;
+  }
+
+  .guide-p {
+    font-size: 0.9375rem;
+    line-height: 1.75;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+  }
+
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.25rem;
+    margin-top: 1.5rem;
+  }
+
+  .benefit-card {
+    display: flex;
+    gap: 1rem;
+    padding: 1.25rem;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 0.75rem;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .benefit-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 0.5rem;
+    background-color: rgba(37, 99, 235, 0.1);
+    color: var(--accent-primary);
+    flex-shrink: 0;
+  }
+
+  .benefit-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.35rem;
+  }
+
+  .benefit-desc {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  .steps-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1.25rem;
+  }
+
+  .guide-step-card {
+    display: flex;
+    gap: 1.25rem;
+    padding: 1.25rem 1.5rem;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 0.75rem;
+    box-shadow: var(--shadow-sm);
+    align-items: flex-start;
+  }
+
+  .step-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 50%;
+    background-color: var(--accent-primary);
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+
+  .step-h3 {
+    font-size: 1.0625rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.35rem;
+  }
+
+  .step-text {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .table-responsive {
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    border: 1px solid var(--border-color);
+    border-radius: 0.75rem;
+    background-color: var(--bg-card);
+  }
+
+  .guide-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+    text-align: left;
+  }
+
+  .guide-table th {
+    background-color: var(--bg-primary);
+    padding: 0.875rem 1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    border-bottom: 2px solid var(--border-color);
+  }
+
+  .guide-table td {
+    padding: 0.875rem 1rem;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  .table-cell-smi {
+    font-family: ui-monospace, SFMono-Regular, monospace;
+    font-size: 0.8125rem;
+    color: #0284c7;
+  }
+
+  .table-cell-srt {
+    font-family: ui-monospace, SFMono-Regular, monospace;
+    font-size: 0.8125rem;
+    color: #10b981;
+  }
+
+  .code-comparison-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+    margin: 1.25rem 0;
+  }
+
+  @media (max-width: 768px) {
+    .code-comparison-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .code-block-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 0.75rem;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .code-header {
+    padding: 0.6rem 1rem;
+    background-color: var(--bg-primary);
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .code-tag {
+    display: inline-block;
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .smi-tag {
+    background-color: rgba(2, 132, 199, 0.15);
+    color: #0284c7;
+  }
+
+  .srt-tag {
+    background-color: rgba(16, 185, 129, 0.15);
+    color: #10b981;
+  }
+
+  .code-content {
+    margin: 0;
+    padding: 1rem;
+    font-family: ui-monospace, SFMono-Regular, monospace;
+    font-size: 0.8125rem;
+    line-height: 1.6;
+    color: var(--text-primary);
+    background-color: transparent;
+    overflow-x: auto;
+  }
+
+  .example-explanation-box {
+    padding: 1rem 1.25rem;
+    background-color: var(--bg-card);
+    border-left: 4px solid var(--accent-primary);
+    border-radius: 0 0.5rem 0.5rem 0;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-top: 1rem;
+  }
+
+  .terminal-card {
+    background-color: #1e293b;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    margin: 1.25rem 0;
+  }
+
+  .terminal-header {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.6rem 1rem;
+    background-color: #0f172a;
+  }
+
+  .terminal-dot {
+    width: 0.65rem;
+    height: 0.65rem;
+    border-radius: 50%;
+  }
+
+  .dot-red { background-color: #ef4444; }
+  .dot-yellow { background-color: #eab308; }
+  .dot-green { background-color: #22c55e; }
+
+  .terminal-title {
+    margin-left: 0.5rem;
+    font-family: monospace;
+    font-size: 0.75rem;
+    color: #94a3b8;
+  }
+
+  .terminal-body {
+    margin: 0;
+    padding: 1.25rem 1rem;
+    color: #38bdf8;
+    font-family: ui-monospace, SFMono-Regular, monospace;
+    font-size: 0.875rem;
+    overflow-x: auto;
+  }
+
+  .use-cases-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.25rem;
+    margin-top: 1.25rem;
+  }
+
+  .use-case-card {
+    padding: 1.25rem;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 0.75rem;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .use-case-header {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    color: var(--accent-primary);
+    margin-bottom: 0.5rem;
+  }
+
+  .use-case-title {
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+  }
+
+  .use-case-desc {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .troubleshoot-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1.25rem;
+  }
+
+  .troubleshoot-card {
+    padding: 1.25rem;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 0.75rem;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .troubleshoot-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #f59e0b;
+    margin-bottom: 0.625rem;
+  }
+
+  .troubleshoot-title {
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+  }
+
+  .troubleshoot-body p {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+  }
+
+  .troubleshoot-solution {
+    padding: 0.625rem 0.875rem;
+    background-color: var(--bg-primary);
+    border-left: 3px solid #10b981;
+    border-radius: 0 0.375rem 0.375rem 0;
+    font-size: 0.8125rem;
+    color: var(--text-primary);
+  }
+
+  .related-tools-section {
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-color);
+  }
+
+  .related-tools-h3 {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+  }
+
+  .related-tools-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.625rem;
+  }
+
+  .tool-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.875rem;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 2rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .tool-pill:hover {
+    border-color: var(--accent-primary);
+    color: var(--accent-primary);
+    transform: translateY(-1px);
+  }
+
+  .tool-pill svg {
+    color: var(--accent-primary);
+  }
+</style>
