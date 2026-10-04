@@ -19,9 +19,9 @@ const breadcrumbItems = [
 function renderMarkdown(md: string): string {
   let html = md.trim();
 
-  // Extract Code blocks and replace with tokens
+  // 1. Extract Code blocks and replace with tokens
   const codeBlocks: string[] = [];
-  html = html.replace(/```(?:[a-z0-9_-]+)?\n([\s\S]*?)```/g, (_, code) => {
+  html = html.replace(/```[a-zA-Z0-9_-]*[^\r\n]*\r?\n([\s\S]*?)```/g, (_, code) => {
     const escaped = code
       .replace(/&/g, '&amp;')
       .replace(/</g, '&lt;')
@@ -31,63 +31,130 @@ function renderMarkdown(md: string): string {
     return `__CODE_BLOCK_${index}__`;
   });
 
-  // Headings & Inline Formatting
-  html = html.replace(/#### (.*?)\n/g, '<h4>$1</h4>\n');
-  html = html.replace(/### (.*?)\n/g, '<h3>$1</h3>\n');
-  html = html.replace(/## (.*?)\n/g, '<h2>$1</h2>\n');
-  html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-  html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
-  html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
-  html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
+  // 2. Extract Inline Code and replace with tokens BEFORE other replacements
+  // Escape &, <, >, " inside backticks so tags like `<b>` or `<font>` never become HTML tags
+  const inlineCodes: string[] = [];
+  html = html.replace(/`([^`\r\n]+)`/g, (_, code) => {
+    const escaped = code
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+    const index = inlineCodes.length;
+    inlineCodes.push(`<code>${escaped}</code>`);
+    return `__INLINE_CODE_${index}__`;
+  });
 
-  // Extract Tables and replace with tokens (after inline formatting, before hr replacement)
+  // 3. Extract Tables and replace with tokens
   const tableBlocks: string[] = [];
-  html = html.replace(/\|(.+)\|\n\|(?:\s*[-:]+[-| :]*)\|\n((?:\|.+\|\n?)+)/g, (_, headers, rows) => {
-    const ths = headers.split('|').filter((c: string) => c.trim()).map((c: string) => `<th>${c.trim()}</th>`).join('');
-    const trs = rows.trim().split('\n').map((row: string) => {
-      const tds = row.split('|').filter((c: string) => c.trim()).map((c: string) => `<td>${c.trim()}</td>`).join('');
-      return `<tr>${tds}</tr>`;
-    }).join('');
+  html = html.replace(/\|(.+)\|\r?\n\|(?:\s*[-:]+[-| :]*)\|\r?\n((?:\|.+\|\r?\n?)+)/g, (_, headers, rows) => {
+    const ths = headers
+      .split('|')
+      .filter((c: string) => c.trim())
+      .map((c: string) => {
+        let cell = c.trim().replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        cell = cell.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+        cell = cell.replace(/\*(.*?)\*/g, '<em>$1</em>');
+        return `<th>${cell}</th>`;
+      })
+      .join('');
+
+    const trs = rows
+      .trim()
+      .split(/\r?\n/)
+      .map((row: string) => {
+        const tds = row
+          .split('|')
+          .filter((c: string) => c.trim())
+          .map((c: string) => {
+            let cell = c.trim().replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            cell = cell.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            cell = cell.replace(/\*(.*?)\*/g, '<em>$1</em>');
+            cell = cell.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
+            return `<td>${cell}</td>`;
+          })
+          .join('');
+        return `<tr>${tds}</tr>`;
+      })
+      .join('');
+
     const index = tableBlocks.length;
     tableBlocks.push(`<table><thead><tr>${ths}</tr></thead><tbody>${trs}</tbody></table>`);
     return `\n\n__TABLE_BLOCK_${index}__\n\n`;
   });
 
-  html = html.replace(/(?:^|\n)---(?:\n|$)/g, '\n<hr style="margin: 2rem 0; border: none; border-top: 1px solid var(--border-color);" />\n');
+  // 4. Safe escaping of stray angle brackets in regular text (e.g. <OPEN>, <EXIT>, or unbackticked tags)
+  // At this point, only tokens __CODE_BLOCK_N__, __INLINE_CODE_N__, and __TABLE_BLOCK_N__ exist
+  html = html.replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
-  // Convert paragraphs
-  const paragraphs = html.split(/\n\n+/);
+  // 5. Headings & Inline Formatting
+  html = html.replace(/#### (.*?)\r?\n/g, '<h4>$1</h4>\n');
+  html = html.replace(/### (.*?)\r?\n/g, '<h3>$1</h3>\n');
+  html = html.replace(/## (.*?)\r?\n/g, '<h2>$1</h2>\n');
+  html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+  html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
+  html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
+
+  // 6. Horizontal Rules
+  html = html.replace(/(?:^|\n)---(?:\r?\n|$)/g, '\n<hr style="margin: 2rem 0; border: none; border-top: 1px solid var(--border-color);" />\n');
+
+  // 7. Convert paragraphs, lists, and blockquotes
+  const paragraphs = html.split(/\r?\n\r?\n+/);
   let rendered = paragraphs
     .map((p) => {
       p = p.trim();
       if (!p) return '';
       if (p.startsWith('__CODE_BLOCK_')) {
         const match = p.match(/^__CODE_BLOCK_(\d+)__$/);
-        if (match) {
-          return codeBlocks[parseInt(match[1], 10)] || '';
-        }
+        if (match) return codeBlocks[parseInt(match[1], 10)] || '';
       }
       if (p.startsWith('__TABLE_BLOCK_')) {
         const match = p.match(/^__TABLE_BLOCK_(\d+)__$/);
-        if (match) {
-          return tableBlocks[parseInt(match[1], 10)] || '';
-        }
+        if (match) return tableBlocks[parseInt(match[1], 10)] || '';
       }
       if (p.startsWith('<h') || p.startsWith('<table') || p.startsWith('<hr') || p.startsWith('<pre')) return p;
-      if (p.startsWith('- ')) {
-        const listItems = p.split('\n').map((li) => `<li>${li.replace(/^- /, '')}</li>`).join('');
+
+      // Blockquotes: starting with &gt; (since > was escaped)
+      if (p.startsWith('&gt; ') || p.startsWith('&gt;')) {
+        const quoteContent = p
+          .split(/\r?\n/)
+          .map((line) => line.replace(/^&gt;\s?/, ''))
+          .join('<br/>');
+        return `<blockquote><p>${quoteContent}</p></blockquote>`;
+      }
+
+      // Check if block has leading text followed by a list
+      const lines = p.split(/\r?\n/);
+      const firstListIndex = lines.findIndex((l) => /^[-*]\s+/.test(l) || /^\d+\.\s+/.test(l));
+
+      if (firstListIndex > 0) {
+        const introText = lines.slice(0, firstListIndex).join('<br/>');
+        const listLines = lines.slice(firstListIndex);
+        const isOrdered = /^\d+\.\s+/.test(listLines[0]);
+        const listItems = listLines
+          .map((li) => `<li>${li.replace(/^[-*]\s+/, '').replace(/^\d+\.\s+/, '')}</li>`)
+          .join('');
+        const listTag = isOrdered ? 'ol' : 'ul';
+        return `<p>${introText}</p>\n<${listTag}>${listItems}</${listTag}>`;
+      }
+
+      if (p.startsWith('- ') || p.startsWith('* ')) {
+        const listItems = lines.map((li) => `<li>${li.replace(/^[-*]\s+/, '')}</li>`).join('');
         return `<ul>${listItems}</ul>`;
       }
+
       if (/^\d+\. /.test(p)) {
-        const listItems = p.split('\n').map((li) => `<li>${li.replace(/^\d+\. /, '')}</li>`).join('');
+        const listItems = lines.map((li) => `<li>${li.replace(/^\d+\.\s+/, '')}</li>`).join('');
         return `<ol>${listItems}</ol>`;
       }
-      return `<p>${p.replace(/\n/g, '<br/>')}</p>`;
+
+      return `<p>${p.replace(/\r?\n/g, '<br/>')}</p>`;
     })
     .join('\n');
 
-  // Restore any code or table blocks if still present
+  // 8. Restore tokens
   rendered = rendered.replace(/__CODE_BLOCK_(\d+)__/g, (_, idx) => codeBlocks[parseInt(idx, 10)] || '');
+  rendered = rendered.replace(/__INLINE_CODE_(\d+)__/g, (_, idx) => inlineCodes[parseInt(idx, 10)] || '');
   rendered = rendered.replace(/__TABLE_BLOCK_(\d+)__/g, (_, idx) => tableBlocks[parseInt(idx, 10)] || '');
 
   return rendered;
