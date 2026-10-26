@@ -14,6 +14,7 @@ import SbvToSrtTool from '@/components/tools/SbvToSrtTool.astro';
 import SmiToSrtTool from '@/components/tools/SmiToSrtTool.astro';
 import SrtToSmiTool from '@/components/tools/SrtToSmiTool.astro';
 import LrcToSrtTool from '@/components/tools/LrcToSrtTool.astro';
+import SupToSrtTool from '@/components/tools/SupToSrtTool.astro';
 import ToolCard from '@/components/tools/ToolCard.astro';
 import { ROUTES, type RouteId, getRoutePath } from '@/i18n/routes';
 import { type Locale } from '@/i18n/config';
@@ -112,13 +113,6 @@ const toolsUrl = getRoutePath('tools', locale);
           />
           <ToolCard
             locale={locale}
-            routeId="srt-to-vtt"
-            name={tools.srtToVtt.name}
-            badge={tools.srtToVtt.badge}
-            description={tools.srtToVtt.description}
-          />
-          <ToolCard
-            locale={locale}
             routeId="vtt-to-srt"
             name={tools.vttToSrt.name}
             badge={tools.vttToSrt.badge}
@@ -126,59 +120,17 @@ const toolsUrl = getRoutePath('tools', locale);
           />
           <ToolCard
             locale={locale}
-            routeId="srt-to-ass"
-            name={tools.srtToAss.name}
-            badge={tools.srtToAss.badge}
-            description={tools.srtToAss.description}
-          />
-          <ToolCard
-            locale={locale}
             routeId="ass-to-srt"
-            name={tools.assToSrt.name}
+            name={tools.assToSrt.h1}
             badge={tools.assToSrt.badge}
             description={tools.assToSrt.description}
           />
           <ToolCard
             locale={locale}
-            routeId="srt-to-sub"
-            name={tools.srtToSub.name}
-            badge={tools.srtToSub.badge}
-            description={tools.srtToSub.description}
-          />
-          <ToolCard
-            locale={locale}
             routeId="sub-to-srt"
-            name={tools.subToSrt.name}
+            name={tools.subToSrt.h1}
             badge={tools.subToSrt.badge}
             description={tools.subToSrt.description}
-          />
-          <ToolCard
-            locale={locale}
-            routeId="sbv-to-srt"
-            name={tools.sbvToSrt.name}
-            badge={tools.sbvToSrt.badge}
-            description={tools.sbvToSrt.description}
-          />
-          <ToolCard
-            locale={locale}
-            routeId="smi-to-srt"
-            name={tools.smiToSrt.name}
-            badge={tools.smiToSrt.badge}
-            description={tools.smiToSrt.description}
-          />
-          <ToolCard
-            locale={locale}
-            routeId="srt-to-smi"
-            name={tools.srtToSmi.name}
-            badge={tools.srtToSmi.badge}
-            description={tools.srtToSmi.description}
-          />
-          <ToolCard
-            locale={locale}
-            routeId="lrc-to-srt"
-            name={tools.lrcToSrt.name}
-            badge={tools.lrcToSrt.badge}
-            description={tools.lrcToSrt.description}
           />
         </div>
       </section>
@@ -325,6 +277,12 @@ const toolsUrl = getRoutePath('tools', locale);
   </ToolLayout>
 )}
 
+{routeId === 'sup-to-srt' && (
+  <ToolLayout locale={locale} routeId={routeId} tool={tools.supToSrt}>
+    <SupToSrtTool locale={locale} />
+  </ToolLayout>
+)}
+
 {routeId === 'tools' && (
   <BaseLayout
     title={seo.title}
@@ -352,7 +310,62 @@ const toolsUrl = getRoutePath('tools', locale);
         <p class="hero-subtitle">{tools.directory.subtitle}</p>
       </section>
 
-      <section style="margin-bottom: 3.5rem;">
+      <!-- Prominent Tool Search Bar -->
+      <div class="tools-search-wrapper" role="search">
+        <div class="tools-search-box">
+          <div class="tools-search-icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+          </div>
+          <input
+            type="search"
+            id="tool-search-input"
+            class="tools-search-input"
+            placeholder={ui.common.searchToolsPlaceholder}
+            aria-label={ui.common.searchToolsPlaceholder}
+            autocomplete="off"
+            spellcheck="false"
+          />
+          <button
+            type="button"
+            id="tool-search-clear"
+            class="tools-search-clear"
+            aria-label={ui.common.clearSearch}
+            title={ui.common.clearSearch}
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+        <div class="tools-search-stats" id="tools-search-stats" data-tools-found={ui.common.toolsFound}></div>
+      </div>
+
+      <!-- No Results State -->
+      <div class="tools-no-results" id="tools-no-results" role="status" aria-live="polite">
+        <div class="tools-no-results-icon" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            <line x1="8" y1="11" x2="14" y2="11"></line>
+          </svg>
+        </div>
+        <h3 class="tools-no-results-title">{ui.common.noToolsFound}</h3>
+        <p class="tools-no-results-desc">{ui.common.noToolsFoundDesc}</p>
+        <button type="button" class="btn btn-primary btn-sm" id="tools-reset-search">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="1 4 1 10 7 10"></polyline>
+            <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+          </svg>
+          <span>{ui.common.viewAllTools}</span>
+        </button>
+      </div>
+
+      <!-- Tools Categories & Cards -->
+      <section data-category-section style="margin-bottom: 3.5rem;">
         <h2 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 1.5rem; color: var(--text-primary);">
           {tools.directory.convertersCategory}
         </h2>
@@ -363,6 +376,7 @@ const toolsUrl = getRoutePath('tools', locale);
             name={tools.txtToSrt.name}
             badge={tools.txtToSrt.badge}
             description={tools.txtToSrt.description}
+            keywords="txt text srt subrip plain text transcript subtitles"
           />
           <ToolCard
             locale={locale}
@@ -370,6 +384,7 @@ const toolsUrl = getRoutePath('tools', locale);
             name={tools.srtToText.name}
             badge={tools.srtToText.badge}
             description={tools.srtToText.description}
+            keywords="srt text txt transcript plain text strip timestamps captions"
           />
           <ToolCard
             locale={locale}
@@ -377,6 +392,7 @@ const toolsUrl = getRoutePath('tools', locale);
             name={tools.srtToVtt.name}
             badge={tools.srtToVtt.badge}
             description={tools.srtToVtt.description}
+            keywords="srt vtt webvtt html5 video web captions subtitles"
           />
           <ToolCard
             locale={locale}
@@ -384,6 +400,7 @@ const toolsUrl = getRoutePath('tools', locale);
             name={tools.vttToSrt.name}
             badge={tools.vttToSrt.badge}
             description={tools.vttToSrt.description}
+            keywords="vtt srt webvtt subrip video captions subtitles"
           />
           <ToolCard
             locale={locale}
@@ -391,6 +408,7 @@ const toolsUrl = getRoutePath('tools', locale);
             name={tools.srtToAss.name}
             badge={tools.srtToAss.badge}
             description={tools.srtToAss.description}
+            keywords="srt ass ssa substation alpha styles anime formatting"
           />
           <ToolCard
             locale={locale}
@@ -398,6 +416,7 @@ const toolsUrl = getRoutePath('tools', locale);
             name={tools.assToSrt.name}
             badge={tools.assToSrt.badge}
             description={tools.assToSrt.description}
+            keywords="ass srt ssa substation alpha clean tags anime subtitles"
           />
           <ToolCard
             locale={locale}
@@ -405,6 +424,7 @@ const toolsUrl = getRoutePath('tools', locale);
             name={tools.srtToSub.name}
             badge={tools.srtToSub.badge}
             description={tools.srtToSub.description}
+            keywords="srt sub microdvd subviewer fps frames timing"
           />
           <ToolCard
             locale={locale}
@@ -412,6 +432,7 @@ const toolsUrl = getRoutePath('tools', locale);
             name={tools.subToSrt.name}
             badge={tools.subToSrt.badge}
             description={tools.subToSrt.description}
+            keywords="sub srt microdvd subviewer fps frames milliseconds"
           />
           <ToolCard
             locale={locale}
@@ -419,6 +440,7 @@ const toolsUrl = getRoutePath('tools', locale);
             name={tools.sbvToSrt.name}
             badge={tools.sbvToSrt.badge}
             description={tools.sbvToSrt.description}
+            keywords="sbv srt youtube google captions video subrip"
           />
           <ToolCard
             locale={locale}
@@ -426,6 +448,7 @@ const toolsUrl = getRoutePath('tools', locale);
             name={tools.smiToSrt.name}
             badge={tools.smiToSrt.badge}
             description={tools.smiToSrt.description}
+            keywords="smi sami srt sync windows media player"
           />
           <ToolCard
             locale={locale}
@@ -433,6 +456,7 @@ const toolsUrl = getRoutePath('tools', locale);
             name={tools.srtToSmi.name}
             badge={tools.srtToSmi.badge}
             description={tools.srtToSmi.description}
+            keywords="srt smi sami sync windows media player"
           />
           <ToolCard
             locale={locale}
@@ -440,9 +464,109 @@ const toolsUrl = getRoutePath('tools', locale);
             name={tools.lrcToSrt.name}
             badge={tools.lrcToSrt.badge}
             description={tools.lrcToSrt.description}
+            keywords="lrc srt lyrics song music audio synchronized"
+          />
+          <ToolCard
+            locale={locale}
+            routeId="sup-to-srt"
+            name={tools.supToSrt.name}
+            badge={tools.supToSrt.badge}
+            description={tools.supToSrt.description}
+            keywords="sup bluray pgs ocr bitmap image subtitles to text subrip"
           />
         </div>
       </section>
     </div>
+
+    <!-- Interactive Tools Search Filter Script -->
+    <script is:inline>
+      (function () {
+        const searchInput = document.getElementById('tool-search-input');
+        const clearBtn = document.getElementById('tool-search-clear');
+        const noResults = document.getElementById('tools-no-results');
+        const resetBtn = document.getElementById('tools-reset-search');
+        const categorySections = document.querySelectorAll('[data-category-section]');
+        const cards = document.querySelectorAll('[data-tool-card]');
+        const statsEl = document.getElementById('tools-search-stats');
+
+        if (!searchInput || !cards.length) return;
+
+        function filterTools() {
+          const rawQuery = searchInput.value || '';
+          const normalized = rawQuery.trim().toLowerCase().replace(/\s+/g, ' ');
+
+          // Toggle clear button
+          if (clearBtn) {
+            clearBtn.style.display = rawQuery.length > 0 ? 'flex' : 'none';
+          }
+
+          const terms = normalized.split(' ').filter(Boolean);
+          let totalVisible = 0;
+
+          cards.forEach((card) => {
+            if (terms.length === 0) {
+              card.style.display = '';
+              totalVisible++;
+              return;
+            }
+            const text = (card.getAttribute('data-search-text') || '').toLowerCase();
+            const matches = terms.every((term) => text.includes(term));
+            if (matches) {
+              card.style.display = '';
+              totalVisible++;
+            } else {
+              card.style.display = 'none';
+            }
+          });
+
+          // Show/hide category sections based on visible cards
+          categorySections.forEach((section) => {
+            const sectionCards = section.querySelectorAll('[data-tool-card]');
+            const hasVisible = Array.from(sectionCards).some((c) => c.style.display !== 'none');
+            section.style.display = hasVisible ? '' : 'none';
+          });
+
+          // Toggle No Results state
+          if (noResults) {
+            if (totalVisible === 0 && terms.length > 0) {
+              noResults.style.display = 'block';
+            } else {
+              noResults.style.display = 'none';
+            }
+          }
+
+          // Update stats text
+          if (statsEl) {
+            if (terms.length > 0) {
+              statsEl.style.display = 'block';
+              const label = statsEl.getAttribute('data-tools-found') || 'tools found';
+              statsEl.textContent = totalVisible + ' ' + label;
+            } else {
+              statsEl.style.display = 'none';
+            }
+          }
+        }
+
+        function resetSearch() {
+          searchInput.value = '';
+          filterTools();
+          searchInput.focus();
+        }
+
+        searchInput.addEventListener('input', filterTools);
+        searchInput.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') {
+            resetSearch();
+          }
+        });
+
+        if (clearBtn) {
+          clearBtn.addEventListener('click', resetSearch);
+        }
+        if (resetBtn) {
+          resetBtn.addEventListener('click', resetSearch);
+        }
+      })();
+    </script>
   </BaseLayout>
 )}

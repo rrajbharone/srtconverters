@@ -1164,6 +1164,149 @@ button, input, select, textarea {
   }
 }
 
+/* Tools Directory Search Bar */
+.tools-search-wrapper {
+  max-width: 640px;
+  margin: 0 auto 2.5rem;
+  width: 100%;
+}
+
+.tools-search-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.tools-search-icon {
+  position: absolute;
+  left: 1.125rem;
+  color: var(--text-muted);
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.tools-search-input {
+  width: 100%;
+  height: 3.125rem;
+  padding: 0 3rem 0 3rem;
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  color: var(--text-primary);
+  background-color: var(--bg-card);
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+  -webkit-appearance: none;
+}
+
+.tools-search-input:focus {
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.tools-search-input::placeholder {
+  color: var(--text-muted);
+  font-size: 0.875rem;
+}
+
+.tools-search-clear {
+  position: absolute;
+  right: 0.75rem;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  border: none;
+  background-color: var(--bg-tertiary);
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.15s ease;
+}
+
+.tools-search-clear:hover {
+  background-color: var(--border-color);
+  color: var(--text-primary);
+}
+
+.tools-search-stats {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  margin-top: 0.5rem;
+  padding: 0 0.25rem;
+  display: none;
+}
+
+/* Tools No Results State */
+.tools-no-results {
+  display: none;
+  text-align: center;
+  padding: 3.5rem 1.5rem;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  margin: 1.5rem auto 3.5rem;
+  max-width: 42rem;
+}
+
+.tools-no-results-icon {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  background-color: var(--bg-secondary);
+  color: var(--accent-primary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+}
+
+.tools-no-results-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.tools-no-results-desc {
+  color: var(--text-secondary);
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  max-width: 30rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (max-width: 480px) {
+  .tools-search-input {
+    height: 2.75rem;
+    padding-left: 2.6rem;
+    padding-right: 2.6rem;
+    font-size: 0.875rem;
+  }
+  .tools-search-icon {
+    left: 0.875rem;
+    width: 1.1rem;
+    height: 1.1rem;
+  }
+  .tools-search-clear {
+    right: 0.5rem;
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+}
+
 /* Tool Cards Grid (Directory & Related Tools) */
 .tool-cards-grid {
   display: grid;
@@ -1173,7 +1316,7 @@ button, input, select, textarea {
 
 @media (min-width: 600px) {
   .tool-cards-grid {
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
     gap: 1.25rem;
   }
 }
@@ -1195,7 +1338,7 @@ button, input, select, textarea {
 @media (min-width: 640px) {
   .tool-card {
     border-radius: var(--radius-md);
-    padding: 1.5rem;
+    padding: 1.25rem;
   }
 }
 
@@ -1206,11 +1349,29 @@ button, input, select, textarea {
   text-decoration: none;
 }
 
+.tool-card {
+  overflow: hidden;
+}
+
+.tool-card > div {
+  min-width: 0;
+}
+
 .tool-card-header {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   gap: 0.5rem;
+}
+
+.tool-card-header .badge {
+  font-size: 0.625rem !important;
+  padding: 0.1875rem 0.45rem !important;
+  line-height: 1.2 !important;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
 }
 
 .tool-card-title {

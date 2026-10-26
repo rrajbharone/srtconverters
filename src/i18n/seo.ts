@@ -62,6 +62,10 @@ export const SEO_TRANSLATIONS: Record<Locale, Record<RouteId | '404', PageSeo>> 
       title: "LRC to SRT Converter Online – Convert Lyrics to Subtitles Free | SRTConverters",
       description: "Convert LRC lyrics files to SubRip (.srt) subtitles online for free. Accurate timestamp synchronization, multi-timestamp support, metadata handling, and 100% browser privacy.",
     },
+    'sup-to-srt': {
+      title: "SUP to SRT Converter Online – Blu-ray PGS to SRT OCR | SRTConverters",
+      description: "Convert Blu-ray PGS (.sup) bitmap subtitles to clean SubRip (.srt) text format online for free. In-browser OCR text recognition, accurate timestamps, and 100% privacy.",
+    },
     tools: {
       title: 'Free Subtitle & SRT Tools – Convert, Format & Edit | SRTConverters',
       description: "Explore our complete suite of free online subtitle tools. Convert TXT to SRT, SRT to Text, SRT to VTT, VTT to SRT, SRT to ASS, ASS to SRT, and SRT to SUB securely in your browser.",
@@ -126,7 +130,11 @@ export const SEO_TRANSLATIONS: Record<Locale, Record<RouteId | '404', PageSeo>> 
       title: "Convertidor LRC a SRT Online – Convierte Letras a Subtítulos Gratis | SRTConverters",
       description: "Convierte archivos de letras LRC a subtítulos SubRip (.srt) gratis en línea. Sincronización precisa de tiempos, soporte multilínea y 100% de privacidad en el navegador.",
     },
-    tools: {
+        'sup-to-srt': {
+      title: "Convertidor SUP a SRT Online – De Blu-ray PGS a Subtítulos SRT | SRTConverters",
+      description: "Convierte subtítulos Blu-ray PGS (.sup) en texto SubRip (.srt) online y gratis. Reconocimiento óptico OCR en el navegador, tiempos precisos y máxima privacidad.",
+    },
+tools: {
       title: 'Herramientas Gratuitas de Subtítulos y SRT | SRTConverters',
       description: "Explora nuestra suite completa de herramientas gratuitas de subtítulos. Convierte TXT a SRT, SRT a texto, SRT a VTT, VTT a SRT, SRT a ASS, ASS a SRT, SRT a SUB y SUB a SRT de forma segura.",
     },
@@ -190,7 +198,11 @@ export const SEO_TRANSLATIONS: Record<Locale, Record<RouteId | '404', PageSeo>> 
       title: "Conversor LRC para SRT Online – Converta Letras em Legendas Grátis | SRTConverters",
       description: "Converta arquivos de letras LRC em legendas SubRip (.srt) online gratuitamente. Sincronização precisa de tempos, suporte a metadados e privacidade total no navegador.",
     },
-    tools: {
+        'sup-to-srt': {
+      title: "Conversor SUP para SRT Online – De Blu-ray PGS para SRT com OCR | SRTConverters",
+      description: "Converta legendas em imagem Blu-ray PGS (.sup) para texto SubRip (.srt) online gratuitamente. Reconhecimento OCR no navegador, sincronia precisa e 100% de privacidade.",
+    },
+tools: {
       title: 'Ferramentas Gratuitas de Legendas e SRT | SRTConverters',
       description: "Explore nossa suíte completa de ferramentas gratuitas de legendas. Converta TXT em SRT, SRT em texto, SRT em VTT, VTT em SRT, SRT em ASS, ASS em SRT, SRT em SUB e SUB em SRT com segurança no seu navegador.",
     },
@@ -254,7 +266,11 @@ export const SEO_TRANSLATIONS: Record<Locale, Record<RouteId | '404', PageSeo>> 
       title: "Convertisseur LRC en SRT en Ligne – Convertir Paroles en Sous-titres | SRTConverters",
       description: "Convertissez vos fichiers de paroles LRC en sous-titres SubRip (.srt) en ligne gratuitement. Synchronisation précise des minutages et confidentialité 100% navigateur.",
     },
-    tools: {
+        'sup-to-srt': {
+      title: "Convertisseur SUP en SRT Gratuit – Blu-ray PGS en SRT par OCR | SRTConverters",
+      description: "Convertissez les sous-titres Blu-ray PGS (.sup) en texte SubRip (.srt) en ligne et gratuitement. Reconnaissance OCR dans le navigateur, synchronisation précise et confidentialité totale.",
+    },
+tools: {
       title: 'Outils Gratuits de Sous-titres et SRT | SRTConverters',
       description: "Découvrez notre suite complète d'outils de sous-titrage en ligne gratuits. Convertissez TXT en SRT, SRT en texte, SRT en VTT, VTT en SRT, SRT en ASS, ASS en SRT, SRT en SUB et SUB en SRT en toute sécurité.",
     },
@@ -318,7 +334,11 @@ export const SEO_TRANSLATIONS: Record<Locale, Record<RouteId | '404', PageSeo>> 
       title: "LRC in SRT Konverter Online – Songtexte in Untertitel Umwandeln | SRTConverters",
       description: "Wandeln Sie LRC-Songtextdateien kostenlos online in SubRip (.srt) Untertitel um. Präzise Zeitstempel-Synchronisation und 100% Datenschutz im Browser.",
     },
-    tools: {
+        'sup-to-srt': {
+      title: "SUP in SRT Konverter Online – Blu-ray PGS in SRT mit OCR | SRTConverters",
+      description: "Konvertieren Sie Blu-ray PGS (.sup) Bilduntertitel online kostenlos in SubRip (.srt) Text. Browser-interne OCR-Texterkennung, präzise Timestamps und 100% Datenschutz.",
+    },
+tools: {
       title: 'Kostenlose Untertitel- & SRT-Tools | SRTConverters',
       description: "Entdecken Sie unsere vollständige Suite kostenloser Online-Untertitel-Tools. Konvertieren Sie TXT in SRT, SRT in Text, SRT in VTT, VTT in SRT, SRT in ASS, ASS in SRT, SRT in SUB und SUB in SRT sicher im Browser.",
     },
@@ -382,7 +402,11 @@ export const SEO_TRANSLATIONS: Record<Locale, Record<RouteId | '404', PageSeo>> 
       title: "Konverter LRC ke SRT Online – Ubah Lirik ke Subtitle Gratis | SRTConverters",
       description: "Ubah file lirik lagu LRC ke subtitle SubRip (.srt) secara online gratis. Sinkronisasi stempel waktu presisi, penanganan metadata, dan 100% privasi browser.",
     },
-    tools: {
+        'sup-to-srt': {
+      title: "Konverter SUP ke SRT Online – Ubah Blu-ray PGS ke SRT dengan OCR | SRTConverters",
+      description: "Konversi subtitle gambar Blu-ray PGS (.sup) ke format teks SubRip (.srt) online gratis. Pengenalan teks OCR di browser, sinkronisasi waktu akurat, dan privasi penuh.",
+    },
+tools: {
       title: 'Alat Subtitle & SRT Gratis Online | SRTConverters',
       description: "Jelajahi rangkaian lengkap alat subtitle online gratis kami. Konversi TXT ke SRT, SRT ke teks, SRT ke VTT, VTT ke SRT, SRT ke ASS, ASS ke SRT, SRT ke SUB, dan SUB ke SRT secara aman di browser Anda.",
     },
@@ -446,7 +470,11 @@ export const SEO_TRANSLATIONS: Record<Locale, Record<RouteId | '404', PageSeo>> 
       title: "LRC SRT Dönüştürücü Online – Şarkı Sözlerini Altyazı Yapma | SRTConverters",
       description: "LRC şarkı sözü dosyalarını ücretsiz olarak SubRip (.srt) altyazı formatına dönüştürün. Hassas zamanlama senkronizasyonu ve %100 tarayıcı içi gizlilik.",
     },
-    tools: {
+        'sup-to-srt': {
+      title: "SUP - SRT Dönüştürücü Online – Blu-ray PGS Dosyasını SRT Yapma | SRTConverters",
+      description: "Blu-ray PGS (.sup) resim tabanlı altyazılarını ücretsiz olarak SubRip (.srt) metin formatına dönüştürün. Tarayıcı içi OCR desteği, milisaniye zamanlama ve tam gizlilik.",
+    },
+tools: {
       title: 'Ücretsiz Altyazı ve SRT Araçları | SRTConverters',
       description: "Ücretsiz çevrimiçi altyazı araçları paketimizi keşfedin. TXT'yi SRT'ye, SRT'yi metne, SRT'yi VTT'ye, VTT'yi SRT'ye, SRT'yi ASS'ye, ASS'yi SRT'ye, SRT'yi SUB'a ve SUB'u SRT'ye güvenle dönüştürün.",
     },
@@ -510,7 +538,11 @@ export const SEO_TRANSLATIONS: Record<Locale, Record<RouteId | '404', PageSeo>> 
       title: "Convertitore da LRC a SRT Online – Converti Testi in Sottotitoli Gratis | SRTConverters",
       description: "Converti file di testi sincronizzati LRC in sottotitoli SubRip (.srt) online gratis. Sincronizzazione precisa dei timestamp e privacy al 100% nel browser.",
     },
-    tools: {
+        'sup-to-srt': {
+      title: "Convertitore da SUP a SRT Online – Da Blu-ray PGS a SRT con OCR | SRTConverters",
+      description: "Converti i sottotitoli grafici Blu-ray PGS (.sup) in testo SubRip (.srt) online gratis. Riconoscimento testo OCR nel browser, timestamp precisi e massima privacy.",
+    },
+tools: {
       title: 'Strumenti Gratuiti per Sottotitoli e SRT | SRTConverters',
       description: "Esplora la nostra suite completa di strumenti online gratuiti per i sottotitoli. Converti TXT in SRT, SRT in testo, SRT in VTT, VTT in SRT, SRT in ASS, ASS in SRT, SRT in SUB e SUB in SRT in totale sicurezza.",
     },

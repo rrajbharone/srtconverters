@@ -14,6 +14,7 @@ import SbvToSrtGuide from '@/components/tools/SbvToSrtGuide.astro';
 import SmiToSrtGuide from '@/components/tools/SmiToSrtGuide.astro';
 import SrtToSmiGuide from '@/components/tools/SrtToSmiGuide.astro';
 import LrcToSrtGuide from '@/components/tools/LrcToSrtGuide.astro';
+import SupToSrtGuide from '@/components/tools/SupToSrtGuide.astro';
 import type { Locale } from '@/i18n/config';
 import { type RouteId, getRoutePath } from '@/i18n/routes';
 import { getToolsContent, getUiStrings, type ToolDetail } from '@/i18n/utils';
@@ -70,7 +71,7 @@ const breadcrumbItems = [
     <slot />
 
     <!-- How-To Guide Steps -->
-    {routeId !== 'txt-to-srt' && routeId !== 'srt-to-text' && routeId !== 'srt-to-vtt' && routeId !== 'vtt-to-srt' && routeId !== 'srt-to-ass' && routeId !== 'ass-to-srt' && routeId !== 'srt-to-sub' && routeId !== 'sub-to-srt' && routeId !== 'sbv-to-srt' && routeId !== 'smi-to-srt' && routeId !== 'srt-to-smi' && routeId !== 'lrc-to-srt' && tool.steps && tool.steps.length > 0 && (
+    {routeId !== 'txt-to-srt' && routeId !== 'srt-to-text' && routeId !== 'srt-to-vtt' && routeId !== 'vtt-to-srt' && routeId !== 'srt-to-ass' && routeId !== 'ass-to-srt' && routeId !== 'srt-to-sub' && routeId !== 'sub-to-srt' && routeId !== 'sbv-to-srt' && routeId !== 'smi-to-srt' && routeId !== 'srt-to-smi' && routeId !== 'lrc-to-srt' && routeId !== 'sup-to-srt' && tool.steps && tool.steps.length > 0 && (
       <section class="info-section">
         <div class="section-heading">
           <h2 class="section-title">{tool.stepsTitle}</h2>
@@ -88,7 +89,7 @@ const breadcrumbItems = [
     )}
 
     <!-- Key Features -->
-    {routeId !== 'txt-to-srt' && routeId !== 'srt-to-text' && routeId !== 'srt-to-vtt' && routeId !== 'vtt-to-srt' && routeId !== 'srt-to-ass' && routeId !== 'ass-to-srt' && routeId !== 'srt-to-sub' && routeId !== 'sub-to-srt' && routeId !== 'sbv-to-srt' && routeId !== 'smi-to-srt' && routeId !== 'srt-to-smi' && routeId !== 'lrc-to-srt' && tool.features && tool.features.length > 0 && (
+    {routeId !== 'txt-to-srt' && routeId !== 'srt-to-text' && routeId !== 'srt-to-vtt' && routeId !== 'vtt-to-srt' && routeId !== 'srt-to-ass' && routeId !== 'ass-to-srt' && routeId !== 'srt-to-sub' && routeId !== 'sub-to-srt' && routeId !== 'sbv-to-srt' && routeId !== 'smi-to-srt' && routeId !== 'srt-to-smi' && routeId !== 'lrc-to-srt' && routeId !== 'sup-to-srt' && tool.features && tool.features.length > 0 && (
       <section class="info-section">
         <div class="section-heading">
           <h2 class="section-title">{tool.featuresTitle}</h2>
@@ -167,6 +168,11 @@ const breadcrumbItems = [
     <!-- Long-Form SEO & Practical Guide for LRC to SRT -->
     {routeId === 'lrc-to-srt' && (
       <LrcToSrtGuide locale={locale} />
+    )}
+
+    <!-- Long-Form SEO & Practical Guide for SUP to SRT -->
+    {routeId === 'sup-to-srt' && (
+      <SupToSrtGuide locale={locale} />
     )}
 
     <!-- FAQs -->

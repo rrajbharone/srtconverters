@@ -75,6 +75,12 @@ export interface UiStrings {
     notFoundTitle: string;
     notFoundDesc: string;
     goHome: string;
+    searchToolsPlaceholder: string;
+    clearSearch: string;
+    noToolsFound: string;
+    noToolsFoundDesc: string;
+    viewAllTools: string;
+    toolsFound: string;
   };
 }
 
@@ -154,6 +160,12 @@ export const UI_TRANSLATIONS: Record<Locale, UiStrings> = {
       notFoundTitle: 'Page Not Found',
       notFoundDesc: 'The page you are looking for does not exist or has been moved.',
       goHome: 'Go to Homepage',
+      searchToolsPlaceholder: 'Search subtitle tools (e.g. SRT, VTT, ASS, SUB, Text)...',
+      clearSearch: 'Clear search',
+      noToolsFound: 'No tools found',
+      noToolsFoundDesc: 'No subtitle tools matched your search query. Try another term or format.',
+      viewAllTools: 'View All Tools',
+      toolsFound: 'tools found',
     },
   },
   es: {
@@ -231,6 +243,12 @@ export const UI_TRANSLATIONS: Record<Locale, UiStrings> = {
       notFoundTitle: 'Página No Encontrada',
       notFoundDesc: 'La página que buscas no existe o ha sido movida.',
       goHome: 'Ir a la Página Principal',
+      searchToolsPlaceholder: 'Buscar herramientas de subtítulos (ej. SRT, VTT, ASS, SUB, Texto)...',
+      clearSearch: 'Borrar búsqueda',
+      noToolsFound: 'No se encontraron herramientas',
+      noToolsFoundDesc: 'Ninguna herramienta coincidió con tu búsqueda. Prueba con otro formato o término.',
+      viewAllTools: 'Ver todas las herramientas',
+      toolsFound: 'herramientas encontradas',
     },
   },
   pt: {
@@ -308,6 +326,12 @@ export const UI_TRANSLATIONS: Record<Locale, UiStrings> = {
       notFoundTitle: 'Página Não Encontrada',
       notFoundDesc: 'A página que você procura não existe ou foi movida.',
       goHome: 'Ir para a Página Inicial',
+      searchToolsPlaceholder: 'Pesquisar ferramentas de legendas (ex.: SRT, VTT, ASS, SUB, Texto)...',
+      clearSearch: 'Limpar pesquisa',
+      noToolsFound: 'Nenhuma ferramenta encontrada',
+      noToolsFoundDesc: 'Nenhuma ferramenta correspondeu à sua pesquisa. Tente outro formato ou termo.',
+      viewAllTools: 'Ver todas as ferramentas',
+      toolsFound: 'ferramentas encontradas',
     },
   },
   fr: {
@@ -385,6 +409,12 @@ export const UI_TRANSLATIONS: Record<Locale, UiStrings> = {
       notFoundTitle: 'Page Non Trouvée',
       notFoundDesc: 'La page que vous recherchez n’existe pas ou a été déplacée.',
       goHome: 'Aller à l’Accueil',
+      searchToolsPlaceholder: 'Rechercher des outils de sous-titres (ex. SRT, VTT, ASS, SUB, Texte)...',
+      clearSearch: 'Effacer la recherche',
+      noToolsFound: 'Aucun outil trouvé',
+      noToolsFoundDesc: 'Aucun outil de sous-titres ne correspond à votre recherche. Essayez un autre format.',
+      viewAllTools: 'Voir tous les outils',
+      toolsFound: 'outils trouvés',
     },
   },
   de: {
@@ -462,6 +492,12 @@ export const UI_TRANSLATIONS: Record<Locale, UiStrings> = {
       notFoundTitle: 'Seite nicht gefunden',
       notFoundDesc: 'Die von Ihnen gesuchte Seite existiert nicht oder wurde verschoben.',
       goHome: 'Zur Startseite',
+      searchToolsPlaceholder: 'Untertitel-Tools durchsuchen (z. B. SRT, VTT, ASS, SUB, Text)...',
+      clearSearch: 'Suche zurücksetzen',
+      noToolsFound: 'Keine Tools gefunden',
+      noToolsFoundDesc: 'Keine Untertitel-Tools entsprachen Ihrer Suche. Versuchen Sie es mit einem anderen Begriff.',
+      viewAllTools: 'Alle Tools anzeigen',
+      toolsFound: 'Tools gefunden',
     },
   },
   id: {
@@ -539,6 +575,12 @@ export const UI_TRANSLATIONS: Record<Locale, UiStrings> = {
       notFoundTitle: 'Halaman Tidak Ditemukan',
       notFoundDesc: 'Halaman yang Anda cari tidak ada atau telah dipindahkan.',
       goHome: 'Kembali ke Beranda',
+      searchToolsPlaceholder: 'Cari alat subtitle (contoh: SRT, VTT, ASS, SUB, Teks)...',
+      clearSearch: 'Hapus pencarian',
+      noToolsFound: 'Alat tidak ditemukan',
+      noToolsFoundDesc: 'Tidak ada alat subtitle yang cocok dengan pencarian Anda. Coba istilah atau format lain.',
+      viewAllTools: 'Lihat Semua Alat',
+      toolsFound: 'alat ditemukan',
     },
   },
   tr: {
@@ -616,6 +658,12 @@ export const UI_TRANSLATIONS: Record<Locale, UiStrings> = {
       notFoundTitle: 'Sayfa Bulunamadı',
       notFoundDesc: 'Aradığınız sayfa mevcut değil veya taşınmış.',
       goHome: 'Ana Sayfaya Git',
+      searchToolsPlaceholder: 'Altyazı araçlarını arayın (örn. SRT, VTT, ASS, SUB, Metin)...',
+      clearSearch: 'Aramayı temizle',
+      noToolsFound: 'Araç bulunamadı',
+      noToolsFoundDesc: 'Aramanızla eşleşen altyazı aracı bulunamadı. Farklı bir format veya terim deneyin.',
+      viewAllTools: 'Tüm Araçları Göster',
+      toolsFound: 'araç bulundu',
     },
   },
   it: {
@@ -693,6 +741,12 @@ export const UI_TRANSLATIONS: Record<Locale, UiStrings> = {
       notFoundTitle: 'Pagina Non Trovata',
       notFoundDesc: 'La pagina cercata non esiste o è stata spostata.',
       goHome: 'Vai alla Home',
+      searchToolsPlaceholder: 'Cerca strumenti per sottotitoli (es. SRT, VTT, ASS, SUB, Testo)...',
+      clearSearch: 'Cancella ricerca',
+      noToolsFound: 'Nessuno strumento trovato',
+      noToolsFoundDesc: 'Nessuno strumento per sottotitoli corrisponde alla tua ricerca. Prova con un altro formato.',
+      viewAllTools: 'Mostra tutti gli strumenti',
+      toolsFound: 'strumenti trovati',
     },
   },
 };

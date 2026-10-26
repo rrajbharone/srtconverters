@@ -84,6 +84,7 @@ export interface ToolsContent {
   smiToSrt: ToolDetail;
   srtToSmi: ToolDetail;
   lrcToSrt: ToolDetail;
+  supToSrt: ToolDetail;
 }
 
 export const TOOLS_TRANSLATIONS: Record<Locale, ToolsContent> = {
@@ -1219,6 +1220,107 @@ export const TOOLS_TRANSLATIONS: Record<Locale, ToolsContent> = {
             {
                   "question": "Is my subtitle and lyric data secure when using this converter?",
                   "answer": "Absolutely. All processing, parsing, and SRT file generation is executed 100% client-side in your web browser using JavaScript. No files, lyrics, transcripts, or personal data are ever uploaded, transmitted, or stored on any external server, ensuring complete confidentiality and privacy."
+            }
+      ]
+},
+    supToSrt: {
+      "id": "sup-to-srt",
+      "name": "SUP to SRT Converter",
+      "shortName": "SUP to SRT",
+      "badge": "OCR Subtitle Extractor",
+      "tagline": "Convert Blu-ray PGS (.SUP) Image Subtitles to Text SubRip (.SRT) Format Online",
+      "description": "Extract text from Blu-ray PGS (.sup) subtitle files and convert them into standard SubRip (.srt) subtitles online for free. In-browser OCR text recognition, accurate millisecond timestamps, interactive cue editor, and 100% privacy.",
+      "h1": "SUP to SRT Converter Online",
+      "metaTitle": "SUP to SRT Converter Online – Blu-ray PGS to SRT OCR | SRTConverters",
+      "metaDescription": "Convert Blu-ray PGS (.sup) bitmap subtitles to clean SubRip (.srt) text format online for free. In-browser OCR text recognition, accurate timestamps, and 100% privacy.",
+      "settingsLabels": {
+            "timingMode": "OCR & Recognition Settings",
+            "fixedDuration": "OCR Recognition Engine",
+            "cpsDuration": "Tesseract.js client-side OCR engine running directly inside your browser",
+            "cpsLabel": "OCR Language",
+            "cpsHint": "Select primary subtitle language for optical character recognition",
+            "startTime": "Preserve Multi-line Layout",
+            "startTimeHint": "Maintain vertical line breaks and dialogue separation detected by OCR",
+            "maxCharsPerLine": "Auto-correct Common OCR Artifacts",
+            "maxCharsHint": "Normalize typical OCR character confusions such as 'I' vs 'l' and '0' vs 'O'"
+      },
+      "stepsTitle": "How to Convert SUP to SRT Online in 3 Simple Steps",
+      "steps": [
+            {
+                  "step": "1",
+                  "title": "Upload Blu-ray SUP File",
+                  "description": "Drag and drop your Blu-ray PGS (.sup) file or click 'Browse Files' to load it directly into your web browser. Or click 'Load Sample SUP' to try an interactive test cue.",
+                  "icon": "upload"
+            },
+            {
+                  "step": "2",
+                  "title": "Automatic PGS Parsing & OCR",
+                  "description": "Our in-browser engine decodes the binary PGS display sets, reconstructs the subtitle bitmaps, and runs high-accuracy OCR to extract the dialogue with exact 90kHz PTS timestamps.",
+                  "icon": "cpu"
+            },
+            {
+                  "step": "3",
+                  "title": "Review Cues & Download SRT",
+                  "description": "Preview each decoded subtitle image alongside its editable OCR text. Make quick manual adjustments if desired, then click 'Download .SRT' or 'Copy SRT' to save your file.",
+                  "icon": "download"
+            }
+      ],
+      "featuresTitle": "Why Use Our Online SUP to SRT Converter?",
+      "features": [
+            {
+                  "title": "True In-Browser OCR Extraction",
+                  "description": "Genuine optical character recognition powered by WebAssembly. Unlike superficial file renamers, our tool decodes real PGS bitmaps and extracts editable text.",
+                  "icon": "sparkles"
+            },
+            {
+                  "title": "Accurate 90kHz PTS Synchronization",
+                  "description": "Preserves native Blu-ray presentation timestamps with millisecond precision, mapping PCS display and clear epochs directly to SubRip start and end timecodes.",
+                  "icon": "clock"
+            },
+            {
+                  "title": "Interactive Visual Cue Editor",
+                  "description": "Side-by-side visual verification lets you inspect the original Blu-ray graphic against recognized text so you can fix tricky punctuation or italicized words before downloading.",
+                  "icon": "edit"
+            },
+            {
+                  "title": "100% Client-Side Privacy",
+                  "description": "Your subtitle files and media streams never leave your device. All parsing, bitmap decompression, and OCR processing occur entirely within your browser.",
+                  "icon": "shield"
+            }
+      ],
+      "faqsTitle": "Frequently Asked Questions About Converting SUP to SRT",
+      "faqs": [
+            {
+                  "question": "What is a Blu-ray SUP (.sup) file and why can't it be converted by simple text renaming?",
+                  "answer": "A Blu-ray SUP file is not a text document; it is a binary stream containing Presentation Graphic Stream (PGS) data extracted from Blu-ray discs. Each subtitle cue is stored as a compressed 8-bit indexed bitmap image with an associated color palette (PDS) and presentation timestamps (PCS). Because there are no text characters inside a .sup file, simply changing the file extension or opening it in a text editor produces unreadable binary gibberish. Converting SUP to SubRip (.srt) requires genuine optical character recognition (OCR) to read the text rendered within those images."
+            },
+            {
+                  "question": "How does in-browser OCR work to extract subtitles from Blu-ray SUP files?",
+                  "answer": "Our converter parses the binary PGS data structure in real time using JavaScript. It decompresses the run-length encoded (RLE) bitmap pixels from Object Definition Segments (ODS), applies the YCbCr color palette from Palette Definition Segments (PDS), and renders each cue onto an offscreen HTML5 canvas. A high-performance WebAssembly OCR engine (Tesseract.js) then analyzes the rendered letterforms, recognizes the dialogue, and pairs the extracted text with the exact presentation timestamps derived from the file's Presentation Time Stamps (PTS)."
+            },
+            {
+                  "question": "Are PTS timestamps preserved accurately during the SUP to SRT conversion?",
+                  "answer": "Yes. Blu-ray PGS subtitles use a 90 kHz master clock to coordinate Presentation Time Stamps (PTS). Our parser reads the 32-bit PTS integers and converts them to milliseconds using the formula: Total Ms = Math.round(PTS / 90). The start time is derived from the Presentation Composition Segment (PCS) that initiates the display epoch, while the end time is taken from the subsequent clearing PCS. This ensures frame-accurate synchronization with your video in all media players."
+            },
+            {
+                  "question": "Can I review and edit unrecognized or low-confidence words before saving the SRT file?",
+                  "answer": "Yes. Our tool provides an interactive visual cue editor. Each decoded subtitle card displays the original Blu-ray graphic thumbnail directly alongside an editable text field containing the recognized OCR text. If an unusual font, stylized italic, or rare proper noun produced an OCR typo, you can quickly correct the text in place. The generated SRT output updates automatically in real time."
+            },
+            {
+                  "question": "What subtitle languages can be recognized by the OCR engine?",
+                  "answer": "The built-in OCR engine is optimized for English and Latin-alphabet languages (including Spanish, French, German, Portuguese, Italian, and Indonesian). The optical character recognition system identifies standard punctuation, quotation marks, musical notes, accented characters, and multi-line dialogue formatting across mainstream cinema and television Blu-ray releases."
+            },
+            {
+                  "question": "Why do some italicized or stylized subtitles produce occasional OCR typos?",
+                  "answer": "Blu-ray subtitles often use anti-aliasing, semi-transparent drop shadows, or stylized serif fonts to enhance on-screen aesthetics over high-definition video. In low-contrast scenes or with heavily slanted italicized letters, characters with similar outlines (such as capital 'I', lowercase 'l', digit '1', or 'rn' versus 'm') can occasionally cause minor OCR confusion. Our tool binarizes each cue to maximize text contrast, and the visual preview card makes reviewing and correcting any minor character ambiguities effortless."
+            },
+            {
+                  "question": "Can I convert Blu-ray SUP to SRT using FFmpeg or BDSup2Sub?",
+                  "answer": "FFmpeg cannot convert SUP to SRT directly on its own because FFmpeg's default subtitle muxers do not include a built-in OCR engine; attempting `ffmpeg -i input.sup output.srt` results in an error stating that bitmap subtitles cannot be copied into text subtitles. Dedicated desktop utilities like BDSup2Sub or Subtitle Edit can perform OCR, but require installing bulky software or Java runtime dependencies. Our web tool provides the same accurate PGS parsing and OCR extraction instantly in your browser without installing any third-party software."
+            },
+            {
+                  "question": "Are my Blu-ray SUP subtitle files or video data uploaded to your servers?",
+                  "answer": "No. The entire conversion process executes 100% client-side inside your web browser. Neither your .sup binary file, decoded bitmap graphics, nor extracted dialogue scripts are ever transmitted to or stored on our servers. This guarantees complete confidentiality, total privacy for unreleased media, and instantaneous processing speed regardless of your internet upload bandwidth."
             }
       ]
 },
@@ -2358,6 +2460,107 @@ export const TOOLS_TRANSLATIONS: Record<Locale, ToolsContent> = {
             }
       ]
 },
+    supToSrt: {
+      "id": "sup-to-srt",
+      "name": "Convertidor SUP a SRT",
+      "shortName": "SUP a SRT",
+      "badge": "Extractor de Subtítulos OCR",
+      "tagline": "Convierte Subtítulos en Imagen Blu-ray PGS (.SUP) a Formato de Texto SubRip (.SRT) Online",
+      "description": "Extrae texto de archivos de subtítulos Blu-ray PGS (.sup) y conviértelos a subtítulos SubRip (.srt) estándar online y gratis. Reconocimiento óptico OCR en el navegador, tiempos precisos en milisegundos, editor interactivo y 100% de privacidad.",
+      "h1": "Convertidor SUP a SRT Online",
+      "metaTitle": "Convertidor SUP a SRT Online – De Blu-ray PGS a Subtítulos SRT | SRTConverters",
+      "metaDescription": "Convierte subtítulos Blu-ray PGS (.sup) en texto SubRip (.srt) online y gratis. Reconocimiento óptico OCR en el navegador, tiempos precisos y máxima privacidad.",
+      "settingsLabels": {
+            "timingMode": "Configuración de OCR y Reconocimiento",
+            "fixedDuration": "Motor de Reconocimiento OCR",
+            "cpsDuration": "Motor OCR del lado del cliente Tesseract.js ejecutado directamente en su navegador",
+            "cpsLabel": "Idioma de OCR",
+            "cpsHint": "Seleccione el idioma principal de los subtítulos para el reconocimiento óptico",
+            "startTime": "Mantener Saltos de Línea Múltiples",
+            "startTimeHint": "Conserva los saltos de línea verticales y la separación de diálogos detectada",
+            "maxCharsPerLine": "Corregir Errores Típicos de OCR",
+            "maxCharsHint": "Normaliza confusiones de caracteres como 'I' vs 'l' y '0' vs 'O'"
+      },
+      "stepsTitle": "Cómo Convertir SUP a SRT Online en 3 Simples Pasos",
+      "steps": [
+            {
+                  "step": "1",
+                  "title": "Subir Archivo Blu-ray SUP",
+                  "description": "Arrastra y suelta tu archivo Blu-ray PGS (.sup) o haz clic en 'Explorar archivos' para cargarlo en tu navegador. También puedes pulsar 'Cargar muestra SUP' para una prueba rápida.",
+                  "icon": "upload"
+            },
+            {
+                  "step": "2",
+                  "title": "Decodificación PGS y OCR Automático",
+                  "description": "Nuestro motor analiza las secuencias binarias PGS, reconstruye las imágenes de mapa de bits y ejecuta OCR de alta precisión con tiempos exactos basados en el reloj PTS de 90 kHz.",
+                  "icon": "cpu"
+            },
+            {
+                  "step": "3",
+                  "title": "Revisar Subtítulos y Descargar SRT",
+                  "description": "Previsualiza cada gráfico original junto a su texto OCR editable. Realiza cualquier ajuste manual necesario y haz clic en 'Descargar .SRT' o 'Copiar SRT'.",
+                  "icon": "download"
+            }
+      ],
+      "featuresTitle": "¿Por Qué Usar Nuestro Convertidor Online de SUP a SRT?",
+      "features": [
+            {
+                  "title": "Verdadera Extracción OCR en el Navegador",
+                  "description": "Reconocimiento óptico genuino impulsado por WebAssembly. A diferencia de simples renombradores de archivos, procesamos mapas de bits PGS reales para obtener texto editable.",
+                  "icon": "sparkles"
+            },
+            {
+                  "title": "Sincronización Precisa con Reloj PTS de 90 kHz",
+                  "description": "Conserva las marcas de tiempo nativas de Blu-ray con precisión de milisegundos, convirtiendo los eventos PCS a códigos de tiempo estándar SubRip.",
+                  "icon": "clock"
+            },
+            {
+                  "title": "Editor Visual Interactivo de Subtítulos",
+                  "description": "Compara lado a lado la imagen gráfica original del Blu-ray con el texto reconocido para corregir palabras en cursiva o signos de puntuación antes de descargar.",
+                  "icon": "edit"
+            },
+            {
+                  "title": "Privacidad 100% en el Navegador",
+                  "description": "Tus archivos y datos multimedia nunca salen de tu dispositivo. Todo el análisis binario, descompresión y OCR se procesan localmente sin envíos a servidores.",
+                  "icon": "shield"
+            }
+      ],
+      "faqsTitle": "Preguntas Frecuentes Sobre la Conversión de SUP a SRT",
+      "faqs": [
+            {
+                  "question": "¿Qué es un archivo Blu-ray SUP (.sup) y por qué no se puede convertir renombrándolo?",
+                  "answer": "Un archivo Blu-ray SUP no es un documento de texto, sino un flujo binario con datos Presentation Graphic Stream (PGS) extraídos de discos Blu-ray. Cada subtítulo se almacena como una imagen de mapa de bits indexada de 8 bits con su propia paleta de colores (PDS) y marcas de tiempo de presentación (PCS). Al no contener texto plano, cambiar la extensión a .srt o abrirlo en el bloc de notas solo muestra caracteres binarios ilegibles. Para convertir SUP a SubRip (.srt) se requiere reconocimiento óptico de caracteres (OCR) para leer el texto impreso en las imágenes."
+            },
+            {
+                  "question": "¿Cómo funciona el OCR en el navegador para extraer subtítulos de archivos Blu-ray SUP?",
+                  "answer": "Nuestro convertidor analiza la estructura binaria PGS directamente en JavaScript. Descomprime los píxeles codificados mediante RLE de los segmentos ODS, aplica la paleta de colores YCbCr de los segmentos PDS y proyecta cada subtítulo en un lienzo HTML5 interno. Un motor OCR de alto rendimiento en WebAssembly (Tesseract.js) analiza las formas de las letras, reconoce los diálogos y asocia el texto resultante a los tiempos de visualización derivados del reloj PTS."
+            },
+            {
+                  "question": "¿Se conservan las marcas de tiempo PTS con precisión durante la conversión a SRT?",
+                  "answer": "Sí. Los subtítulos Blu-ray PGS utilizan un reloj maestro de 90 kHz para sincronizar los Presentation Time Stamps (PTS). Nuestro analizador convierte los valores enteros PTS a milisegundos con la fórmula: Milisegundos = Math.round(PTS / 90). El inicio se toma del segmento PCS que dibuja la imagen y el final del segmento PCS que la borra, garantizando una sincronía perfecta fotograma a fotograma en cualquier reproductor."
+            },
+            {
+                  "question": "¿Puedo revisar y corregir palabras dudosas antes de guardar el archivo SRT?",
+                  "answer": "Sí. Nuestra herramienta ofrece un editor visual interactivo de subtítulos. Cada tarjeta muestra la miniatura gráfica original del Blu-ray junto a una casilla de texto editable con la transcripción obtenida por OCR. Si una tipografía estilizada o un nombre propio inusual produjo un error tipográfico, puedes corregirlo al instante y el archivo SRT final se actualizará en tiempo real."
+            },
+            {
+                  "question": "¿Qué idiomas de subtítulos reconoce el motor de OCR?",
+                  "answer": "El motor OCR integrado está optimizado para español y lenguas de alfabeto latino (inglés, francés, alemán, portugués, italiano, etc.). El sistema identifica signos de interrogación y exclamación de apertura (¿ ¡), letras con tildes, diéresis, la letra ñ, notas musicales y división de diálogos entre varios personajes."
+            },
+            {
+                  "question": "¿Por qué algunos subtítulos en cursiva producen errores ocasionales de OCR?",
+                  "answer": "En los Blu-ray, los subtítulos suelen diseñarse con antialiasing, sombras degradadas o tipografías muy estilizadas para mejorar la legibilidad sobre el vídeo en alta definición. En letras muy inclinadas o con poco contraste, caracteres con trazos semejantes (como 'I' mayúscula, 'l' minúscula o 'rn' frente a 'm') pueden causar confusiones menores. Nuestro conversor binariza la imagen para maximizar la nitidez y el editor visual facilita corregir cualquier detalle en segundos."
+            },
+            {
+                  "question": "¿Se puede convertir Blu-ray SUP a SRT con FFmpeg o BDSup2Sub?",
+                  "answer": "FFmpeg no puede convertir SUP a SRT por sí solo porque no incluye un motor OCR en sus multiplexores predeterminados; ejecutar `ffmpeg -i archivo.sup salida.srt` devuelve un error al no poder copiar mapas de bits a subtítulos de texto. Programas de escritorio como BDSup2Sub o Subtitle Edit sí lo hacen, pero requieren instalar software pesado o Java. Nuestra herramienta online realiza el mismo análisis riguroso de PGS y OCR directamente en tu navegador sin instalar nada."
+            },
+            {
+                  "question": "¿Mis archivos SUP o datos de vídeo se suben a sus servidores?",
+                  "answer": "No. Todo el proceso de conversión se ejecuta al 100% en el lado del cliente dentro de tu navegador web. Ni tus archivos binarios .sup, ni las imágenes decodificadas, ni el texto extraído se envían jamás a servidores externos. Esto asegura máxima privacidad para material confidencial y una velocidad instantánea sin consumir datos de subida."
+            }
+      ]
+},
   },
   "pt": {
     "directory": {
@@ -3491,6 +3694,107 @@ export const TOOLS_TRANSLATIONS: Record<Locale, ToolsContent> = {
             {
                   "question": "Meus dados e letras permanecem seguros ao usar esta ferramenta?",
                   "answer": "Com certeza. Todo o algoritmo opera diretamente no navegador cliente via JavaScript. Nenhum arquivo, áudio ou letra é enviado para a nuvem, garantindo total privacidade e confidencialidade."
+            }
+      ]
+},
+    supToSrt: {
+      "id": "sup-to-srt",
+      "name": "Conversor SUP para SRT",
+      "shortName": "SUP para SRT",
+      "badge": "Extrator de Legendas com OCR",
+      "tagline": "Converta Legendas em Imagem Blu-ray PGS (.SUP) para Texto SubRip (.SRT) Online",
+      "description": "Extraia texto de arquivos de legendas Blu-ray PGS (.sup) e converta-os em legendas padrão SubRip (.srt) online gratuitamente. Reconhecimento óptico OCR no navegador, sincronia precisa em milissegundos, editor interativo e 100% de privacidade.",
+      "h1": "Conversor SUP para SRT Online",
+      "metaTitle": "Conversor SUP para SRT Online – De Blu-ray PGS para SRT com OCR | SRTConverters",
+      "metaDescription": "Converta legendas em imagem Blu-ray PGS (.sup) para texto SubRip (.srt) online gratuitamente. Reconhecimento OCR no navegador, sincronia precisa e 100% de privacidade.",
+      "settingsLabels": {
+            "timingMode": "Configurações de OCR e Reconhecimento",
+            "fixedDuration": "Mecanismo de Reconhecimento OCR",
+            "cpsDuration": "Mecanismo OCR Tesseract.js executado diretamente no seu navegador",
+            "cpsLabel": "Idioma do OCR",
+            "cpsHint": "Selecione o idioma principal das legendas para o reconhecimento óptico",
+            "startTime": "Preservar Quebras de Linha",
+            "startTimeHint": "Mantém quebras de linha verticais e separação de diálogos detectadas",
+            "maxCharsPerLine": "Corrigir Erros Comuns de OCR",
+            "maxCharsHint": "Normaliza confusões de caracteres como 'I' vs 'l' e '0' vs 'O'"
+      },
+      "stepsTitle": "Como Converter SUP para SRT Online em 3 Passos Simples",
+      "steps": [
+            {
+                  "step": "1",
+                  "title": "Enviar Arquivo Blu-ray SUP",
+                  "description": "Arraste e solte seu arquivo Blu-ray PGS (.sup) ou clique em 'Procurar Arquivos' para carregá-lo no navegador. Você também pode clicar em 'Carregar Exemplo SUP' para um teste rápido.",
+                  "icon": "upload"
+            },
+            {
+                  "step": "2",
+                  "title": "Decodificação PGS e OCR Automático",
+                  "description": "Nosso motor analisa os segmentos binários PGS, reconstrói as imagens bitmap e executa OCR de alta precisão com tempos exatos baseados no relógio PTS de 90 kHz.",
+                  "icon": "cpu"
+            },
+            {
+                  "step": "3",
+                  "title": "Revisar Legendas e Baixar SRT",
+                  "description": "Visualize cada imagem original ao lado do texto reconhecido. Faça ajustes manuais se desejar e clique em 'Baixar .SRT' ou 'Copiar SRT'.",
+                  "icon": "download"
+            }
+      ],
+      "featuresTitle": "Por Que Usar Nosso Conversor Online de SUP para SRT?",
+      "features": [
+            {
+                  "title": "Extração OCR Real no Navegador",
+                  "description": "Reconhecimento óptico genuíno alimentado por WebAssembly. Ao contrário de meros renomeadores, processamos bitmaps PGS reais para gerar texto editável.",
+                  "icon": "sparkles"
+            },
+            {
+                  "title": "Sincronização Precisa com Relógio PTS de 90 kHz",
+                  "description": "Mantém as marcações de tempo originais do Blu-ray com precisão de milissegundos, convertendo eventos PCS diretamente em timecodes SubRip.",
+                  "icon": "clock"
+            },
+            {
+                  "title": "Editor Visual Interativo de Legendas",
+                  "description": "Compare lado a lado o gráfico original com o texto reconhecido para ajustar facilmente palavras em itálico ou pontuações antes de salvar.",
+                  "icon": "edit"
+            },
+            {
+                  "title": "Privacidade 100% no Navegador",
+                  "description": "Seus arquivos e mídias nunca saem do seu computador. Todo o processamento binário, descompressão e OCR ocorrem localmente sem envio para servidores.",
+                  "icon": "shield"
+            }
+      ],
+      "faqsTitle": "Perguntas Frequentes Sobre a Conversão de SUP para SRT",
+      "faqs": [
+            {
+                  "question": "O que é um arquivo Blu-ray SUP (.sup) e por que não é possível convertê-lo renomeando?",
+                  "answer": "Um arquivo Blu-ray SUP não é um arquivo de texto comum, mas um fluxo binário contendo dados Presentation Graphic Stream (PGS) extraídos de discos Blu-ray. Cada legenda é armazenada como uma imagem bitmap indexada de 8 bits com paleta de cores (PDS) e marcações de tempo (PCS). Por não conter texto simples, renomear a extensão para .srt ou abri-lo em um editor exibe apenas caracteres binários corrompidos. A conversão de SUP para SubRip (.srt) requer reconhecimento óptico de caracteres (OCR) para ler o texto impresso nas imagens."
+            },
+            {
+                  "question": "Como o OCR no navegador extrai legendas de arquivos Blu-ray SUP?",
+                  "answer": "Nosso conversor processa a estrutura binária PGS diretamente em JavaScript. Ele descompacta os pixels codificados em RLE dos segmentos ODS, aplica a paleta de cores YCbCr dos segmentos PDS e renderiza cada legenda em um canvas HTML5 interno. Um motor OCR em WebAssembly (Tesseract.js) analisa o desenho das letras, reconhece os diálogos e associa o texto resultante às marcações de tempo derivadas do relógio PTS de 90 kHz."
+            },
+            {
+                  "question": "As marcações de tempo PTS são preservadas com precisão na conversão?",
+                  "answer": "Sim. As legendas Blu-ray PGS utilizam um relógio mestre de 90 kHz para sincronizar os Presentation Time Stamps (PTS). Nosso analisador calcula os milissegundos com a fórmula: Milissegundos = Math.round(PTS / 90). O início é obtido no segmento PCS que exibe a legenda e o fim no PCS de limpeza subsequente, assegurando sincronia precisa em qualquer reprodutor de vídeo."
+            },
+            {
+                  "question": "Posso revisar e editar palavras com baixa confiança de OCR antes de baixar o SRT?",
+                  "answer": "Sim. Nossa ferramenta inclui um editor visual interativo. Cada cartão de legenda mostra a miniatura gráfica original do Blu-ray ao lado de um campo de texto editável com o resultado do OCR. Se uma fonte estilizada gerou uma letra incorreta, você pode corrigi-la na hora e o arquivo SRT gerado é atualizado em tempo real."
+            },
+            {
+                  "question": "Quais idiomas de legendas são suportados pelo mecanismo de OCR?",
+                  "answer": "O motor OCR integrado é otimizado para português e idiomas de alfabeto latino (inglês, espanhol, francês, alemão, italiano, etc.). O sistema reconhece acentuação completa (ã, ç, é, ô), pontuação, travessões de diálogo e divisão de falas entre personagens."
+            },
+            {
+                  "question": "Por que algumas legendas em itálico produzem erros ocasionais no OCR?",
+                  "answer": "Em mídias Blu-ray, as legendas costumam utilizar antialiasing e sombras projetadas para garantir legibilidade sobre vídeos de alta resolução. Em fontes muito inclinadas ou com pouco contraste, letras de contorno parecido (como 'I' maiúsculo e 'l' minúsculo) podem gerar pequenas confusões. Nosso sistema binariza as imagens para maximizar o contraste, facilitando a conferência visual no editor integrado."
+            },
+            {
+                  "question": "É possível converter Blu-ray SUP para SRT usando FFmpeg ou BDSup2Sub?",
+                  "answer": "O FFmpeg não consegue converter SUP para SRT diretamente porque não possui motor de OCR integrado em seus multiplexadores padrão; tentar essa conversão no FFmpeg resulta em erro de cópia de bitmap para texto. Softwares de desktop como BDSup2Sub ou Subtitle Edit realizam o processo, mas exigem instalação de programas pesados ou ambiente Java. Nossa ferramenta online executa todo o fluxo de análise e OCR instantaneamente no navegador."
+            },
+            {
+                  "question": "Meus arquivos SUP ou vídeos são enviados para os servidores de vocês?",
+                  "answer": "Não. Todo o processo ocorre 100% no lado do cliente dentro do seu navegador web. Nem os arquivos binários .sup, nem as imagens decodificadas, nem os textos gerados são transmitidos ou armazenados em servidores externos. Isso garante total sigilo e privacidade para conteúdos confidenciais."
             }
       ]
 },
@@ -4630,6 +4934,107 @@ export const TOOLS_TRANSLATIONS: Record<Locale, ToolsContent> = {
             }
       ]
 },
+    supToSrt: {
+      "id": "sup-to-srt",
+      "name": "Convertisseur SUP en SRT",
+      "shortName": "SUP en SRT",
+      "badge": "Extracteur de Sous-titres OCR",
+      "tagline": "Convertissez les Sous-titres Image Blu-ray PGS (.SUP) en Texte SubRip (.SRT) en Ligne",
+      "description": "Extrayez le texte des fichiers de sous-titres Blu-ray PGS (.sup) et convertissez-les en sous-titres SubRip (.srt) standard en ligne gratuitement. Reconnaissance OCR dans le navigateur, synchronisation milliseconde précise, éditeur interactif et 100% de confidentialité.",
+      "h1": "Convertisseur SUP en SRT Gratuit en Ligne",
+      "metaTitle": "Convertisseur SUP en SRT Gratuit – Blu-ray PGS en SRT par OCR | SRTConverters",
+      "metaDescription": "Convertissez les sous-titres Blu-ray PGS (.sup) en texte SubRip (.srt) en ligne et gratuitement. Reconnaissance OCR dans le navigateur, synchronisation précise et confidentialité totale.",
+      "settingsLabels": {
+            "timingMode": "Paramètres OCR et Reconnaissance",
+            "fixedDuration": "Moteur de Reconnaissance OCR",
+            "cpsDuration": "Moteur OCR Tesseract.js côté client exécuté directement dans votre navigateur",
+            "cpsLabel": "Langue de l'OCR",
+            "cpsHint": "Sélectionnez la langue principale des sous-titres pour la reconnaissance optique",
+            "startTime": "Conserver les Sauts de Ligne",
+            "startTimeHint": "Préserve les retours à la ligne verticaux et la séparation des répliques",
+            "maxCharsPerLine": "Corriger les Erreurs OCR Fréquentes",
+            "maxCharsHint": "Normalise les confusions de caractères typiques comme 'I' vs 'l' et '0' vs 'O'"
+      },
+      "stepsTitle": "Comment Convertir un Fichier SUP en SRT en 3 Étapes Simples",
+      "steps": [
+            {
+                  "step": "1",
+                  "title": "Importer le Fichier Blu-ray SUP",
+                  "description": "Glissez-déposez votre fichier Blu-ray PGS (.sup) ou cliquez sur 'Parcourir les fichiers' pour le charger. Vous pouvez aussi cliquer sur 'Charger un échantillon SUP' pour tester.",
+                  "icon": "upload"
+            },
+            {
+                  "step": "2",
+                  "title": "Décodage PGS et OCR Automatique",
+                  "description": "Notre moteur analyse les segments binaires PGS, reconstruit les images bitmap et applique un OCR précis avec des repères temporels basés sur l'horloge PTS 90 kHz.",
+                  "icon": "cpu"
+            },
+            {
+                  "step": "3",
+                  "title": "Vérifier et Télécharger le SRT",
+                  "description": "Prévisualisez chaque vignette graphique originale à côté du texte extrait. Effectuez vos corrections si nécessaire, puis cliquez sur 'Télécharger .SRT' ou 'Copier SRT'.",
+                  "icon": "download"
+            }
+      ],
+      "featuresTitle": "Pourquoi Utiliser Notre Convertisseur SUP en SRT en Ligne ?",
+      "features": [
+            {
+                  "title": "Véritable Extraction OCR dans le Navigateur",
+                  "description": "Reconnaissance optique authentique propulsée par WebAssembly. Contrairement à de simples renommages de fichiers, nous décodons de vrais bitmaps PGS en texte modifiable.",
+                  "icon": "sparkles"
+            },
+            {
+                  "title": "Synchronisation Précise avec Horloge PTS 90 kHz",
+                  "description": "Préserve les repères temporels natifs du Blu-ray avec une précision à la milliseconde, convertissant les segments PCS en timecodes SubRip conformes.",
+                  "icon": "clock"
+            },
+            {
+                  "title": "Éditeur Visuel Interactif de Sous-titres",
+                  "description": "Inspectez côte à côte l'image graphique d'origine et le texte reconnu afin de corriger facilement les termes en italique ou la ponctuation avant d'enregistrer.",
+                  "icon": "edit"
+            },
+            {
+                  "title": "Confidentialité 100% Côté Client",
+                  "description": "Vos fichiers et données multimédias ne quittent jamais votre appareil. L'analyse binaire, la décompression et l'OCR s'effectuent intégralement en local.",
+                  "icon": "shield"
+            }
+      ],
+      "faqsTitle": "Foire Aux Questions Sur la Conversion de SUP en SRT",
+      "faqs": [
+            {
+                  "question": "Qu'est-ce qu'un fichier Blu-ray SUP (.sup) et pourquoi un simple renommage échoue-t-il ?",
+                  "answer": "Un fichier Blu-ray SUP n'est pas un fichier texte, mais un flux binaire contenant des données Presentation Graphic Stream (PGS) issues de disques Blu-ray. Chaque sous-titre est stocké sous forme d'image bitmap indexée 8 bits accompagnée d'une palette de couleurs (PDS) et de balises temporelles (PCS). Faute de texte brut, changer l'extension en .srt ne produit que des symboles binaires illisibles. La conversion vers le format SubRip (.srt) requiert une reconnaissance optique de caractères (OCR) pour extraire le texte présent dans ces images."
+            },
+            {
+                  "question": "Comment l'OCR dans le navigateur extrait-il les sous-titres des fichiers Blu-ray SUP ?",
+                  "answer": "Notre convertisseur analyse la structure binaire PGS directement en JavaScript. Il décompresse les pixels encodés en RLE des segments ODS, applique la palette YCbCr des segments PDS et dessine chaque réplique sur un canvas HTML5 en arrière-plan. Un moteur OCR WebAssembly (Tesseract.js) examine ensuite les caractères, reconnaît les dialogues et synchronise le texte avec les horodatages dérivés du signal d'horloge PTS."
+            },
+            {
+                  "question": "Les codes temporels PTS sont-ils fidèlement conservés lors de la conversion ?",
+                  "answer": "Oui. Les sous-titres Blu-ray PGS exploitent une horloge de référence cadencée à 90 kHz pour leurs Presentation Time Stamps (PTS). Notre parseur convertit ces valeurs en millisecondes selon la règle : Millisecondes = Math.round(PTS / 90). L'heure de début provient du segment PCS d'affichage et l'heure de fin du segment PCS d'effacement, garantissant un calage parfait sur l'image vidéo."
+            },
+            {
+                  "question": "Puis-je relire et corriger les mots douteux avant d'exporter le fichier SRT ?",
+                  "answer": "Oui. Notre outil met à votre disposition un éditeur visuel interactif. Chaque carte de sous-titre présente la vignette graphique originale du Blu-ray en vis-à-vis d'un champ de saisie modifiable contenant le texte transcrit. En cas de police atypique ou d'italique difficile à lire, vous pouvez rectifier l'erreur immédiatement ; le fichier SRT global s'actualise en temps réel."
+            },
+            {
+                  "question": "Quelles sont les langues prises en charge par le moteur OCR ?",
+                  "answer": "Le module OCR intégré est calibré pour le français et les langues à alphabet latin (anglais, espagnol, allemand, portugais, italien, etc.). Il reconnaît l'ensemble des lettres accentuées (é, è, ê, à, ç), les guillemets typographiques, les tirets de réplique et les notes de musique."
+            },
+            {
+                  "question": "Pourquoi certains sous-titres en italique provoquent-ils parfois des erreurs OCR ?",
+                  "answer": "Les sous-titres Blu-ray intègrent généralement un lissage anticrénelage et des ombres portées pour rester lisibles sur des vidéos haute définition. Sur des polices très inclinées ou à faible contraste, des caractères proches (comme le 'I' majuscule, le 'l' minuscule ou 'rn' face à 'm') peuvent être confondus. Notre convertisseur binarise chaque réplique pour accentuer les contrastes, et l'éditeur visuel permet de vérifier le texte d'un coup d'œil."
+            },
+            {
+                  "question": "Peut-on convertir un fichier SUP en SRT avec FFmpeg ou BDSup2Sub ?",
+                  "answer": "FFmpeg ne permet pas de convertir directement du SUP en SRT car ses multiplexeurs de sous-titres n'intègrent aucun moteur OCR autonome ; tenter cette commande génère une erreur d'incompatibilité bitmap vers texte. Des utilitaires de bureau comme BDSup2Sub ou Subtitle Edit réalisent cette tâche mais nécessitent l'installation de programmes lourds ou de Java. Notre solution web propose la même rigueur de décodage directement dans votre navigateur sans aucune installation."
+            },
+            {
+                  "question": "Mes fichiers SUP ou mes flux vidéo sont-ils téléversés sur vos serveurs ?",
+                  "answer": "Non. L'ensemble de la conversion s'exécute à 100% côté client au sein de votre navigateur web. Ni votre fichier binaire .sup, ni les images décodées, ni les textes extraits ne sont envoyés ou stockés sur un serveur distant. Cela garantit une confidentialité absolue pour vos médias et une rapidité de traitement instantanée."
+            }
+      ]
+},
   },
   "de": {
     "directory": {
@@ -5763,6 +6168,107 @@ export const TOOLS_TRANSLATIONS: Record<Locale, ToolsContent> = {
             {
                   "question": "Sind meine Liedtexte und Daten bei der Konvertierung sicher?",
                   "answer": "Absolut. Die gesamte Dateianalyse und Texterstellung läuft vollständig lokal in Ihrem Webbrowser mittels JavaScript. Es findet keinerlei Serverübertragung statt, sodass Ihre Dateien vollkommen vertraulich bleiben."
+            }
+      ]
+},
+    supToSrt: {
+      "id": "sup-to-srt",
+      "name": "SUP in SRT Konverter",
+      "shortName": "SUP in SRT",
+      "badge": "OCR Untertitel-Extraktor",
+      "tagline": "Blu-ray PGS (.SUP) Bilduntertitel online in SubRip (.SRT) Textformat umwandeln",
+      "description": "Extrahieren Sie Text aus Blu-ray PGS (.sup) Untertiteldateien und konvertieren Sie diese online kostenlos in standardmäßige SubRip (.srt) Untertitel. Browser-interne OCR-Texterkennung, millisekundengenaue Timestamps, interaktiver Editor und 100% Datenschutz.",
+      "h1": "SUP in SRT Konverter Online",
+      "metaTitle": "SUP in SRT Konverter Online – Blu-ray PGS in SRT mit OCR | SRTConverters",
+      "metaDescription": "Konvertieren Sie Blu-ray PGS (.sup) Bilduntertitel online kostenlos in SubRip (.srt) Text. Browser-interne OCR-Texterkennung, präzise Timestamps und 100% Datenschutz.",
+      "settingsLabels": {
+            "timingMode": "OCR- und Erkennungseinstellungen",
+            "fixedDuration": "OCR-Erkennungsmodul",
+            "cpsDuration": "Clientseitiges Tesseract.js OCR-Modul, das direkt in Ihrem Browser ausgeführt wird",
+            "cpsLabel": "OCR-Sprache",
+            "cpsHint": "Wählen Sie die primäre Untertitelsprache für die optische Zeichenerkennung",
+            "startTime": "Mehrzeiliges Layout beibehalten",
+            "startTimeHint": "Behält erkannte vertikale Zeilenumbrüche und Dialogtrennungen bei",
+            "maxCharsPerLine": "Typische OCR-Artefakte korrigieren",
+            "maxCharsHint": "Normalisiert typische Zeichenverwechslungen wie 'I' vs. 'l' und '0' vs. 'O'"
+      },
+      "stepsTitle": "So konvertieren Sie SUP in 3 einfachen Schritten in SRT",
+      "steps": [
+            {
+                  "step": "1",
+                  "title": "Blu-ray SUP-Datei hochladen",
+                  "description": "Ziehen Sie Ihre Blu-ray PGS (.sup) Datei per Drag & Drop in den Browser oder klicken Sie auf 'Dateien durchsuchen'. Über 'Muster-SUP laden' können Sie die Funktion sofort testen.",
+                  "icon": "upload"
+            },
+            {
+                  "step": "2",
+                  "title": "Automatische PGS-Dekodierung & OCR",
+                  "description": "Unsere Browser-Engine dekodiert die binären PGS-Segmente, rekonstruiert die Bitmap-Bilder und führt eine präzise OCR-Erkennung mit exakten 90-kHz-PTS-Zeitstempeln durch.",
+                  "icon": "cpu"
+            },
+            {
+                  "step": "3",
+                  "title": "Untertitel prüfen & SRT herunterladen",
+                  "description": "Vergleichen Sie jedes Originalbild mit dem erkannten Text. Passen Sie bei Bedarf Details manuell an und klicken Sie auf 'SRT herunterladen' oder 'SRT kopieren'.",
+                  "icon": "download"
+            }
+      ],
+      "featuresTitle": "Warum unseren Online SUP in SRT Konverter nutzen?",
+      "features": [
+            {
+                  "title": "Echte OCR-Texterkennung im Browser",
+                  "description": "Echtes optisches Erkennungsverfahren via WebAssembly. Im Gegensatz zu oberflächlichen Datei-Umbenennungen dekodieren wir echte PGS-Bitmaps in bearbeitbaren Text.",
+                  "icon": "sparkles"
+            },
+            {
+                  "title": "Präzise 90-kHz-PTS-Synchronisation",
+                  "description": "Erhält die nativen Blu-ray-Zeitstempel auf die Millisekunde genau und überführt PCS-Anzeige- und Löschzeitpunkte direkt in SubRip-Timecodes.",
+                  "icon": "clock"
+            },
+            {
+                  "title": "Interaktiver visueller Untertitel-Editor",
+                  "description": "Prüfen Sie das Original-Grafikbild direkt neben dem OCR-Textfeld, um kursive Begriffe oder seltene Sonderzeichen vor dem Speichern mühelos zu korrigieren.",
+                  "icon": "edit"
+            },
+            {
+                  "title": "100% lokaler Datenschutz im Browser",
+                  "description": "Ihre Dateien und Videodaten verlassen niemals Ihr Gerät. Die gesamte Binäranalyse, Dekomprimierung und OCR finden vollständig lokal statt.",
+                  "icon": "shield"
+            }
+      ],
+      "faqsTitle": "Häufig gestellte Fragen zur Konvertierung von SUP in SRT",
+      "faqs": [
+            {
+                  "question": "Was ist eine Blu-ray SUP-Datei und warum genügt kein einfaches Umbenennen?",
+                  "answer": "Eine Blu-ray SUP-Datei ist kein Textdokument, sondern ein binärer Datenstrom mit Presentation Graphic Stream (PGS) Daten von Blu-ray-Discs. Jeder Untertitel ist als 8-Bit-indiziertes Bitmap-Bild mit Farbpalette (PDS) und Darstellungszeitstempeln (PCS) gespeichert. Da die Datei keinen einfachen Text enthält, führt ein bloßes Umbenennen in .srt nur zu unleserlichem Zeichensalat. Für die Umwandlung in SubRip (.srt) ist eine echte optische Zeichenerkennung (OCR) erforderlich."
+            },
+            {
+                  "question": "Wie funktioniert die OCR-Texterkennung für SUP-Dateien im Browser?",
+                  "answer": "Unser Konverter liest die binäre PGS-Struktur in Echtzeit mit JavaScript aus. Er dekomprimiert die RLE-komprimierten Pixel der ODS-Segmente, wendet die YCbCr-Farbpalette der PDS-Segmente an und rendert die Untertitel auf ein internes HTML5-Canvas. Eine leistungsstarke WebAssembly-OCR-Engine (Tesseract.js) analysiert die Buchstabenformen, extrahiert den Text und verknüpft ihn mit den PTS-Zeitstempeln."
+            },
+            {
+                  "question": "Werden die PTS-Zeitstempel bei der Konvertierung präzise beibehalten?",
+                  "answer": "Ja. Blu-ray PGS-Untertitel verwenden einen 90-kHz-Takt für ihre Presentation Time Stamps (PTS). Unser Parser wandelt diese ganzzahligen Werte mit der Formel: Millisekunden = Math.round(PTS / 90) exakt um. Der Startzeitpunkt stammt vom anzeigenden PCS-Segment und das Ende vom nachfolgenden Lösch-PCS, was absolute Bild- und Tonsynchronität garantiert."
+            },
+            {
+                  "question": "Kann ich den erkannten Text vor dem Herunterladen der SRT-Datei korrigieren?",
+                  "answer": "Ja. Unser Tool bietet einen interaktiven visuellen Editor. Jede Untertitelkarte zeigt das originale Blu-ray-Vorschaubild direkt neben einem editierbaren Textfeld. Sollte eine ausgefallene Schriftart oder kursive Darstellung zu einem Tippfehler geführt haben, können Sie diesen direkt anpassen; die generierte SRT-Ausgabe aktualisiert sich sofort."
+            },
+            {
+                  "question": "Welche Untertitelsprachen werden vom OCR-Modul unterstützt?",
+                  "answer": "Das integrierte OCR-Modul ist auf Deutsch und Sprachen mit lateinischem Alphabet (Englisch, Spanisch, Französisch, Portugiesisch, Italienisch usw.) optimiert. Es erkennt deutsche Umlaute (ä, ö, ü, Ä, Ö, Ü, ß), Standard-Satzzeichen, Anführungszeichen, Dialog-Spiegelstriche und Notensymbole."
+            },
+            {
+                  "question": "Warum führen kursive Untertitel gelegentlich zu kleinen OCR-Fehlern?",
+                  "answer": "Blu-ray-Untertitel nutzen oft Kantenglättung (Anti-Aliasing) und Schlagschatten für optimale Lesbarkeit über bewegten HD-Bildern. Bei stark geneigten Schriften oder geringem Kontrast können ähnlich geformte Zeichen (wie großes 'I', kleines 'l' oder 'rn' statt 'm') gelegentlich verwechselt werden. Unser Tool binarisiert die Bilder für maximalen Kontrast, und der Editor ermöglicht eine sekundenschnelle Sichtkontrolle."
+            },
+            {
+                  "question": "Kann ich SUP mit FFmpeg oder BDSup2Sub in SRT umwandeln?",
+                  "answer": "FFmpeg kann SUP nicht eigenständig in SRT konvertieren, da FFmpeg standardmäßig keine integrierte OCR-Engine für Bitmap-Untertitel besitzt; der Befehl bricht mit einem Fehler ab. Desktop-Programme wie BDSup2Sub oder Subtitle Edit können das, verlangen jedoch Software-Installationen oder Java-Laufzeitumgebungen. Unser Online-Tool bietet dieselbe PGS-Präzision direkt im Webbrowser ohne Installation."
+            },
+            {
+                  "question": "Werden meine Untertiteldateien oder Medien auf Ihre Server hochgeladen?",
+                  "answer": "Nein. Die gesamte Verarbeitung findet zu 100% clientseitig in Ihrem Webbrowser statt. Weder Ihre .sup-Dateien noch extrahierte Bilder oder Dialogtexte werden an unsere Server übermittelt oder gespeichert. Dadurch bleibt Ihre Privatsphäre absolut geschützt."
             }
       ]
 },
@@ -6902,6 +7408,107 @@ export const TOOLS_TRANSLATIONS: Record<Locale, ToolsContent> = {
             }
       ]
 },
+    supToSrt: {
+      "id": "sup-to-srt",
+      "name": "Konverter SUP ke SRT",
+      "shortName": "SUP ke SRT",
+      "badge": "Ekstraktor Subtitle OCR",
+      "tagline": "Ubah Subtitle Gambar Blu-ray PGS (.SUP) ke Format Teks SubRip (.SRT) Online",
+      "description": "Ekstrak teks dari file subtitle Blu-ray PGS (.sup) dan ubah menjadi subtitle SubRip (.srt) standar secara online gratis. Pengenalan teks OCR di browser, sinkronisasi waktu milidetik akurat, editor interaktif, dan privasi 100%.",
+      "h1": "Konverter SUP ke SRT Online",
+      "metaTitle": "Konverter SUP ke SRT Online – Ubah Blu-ray PGS ke SRT dengan OCR | SRTConverters",
+      "metaDescription": "Konversi subtitle gambar Blu-ray PGS (.sup) ke format teks SubRip (.srt) online gratis. Pengenalan teks OCR di browser, sinkronisasi waktu akurat, dan privasi penuh.",
+      "settingsLabels": {
+            "timingMode": "Pengaturan OCR & Pengenalan Teks",
+            "fixedDuration": "Mesin Pengenalan OCR",
+            "cpsDuration": "Mesin OCR Tesseract.js sisi klien yang berjalan langsung di browser Anda",
+            "cpsLabel": "Bahasa OCR",
+            "cpsHint": "Pilih bahasa subtitle utama untuk pengenalan karakter optik",
+            "startTime": "Pertahankan Format Multi-baris",
+            "startTimeHint": "Mempertahankan pemisah baris vertikal dan pemisahan dialog yang terdeteksi",
+            "maxCharsPerLine": "Koreksi Kesalahan Karakter OCR",
+            "maxCharsHint": "Menormalkan kebingungan karakter umum seperti 'I' vs 'l' dan '0' vs 'O'"
+      },
+      "stepsTitle": "Cara Mengonversi SUP ke SRT Online dalam 3 Langkah Mudah",
+      "steps": [
+            {
+                  "step": "1",
+                  "title": "Unggah File Blu-ray SUP",
+                  "description": "Seret dan lepas file Blu-ray PGS (.sup) Anda atau klik 'Pilih File' untuk memuatnya ke browser. Anda juga dapat mengeklik 'Muat Contoh SUP' untuk pengujian instan.",
+                  "icon": "upload"
+            },
+            {
+                  "step": "2",
+                  "title": "Penguraian PGS & OCR Otomatis",
+                  "description": "Mesin kami mendekode segmen biner PGS, menyusun kembali gambar bitmap, dan menjalankan OCR berakurasi tinggi dengan stempel waktu PTS 90 kHz yang tepat.",
+                  "icon": "cpu"
+            },
+            {
+                  "step": "3",
+                  "title": "Periksa Subtitle & Unduh SRT",
+                  "description": "Pratinjau setiap gambar asli di samping teks hasil OCR yang dapat diedit. Lakukan perbaikan jika diperlukan, lalu klik 'Unduh .SRT' atau 'Salin SRT'.",
+                  "icon": "download"
+            }
+      ],
+      "featuresTitle": "Mengapa Memilih Konverter SUP ke SRT Kami?",
+      "features": [
+            {
+                  "title": "Ekstraksi OCR Sejati di Dalam Browser",
+                  "description": "Pengenalan karakter optik asli berbasis WebAssembly. Bukan sekadar mengganti ekstensi file, kami mendekode gambar PGS nyata menjadi teks yang dapat diedit.",
+                  "icon": "sparkles"
+            },
+            {
+                  "title": "Sinkronisasi Akurat Jam PTS 90 kHz",
+                  "description": "Mempertahankan stempel waktu asli Blu-ray hingga presisi milidetik, memetakan segmen PCS langsung ke format timecode standar SubRip.",
+                  "icon": "clock"
+            },
+            {
+                  "title": "Editor Subtitle Visual Interaktif",
+                  "description": "Bandingkan grafik asli dengan teks hasil OCR berdampingan untuk memperbaiki ejaan atau kata miring dengan mudah sebelum mengunduh.",
+                  "icon": "edit"
+            },
+            {
+                  "title": "Privasi 100% di Sisi Klien",
+                  "description": "File dan data subtitle Anda tidak pernah meninggalkan perangkat Anda. Seluruh pemrosesan biner dan OCR berlangsung secara lokal di browser.",
+                  "icon": "shield"
+            }
+      ],
+      "faqsTitle": "Pertanyaan yang Sering Diajukan Seputar Konversi SUP ke SRT",
+      "faqs": [
+            {
+                  "question": "Apa itu file Blu-ray SUP (.sup) dan mengapa tidak bisa diubah hanya dengan mengganti nama file?",
+                  "answer": "File Blu-ray SUP bukanlah dokumen teks biasa, melainkan aliran biner yang memuat data Presentation Graphic Stream (PGS) dari piringan Blu-ray. Setiap subtitle disimpan sebagai gambar bitmap terindeks 8-bit beserta palet warna (PDS) dan stempel waktu (PCS). Karena tidak berisi teks biasa, mengganti ekstensinya menjadi .srt hanya menghasilkan teks acak yang rusak. Konversi ke SubRip (.srt) memerlukan pengenalan karakter optik (OCR) untuk membaca teks dalam gambar tersebut."
+            },
+            {
+                  "question": "Bagaimana cara kerja OCR di browser untuk mengekstrak subtitle dari file SUP?",
+                  "answer": "Konverter kami membaca struktur biner PGS langsung menggunakan JavaScript. Mesin ini mendekompresi piksel RLE dari segmen ODS, menerapkan palet warna YCbCr dari segmen PDS, dan merender subtitle pada kanvas HTML5. Mesin OCR WebAssembly (Tesseract.js) kemudian mengenali bentuk huruf, mengekstrak dialog, dan menyinkronkannya dengan stempel waktu PTS."
+            },
+            {
+                  "question": "Apakah stempel waktu PTS dipertahankan secara akurat selama konversi?",
+                  "answer": "Ya. Subtitle Blu-ray PGS menggunakan jam master 90 kHz untuk Presentation Time Stamps (PTS). Parser kami menghitung nilai milidetik dengan rumus: Milidetik = Math.round(PTS / 90). Waktu mulai diambil dari segmen PCS tampilan dan waktu selesai diambil dari PCS penghapus, memastikan sinkronisasi sempurna dengan video."
+            },
+            {
+                  "question": "Dapatkah saya memeriksa dan mengedit kata yang salah sebelum menyimpan file SRT?",
+                  "answer": "Ya. Alat kami dilengkapi editor subtitle visual interaktif. Setiap kartu menampilkan cuplikan gambar asli Blu-ray berdampingan dengan kotak teks yang dapat diedit. Jika ada kesalahan deteksi font atau tanda baca, Anda dapat memperbaikinya secara langsung dan output SRT akan langsung diperbarui."
+            },
+            {
+                  "question": "Bahasa apa saja yang didukung oleh mesin OCR?",
+                  "answer": "Mesin OCR terintegrasi dioptimalkan untuk bahasa Indonesia dan bahasa berakar alfabet Latin (Inggris, Spanyol, Prancis, Jerman, Portugis, Italia). Sistem ini mengenali tanda baca standar, tanda kutip, strip dialog, dan susunan kalimat multi-baris."
+            },
+            {
+                  "question": "Mengapa teks miring (italic) terkadang menimbulkan kesalahan kecil pada OCR?",
+                  "answer": "Subtitle Blu-ray sering menggunakan perataan halus (anti-aliasing) dan bayangan tipis agar nyaman dibaca di layar video HD. Pada huruf miring atau kontras rendah, karakter dengan bentuk serupa (seperti 'I' kapital, 'l' kecil, atau 'rn' vs 'm') terkadang dapat tertukar. Alat kami mengoptimalkan kontras gambar, dan editor visual memudahkan Anda melakukan koreksi cepat."
+            },
+            {
+                  "question": "Bisakah saya mengonversi SUP ke SRT menggunakan FFmpeg atau BDSup2Sub?",
+                  "answer": "FFmpeg tidak dapat mengonversi SUP ke SRT secara langsung karena tidak menyertakan mesin OCR bawaan untuk subtitle bitmap; perintah tersebut akan gagal. Aplikasi komputer seperti BDSup2Sub atau Subtitle Edit bisa melakukannya, tetapi memerlukan instalasi software atau Java. Alat online kami menawarkan kemudahan yang sama langsung di peramban tanpa instalasi apa pun."
+            },
+            {
+                  "question": "Apakah file subtitle atau video saya diunggah ke server Anda?",
+                  "answer": "Tidak. Seluruh proses konversi berjalan 100% di sisi klien di dalam browser web Anda. File biner .sup, gambar hasil dekode, maupun teks yang diekstrak tidak pernah dikirim atau disimpan di server kami. Privasi dan kerahasiaan media Anda terjamin sepenuhnya."
+            }
+      ]
+},
   },
   "tr": {
     "directory": {
@@ -8038,6 +8645,107 @@ export const TOOLS_TRANSLATIONS: Record<Locale, ToolsContent> = {
             }
       ]
 },
+    supToSrt: {
+      "id": "sup-to-srt",
+      "name": "SUP - SRT Dönüştürücü",
+      "shortName": "SUP - SRT",
+      "badge": "OCR Altyazı Ayıklayıcı",
+      "tagline": "Blu-ray PGS (.SUP) Resim Altyazılarını Çevrimiçi Olarak SubRip (.SRT) Metnine Dönüştürün",
+      "description": "Blu-ray PGS (.sup) altyazı dosyalarından metin ayıklayın ve ücretsiz olarak standart SubRip (.srt) altyazılarına dönüştürün. Tarayıcı içi OCR desteği, milisaniye hassasiyetinde zamanlama, etkileşimli düzenleyici ve %100 gizlilik.",
+      "h1": "Çevrimiçi SUP - SRT Dönüştürücü",
+      "metaTitle": "SUP - SRT Dönüştürücü Online – Blu-ray PGS Dosyasını SRT Yapma | SRTConverters",
+      "metaDescription": "Blu-ray PGS (.sup) resim tabanlı altyazılarını ücretsiz olarak SubRip (.srt) metin formatına dönüştürün. Tarayıcı içi OCR desteği, milisaniye zamanlama ve tam gizlilik.",
+      "settingsLabels": {
+            "timingMode": "OCR ve Tanıma Ayarları",
+            "fixedDuration": "OCR Tanıma Motoru",
+            "cpsDuration": "Doğrudan tarayıcınızda çalışan istemci taraflı Tesseract.js OCR motoru",
+            "cpsLabel": "OCR Dili",
+            "cpsHint": "Optik karakter tanıma için birincil altyazı dilini seçin",
+            "startTime": "Çok Satırlı Düzeni Koru",
+            "startTimeHint": "Algılanan dikey satır sonlarını ve diyalog ayrımlarını muhafaza eder",
+            "maxCharsPerLine": "Yaygın OCR Hatalarını Düzelt",
+            "maxCharsHint": "'I' ile 'l' ve '0' ile 'O' gibi tipik karakter karışıklıklarını düzeltir"
+      },
+      "stepsTitle": "SUP Dosyası 3 Basit Adımda Nasıl SRT Formatına Dönüştürülür?",
+      "steps": [
+            {
+                  "step": "1",
+                  "title": "Blu-ray SUP Dosyasını Yükleyin",
+                  "description": "Blu-ray PGS (.sup) dosyanızı sürükleyip bırakın veya 'Dosyalara Göz At' düğmesine tıklayarak yükleyin. Anında test etmek için 'Örnek SUP Yükle'ye de tıklayabilirsiniz.",
+                  "icon": "upload"
+            },
+            {
+                  "step": "2",
+                  "title": "Otomatik PGS Ayrıştırma ve OCR",
+                  "description": "Tarayıcı motorumuz ikili PGS segmentlerini çözer, bitmap görüntülerini yeniden oluşturur ve 90 kHz PTS zamanlamalarıyla yüksek doğrulukta OCR çalıştırır.",
+                  "icon": "cpu"
+            },
+            {
+                  "step": "3",
+                  "title": "Altyazıları İnceleyin ve SRT İndirin",
+                  "description": "Her orijinal resmi OCR metninin yanında önizleyin. Gerekirse düzenleme yapın, ardından '.SRT İndir' veya 'SRT Kopyala' düğmesine tıklayın.",
+                  "icon": "download"
+            }
+      ],
+      "featuresTitle": "Neden Çevrimiçi SUP - SRT Dönüştürücümüzü Seçmelisiniz?",
+      "features": [
+            {
+                  "title": "Tarayıcı İçinde Gerçek OCR Çıkarımı",
+                  "description": "WebAssembly destekli gerçek optik karakter tanıma. Dosya uzantısını değiştirmek yerine gerçek PGS bitmap resimlerini düzenlenebilir metne dönüştürürüz.",
+                  "icon": "sparkles"
+            },
+            {
+                  "title": "Hassas 90 kHz PTS Zaman Senkronizasyonu",
+                  "description": "Blu-ray zaman damgalarını milisaniye doğruluğunda korur, PCS görüntüleme ve temizleme anlarını doğrudan SubRip zaman kodlarına aktarır.",
+                  "icon": "clock"
+            },
+            {
+                  "title": "Etkileşimli Görsel Altyazı Düzenleyici",
+                  "description": "İndirmeden önce italik kelimeleri veya noktalama işaretlerini kolayca doğrulamak için orijinal grafik resmi ile tanınan metni yan yana inceleyin.",
+                  "icon": "edit"
+            },
+            {
+                  "title": "%100 İstemci Taraflı Gizlilik",
+                  "description": "Dosyalarınız ve medya verileriniz asla cihazınızdan dışarı çıkmaz. Tüm ayrıştırma ve OCR işlemleri tamamen tarayıcınızda gerçekleşir.",
+                  "icon": "shield"
+            }
+      ],
+      "faqsTitle": "SUP Dosyasını SRT'ye Dönüştürme Hakkında Sıkça Sorulan Sorular",
+      "faqs": [
+            {
+                  "question": "Blu-ray SUP (.sup) dosyası nedir ve neden yalnızca yeniden adlandırılarak dönüştürülemez?",
+                  "answer": "Blu-ray SUP dosyası düz bir metin belgesi değildir; Blu-ray disklerinden çıkarılan Presentation Graphic Stream (PGS) verilerini içeren ikili (binary) bir akıştır. Her altyazı karesi renk paleti (PDS) ve zaman damgaları (PCS) içeren 8 bitlik indekslenmiş bir bitmap resmi olarak saklanır. İçinde metin bulunmadığından uzantıyı .srt yapmak yalnızca okunaksız karakterler üretir. SUP'u SubRip (.srt) formatına çevirmek için resimdeki yazıları okuyan optik karakter tanıma (OCR) işlemi şarttır."
+            },
+            {
+                  "question": "Tarayıcı içi OCR sistemi SUP dosyalarından altyazı metnini nasıl çıkarır?",
+                  "answer": "Dönüştürücümüz PGS ikili veri yapısını JavaScript ile doğrudan ayrıştırır. ODS segmentlerindeki RLE sıkıştırmalı pikselleri açar, PDS renk paletini uygular ve her altyazıyı dahili bir HTML5 tuvaline çizer. WebAssembly tabanlı yüksek performanslı OCR motoru (Tesseract.js) harf şekillerini analiz eder, diyalogları okur ve metni PTS zaman damgalarıyla eşleştirir."
+            },
+            {
+                  "question": "Dönüştürme sırasında PTS zaman damgaları doğru şekilde korunur mu?",
+                  "answer": "Evet. Blu-ray PGS altyazıları 90 kHz ana saat frekansı kullanır. Ayrıştırıcımız PTS tamsayı değerlerini Milisaniye = Math.round(PTS / 90) formülüyle milisaniyeye çevirir. Başlangıç anı altyazıyı ekrana getiren PCS segmentinden, bitiş anı ise ekranı temizleyen PCS segmentinden alınarak tam senkronizasyon sağlanır."
+            },
+            {
+                  "question": "SRT dosyasını indirmeden önce hatalı veya şüpheli kelimeleri düzenleyebilir miyim?",
+                  "answer": "Evet. Aracımız etkileşimli bir görsel altyazı düzenleyici içerir. Her altyazı kartı, orijinal Blu-ray resmini düzenlenebilir metin kutusunun hemen yanında gösterir. Alışılmadık bir yazı tipi veya italik stil nedeniyle bir harf yanlış tanındıysa bunu yerinde düzeltebilirsiniz; SRT çıktısı anında güncellenir."
+            },
+            {
+                  "question": "OCR motoru hangi altyazı dillerini desteklemektedir?",
+                  "answer": "Dahili OCR motoru Türkçe ve Latin alfabesi kullanan diller (İngilizce, İspanyolca, Fransızca, Almanca, Portekizce, İtalyanca) için optimize edilmiştir. Türkçe karakterleri (ç, ğ, ı, ö, ş, ü, İ), tırnak işaretlerini, konuşma çizgilerini ve çok satırlı diyalogları eksiksiz tanır."
+            },
+            {
+                  "question": "İtalik yazılmış altyazılar neden bazen küçük OCR hatalarına yol açar?",
+                  "answer": "Blu-ray altyazıları HD videolarda rahat okunabilmesi için kenar yumuşatma (anti-aliasing) ve gölgelendirme kullanır. Fazla eğik italik fontlarda veya düşük kontrastlı karelerde benzer şekilli karakterler (örneğin büyük 'I', küçük 'l' veya 'rn' ile 'm') bazen karışabilir. Aracımız kontrastı artırmak için görüntüyü netleştirir ve düzenleyici arayüzü sayesinde kontrolü son derece kolaylaştırır."
+            },
+            {
+                  "question": "FFmpeg veya BDSup2Sub ile SUP dosyasını SRT'ye çevirebilir miyim?",
+                  "answer": "FFmpeg varsayılan olarak dahili bir OCR motoru barındırmadığından SUP dosyasını doğrudan SRT'ye dönüştüremez ve hata verir. BDSup2Sub veya Subtitle Edit gibi masaüstü programları bu işlemi yapabilir ancak kurulum veya Java gerektirir. Web tabanlı aracımız aynı PGS çözümlemesini hiçbir program yüklemeden tarayıcınızda sunar."
+            },
+            {
+                  "question": "Altyazı veya video dosyalarım sunucularınıza yükleniyor mu?",
+                  "answer": "Hayır. Tüm dönüştürme işlemi %100 istemci tarafında, yani web tarayıcınızın içinde yürütülür. Ne .sup dosyanız ne de çözümlenen resim ve metinler sunucularımıza gönderilmez veya kaydedilmez. Bu sayede verileriniz tamamen gizli kalır."
+            }
+      ]
+},
   },
   "it": {
     "directory": {
@@ -9171,6 +9879,107 @@ export const TOOLS_TRANSLATIONS: Record<Locale, ToolsContent> = {
             {
                   "question": "I miei dati e i file musicali sono al sicuro durante la procedura?",
                   "answer": "Assolutamente sì. L'intero processo di lettura e scrittura viene elaborato in locale nel tuo browser web tramite JavaScript. Nessun testo o file multimediale viene memorizzato o trasferito su server esterni, garantendo la totale tutela della tua privacy."
+            }
+      ]
+},
+    supToSrt: {
+      "id": "sup-to-srt",
+      "name": "Convertitore da SUP a SRT",
+      "shortName": "SUP a SRT",
+      "badge": "Estrattore Sottotitoli OCR",
+      "tagline": "Converti i Sottotitoli Grafici Blu-ray PGS (.SUP) in Testo SubRip (.SRT) Online",
+      "description": "Estrai il testo dai file di sottotitoli Blu-ray PGS (.sup) e convertili in sottotitoli SubRip (.srt) standard online gratis. Riconoscimento OCR nel browser, sincronizzazione precisa al millisecondo, editor interattivo e privacy al 100%.",
+      "h1": "Convertitore da SUP a SRT Online",
+      "metaTitle": "Convertitore da SUP a SRT Online – Da Blu-ray PGS a SRT con OCR | SRTConverters",
+      "metaDescription": "Converti i sottotitoli grafici Blu-ray PGS (.sup) in testo SubRip (.srt) online gratis. Riconoscimento testo OCR nel browser, timestamp precisi e massima privacy.",
+      "settingsLabels": {
+            "timingMode": "Impostazioni OCR e Riconoscimento",
+            "fixedDuration": "Motore di Riconoscimento OCR",
+            "cpsDuration": "Motore OCR Tesseract.js lato client eseguito direttamente nel browser",
+            "cpsLabel": "Lingua OCR",
+            "cpsHint": "Seleziona la lingua principale dei sottotitoli per il riconoscimento ottico",
+            "startTime": "Mantieni Layout Multi-riga",
+            "startTimeHint": "Conserva le interruzioni di riga verticali e la separazione dei dialoghi",
+            "maxCharsPerLine": "Correggi Errori Tipici OCR",
+            "maxCharsHint": "Normalizza le confusioni comuni tra caratteri come 'I' vs 'l' e '0' vs 'O'"
+      },
+      "stepsTitle": "Come Convertire SUP in SRT Online in 3 Semplici Passaggi",
+      "steps": [
+            {
+                  "step": "1",
+                  "title": "Carica il File Blu-ray SUP",
+                  "description": "Trascina e rilascia il file Blu-ray PGS (.sup) o fai clic su 'Sfoglia file' per caricarlo nel browser. Puoi anche cliccare su 'Carica esempio SUP' per una prova immediata.",
+                  "icon": "upload"
+            },
+            {
+                  "step": "2",
+                  "title": "Decodifica PGS e OCR Automatico",
+                  "description": "Il nostro motore analizza i segmenti binari PGS, ricostruisce le immagini bitmap ed esegue un OCR ad alta precisione con timestamp calcolati sul clock PTS a 90 kHz.",
+                  "icon": "cpu"
+            },
+            {
+                  "step": "3",
+                  "title": "Verifica i Sottotitoli e Scarica SRT",
+                  "description": "Visualizza l'anteprima di ogni immagine originale accanto al testo modificabile. Apporta le correzioni necessarie e clicca su 'Scarica .SRT' o 'Copia SRT'.",
+                  "icon": "download"
+            }
+      ],
+      "featuresTitle": "Perché Scegliere il Nostro Convertitore Online da SUP a SRT?",
+      "features": [
+            {
+                  "title": "Vera Estrazione OCR nel Browser",
+                  "description": "Riconoscimento ottico autentico basato su WebAssembly. A differenza dei semplici rinominatori di file, decodifichiamo immagini PGS reali in testo modificabile.",
+                  "icon": "sparkles"
+            },
+            {
+                  "title": "Sincronizzazione Precisa con Clock PTS a 90 kHz",
+                  "description": "Preserva i timestamp originali del Blu-ray con precisione al millisecondo, mappando gli eventi PCS direttamente nei timecode SubRip.",
+                  "icon": "clock"
+            },
+            {
+                  "title": "Editor Visivo Interattivo dei Sottotitoli",
+                  "description": "Confronta fianco a fianco l'immagine grafica originale con il testo riconosciuto per correggere facilmente termini in corsivo o punteggiatura prima del salvataggio.",
+                  "icon": "edit"
+            },
+            {
+                  "title": "Privacy al 100% Lato Client",
+                  "description": "I tuoi file e contenuti multimediali non lasciano mai il tuo dispositivo. L'intera analisi binaria e l'OCR avvengono localmente nel browser.",
+                  "icon": "shield"
+            }
+      ],
+      "faqsTitle": "Domande Frequenti Sulla Conversione da SUP a SRT",
+      "faqs": [
+            {
+                  "question": "Cos'è un file Blu-ray SUP (.sup) e perché non può essere convertito semplicemente rinominandolo?",
+                  "answer": "Un file Blu-ray SUP non è un file di testo, ma un flusso binario contenente dati Presentation Graphic Stream (PGS) estratti da dischi Blu-ray. Ogni sottotitolo è archiviato come un'immagine bitmap indicizzata a 8 bit con relativa tavolozza colori (PDS) e timestamp di sincronizzazione (PCS). Poiché non contiene testo grezzo, rinominare l'estensione in .srt produce solo caratteri illeggibili. La conversione in SubRip (.srt) richiede un software di riconoscimento ottico dei caratteri (OCR) per leggere il testo impresso nelle immagini."
+            },
+            {
+                  "question": "Come funziona l'OCR nel browser per estrarre i sottotitoli dai file SUP?",
+                  "answer": "Il nostro convertitore analizza la struttura binaria PGS direttamente in JavaScript. Decomprime i pixel codificati in RLE dai segmenti ODS, applica la tavolozza colori YCbCr dei segmenti PDS e disegna ciascun sottotitolo su un canvas HTML5 interno. Il motore OCR WebAssembly (Tesseract.js) analizza i caratteri, estrae i dialoghi e associa il testo ai timestamp PTS."
+            },
+            {
+                  "question": "I timestamp PTS vengono mantenuti con precisione durante la conversione?",
+                  "answer": "Sì. I sottotitoli Blu-ray PGS utilizzano un clock master a 90 kHz per i Presentation Time Stamps (PTS). Il nostro analizzatore calcola i millisecondi esatti con la formula: Millisecondi = Math.round(PTS / 90). L'inizio corrisponde al segmento PCS di visualizzazione e la fine al PCS di cancellazione, garantendo una sincronia perfetta con il video."
+            },
+            {
+                  "question": "Posso revisionare e correggere parole incerte prima di salvare il file SRT?",
+                  "answer": "Sì. Il nostro strumento include un editor visivo interattivo. Ciascuna scheda mostra la miniatura grafica originale del Blu-ray accanto a una casella di testo modificabile con la trascrizione OCR. In caso di font stilizzati o corsivi particolari, puoi correggere il testo al volo e il file SRT finale si aggiornerà all'istante."
+            },
+            {
+                  "question": "Quali lingue dei sottotitoli sono supportate dal motore OCR?",
+                  "answer": "Il motore OCR integrato è ottimizzato per l'italiano e le lingue ad alfabeto latino (inglese, spagnolo, francese, tedesco, portoghese, ecc.). Riconosce lettere accentate (à, è, é, ì, ò, ù), punteggiatura, trattini di dialogo e testi distribuiti su più righe."
+            },
+            {
+                  "question": "Perché alcuni sottotitoli in corsivo causano a volte piccoli errori OCR?",
+                  "answer": "Nei dischi Blu-ray i sottotitoli impiegano sfumature antialiasing e ombreggiature per risultare ben visibili sui filmati ad alta definizione. Su caratteri molto inclinati o con poco contrasto, lettere simili (come 'I' maiuscola, 'l' minuscola o 'rn' rispetto a 'm') possono essere temporaneamente confuse. Il nostro sistema incrementa il contrasto dell'immagine e l'editor visivo consente una verifica immediata."
+            },
+            {
+                  "question": "Posso convertire SUP in SRT usando FFmpeg o BDSup2Sub?",
+                  "answer": "FFmpeg non può convertire direttamente un file SUP in SRT poiché i suoi componenti predefiniti non includono un motore OCR; il comando genera un errore di conversione da bitmap a testo. Software desktop come BDSup2Sub o Subtitle Edit eseguono l'operazione ma necessitano di installazione o dell'ambiente Java. Il nostro convertitore online offre la medesima precisione PGS direttamente nel browser."
+            },
+            {
+                  "question": "I miei file SUP o dati video vengono caricati sui vostri server?",
+                  "answer": "No. L'intera elaborazione si svolge al 100% lato client nel tuo browser web. Né i file binari .sup, né le immagini estratte, né i testi dei dialoghi vengono mai inviati o salvati sui nostri server. La massima riservatezza per i tuoi file è sempre garantita."
             }
       ]
 },

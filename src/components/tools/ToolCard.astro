@@ -1,4 +1,4 @@
-﻿---
+---
 import type { Locale } from '@/i18n/config';
 import { type RouteId, getRoutePath } from '@/i18n/routes';
 import { getUiStrings } from '@/i18n/utils';
@@ -9,14 +9,16 @@ interface Props {
   name: string;
   badge: string;
   description: string;
+  keywords?: string;
 }
 
-const { locale, routeId, name, badge, description } = Astro.props;
+const { locale, routeId, name, badge, description, keywords = '' } = Astro.props;
 const toolUrl = getRoutePath(routeId, locale);
 const ui = getUiStrings(locale);
+const searchIndex = `${name} ${description} ${badge} ${routeId} ${keywords}`.toLowerCase();
 ---
 
-<a href={toolUrl} class="tool-card">
+<a href={toolUrl} class="tool-card" data-tool-card data-search-text={searchIndex}>
   <div>
     <div class="tool-card-header">
       <h3 class="tool-card-title">{name}</h3>

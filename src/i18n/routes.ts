@@ -14,6 +14,7 @@ export type RouteId =
   | 'smi-to-srt'
   | 'srt-to-smi'
   | 'lrc-to-srt'
+  | 'sup-to-srt'
   | 'tools';
 
 export const ROUTES: Record<RouteId, Record<Locale, string>> = {
@@ -147,6 +148,17 @@ export const ROUTES: Record<RouteId, Record<Locale, string>> = {
     tr: '/tr/lrc-srt-donusturucu/',
     it: '/it/convertitore-da-lrc-a-srt/',
   },
+  'sup-to-srt': {
+    en: '/sup-to-srt-converter/',
+    es: '/es/convertidor-sup-a-srt/',
+    pt: '/pt/conversor-sup-para-srt/',
+    fr: '/fr/convertisseur-sup-en-srt/',
+    de: '/de/sup-in-srt-konverter/',
+    id: '/id/konverter-sup-ke-srt/',
+    tr: '/tr/sup-srt-donusturucu/',
+    it: '/it/convertitore-da-sup-a-srt/',
+  },
+
   tools: {
     en: '/tools/',
     es: '/es/herramientas/',
